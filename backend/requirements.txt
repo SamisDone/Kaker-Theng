@@ -1,0 +1,9 @@
+fastapi==0.143.0
+uvicorn[standard]==0.54.0
+python-multipart==0.0.32
+opencv-python-headless==5.0.0.93
+numpy==2.5.4
+reportlab==5.0.1
+potracer==0.0.4
+fonttools[woff]==4.66.1
+uharfbuzz==0.56.3
