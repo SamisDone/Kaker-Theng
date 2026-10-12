@@ -34,7 +34,7 @@ from functools import lru_cache
 from fontTools.agl import UV2AGL
 
 from . import config as C
-from .basefont import PRESENTATION_FEATURES, ShapedGlyph, base_shaper, simulated_shaper
+from .basefont import PRESENTATION_FEATURES, ShapedGlyph, base_shaper, headline_units, simulated_shaper
 from .charset import CONSONANTS_FOR_CONTEXT, PAGES, PART_CONJUNCTS, CellSpec
 
 SPECIAL_GLYPH_UNICODES = [0x20, 0xA0, 0x200C, 0x200D, 0x25CC]
@@ -81,12 +81,21 @@ class Layout:
     excluded: list[dict]
     log: list[dict]
     parts: list[dict]
+    derived: list[dict] = field(default_factory=list)  # derive.DerivePlan dicts
+    matra_glyphs: list[str] = field(default_factory=list)  # base-font glyphs with a মাত্রা
 
     def page(self, n: int) -> list[Cell]:
         return [c for c in self.cells if c.page == n]
 
     def bangla_glyphs(self) -> set[str]:
-        return {c.glyph for c in self.cells if c.kind != "latin"}
+        """Every Bangla glyph a complete font has: written or derived."""
+        written = {c.glyph for c in self.cells if c.kind != "latin"}
+        return written | {d["glyph"] for d in self.derived if d["method"] != "written"}
+
+    def plans(self):
+        from .derive import DerivePlan
+
+        return [DerivePlan(**{**d, "offset": tuple(d["offset"]) if d["offset"] else None, "bbox": tuple(d["bbox"])}) for d in self.derived]
 
 
 def _diff(names: list[str], remove: list[str]) -> list[int]:
@@ -256,6 +265,19 @@ def compute_layout() -> Layout:
 
     sim = simulated_shaper(glyphs)
     off = {f: False for f in PRESENTATION_FEATURES}
+
+    # Which parts can be made from letters the user writes anyway?
+    from .derive import plan_part
+
+    signs = [resolved[s_][2][resolved[s_][0]].name for s_ in bangla_specs if s_.group == "sign" and resolved[s_][0] is not None]
+    plans = []
+    for part in parts:
+        context = next((t for t in PART_CONJUNCTS if part in sim.names(t)), None)
+        if context is None:
+            found = _part_context(part, glyphs, sim)
+            context = found[0] if found else ""
+        plans.append(plan_part(part, context, signs, user))
+
     cells: list[Cell] = []
     excluded: list[dict] = []
     log: list[dict] = []
@@ -291,6 +313,10 @@ def compute_layout() -> Layout:
 
         if page == 3:
             for part in parts:
+                plan = next(p for p in plans if p.glyph == part)
+                if plan.method != "written":
+                    log.append({"page": page, "text": plan.context, "glyph": part, "kind": kind_of(part), "status": f"derived ({plan.method}): {plan.reason}"})
+                    continue
                 found = _part_context(part, glyphs, sim)
                 entry = {"page": page, "text": None, "ghost": None, "glyph": part, "kind": kind_of(part)}
                 log.append(entry)
@@ -307,7 +333,31 @@ def compute_layout() -> Layout:
             cell.index, cell.row, cell.col = i, row, col
         cells += page_cells
 
-    return Layout(cells, excluded, log, [{"glyph": p} for p in parts])
+    return Layout(
+        cells,
+        excluded,
+        log,
+        [{"glyph": p} for p in parts],
+        [p.to_dict() for p in plans],
+        sorted(g for g in glyphs if _has_matra(g)),
+    )
+
+
+def _has_matra(name: str) -> bool:
+    """Does this base-font glyph carry a মাত্রা across (most of) its width?"""
+    from .outline import Raster, glyph_polygons
+
+    tt = base_shaper().tt
+    g = tt["glyf"][name]
+    if not g.numberOfContours or tt["hmtx"][name][0] == 0:
+        return False
+    head = headline_units()
+    if g.yMax < head:
+        return False
+    r = Raster(g.xMin, g.yMin, g.xMax, g.yMax, 0.1, margin=0)
+    r.fill(glyph_polygons(tt.getGlyphSet(), name))
+    rows = slice(int((g.yMax - head - 15) * 0.1), int((g.yMax - head + 15) * 0.1) + 1)
+    return bool(r.img[rows].any(axis=0).mean() > 0.75)
 
 
 def part_report(layout: Layout) -> list[dict]:
@@ -331,7 +381,7 @@ def part_report(layout: Layout) -> list[dict]:
 # The layout depends only on the base font and this code, so it is computed
 # offline and shipped in assets/. A stale cache is detected by fingerprint.
 
-_SOURCES = ("charset.py", "glyphmap.py", "basefont.py", "config.py")
+_SOURCES = ("charset.py", "glyphmap.py", "basefont.py", "config.py", "derive.py")
 
 
 def fingerprint() -> str:
@@ -349,6 +399,8 @@ def layout_json(layout: Layout) -> str:
             "excluded": layout.excluded,
             "log": layout.log,
             "parts": layout.parts,
+            "derived": layout.derived,
+            "matra_glyphs": layout.matra_glyphs,
         },
         ensure_ascii=False,
         indent=1,
@@ -360,7 +412,7 @@ def _from_json(data: dict) -> Layout:
     for c in data["cells"]:
         ghosts = [GhostGlyph(**g) for g in c.pop("ghost_glyphs")]
         cells.append(Cell(**c, ghost_glyphs=ghosts))
-    return Layout(cells, data["excluded"], data["log"], data["parts"])
+    return Layout(cells, data["excluded"], data["log"], data["parts"], data["derived"], data["matra_glyphs"])
 
 
 def load_cached_layout() -> Layout | None:

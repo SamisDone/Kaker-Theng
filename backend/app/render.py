@@ -9,7 +9,7 @@ import numpy as np
 import uharfbuzz as hb
 from fontTools.ttLib import TTFont
 
-from .guides import glyph_polygons
+from .outline import glyph_polygons
 
 INK_BGR = (0x40, 0x21, 0x1D)
 PAPER_BGR = (0xE6, 0xF0, 0xF4)

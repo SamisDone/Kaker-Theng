@@ -11,12 +11,12 @@ from functools import lru_cache
 
 import cv2
 import numpy as np
-from fontTools.pens.basePen import BasePen
 from reportlab.pdfbase.pdfmetrics import stringWidth
 
 from . import config as C
 from .basefont import base_shaper, headline_units
 from .glyphmap import Cell, build_layout
+from .outline import glyph_polygons
 
 BORDER_PT = 0.6
 GUIDE_PT = 0.5
@@ -81,42 +81,6 @@ def label_box_mm(cell: Cell) -> tuple[float, float, float, float]:
     return x + LABEL_X_MM, y + top, x + LABEL_X_MM + w, y + bottom
 
 
-class PolygonPen(BasePen):
-    """Flattens outlines into polygons (lists of (x, y) in font units)."""
-
-    def __init__(self, glyph_set, steps: int = 8):
-        super().__init__(glyph_set)
-        self.polys: list[list[tuple[float, float]]] = []
-        self.steps = steps
-
-    def _moveTo(self, p):
-        self.polys.append([p])
-
-    def _lineTo(self, p):
-        self.polys[-1].append(p)
-
-    def _curveToOne(self, p1, p2, p3):
-        p0 = self.polys[-1][-1]
-        for i in range(1, self.steps + 1):
-            t = i / self.steps
-            u = 1 - t
-            self.polys[-1].append(
-                (
-                    u**3 * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t**3 * p3[0],
-                    u**3 * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t**3 * p3[1],
-                )
-            )
-
-    def _closePath(self):
-        pass
-
-
-def glyph_polygons(glyph_set, name: str) -> list[list[tuple[float, float]]]:
-    pen = PolygonPen(glyph_set)
-    glyph_set[name].draw(pen)
-    return [p for p in pen.polys if len(p) > 2]
-
-
 def ghost_polygons_mm(cell: Cell) -> list[np.ndarray]:
     """Ghost glyph outlines in page millimetres."""
     gs = base_shaper().tt.getGlyphSet()
@@ -129,20 +93,21 @@ def ghost_polygons_mm(cell: Cell) -> list[np.ndarray]:
 
 
 @lru_cache(maxsize=3)
-def guide_masks(page: int) -> tuple[np.ndarray, np.ndarray]:
-    """(line mask, area mask) for a page at canonical resolution, undilated.
-
-    Lines: borders and guide lines. Areas: labels and ghost letters."""
+def guide_masks(page: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """(lines, labels, ghosts) masks for a page at canonical resolution,
+    undilated. Lines: borders and guide lines. Labels: the small label boxes.
+    Ghosts: the outlines of the faint ghost letters."""
     k = C.PX_PER_MM
     lines = np.zeros((C.CANON_H_PX, C.CANON_W_PX), np.uint8)
-    areas = np.zeros_like(lines)
+    labels = np.zeros_like(lines)
+    ghosts = np.zeros_like(lines)
     for cell in build_layout().page(page):
         for ln in cell_lines(cell):
             t = max(1, round(ln.width_pt * PT_TO_MM * k))
             cv2.line(lines, (round(ln.x1 * k), round(ln.y1 * k)), (round(ln.x2 * k), round(ln.y2 * k)), 255, t)
         x0, y0, x1, y1 = label_box_mm(cell)
-        cv2.rectangle(areas, (round(x0 * k), round(y0 * k)), (round(x1 * k), round(y1 * k)), 255, -1)
+        cv2.rectangle(labels, (round(x0 * k), round(y0 * k)), (round(x1 * k), round(y1 * k)), 255, -1)
         polys = [np.round(p * k).astype(np.int32) for p in ghost_polygons_mm(cell)]
         for poly in polys:  # one by one: a union, so counters are covered too
-            cv2.fillPoly(areas, [poly], 255)
-    return lines, areas
+            cv2.fillPoly(ghosts, [poly], 255)
+    return lines, labels, ghosts

@@ -1,5 +1,5 @@
 {
- "fingerprint": "c10e05e8dcdf4347",
+ "fingerprint": "1370438751ece877",
  "cells": [
   {
    "page": 1,
@@ -2609,423 +2609,6 @@
    "target_x": 545,
    "target_y": 23,
    "run_advance": 910
-  },
-  {
-   "page": 3,
-   "index": 32,
-   "row": 6,
-   "col": 1,
-   "text": "ক্ত",
-   "ghost": null,
-   "group": "part",
-   "glyph": "headline-beng.200",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "t_ta-beng",
-     "x": 0,
-     "y": 0
-    },
-    {
-     "name": "ka-beng.arm2",
-     "x": 545,
-     "y": 23
-    }
-   ],
-   "target_x": 710,
-   "target_y": 0,
-   "run_advance": 910
-  },
-  {
-   "page": 3,
-   "index": 33,
-   "row": 6,
-   "col": 2,
-   "text": "ন্ত",
-   "ghost": null,
-   "group": "part",
-   "glyph": "n-beng.half3",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ta-beng.blws",
-     "x": -13,
-     "y": 52
-    }
-   ],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 756
-  },
-  {
-   "page": 3,
-   "index": 34,
-   "row": 6,
-   "col": 3,
-   "text": "ন্ত",
-   "ghost": null,
-   "group": "part",
-   "glyph": "ta-beng.blws",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "n-beng.half3",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": -13,
-   "target_y": 52,
-   "run_advance": 756
-  },
-  {
-   "page": 3,
-   "index": 35,
-   "row": 6,
-   "col": 4,
-   "text": "ন্দ",
-   "ghost": null,
-   "group": "part",
-   "glyph": "n-beng.headline",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "da-beng",
-     "x": 299,
-     "y": 0
-    },
-    {
-     "name": "n-beng.float",
-     "x": 25,
-     "y": -24
-    }
-   ],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 852
-  },
-  {
-   "page": 3,
-   "index": 36,
-   "row": 6,
-   "col": 5,
-   "text": "ন্দ",
-   "ghost": null,
-   "group": "part",
-   "glyph": "n-beng.float",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "n-beng.headline",
-     "x": 0,
-     "y": 0
-    },
-    {
-     "name": "da-beng",
-     "x": 299,
-     "y": 0
-    }
-   ],
-   "target_x": 25,
-   "target_y": -24,
-   "run_advance": 852
-  },
-  {
-   "page": 3,
-   "index": 37,
-   "row": 6,
-   "col": 6,
-   "text": "স্ত",
-   "ghost": null,
-   "group": "part",
-   "glyph": "s-beng.half3",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ta-beng.blws",
-     "x": 1,
-     "y": 52
-    }
-   ],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 782
-  },
-  {
-   "page": 3,
-   "index": 38,
-   "row": 6,
-   "col": 7,
-   "text": "ম্ব",
-   "ghost": null,
-   "group": "part",
-   "glyph": "m-beng.half",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "baphala-beng.alt4",
-     "x": 118,
-     "y": 126
-    },
-    {
-     "name": "headline-beng.200",
-     "x": 391,
-     "y": 0
-    }
-   ],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 591
-  },
-  {
-   "page": 3,
-   "index": 39,
-   "row": 7,
-   "col": 0,
-   "text": "ম্ব",
-   "ghost": null,
-   "group": "part",
-   "glyph": "baphala-beng.alt4",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "m-beng.half",
-     "x": 0,
-     "y": 0
-    },
-    {
-     "name": "headline-beng.200",
-     "x": 391,
-     "y": 0
-    }
-   ],
-   "target_x": 118,
-   "target_y": 126,
-   "run_advance": 591
-  },
-  {
-   "page": 3,
-   "index": 40,
-   "row": 7,
-   "col": 1,
-   "text": "ন্ন",
-   "ghost": null,
-   "group": "part",
-   "glyph": "aaMatra-beng.part",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "n-beng.headline",
-     "x": 0,
-     "y": 0
-    },
-    {
-     "name": "n-beng.float",
-     "x": 30,
-     "y": 7
-    },
-    {
-     "name": "na-beng.blws1",
-     "x": 45,
-     "y": 45
-    }
-   ],
-   "target_x": 291,
-   "target_y": 0,
-   "run_advance": 555
-  },
-  {
-   "page": 3,
-   "index": 41,
-   "row": 7,
-   "col": 2,
-   "text": "ন্ন",
-   "ghost": null,
-   "group": "part",
-   "glyph": "na-beng.blws1",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "n-beng.headline",
-     "x": 0,
-     "y": 0
-    },
-    {
-     "name": "aaMatra-beng.part",
-     "x": 291,
-     "y": 0
-    },
-    {
-     "name": "n-beng.float",
-     "x": 30,
-     "y": 7
-    }
-   ],
-   "target_x": 45,
-   "target_y": 45,
-   "run_advance": 555
-  },
-  {
-   "page": 3,
-   "index": 42,
-   "row": 7,
-   "col": 3,
-   "text": "ল্প",
-   "ghost": null,
-   "group": "part",
-   "glyph": "l-beng.half3",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "aaMatra-beng.part2",
-     "x": 402,
-     "y": 0
-    },
-    {
-     "name": "pa-beng.blws",
-     "x": 52,
-     "y": -80
-    }
-   ],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 666
-  },
-  {
-   "page": 3,
-   "index": 43,
-   "row": 7,
-   "col": 4,
-   "text": "ল্প",
-   "ghost": null,
-   "group": "part",
-   "glyph": "aaMatra-beng.part2",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "l-beng.half3",
-     "x": 0,
-     "y": 0
-    },
-    {
-     "name": "pa-beng.blws",
-     "x": 52,
-     "y": -80
-    }
-   ],
-   "target_x": 402,
-   "target_y": 0,
-   "run_advance": 666
-  },
-  {
-   "page": 3,
-   "index": 44,
-   "row": 7,
-   "col": 5,
-   "text": "ল্প",
-   "ghost": null,
-   "group": "part",
-   "glyph": "pa-beng.blws",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "l-beng.half3",
-     "x": 0,
-     "y": 0
-    },
-    {
-     "name": "aaMatra-beng.part2",
-     "x": 402,
-     "y": 0
-    }
-   ],
-   "target_x": 52,
-   "target_y": -80,
-   "run_advance": 666
-  },
-  {
-   "page": 3,
-   "index": 45,
-   "row": 7,
-   "col": 6,
-   "text": "হ্ন",
-   "ghost": null,
-   "group": "part",
-   "glyph": "headline-beng.250",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ha-beng",
-     "x": 0,
-     "y": 0
-    },
-    {
-     "name": "ka-beng.arm2",
-     "x": 382,
-     "y": 14
-    }
-   ],
-   "target_x": 494,
-   "target_y": 0,
-   "run_advance": 744
-  },
-  {
-   "page": 3,
-   "index": 46,
-   "row": 7,
-   "col": 7,
-   "text": "ক্ব",
-   "ghost": null,
-   "group": "part",
-   "glyph": "k-beng.half",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "baphala-beng.alt4",
-     "x": 139,
-     "y": -88
-    }
-   ],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 801
-  },
-  {
-   "page": 3,
-   "index": 47,
-   "row": 8,
-   "col": 0,
-   "text": "খ্ব",
-   "ghost": null,
-   "group": "part",
-   "glyph": "baphala-beng",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "kha-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 252,
-   "target_y": -181,
-   "run_advance": 661
   }
  ],
  "excluded": [
@@ -5050,207 +4633,114 @@
   {
    "page": 3,
    "text": "ক্ত",
-   "ghost": null,
    "glyph": "headline-beng.200",
    "kind": "mark",
-   "final_font": [
-    "t_ta-beng",
-    "ka-beng.arm2",
-    "headline-beng.200"
-   ],
-   "status": "part, ghost ['t_ta-beng', 'ka-beng.arm2']"
+   "status": "derived (bar): solid bar the height of a মাত্রা"
   },
   {
    "page": 3,
    "text": "ন্ত",
-   "ghost": null,
    "glyph": "n-beng.half3",
    "kind": "base",
-   "final_font": [
-    "n-beng.half3",
-    "ta-beng.blws"
-   ],
-   "status": "part, ghost ['ta-beng.blws']"
+   "status": "derived (slice): half form: top of na-beng"
   },
   {
    "page": 3,
    "text": "ন্ত",
-   "ghost": null,
    "glyph": "ta-beng.blws",
    "kind": "mark",
-   "final_font": [
-    "n-beng.half3",
-    "ta-beng.blws"
-   ],
-   "status": "part, ghost ['n-beng.half3']"
+   "status": "derived (body): below-base form: body of ta-beng, scaled"
   },
   {
    "page": 3,
    "text": "ন্দ",
-   "ghost": null,
    "glyph": "n-beng.headline",
    "kind": "base",
-   "final_font": [
-    "n-beng.headline",
-    "da-beng",
-    "n-beng.float"
-   ],
-   "status": "part, ghost ['da-beng', 'n-beng.float']"
+   "status": "derived (bar): solid bar the height of a মাত্রা"
   },
   {
    "page": 3,
    "text": "ন্দ",
-   "ghost": null,
    "glyph": "n-beng.float",
    "kind": "mark",
-   "final_font": [
-    "n-beng.headline",
-    "da-beng",
-    "n-beng.float"
-   ],
-   "status": "part, ghost ['n-beng.headline', 'da-beng']"
+   "status": "derived (slice): matches part of na-beng (IoU 0.84)"
   },
   {
    "page": 3,
    "text": "স্ত",
-   "ghost": null,
    "glyph": "s-beng.half3",
    "kind": "base",
-   "final_font": [
-    "s-beng.half3",
-    "ta-beng.blws"
-   ],
-   "status": "part, ghost ['ta-beng.blws']"
+   "status": "derived (slice): half form: top of sa-beng"
   },
   {
    "page": 3,
    "text": "ম্ব",
-   "ghost": null,
    "glyph": "m-beng.half",
    "kind": "base",
-   "final_font": [
-    "m-beng.half",
-    "baphala-beng.alt4",
-    "headline-beng.200"
-   ],
-   "status": "part, ghost ['baphala-beng.alt4', 'headline-beng.200']"
+   "status": "derived (slice): half form: top of ma-beng"
   },
   {
    "page": 3,
    "text": "ম্ব",
-   "ghost": null,
    "glyph": "baphala-beng.alt4",
    "kind": "mark",
-   "final_font": [
-    "m-beng.half",
-    "baphala-beng.alt4",
-    "headline-beng.200"
-   ],
-   "status": "part, ghost ['m-beng.half', 'headline-beng.200']"
+   "status": "derived (body): below-base form: body of ba-beng, scaled"
   },
   {
    "page": 3,
    "text": "ন্ন",
-   "ghost": null,
    "glyph": "aaMatra-beng.part",
    "kind": "base",
-   "final_font": [
-    "n-beng.headline",
-    "aaMatra-beng.part",
-    "n-beng.float",
-    "na-beng.blws1"
-   ],
-   "status": "part, ghost ['n-beng.headline', 'n-beng.float', 'na-beng.blws1']"
+   "status": "derived (slice): matches part of aaMatra-beng (IoU 0.96)"
   },
   {
    "page": 3,
    "text": "ন্ন",
-   "ghost": null,
    "glyph": "na-beng.blws1",
    "kind": "mark",
-   "final_font": [
-    "n-beng.headline",
-    "aaMatra-beng.part",
-    "n-beng.float",
-    "na-beng.blws1"
-   ],
-   "status": "part, ghost ['n-beng.headline', 'aaMatra-beng.part', 'n-beng.float']"
+   "status": "derived (slice): matches part of na-beng (IoU 0.84)"
   },
   {
    "page": 3,
    "text": "ল্প",
-   "ghost": null,
    "glyph": "l-beng.half3",
    "kind": "base",
-   "final_font": [
-    "l-beng.half3",
-    "aaMatra-beng.part2",
-    "pa-beng.blws"
-   ],
-   "status": "part, ghost ['aaMatra-beng.part2', 'pa-beng.blws']"
+   "status": "derived (slice): half form: top of la-beng"
   },
   {
    "page": 3,
    "text": "ল্প",
-   "ghost": null,
    "glyph": "aaMatra-beng.part2",
    "kind": "base",
-   "final_font": [
-    "l-beng.half3",
-    "aaMatra-beng.part2",
-    "pa-beng.blws"
-   ],
-   "status": "part, ghost ['l-beng.half3', 'pa-beng.blws']"
+   "status": "derived (slice): matches part of aaMatra-beng (IoU 0.96)"
   },
   {
    "page": 3,
    "text": "ল্প",
-   "ghost": null,
    "glyph": "pa-beng.blws",
    "kind": "mark",
-   "final_font": [
-    "l-beng.half3",
-    "aaMatra-beng.part2",
-    "pa-beng.blws"
-   ],
-   "status": "part, ghost ['l-beng.half3', 'aaMatra-beng.part2']"
+   "status": "derived (body): below-base form: body of pa-beng, scaled"
   },
   {
    "page": 3,
    "text": "হ্ন",
-   "ghost": null,
    "glyph": "headline-beng.250",
    "kind": "mark",
-   "final_font": [
-    "ha-beng",
-    "ka-beng.arm2",
-    "headline-beng.250"
-   ],
-   "status": "part, ghost ['ha-beng', 'ka-beng.arm2']"
+   "status": "derived (bar): solid bar the height of a মাত্রা"
   },
   {
    "page": 3,
    "text": "ক্ব",
-   "ghost": null,
    "glyph": "k-beng.half",
    "kind": "base",
-   "final_font": [
-    "k-beng.half",
-    "baphala-beng.alt4"
-   ],
-   "status": "part, ghost ['baphala-beng.alt4']"
+   "status": "derived (slice): matches part of ka-beng (IoU 0.89)"
   },
   {
    "page": 3,
    "text": "খ্ব",
-   "ghost": null,
    "glyph": "baphala-beng",
    "kind": "mark",
-   "final_font": [
-    "kha-beng",
-    "baphala-beng"
-   ],
-   "status": "part, ghost ['kha-beng']"
+   "status": "derived (body): below-base form: body of ba-beng, scaled"
   }
  ],
  "parts": [
@@ -5305,5 +4795,361 @@
   {
    "glyph": "baphala-beng"
   }
+ ],
+ "derived": [
+  {
+   "glyph": "ka-beng.arm2",
+   "method": "written",
+   "source": null,
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    20,
+    169,
+    336,
+    434
+   ],
+   "advance": 0,
+   "context": "ক্ত",
+   "reason": "no letter the user writes has this shape"
+  },
+  {
+   "glyph": "headline-beng.200",
+   "method": "bar",
+   "source": null,
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    -10,
+    551,
+    210,
+    622
+   ],
+   "advance": 0,
+   "context": "ক্ত",
+   "reason": "solid bar the height of a মাত্রা"
+  },
+  {
+   "glyph": "n-beng.half3",
+   "method": "slice",
+   "source": "na-beng",
+   "score": 0.656,
+   "offset": [
+    -150.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    300,
+    766,
+    622
+   ],
+   "advance": 756,
+   "context": "ন্ত",
+   "reason": "half form: top of na-beng"
+  },
+  {
+   "glyph": "ta-beng.blws",
+   "method": "body",
+   "source": "ta-beng",
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    20,
+    -82,
+    717,
+    357
+   ],
+   "advance": 0,
+   "context": "ন্ত",
+   "reason": "below-base form: body of ta-beng, scaled"
+  },
+  {
+   "glyph": "n-beng.headline",
+   "method": "bar",
+   "source": null,
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    -10,
+    551,
+    418,
+    622
+   ],
+   "advance": 545,
+   "context": "ন্দ",
+   "reason": "solid bar the height of a মাত্রা"
+  },
+  {
+   "glyph": "n-beng.float",
+   "method": "slice",
+   "source": "na-beng",
+   "score": 0.838,
+   "offset": [
+    45.0,
+    -23.5
+   ],
+   "bbox": [
+    20,
+    234,
+    375,
+    458
+   ],
+   "advance": 0,
+   "context": "ন্দ",
+   "reason": "matches part of na-beng (IoU 0.84)"
+  },
+  {
+   "glyph": "s-beng.half3",
+   "method": "slice",
+   "source": "sa-beng",
+   "score": 0.581,
+   "offset": [
+    -187.5,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    306,
+    792,
+    622
+   ],
+   "advance": 782,
+   "context": "স্ত",
+   "reason": "half form: top of sa-beng"
+  },
+  {
+   "glyph": "m-beng.half",
+   "method": "slice",
+   "source": "ma-beng",
+   "score": 0.589,
+   "offset": [
+    0.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    300,
+    529,
+    622
+   ],
+   "advance": 586,
+   "context": "ম্ব",
+   "reason": "half form: top of ma-beng"
+  },
+  {
+   "glyph": "baphala-beng.alt4",
+   "method": "body",
+   "source": "ba-beng",
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    20,
+    -130,
+    362,
+    236
+   ],
+   "advance": 0,
+   "context": "ম্ব",
+   "reason": "below-base form: body of ba-beng, scaled"
+  },
+  {
+   "glyph": "aaMatra-beng.part",
+   "method": "slice",
+   "source": "aaMatra-beng",
+   "score": 0.961,
+   "offset": [
+    0.0,
+    3.5
+   ],
+   "bbox": [
+    -10,
+    190,
+    274,
+    622
+   ],
+   "advance": 264,
+   "context": "ন্ন",
+   "reason": "matches part of aaMatra-beng (IoU 0.96)"
+  },
+  {
+   "glyph": "na-beng.blws1",
+   "method": "slice",
+   "source": "na-beng",
+   "score": 0.841,
+   "offset": [
+    70.0,
+    250.5
+   ],
+   "bbox": [
+    20,
+    -83,
+    418,
+    209
+   ],
+   "advance": 0,
+   "context": "ন্ন",
+   "reason": "matches part of na-beng (IoU 0.84)"
+  },
+  {
+   "glyph": "l-beng.half3",
+   "method": "slice",
+   "source": "la-beng",
+   "score": 0.713,
+   "offset": [
+    37.5,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    165,
+    553,
+    622
+   ],
+   "advance": 668,
+   "context": "ল্প",
+   "reason": "half form: top of la-beng"
+  },
+  {
+   "glyph": "aaMatra-beng.part2",
+   "method": "slice",
+   "source": "aaMatra-beng",
+   "score": 0.963,
+   "offset": [
+    0.0,
+    3.5
+   ],
+   "bbox": [
+    -10,
+    150,
+    274,
+    622
+   ],
+   "advance": 264,
+   "context": "ল্প",
+   "reason": "matches part of aaMatra-beng (IoU 0.96)"
+  },
+  {
+   "glyph": "pa-beng.blws",
+   "method": "body",
+   "source": "pa-beng",
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    20,
+    -81,
+    522,
+    298
+   ],
+   "advance": 0,
+   "context": "ল্প",
+   "reason": "below-base form: body of pa-beng, scaled"
+  },
+  {
+   "glyph": "headline-beng.250",
+   "method": "bar",
+   "source": null,
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    -90,
+    551,
+    260,
+    622
+   ],
+   "advance": 0,
+   "context": "হ্ন",
+   "reason": "solid bar the height of a মাত্রা"
+  },
+  {
+   "glyph": "k-beng.half",
+   "method": "slice",
+   "source": "ka-beng",
+   "score": 0.89,
+   "offset": [
+    -12.5,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    35,
+    821,
+    622
+   ],
+   "advance": 801,
+   "context": "ক্ব",
+   "reason": "matches part of ka-beng (IoU 0.89)"
+  },
+  {
+   "glyph": "baphala-beng",
+   "method": "body",
+   "source": "ba-beng",
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    20,
+    -34,
+    314,
+    254
+   ],
+   "advance": 0,
+   "context": "খ্ব",
+   "reason": "below-base form: body of ba-beng, scaled"
+  }
+ ],
+ "matra_glyphs": [
+  "a-beng",
+  "aa-beng",
+  "aaMatra-beng",
+  "aaMatra-beng.part",
+  "aaMatra-beng.part2",
+  "aiMatra-beng",
+  "ba-beng",
+  "bha-beng",
+  "ca-beng",
+  "cha-beng",
+  "da-beng",
+  "danda-deva",
+  "dda-beng",
+  "ddha-beng",
+  "eMatra-beng",
+  "ga-beng",
+  "gha-beng",
+  "ha-beng",
+  "i-beng",
+  "ii-beng",
+  "j_nya-beng",
+  "ja-beng",
+  "jha-beng",
+  "k-beng.half",
+  "k_ssa-beng",
+  "ka-beng",
+  "l-beng.half3",
+  "la-beng",
+  "m-beng.half",
+  "ma-beng",
+  "n-beng.half3",
+  "n-beng.headline",
+  "na-beng",
+  "ng_ga-beng",
+  "nna-beng",
+  "ny_ja-beng",
+  "pha-beng",
+  "ra-beng",
+  "s-beng.half3",
+  "sa-beng",
+  "sha-beng",
+  "ss_tta-beng.noflag",
+  "ssa-beng",
+  "t_ta-beng",
+  "ta-beng",
+  "tha-beng",
+  "tta-beng",
+  "ttha-beng",
+  "u-beng",
+  "uu-beng",
+  "visarga-beng",
+  "ya-beng",
+  "ya-beng.pstf"
  ]
 }

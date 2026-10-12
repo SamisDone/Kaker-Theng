@@ -123,15 +123,13 @@ def simulated_shaper(glyphs: set[str]) -> Shaper:
     return Shaper(out.getvalue())
 
 
-@lru_cache(maxsize=1)
-def headline_units() -> int:
-    """Centre of the মাত্রা bar, measured on the base font's ক."""
+def measure_headline(tt: TTFont) -> int:
+    """Centre of the মাত্রা bar, measured on a font's ক."""
     from fontTools.pens.pointInsidePen import PointInsidePen
 
-    tt = base_shaper().tt
     name = tt.getBestCmap()[ord("ক")]
-    glyf = tt["glyf"][name]
     gs = tt.getGlyphSet()
+    glyf = tt["glyf"][name]
 
     def inside(x: float, y: float) -> bool:
         pen = PointInsidePen(gs, (x, y))
@@ -141,12 +139,22 @@ def headline_units() -> int:
     # Walk down from the top at several x positions. Where only the bar is
     # inked, the ink run is the bar's thickness; stems make it longer.
     top = glyf.yMax
-    thickness = top
+    best = None
     for x in range(glyf.xMin + 40, glyf.xMax - 40, 25):
-        if not inside(x, top - 2):
-            continue
         y = top - 2
+        while y > 0 and not inside(x, y):  # the bar may not reach the very top here
+            y -= 2
+        if top - y > 0.25 * top:
+            continue
+        start = y
         while y > 0 and inside(x, y):
             y -= 2
-        thickness = min(thickness, top - y)
-    return round(top - thickness / 2)
+        if best is None or start - y < best[0] - best[1]:
+            best = (start, y)
+    return round((best[0] + best[1]) / 2)
+
+
+@lru_cache(maxsize=1)
+def headline_units() -> int:
+    """Centre of the base font's মাত্রা bar."""
+    return measure_headline(base_shaper().tt)

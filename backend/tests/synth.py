@@ -6,6 +6,10 @@ Two print modes:
           background haze and a faint drum streak
   copy    a worn photocopy of the laser print: heavier dot gain (22% grey
           comes out ~48%) and three times the toner noise. A stress test.
+Pens: a felt-tip, or (mode "ballpoint", on the laser print) a blue ballpoint:
+thinner, lighter strokes with ink that comes and goes.
+Handwriting: Patrick Hand for English, Galada for Bangla (both OFL). In ghost
+cells only the sign is written, placed beside the printed ghost.
 Then a phone photo: perspective, shadow, uneven warm light, blur, sensor
 noise, JPEG, and the browser-side shrink to 2500 px.
 """
@@ -25,13 +29,15 @@ import uharfbuzz as hb
 from fontTools.ttLib import TTFont
 
 from app import config as C
-from app.basefont import headline_units
+from app.basefont import base_shaper, headline_units, measure_headline
 from app.glyphmap import Cell, build_layout
-from app.guides import baseline_mm, glyph_polygons, run_left_mm
+from app.guides import baseline_mm, ghost_polygons_mm, run_left_mm
+from app.outline import glyph_polygons
 from app.template import build_template_pdf
 
 FONTS = Path(__file__).parent / "fonts"
 LATIN_HAND = FONTS / "PatrickHand-Regular.ttf"
+BANGLA_HAND = FONTS / "Galada-Regular.ttf"
 
 
 @dataclass
@@ -90,57 +96,127 @@ def print_laser(page_bgr: np.ndarray, rng, gain: float = 1.6, noise: float = 1.0
 class Hand:
     """Draws text from a handwriting-style font with a little human jitter."""
 
-    def __init__(self, path: Path):
+    def __init__(self, path: Path, bangla: bool = False):
         data = path.read_bytes()
         self.tt = TTFont(io.BytesIO(data))
         self.order = self.tt.getGlyphOrder()
         self.gs = self.tt.getGlyphSet()
         self.font = hb.Font(hb.Face(hb.Blob(data)))
-        self.cap = self.tt["OS/2"].sCapHeight or 0.7 * self.tt["head"].unitsPerEm
+        # Size reference: the মাত্রা for Bangla, the cap height for Latin.
+        if bangla:
+            self.ref = measure_headline(self.tt)
+        else:
+            self.ref = self.tt["OS/2"].sCapHeight or 0.7 * self.tt["head"].unitsPerEm
 
-    def polygons(self, text: str) -> list[np.ndarray]:
+    def shape(self, text: str) -> list[tuple[str, float, float]]:
         buf = hb.Buffer()
         buf.add_str(text)
         buf.guess_segment_properties()
         hb.shape(self.font, buf, {})
         x, out = 0, []
         for info, pos in zip(buf.glyph_infos, buf.glyph_positions):
-            for poly in glyph_polygons(self.gs, self.order[info.codepoint]):
-                out.append(np.array([(x + pos.x_offset + px, pos.y_offset + py) for px, py in poly], np.float64))
+            out.append((self.order[info.codepoint], x + pos.x_offset, pos.y_offset))
             x += pos.x_advance
         return out
 
+    def polygons(self, run) -> list[np.ndarray]:
+        out = []
+        for name, gx, gy in run:
+            for poly in glyph_polygons(self.gs, name):
+                out.append(np.array([(gx + px, gy + py) for px, py in poly], np.float64))
+        return out
 
-def _write_cell(alpha: np.ndarray, hand: Hand, cell: Cell, rng):
-    """Write the cell's text into the alpha layer at canonical px."""
-    k = C.PX_PER_MM
-    polys = hand.polygons(cell.text)
-    if not polys:
-        return
-    cap_mm = headline_units() * C.MM_PER_UNIT
-    s = cap_mm / hand.cap * rng.uniform(0.92, 1.06)  # mm per handwriting unit
+
+@lru_cache(maxsize=1)
+def _hands() -> tuple[Hand, Hand]:
+    return Hand(LATIN_HAND), Hand(BANGLA_HAND, bangla=True)
+
+
+def _bbox(polys) -> tuple[float, float, float, float]:
     pts = np.concatenate(polys)
-    cx = (pts[:, 0].min() + pts[:, 0].max()) / 2
-    x, y, w, _ = cell.box_mm()
-    cell_cx = x + w / 2 + rng.uniform(-1.0, 1.0)
-    base = baseline_mm(cell) + rng.uniform(-0.3, 0.3)
-    angle = math.radians(rng.uniform(-4, 4))
+    return pts[:, 0].min(), pts[:, 1].min(), pts[:, 0].max(), pts[:, 1].max()
+
+
+def _place(polys, s, anchor_units, anchor_mm, base_mm, rng, turn=4.0) -> list[np.ndarray]:
+    """Font-unit polygons -> canonical px: scale s (mm/unit), put anchor_units
+    (x) at anchor_mm, y=0 on base_mm, then a small random rotation."""
+    k = C.PX_PER_MM
+    angle = math.radians(rng.uniform(-turn, turn))
     ca, sa = math.cos(angle), math.sin(angle)
     out = []
     for p in polys:
-        dx, dy = (p[:, 0] - cx) * s, -p[:, 1] * s  # mm, y down
+        dx, dy = (p[:, 0] - anchor_units) * s, -p[:, 1] * s  # mm, y down
         rx, ry = dx * ca - dy * sa, dx * sa + dy * ca
-        out.append(np.stack([(cell_cx + rx) * k, (base + ry) * k], 1))
+        out.append(np.stack([(anchor_mm + rx) * k, (base_mm + ry) * k], 1))
+    return out
+
+
+def _write_cell(alpha: np.ndarray, cell: Cell, rng) -> str:
+    """Write the cell into the alpha layer at canonical px. Returns how."""
+    latin, bangla = _hands()
+    x, y, w, _ = cell.box_mm()
+    base = baseline_mm(cell) + rng.uniform(-0.3, 0.3)
+    head_mm = headline_units() * C.MM_PER_UNIT
+    how = "font"
+
+    if cell.kind == "latin" or not cell.ghost_glyphs:
+        hand = latin if cell.kind == "latin" else bangla
+        polys = hand.polygons(hand.shape(cell.text))
+        s = head_mm / hand.ref * rng.uniform(0.92, 1.06)
+        x0, _, x1, _ = _bbox(polys)
+        out = _place(polys, s, (x0 + x1) / 2, x + w / 2 + rng.uniform(-1.0, 1.0), base, rng)
+    else:
+        # Beside a printed ghost: write only the sign, next to the ghost.
+        s = head_mm / bangla.ref * rng.uniform(0.95, 1.05)
+        run = bangla.shape(cell.text)
+        ghost = bangla.shape(cell.ghost) if cell.ghost else []
+        left = list(run)
+        for g in ghost:
+            match = next((r for r in left if r[0] == g[0]), None)
+            if match:
+                left.remove(match)
+        ghost_run = [r for r in run if r not in left]
+        if cell.ghost and ghost_run and left and len(left) <= 2:
+            gx0, _, gx1, _ = _bbox(bangla.polygons(ghost_run))
+            noto = ghost_polygons_mm(cell)
+            nx0 = min(p[:, 0].min() for p in noto)
+            nx1 = max(p[:, 0].max() for p in noto)
+            out = _place(bangla.polygons(left), s, (gx0 + gx1) / 2, (nx0 + nx1) / 2 + rng.uniform(-0.4, 0.4), base, rng, 3)
+        else:
+            # No handwriting-font equivalent (a conjunct part): a wobbly copy
+            # of the base font's part, where the ghost leaves room for it.
+            how = "wobbled base-font outline"
+            gs = base_shaper().tt.getGlyphSet()
+            polys = [np.array(p, np.float64) for p in glyph_polygons(gs, cell.glyph)]
+            polys = [p + rng.normal(0, 6, p.shape) for p in polys]
+            px0, _, px1, _ = _bbox(polys)
+            cx = (px0 + px1) / 2
+            target_mm = run_left_mm(cell) + (cell.target_x + cx) * C.MM_PER_UNIT
+            out = _place(polys, C.MM_PER_UNIT * rng.uniform(0.95, 1.05), cx, target_mm, base - cell.target_y * C.MM_PER_UNIT, rng, 3)
     cv2.fillPoly(alpha, [np.round(p * 16).astype(np.int32) for p in out], 1.0, cv2.LINE_AA, shift=4)
+    return how
 
 
-def handwrite(printed: np.ndarray, page: int, hand: Hand, rng) -> tuple[np.ndarray, np.ndarray]:
+PENS = {
+    # BGR ink colour, stroke thinning (px), strength range
+    "felt": ((52, 38, 30), 0, (0.88, 0.97)),
+    "ballpoint": ((150, 92, 62), 2, (0.70, 0.95)),
+}
+
+
+def handwrite(printed: np.ndarray, page: int, rng, pen: str = "felt") -> tuple[np.ndarray, np.ndarray]:
     alpha = np.zeros(printed.shape[:2], np.float32)
     for cell in build_layout().page(page):
-        _write_cell(alpha, hand, cell, rng)
-    pen = np.array([52, 38, 30], np.float32)  # blue-black felt-tip, BGR
-    strength = alpha[..., None] * rng.uniform(0.88, 0.97)
-    out = printed.astype(np.float32) * (1 - strength * (1 - pen / 255))
+        _write_cell(alpha, cell, rng)
+    colour, thin, (lo, hi) = PENS[pen]
+    if thin:
+        alpha = cv2.erode(alpha, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * thin + 1, 2 * thin + 1)))
+    h, w = alpha.shape
+    # Uneven ink: pressure and flow drift slowly along the page.
+    drift = cv2.resize(rng.random((h // 60 + 2, w // 60 + 2)).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC)
+    strength = alpha * np.clip(lo + (hi - lo) * drift, 0, 1)
+    pen_bgr = np.array(colour, np.float32)
+    out = printed.astype(np.float32) * (1 - strength[..., None] * (1 - pen_bgr / 255))
     return out.astype(np.uint8), alpha > 0.5
 
 
@@ -179,16 +255,21 @@ def photograph(page_bgr: np.ndarray, rng) -> bytes:
     return jpg.tobytes()
 
 
-def make_page(page: int, mode: str, seed: int = 7, hand_path: Path = LATIN_HAND) -> SynthPage:
-    rng = np.random.default_rng(seed)
+MODES = ["colour", "laser", "copy", "ballpoint"]
+
+
+def make_page(page: int, mode: str, seed: int = 7) -> SynthPage:
+    """mode: colour | laser | copy (felt-tip pen), or ballpoint (laser print,
+    blue ballpoint: thinner, lighter, uneven ink)."""
+    rng = np.random.default_rng(seed + page)
     printed = template_page_rgb(page)
     if mode == "colour":
         printed = print_colour(printed, rng)
-    elif mode == "laser":
-        printed = print_laser(printed, rng)
-    else:
+    elif mode == "copy":
         printed = print_laser(printed, rng, gain=2.6, noise=3.0)
-    written, truth = handwrite(printed, page, Hand(hand_path), rng)
+    else:
+        printed = print_laser(printed, rng)
+    written, truth = handwrite(printed, page, rng, "ballpoint" if mode == "ballpoint" else "felt")
     return SynthPage(photograph(written, rng), truth, page)
 
 
@@ -209,3 +290,12 @@ def ink_agreement(found: np.ndarray, truth: np.ndarray, page: int, tol_px: int =
         recall = (t & near_f).sum() / max(t.sum(), 1)
         per_cell[cell.text] = (float(precision), float(recall), int((f & ~near_t).sum()))
     return per_cell
+
+
+def cells_ink(cells, shape) -> np.ndarray:
+    """The ink that actually goes into the font: cleaned cell bitmaps on a page."""
+    out = np.zeros(shape, np.uint8)
+    for ci in cells:
+        h, w = ci.bitmap.shape
+        out[ci.y0 : ci.y0 + h, ci.x0 : ci.x0 + w][ci.bitmap] = 255
+    return out

@@ -18,11 +18,16 @@ from fontTools.pens.cu2quPen import Cu2QuPen
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
 
-from .basefont import ALWAYS_KEEP_UNICODES, base_ttfont, subset_font
-from .vectorize import Drawing
+from . import config as C
+from .basefont import ALWAYS_KEEP_UNICODES, base_shaper, base_ttfont, subset_font
+from .derive import derive_parts, measure_matra
+from .glyphmap import Cell, build_layout
+from .guides import run_left_mm
+from .vectorize import Drawing, contours_bbox
 
 LATIN_SIDE_BEARING = 60
 BANGLA_RSB = -10  # headlines overlap a little so words join
+BANGLA_OPEN_SIDE_BEARING = 30  # Bangla letters without a full মাত্রা, digits, ।
 VENDOR_ID = "NONE"  # unregistered
 
 
@@ -63,6 +68,8 @@ class BuiltFont:
     family: str
     glyphs: list[str]
     unicodes: list[int]
+    derived: list[str]  # parts made from the user's letters
+    matra: tuple[float, float]  # measured মাত্রা centre and thickness
 
 
 def _ttglyph(drawing: Drawing, dx: float, dy: float = 0):
@@ -82,15 +89,97 @@ def _ttglyph(drawing: Drawing, dx: float, dy: float = 0):
     return glyph
 
 
-def _spacing(d: Drawing) -> tuple[float, int]:
-    """(x shift to apply to the drawing, advance width)."""
-    x_min, _, x_max, _ = d.bbox
+def _placement(d: Drawing, cell: Cell | None, noto: TTFont, matra_glyphs: set[str]) -> tuple[float, float, int]:
+    """(dx, dy, advance) that put a drawing into its final glyph coordinates."""
+    if d.positioned:
+        return 0, 0, d.advance or 0
+    x_min, y_min, x_max, y_max = d.bbox
     width = x_max - x_min
     if d.kind == "latin":
-        return LATIN_SIDE_BEARING - x_min, round(width + 2 * LATIN_SIDE_BEARING)
+        return LATIN_SIDE_BEARING - x_min, 0, round(width + 2 * LATIN_SIDE_BEARING)
+    ng = noto["glyf"][d.glyph]
     if d.kind == "mark":
-        return -(x_min + x_max) / 2, 0
-    return -x_min, round(width + BANGLA_RSB)
+        # Zero-advance marks: centre on the base font's mark, keep the scale.
+        # GPOS then attaches it exactly where the base font would.
+        return (ng.xMin + ng.xMax) / 2 - (x_min + x_max) / 2, (ng.yMin + ng.yMax) / 2 - (y_min + y_max) / 2, 0
+    if cell is not None and cell.ghost_glyphs:
+        # Written beside a ghost (া ি ে ং ্য ...). Keep the gap the user left
+        # between their sign and the ghost's ink, and apply it to their own
+        # letters, which are spaced LSB 0 / RSB BANGLA_RSB.
+        glyf = noto["glyf"]
+        run_left = (run_left_mm(cell) - cell.box_mm()[0]) / C.MM_PER_UNIT
+        inked = [g for g in cell.ghost_glyphs if glyf[g.name].numberOfContours]
+        ghost_left = run_left + min(g.x + glyf[g.name].xMin for g in inked)
+        ghost_right = run_left + max(g.x + glyf[g.name].xMax for g in inked)
+        rsb = BANGLA_RSB if d.glyph in matra_glyphs else BANGLA_OPEN_SIDE_BEARING
+        if cell.target_x < min(g.x for g in cell.ghost_glyphs):
+            # Before the letter (ি ে ৈ): the next letter's ink starts where the
+            # ghost's ink started. ি's hook reaches over it, as written.
+            return -x_min, -cell.target_y, round(ghost_left - x_min)
+        # After the letter (া ী ৗ ং ঃ ্য): the previous letter's ink ends
+        # -BANGLA_RSB past our origin, so put the origin there.
+        dx = -(ghost_right + BANGLA_RSB)
+        return dx, -cell.target_y, round(x_max + dx + rsb)
+    if d.glyph in matra_glyphs:
+        # Letters with a মাত্রা: no gap on the left, a slight overlap on the
+        # right, so headlines join inside a word.
+        return -x_min, 0, round(width + BANGLA_RSB)
+    return BANGLA_OPEN_SIDE_BEARING - x_min, 0, round(width + 2 * BANGLA_OPEN_SIDE_BEARING)
+
+
+def _anchor_maps(noto: TTFont, boxes: dict[str, tuple]) -> dict[str, tuple[float, float, float]]:
+    """Per glyph: x -> new_x0 + (x - old_x0) * k, from base-font box to user box."""
+    maps = {}
+    glyf = noto["glyf"]
+    for name, (x0, _, x1, _) in boxes.items():
+        g = glyf[name] if name in glyf.glyphs else None
+        if g is None or not g.numberOfContours or g.xMax <= g.xMin or x1 <= x0:
+            continue
+        maps[name] = (g.xMin, x0, (x1 - x0) / (g.xMax - g.xMin))
+    return maps
+
+
+def _remap_anchors(font: TTFont, maps: dict[str, tuple[float, float, float]]):
+    """Move every GPOS anchor on a replaced glyph along with its new outline.
+
+    The base font's anchors fit its own letter widths; the user's letters are
+    narrower or wider. Anchors that point at outline points (format 2) are
+    turned into plain coordinates, since those points no longer exist."""
+    if "GPOS" not in font:
+        return
+
+    def fix(anchor, glyph):
+        if anchor is None or glyph not in maps:
+            return
+        old_x0, new_x0, k = maps[glyph]
+        anchor.XCoordinate = round(new_x0 + (anchor.XCoordinate - old_x0) * k)
+        if anchor.Format == 2:
+            anchor.Format = 1
+            del anchor.AnchorPoint
+
+    for lookup in font["GPOS"].table.LookupList.Lookup:
+        for st in lookup.SubTable:
+            if lookup.LookupType == 9:
+                st = st.ExtSubTable
+            t = st.LookupType
+            if t in (4, 5, 6):
+                cov1 = st.MarkCoverage if t in (4, 5) else st.Mark1Coverage
+                arr1 = st.MarkArray if t in (4, 5) else st.Mark1Array
+                for g, rec in zip(cov1.glyphs, arr1.MarkRecord):
+                    fix(rec.MarkAnchor, g)
+            if t == 4:
+                for g, rec in zip(st.BaseCoverage.glyphs, st.BaseArray.BaseRecord):
+                    for a in rec.BaseAnchor:
+                        fix(a, g)
+            elif t == 6:
+                for g, rec in zip(st.Mark2Coverage.glyphs, st.Mark2Array.Mark2Record):
+                    for a in rec.Mark2Anchor:
+                        fix(a, g)
+            elif t == 5:
+                for g, lig in zip(st.LigatureCoverage.glyphs, st.LigatureArray.LigatureAttach):
+                    for comp in lig.ComponentRecord:
+                        for a in comp.LigatureAnchor:
+                            fix(a, g)
 
 
 def _set_names(font: TTFont, family: str):
@@ -138,6 +227,19 @@ def _fix_vertical_metrics(font: TTFont):
 
 def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
     family = clean_family_name(family)
+    layout = build_layout()
+    noto = base_shaper().tt  # untouched copy, for the base font's boxes and metrics
+    cells = {c.glyph: c for c in layout.cells}
+    matra_glyphs = set(layout.matra_glyphs)
+
+    # Parts the user didn't write, made from letters they did.
+    by_glyph = {d.glyph: d for d in drawings if d.contours}
+    matra = measure_matra(by_glyph, matra_glyphs)
+    derived = [d for d in derive_parts(layout.plans(), by_glyph, matra) if d.glyph not in by_glyph]
+    drawings = [d for d in drawings if d.contours] + derived
+    for d in derived:
+        d.bbox = contours_bbox(d.contours)
+
     font = base_ttfont()
     glyf, hmtx = font["glyf"], font["hmtx"]
     cmap_tables = [t for t in font["cmap"].tables if t.isUnicode()]
@@ -149,16 +251,21 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
         font.setGlyphOrder(order)
         glyf.glyphOrder = order
 
+    boxes = {}
     for d in drawings:
-        dx, advance = _spacing(d)
-        glyph = _ttglyph(d, dx)
+        dx, dy, advance = _placement(d, cells.get(d.glyph), noto, matra_glyphs)
+        glyph = _ttglyph(d, dx, dy)
         glyph.recalcBounds(glyf)
         glyf[d.glyph] = glyph
         hmtx[d.glyph] = (advance, glyph.xMin if glyph.numberOfContours else 0)
+        if glyph.numberOfContours and not d.positioned and d.kind != "latin":
+            boxes[d.glyph] = (glyph.xMin, glyph.yMin, glyph.xMax, glyph.yMax)
         if d.unicode is not None:
             for t in cmap_tables:
                 if d.unicode <= 0xFFFF or t.format in (12, 13):
                     t.cmap[d.unicode] = d.glyph
+
+    _remap_anchors(font, _anchor_maps(noto, boxes))
 
     written = {d.glyph for d in drawings}
     cmap = font.getBestCmap()
@@ -181,4 +288,6 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
         family,
         kept.getGlyphOrder(),
         sorted(set(unicodes) | set(ALWAYS_KEEP_UNICODES) & set(kept.getBestCmap())),
+        [d.glyph for d in derived],
+        matra,
     )

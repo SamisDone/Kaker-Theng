@@ -21,3 +21,11 @@ def test_part_conjuncts_form_from_written_glyphs():
     sim = simulated_shaper(layout.bangla_glyphs() | _specials())
     for text in PART_CONJUNCTS:
         assert sim.names(text) == base_shaper().names(text), text
+
+
+def test_only_underivable_parts_get_cells():
+    layout = build_layout()
+    written = {p.glyph for p in layout.plans() if p.method == "written"}
+    part_cells = {c.glyph for c in layout.cells if c.group == "part"}
+    assert part_cells == written
+    assert len(written) <= 2, "most conjunct parts should be made from the user's letters"

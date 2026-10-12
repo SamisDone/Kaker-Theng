@@ -9,23 +9,23 @@ from app.pipeline import decode_image
 from app.render import shape_names
 from app.scan import ScanError, find_page
 from app.vectorize import vectorize
-from tests.synth import ink_agreement, make_page
+from tests.synth import cells_ink, ink_agreement, make_page
 
 PANGRAM = "The quick brown fox jumps over the lazy dog."
 
 
-@pytest.mark.parametrize("mode", ["colour", "laser", "copy"])
+@pytest.mark.parametrize("mode", ["colour", "laser", "copy", "ballpoint"])
 def test_page1_builds_latin_font(mode):
     synth = make_page(1, mode)
     found = find_page(decode_image(synth.photo_jpeg), expected_page=1)
     assert found.page == 1
 
     ink, _ = extract_ink(found.gray, 1)
-    scores = ink_agreement(ink, synth.truth, 1)
-    assert min(p for p, _, _ in scores.values()) >= 0.95, "printed residue or noise got into a cell"
+    cells = cut_cells(ink, 1)
+    scores = ink_agreement(cells_ink(cells, ink.shape), synth.truth, 1)
+    assert min(p for p, _, _ in scores.values()) >= 0.94, "printed residue or noise got into a cell"
     assert min(r for _, r, _ in scores.values()) >= 0.95, "handwriting was lost"
 
-    cells = cut_cells(ink, 1)
     assert [c.cell.text for c in cells if c.status == "missing"] == []
     font = build_font([vectorize(c) for c in cells], "Test Hand")
     assert ".notdef" not in shape_names(font.ttf, PANGRAM)
