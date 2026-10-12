@@ -8,10 +8,15 @@ No glyph names are hardcoded. For Bangla:
 2. Subset the base font down to the candidates and shape every cell again.
    Outlines don't affect shaping, so this is exactly how the user's finished
    font will behave. Context variants (ে.init, ি length variants, phala
-   alternates, conjunct parts) are gone, and their rules with them.
+   alternates) are gone, and their rules with them.
 3. A cell's target is the glyph that remains once the ghost's glyphs are
    taken away. A conjunct is kept only if it comes out as one glyph.
-4. Repeat until the glyph set stops changing.
+4. Conjuncts that Noto assembles from parts (PART_CONJUNCTS): the parts are
+   found by tracing the GSUB lookups. Visible parts are added first; if a
+   conjunct still doesn't form, the intermediate glyphs its rule chain passes
+   through are added, then pruned again if not needed. Each part gets a cell
+   in a context where it is visible, the rest of the run printed as ghost.
+5. Repeat until the glyph set stops changing.
 
 Latin glyphs don't exist in the base font; they get standard AGL names and
 are added to the font later.
@@ -19,7 +24,9 @@ are added to the font later.
 
 from __future__ import annotations
 
+import hashlib
 import json
+import logging
 from collections import Counter
 from dataclasses import asdict, dataclass, field
 from functools import lru_cache
@@ -27,10 +34,12 @@ from functools import lru_cache
 from fontTools.agl import UV2AGL
 
 from . import config as C
-from .basefont import PRESENTATION_FEATURES, base_shaper, simulated_shaper
-from .charset import PAGES, CellSpec
+from .basefont import PRESENTATION_FEATURES, ShapedGlyph, base_shaper, simulated_shaper
+from .charset import CONSONANTS_FOR_CONTEXT, PAGES, PART_CONJUNCTS, CellSpec
 
 SPECIAL_GLYPH_UNICODES = [0x20, 0xA0, 0x200C, 0x200D, 0x25CC]
+logger = logging.getLogger(__name__)
+HALANT = "্"
 
 
 @dataclass
@@ -71,6 +80,7 @@ class Layout:
     cells: list[Cell]
     excluded: list[dict]
     log: list[dict]
+    parts: list[dict]
 
     def page(self, n: int) -> list[Cell]:
         return [c for c in self.cells if c.page == n]
@@ -91,17 +101,17 @@ def _diff(names: list[str], remove: list[str]) -> list[int]:
     return out
 
 
-def _is_bangla_composite(spec: CellSpec) -> bool:
-    return spec.ghost is not None or len(spec.text) > 1
+def _specials() -> set[str]:
+    cmap = base_shaper().tt.getBestCmap()
+    return {cmap[cp] for cp in SPECIAL_GLYPH_UNICODES if cp in cmap}
 
 
 def _candidates(specs: list[CellSpec]) -> set[str]:
     shaper = base_shaper()
-    cmap = shaper.tt.getBestCmap()
     off = {f: False for f in PRESENTATION_FEATURES}
-    glyphs = {cmap[cp] for cp in SPECIAL_GLYPH_UNICODES if cp in cmap}
+    glyphs = _specials()
     for spec in specs:
-        if not _is_bangla_composite(spec):
+        if spec.ghost is None and len(spec.text) == 1:
             glyphs.update(shaper.names(spec.text))
             continue
         basic = shaper.names(spec.text, off)
@@ -115,133 +125,258 @@ def _candidates(specs: list[CellSpec]) -> set[str]:
     return glyphs
 
 
-def _resolve(spec: CellSpec, sim) -> tuple[str | None, str, list]:
-    """(target glyph or None, reason, shaped run) using the simulated font."""
+def _resolve(spec: CellSpec, sim) -> tuple[int | None, str, list[ShapedGlyph]]:
+    """(index of the written glyph in the run, reason, run) in the simulated font."""
     run = sim.shape(spec.text)
     names = [g.name for g in run]
     if ".notdef" in names:
         return None, "shapes to .notdef", run
     if spec.ghost is None:
         if len(run) == 1:
-            return run[0].name, "single glyph", run
+            return 0, "single glyph", run
         return None, f"not one glyph in the final font ({len(run)} glyphs)", run
     ghost = sim.names(spec.ghost)
     rest = _diff(names, ghost)
     if len(rest) == 1 and len(names) == len(ghost) + 1:
-        return names[rest[0]], "ghost + one written glyph", run
+        return rest[0], "ghost + one written glyph", run
     return None, f"ghost does not survive as-is ({names} vs ghost {ghost})", run
 
 
-def _place(specs_with_cells: list[tuple[CellSpec, object]]) -> list[tuple[int, int]]:
+def _forms_like_base(sim, text: str) -> bool:
+    return sim.names(text) == base_shaper().names(text)
+
+
+def _discover_parts(user: set[str]) -> list[str]:
+    """Part glyphs needed so every PART_CONJUNCT shapes as in the base font."""
+    base = base_shaper()
+    parts: list[str] = []
+    for text in PART_CONJUNCTS:
+        for g in base.names(text):
+            if g not in user and g not in parts:
+                parts.append(g)
+    sim = simulated_shaper(user | set(parts))
+    for text in PART_CONJUNCTS:
+        if _forms_like_base(sim, text):
+            continue
+        extra = [g for _, names in base.trace(text) for g in names if g not in user and g not in parts]
+        extra = list(dict.fromkeys(extra))
+        parts += extra
+        sim = simulated_shaper(user | set(parts))
+        # Prune intermediates this conjunct turned out not to need.
+        for g in extra:
+            trial = user | (set(parts) - {g})
+            if _forms_like_base(simulated_shaper(trial), text):
+                parts.remove(g)
+        sim = simulated_shaper(user | set(parts))
+    return parts
+
+
+def _part_context(part: str, glyphs: set[str], sim) -> tuple[str, list[ShapedGlyph], int] | None:
+    """A short text where `part` is visible in the final font."""
+    texts = list(PART_CONJUNCTS)
+    texts += [a + HALANT + b for a in CONSONANTS_FOR_CONTEXT for b in CONSONANTS_FOR_CONTEXT]
+    texts += [a + HALANT + "‍" for a in CONSONANTS_FOR_CONTEXT]
+    best = None
+    for rank, text in enumerate(texts):
+        run = sim.shape(text)
+        names = [g.name for g in run]
+        if names.count(part) != 1 or ".notdef" in names or any(n not in glyphs for n in names):
+            continue
+        visible_hasanta = base_shaper().tt.getBestCmap()[ord(HALANT)] in names
+        score = (text not in PART_CONJUNCTS, visible_hasanta, len(names), rank)
+        if best is None or score < best[0]:
+            best = (score, text, run, names.index(part))
+    return best[1:] if best else None
+
+
+def _make_cell(page, text, ghost, group, run, target_idx, kind) -> Cell:
+    cell = Cell(page, 0, 0, 0, text, ghost, group, run[target_idx].name, kind)
+    x = 0
+    for i, g in enumerate(run):
+        gx, gy = x + g.x_offset, g.y_offset
+        if i == target_idx:
+            cell.target_x, cell.target_y = gx, gy
+        else:
+            cell.ghost_glyphs.append(GhostGlyph(g.name, gx, gy))
+        x += g.x_advance
+    cell.run_advance = x
+    return cell
+
+
+def _place(groups: list[str]) -> list[tuple[int, int]]:
     """Row/col per cell. Each group starts a new row when everything fits."""
-    groups: list[list[int]] = []
-    last = None
-    for i, (spec, _) in enumerate(specs_with_cells):
-        if spec.group != last:
-            groups.append([])
-            last = spec.group
-        groups[-1].append(i)
-    rows_needed = sum(-(-len(g) // C.COLS) for g in groups)
-    pos: list[tuple[int, int]] = [(0, 0)] * len(specs_with_cells)
+    runs: list[list[int]] = []
+    for i, g in enumerate(groups):
+        if not runs or groups[runs[-1][0]] != g:
+            runs.append([])
+        runs[-1].append(i)
+    rows_needed = sum(-(-len(r) // C.COLS) for r in runs)
+    pos: list[tuple[int, int]] = [(0, 0)] * len(groups)
     if rows_needed <= C.ROWS:
         row = 0
-        for g in groups:
-            for k, i in enumerate(g):
+        for r in runs:
+            for k, i in enumerate(r):
                 pos[i] = (row + k // C.COLS, k % C.COLS)
-            row += -(-len(g) // C.COLS)
+            row += -(-len(r) // C.COLS)
     else:
-        for i in range(len(specs_with_cells)):
-            pos[i] = (i // C.COLS, i % C.COLS)
-    if max(r for r, _ in pos) >= C.ROWS:
-        raise ValueError("too many cells for one page")
+        pos = [(i // C.COLS, i % C.COLS) for i in range(len(groups))]
+    if pos and max(r for r, _ in pos) >= C.ROWS:
+        raise ValueError(f"too many cells for one page ({len(groups)})")
     return pos
 
 
-@lru_cache(maxsize=1)
-def build_layout() -> Layout:
+def compute_layout() -> Layout:
+    """The full shaping analysis. Slow (many simulated fonts): run offline by
+    scripts/make_template.py, which caches the result in assets/layout.json."""
     shaper = base_shaper()
     noto_hmtx = shaper.tt["hmtx"]
     bangla_specs = [s for p in (2, 3) for s in PAGES[p]]
 
     glyphs = _candidates(bangla_specs)
-    for _ in range(5):
+    parts: list[str] = []
+    for _ in range(6):
         sim = simulated_shaper(glyphs)
         resolved = {}
         claimed: dict[str, str] = {}
         for spec in bangla_specs:
-            target, reason, run = _resolve(spec, sim)
-            if target and target in claimed:
-                reason = f"same glyph as cell {claimed[target]}"
-                target = None
-            if target:
-                claimed[target] = spec.text
-            resolved[spec] = (target, reason, run)
-        new = {t for t, _, _ in resolved.values() if t}
-        cmap = shaper.tt.getBestCmap()
-        new |= {cmap[cp] for cp in SPECIAL_GLYPH_UNICODES if cp in cmap}
+            idx, reason, run = _resolve(spec, sim)
+            if idx is not None and run[idx].name in claimed:
+                reason, idx = f"same glyph as cell {claimed[run[idx].name]}", None
+            if idx is not None:
+                claimed[run[idx].name] = spec.text
+            resolved[spec] = (idx, reason, run)
+        user = set(claimed) | _specials()
+        parts = _discover_parts(user)
+        new = user | set(parts)
         if new == glyphs:
             break
         glyphs = new
     else:
         raise RuntimeError("glyph mapping did not converge")
 
-    full_off = {f: False for f in PRESENTATION_FEATURES}
+    sim = simulated_shaper(glyphs)
+    off = {f: False for f in PRESENTATION_FEATURES}
     cells: list[Cell] = []
     excluded: list[dict] = []
     log: list[dict] = []
 
+    def kind_of(name: str) -> str:
+        return "mark" if noto_hmtx[name][0] == 0 else "base"
+
     for page, specs in PAGES.items():
-        kept: list[tuple[CellSpec, Cell]] = []
+        page_cells: list[Cell] = []
         for spec in specs:
             if page == 1:
                 cp = ord(spec.text)
-                cell = Cell(page, 0, 0, 0, spec.text, None, spec.group, UV2AGL[cp], "latin", unicode=cp)
-                kept.append((spec, cell))
-                log.append({"page": page, "text": spec.text, "glyph": cell.glyph, "kind": "latin", "status": "new glyph"})
+                page_cells.append(Cell(page, 0, 0, 0, spec.text, None, spec.group, UV2AGL[cp], "latin", unicode=cp))
+                log.append({"page": page, "text": spec.text, "glyph": UV2AGL[cp], "kind": "latin", "status": "new glyph"})
                 continue
-
-            target, reason, run = resolved[spec]
+            idx, reason, run = resolved[spec]
             entry = {
                 "page": page,
                 "text": spec.text,
                 "ghost": spec.ghost,
                 "base_font": shaper.names(spec.text),
-                "basic_forms": shaper.names(spec.text, full_off),
+                "basic_forms": shaper.names(spec.text, off),
                 "final_font": [g.name for g in run],
-                "glyph": target,
+                "glyph": run[idx].name if idx is not None else None,
                 "status": reason,
             }
             log.append(entry)
-            if not target:
+            if idx is None:
                 excluded.append(entry)
                 continue
+            entry["kind"] = kind_of(run[idx].name)
+            page_cells.append(_make_cell(page, spec.text, spec.ghost, spec.group, run, idx, entry["kind"]))
 
-            kind = "mark" if noto_hmtx[target][0] == 0 else "base"
-            entry["kind"] = kind
-            cell = Cell(page, 0, 0, 0, spec.text, spec.ghost, spec.group, target, kind)
-            x = 0
-            ghost_left = Counter(sim.names(spec.ghost)) if spec.ghost else Counter()
-            for g in run:
-                gx, gy = x + g.x_offset, g.y_offset
-                if g.name == target and not ghost_left[g.name]:
-                    cell.target_x, cell.target_y = gx, gy
-                else:
-                    ghost_left[g.name] -= 1
-                    cell.ghost_glyphs.append(GhostGlyph(g.name, gx, gy))
-                x += g.x_advance
-            cell.run_advance = x
-            kept.append((spec, cell))
+        if page == 3:
+            for part in parts:
+                found = _part_context(part, glyphs, sim)
+                entry = {"page": page, "text": None, "ghost": None, "glyph": part, "kind": kind_of(part)}
+                log.append(entry)
+                if not found:
+                    entry["status"] = "no context where this part is visible"
+                    excluded.append(entry)
+                    continue
+                text, run, idx = found
+                ghost_names = [g.name for i, g in enumerate(run) if i != idx]
+                entry |= {"text": text, "final_font": [g.name for g in run], "status": f"part, ghost {ghost_names}"}
+                page_cells.append(_make_cell(page, text, None, "part", run, idx, entry["kind"]))
 
-        for i, ((spec, cell), (row, col)) in enumerate(zip(kept, _place(kept))):
+        for i, (cell, (row, col)) in enumerate(zip(page_cells, _place([c.group for c in page_cells]))):
             cell.index, cell.row, cell.col = i, row, col
-            cells.append(cell)
+        cells += page_cells
 
-    return Layout(cells, excluded, log)
+    return Layout(cells, excluded, log, [{"glyph": p} for p in parts])
+
+
+def part_report(layout: Layout) -> list[dict]:
+    """Per part: which conjuncts show it, and which fail without it (slow)."""
+    glyphs = layout.bangla_glyphs() | _specials()
+    sim = simulated_shaper(glyphs)
+    report = []
+    for part in (p["glyph"] for p in layout.parts):
+        without = simulated_shaper(glyphs - {part})
+        report.append(
+            {
+                "glyph": part,
+                "visible_in": [t for t in PART_CONJUNCTS if part in sim.names(t)],
+                "needed_by": [t for t in PART_CONJUNCTS if not _forms_like_base(without, t)],
+            }
+        )
+    return report
+
+
+# --- Cache ---------------------------------------------------------------------
+# The layout depends only on the base font and this code, so it is computed
+# offline and shipped in assets/. A stale cache is detected by fingerprint.
+
+_SOURCES = ("charset.py", "glyphmap.py", "basefont.py", "config.py")
+
+
+def fingerprint() -> str:
+    h = hashlib.sha256(C.BASE_FONT_PATH.read_bytes())
+    for name in _SOURCES:
+        h.update((C.APP_DIR / name).read_bytes().replace(b"\r\n", b"\n"))
+    return h.hexdigest()[:16]
 
 
 def layout_json(layout: Layout) -> str:
     return json.dumps(
-        {"cells": [asdict(c) | {"id": c.id} for c in layout.cells], "excluded": layout.excluded},
+        {
+            "fingerprint": fingerprint(),
+            "cells": [asdict(c) for c in layout.cells],
+            "excluded": layout.excluded,
+            "log": layout.log,
+            "parts": layout.parts,
+        },
         ensure_ascii=False,
         indent=1,
     )
+
+
+def _from_json(data: dict) -> Layout:
+    cells = []
+    for c in data["cells"]:
+        ghosts = [GhostGlyph(**g) for g in c.pop("ghost_glyphs")]
+        cells.append(Cell(**c, ghost_glyphs=ghosts))
+    return Layout(cells, data["excluded"], data["log"], data["parts"])
+
+
+def load_cached_layout() -> Layout | None:
+    try:
+        data = json.loads(C.LAYOUT_CACHE_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    if data.get("fingerprint") != fingerprint():
+        return None
+    return _from_json(data)
+
+
+@lru_cache(maxsize=1)
+def build_layout() -> Layout:
+    cached = load_cached_layout()
+    if cached:
+        return cached
+    logger.warning("assets/layout.json is missing or stale; computing the layout (slow). Run scripts/make_template.py.")
+    return compute_layout()

@@ -41,14 +41,21 @@ BANGLA_LETTERS = (
 )
 
 BN_SIGNS = ["া", "ি", "ী", "ু", "ূ", "ৃ", "ে", "ৈ", "ৗ"]
-# The spec's list first. Only conjuncts that are one glyph in the final font
-# get a cell (see glyphmap.py); in Noto Sans Bengali ক্ত ন্ত ন্দ স্ত ম্ব ন্ন ল্প
-# are assembled from parts, so they are excluded and fall back to a visible
-# hasanta. The second line holds common conjuncts that are single glyphs.
-CONJUNCTS = (
-    "ক্ষ ক্ত ঙ্গ ন্ত ন্দ স্ত ম্ব ন্ন ত্ত ল্প ষ্ট জ্ঞ".split()
-    + "ঞ্চ ঞ্জ ঙ্ক ণ্ড ষ্ঠ ক্স ট্ট".split()
-)
+# Conjuncts that are one glyph in the final font: the user writes them whole.
+CONJUNCTS = "ক্ষ ঙ্গ ত্ত ষ্ট জ্ঞ ঞ্চ ঞ্জ".split()
+
+# Conjuncts Noto Sans Bengali assembles from parts (half forms, below-base
+# forms, headline pieces). glyphmap.py finds the parts by tracing the GSUB
+# lookups and gives each part its own cell, with the rest of the conjunct
+# printed as a ghost.
+# হ্ন is not in the original list, but once ka-beng.arm2 exists it forms
+# without its headline piece and the মাত্রা breaks, so it gets its part too.
+PART_CONJUNCTS = "ক্ত ন্ত ন্দ স্ত ম্ব ন্ন ল্প হ্ন".split()
+
+# Contexts searched when a part only exists as an intermediate glyph (for
+# example the half form ক্ that ক্ত passes through) and we need somewhere it
+# is visible so the user can write it.
+CONSONANTS_FOR_CONTEXT = "ক খ গ ঘ ঙ চ ছ জ ঝ ঞ ট ঠ ড ঢ ণ ত থ দ ধ ন প ফ ব ভ ম য র ল শ ষ স হ".split()
 
 BANGLA_SIGNS = (
     [CellSpec("ক" + s, ghost="ক", group="sign") for s in BN_SIGNS]

@@ -1,4 +1,4 @@
-"""The printable A4 template: 3 pages, ArUco corners, dropout-blue guides."""
+"""The printable A4 template: 3 pages, ArUco corners, light grey guides."""
 
 from __future__ import annotations
 
@@ -15,8 +15,18 @@ from . import config as C
 from .basefont import base_shaper, headline_units
 from .charset import PAGE_TITLES
 from .glyphmap import Cell, build_layout
+from .guides import (
+    BANGLA_LABEL_BASE_MM,
+    BANGLA_LABEL_HEAD_MM,
+    LABEL_X_MM,
+    LATIN_LABEL,
+    LATIN_LABEL_BASE_MM,
+    baseline_mm,
+    cell_lines,
+    run_left_mm,
+)
 
-DROPOUT = Color(*(v / 255 for v in C.DROPOUT_RGB))
+GUIDE = Color(*(v / 255 for v in C.GUIDE_RGB))
 INK = Color(*(v / 255 for v in C.INK_RGB))
 BN_DIGITS = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
 
@@ -122,37 +132,26 @@ def _draw_marker(c, marker_id, x_mm, y_mm, size_mm):
                 c.rect((x_mm + k * m) * mm, _y(y_mm + (r + 1) * m), m * mm, m * mm, stroke=0, fill=1)
 
 
-def cell_run_left_mm(cell: Cell) -> float:
-    """Where the shaped run (ghost + written glyph) starts inside the cell."""
-    return (C.CELL_MM - cell.run_advance * C.MM_PER_UNIT) / 2
-
-
 def _draw_cell(c, cell: Cell):
-    x, y, w, h = cell.box_mm()
-    s = C.MM_PER_UNIT
-    base = y + C.BASELINE_FROM_TOP_MM
-    head = base - headline_units() * s
-
-    c.setStrokeColor(DROPOUT)
-    c.setLineWidth(0.6)
-    c.rect(x * mm, _y(y + h), w * mm, h * mm, stroke=1, fill=0)
-    c.setLineWidth(0.45)
-    c.line((x + 1.5) * mm, _y(base), (x + w - 1.5) * mm, _y(base))
-    c.line((x + 1.5) * mm, _y(head), (x + w - 1.5) * mm, _y(head))
-    if cell.kind == "latin":
-        xh = base - headline_units() * C.LATIN_XHEIGHT_RATIO * s
-        c.setDash(0.6 * mm, 1.2 * mm)
-        c.line((x + 1.5) * mm, _y(xh), (x + w - 1.5) * mm, _y(xh))
-        c.setDash()
+    x, y, _, _ = cell.box_mm()
+    c.setStrokeColor(GUIDE)
+    for ln in cell_lines(cell):
+        c.setLineWidth(ln.width_pt)
+        if ln.dashed:
+            c.setDash(0.6 * mm, 1.2 * mm)
+        else:
+            c.setDash()
+        c.line(ln.x1 * mm, _y(ln.y1), ln.x2 * mm, _y(ln.y2))
+    c.setDash()
 
     if cell.kind == "latin":
-        _latin(c, cell.text, x + 1.2, y + 3.4, 7.5, DROPOUT, "Helvetica-Bold")
+        _latin(c, cell.text, x + LABEL_X_MM, y + LATIN_LABEL_BASE_MM, LATIN_LABEL[1], GUIDE, LATIN_LABEL[0])
     else:
-        _bangla(c, cell.text, x + 1.2, y + 3.6, 1.9, DROPOUT)
+        _bangla(c, cell.text, x + LABEL_X_MM, y + BANGLA_LABEL_BASE_MM, BANGLA_LABEL_HEAD_MM, GUIDE)
 
     if cell.ghost_glyphs:
-        left = x + cell_run_left_mm(cell)
-        _draw_glyphs(c, [(g.name, g.x, g.y) for g in cell.ghost_glyphs], left, base, s, DROPOUT)
+        glyphs = [(g.name, g.x, g.y) for g in cell.ghost_glyphs]
+        _draw_glyphs(c, glyphs, run_left_mm(cell), baseline_mm(cell), C.MM_PER_UNIT, GUIDE)
 
 
 def _fit(text_w, max_w, size):
@@ -169,7 +168,7 @@ INSTRUCTIONS_EN = (
 )
 GHOST_NOTE_BN = "হালকা অক্ষরটা লিখবেন না, শুধু চিহ্নটা লিখুন।"
 GHOST_NOTE_EN = "Don't trace the faint letter; write only the sign around it."
-PRINT_NOTE = "Print in colour at 100% (actual size). The blue lines disappear when we read the photo."
+PRINT_NOTE = "Print at 100% (actual size), colour or black-and-white. The grey guides disappear when we read the photo."
 
 
 def _draw_page(c, page: int, cells: list[Cell]):

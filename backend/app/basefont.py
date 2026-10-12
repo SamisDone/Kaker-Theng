@@ -51,6 +51,29 @@ class Shaper:
     def names(self, text: str, features: dict | None = None) -> list[str]:
         return [g.name for g in self.shape(text, features)]
 
+    def trace(self, text: str) -> list[tuple[str, list[str]]]:
+        """Every distinct buffer state during GSUB, as (lookup message, glyph names).
+
+        Shows intermediate glyphs a rule chain passes through, which the
+        final glyph run doesn't."""
+        buf = hb.Buffer()
+        buf.add_str(text)
+        buf.guess_segment_properties()
+        states: list[tuple[str, list[str]]] = []
+        n = len(self.order)
+
+        def on_message(msg: str) -> bool:
+            if msg.startswith("start table GPOS"):
+                return True
+            names = [self.order[i.codepoint] if i.codepoint < n else "" for i in buf.glyph_infos]
+            if "" not in names and (not states or states[-1][1] != names):
+                states.append((msg, names))
+            return True
+
+        buf.set_message_func(on_message)
+        hb.shape(self.hb_font, buf, {})
+        return states
+
 
 @lru_cache(maxsize=1)
 def base_bytes() -> bytes:

@@ -1,0 +1,5309 @@
+{
+ "fingerprint": "c10e05e8dcdf4347",
+ "cells": [
+  {
+   "page": 1,
+   "index": 0,
+   "row": 0,
+   "col": 0,
+   "text": "A",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "A",
+   "kind": "latin",
+   "unicode": 65,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 1,
+   "row": 0,
+   "col": 1,
+   "text": "B",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "B",
+   "kind": "latin",
+   "unicode": 66,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 2,
+   "row": 0,
+   "col": 2,
+   "text": "C",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "C",
+   "kind": "latin",
+   "unicode": 67,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 3,
+   "row": 0,
+   "col": 3,
+   "text": "D",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "D",
+   "kind": "latin",
+   "unicode": 68,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 4,
+   "row": 0,
+   "col": 4,
+   "text": "E",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "E",
+   "kind": "latin",
+   "unicode": 69,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 5,
+   "row": 0,
+   "col": 5,
+   "text": "F",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "F",
+   "kind": "latin",
+   "unicode": 70,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 6,
+   "row": 0,
+   "col": 6,
+   "text": "G",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "G",
+   "kind": "latin",
+   "unicode": 71,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 7,
+   "row": 0,
+   "col": 7,
+   "text": "H",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "H",
+   "kind": "latin",
+   "unicode": 72,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 8,
+   "row": 1,
+   "col": 0,
+   "text": "I",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "I",
+   "kind": "latin",
+   "unicode": 73,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 9,
+   "row": 1,
+   "col": 1,
+   "text": "J",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "J",
+   "kind": "latin",
+   "unicode": 74,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 10,
+   "row": 1,
+   "col": 2,
+   "text": "K",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "K",
+   "kind": "latin",
+   "unicode": 75,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 11,
+   "row": 1,
+   "col": 3,
+   "text": "L",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "L",
+   "kind": "latin",
+   "unicode": 76,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 12,
+   "row": 1,
+   "col": 4,
+   "text": "M",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "M",
+   "kind": "latin",
+   "unicode": 77,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 13,
+   "row": 1,
+   "col": 5,
+   "text": "N",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "N",
+   "kind": "latin",
+   "unicode": 78,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 14,
+   "row": 1,
+   "col": 6,
+   "text": "O",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "O",
+   "kind": "latin",
+   "unicode": 79,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 15,
+   "row": 1,
+   "col": 7,
+   "text": "P",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "P",
+   "kind": "latin",
+   "unicode": 80,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 16,
+   "row": 2,
+   "col": 0,
+   "text": "Q",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "Q",
+   "kind": "latin",
+   "unicode": 81,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 17,
+   "row": 2,
+   "col": 1,
+   "text": "R",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "R",
+   "kind": "latin",
+   "unicode": 82,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 18,
+   "row": 2,
+   "col": 2,
+   "text": "S",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "S",
+   "kind": "latin",
+   "unicode": 83,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 19,
+   "row": 2,
+   "col": 3,
+   "text": "T",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "T",
+   "kind": "latin",
+   "unicode": 84,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 20,
+   "row": 2,
+   "col": 4,
+   "text": "U",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "U",
+   "kind": "latin",
+   "unicode": 85,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 21,
+   "row": 2,
+   "col": 5,
+   "text": "V",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "V",
+   "kind": "latin",
+   "unicode": 86,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 22,
+   "row": 2,
+   "col": 6,
+   "text": "W",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "W",
+   "kind": "latin",
+   "unicode": 87,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 23,
+   "row": 2,
+   "col": 7,
+   "text": "X",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "X",
+   "kind": "latin",
+   "unicode": 88,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 24,
+   "row": 3,
+   "col": 0,
+   "text": "Y",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "Y",
+   "kind": "latin",
+   "unicode": 89,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 25,
+   "row": 3,
+   "col": 1,
+   "text": "Z",
+   "ghost": null,
+   "group": "upper",
+   "glyph": "Z",
+   "kind": "latin",
+   "unicode": 90,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 26,
+   "row": 3,
+   "col": 2,
+   "text": "a",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "a",
+   "kind": "latin",
+   "unicode": 97,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 27,
+   "row": 3,
+   "col": 3,
+   "text": "b",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "b",
+   "kind": "latin",
+   "unicode": 98,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 28,
+   "row": 3,
+   "col": 4,
+   "text": "c",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "c",
+   "kind": "latin",
+   "unicode": 99,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 29,
+   "row": 3,
+   "col": 5,
+   "text": "d",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "d",
+   "kind": "latin",
+   "unicode": 100,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 30,
+   "row": 3,
+   "col": 6,
+   "text": "e",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "e",
+   "kind": "latin",
+   "unicode": 101,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 31,
+   "row": 3,
+   "col": 7,
+   "text": "f",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "f",
+   "kind": "latin",
+   "unicode": 102,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 32,
+   "row": 4,
+   "col": 0,
+   "text": "g",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "g",
+   "kind": "latin",
+   "unicode": 103,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 33,
+   "row": 4,
+   "col": 1,
+   "text": "h",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "h",
+   "kind": "latin",
+   "unicode": 104,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 34,
+   "row": 4,
+   "col": 2,
+   "text": "i",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "i",
+   "kind": "latin",
+   "unicode": 105,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 35,
+   "row": 4,
+   "col": 3,
+   "text": "j",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "j",
+   "kind": "latin",
+   "unicode": 106,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 36,
+   "row": 4,
+   "col": 4,
+   "text": "k",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "k",
+   "kind": "latin",
+   "unicode": 107,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 37,
+   "row": 4,
+   "col": 5,
+   "text": "l",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "l",
+   "kind": "latin",
+   "unicode": 108,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 38,
+   "row": 4,
+   "col": 6,
+   "text": "m",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "m",
+   "kind": "latin",
+   "unicode": 109,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 39,
+   "row": 4,
+   "col": 7,
+   "text": "n",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "n",
+   "kind": "latin",
+   "unicode": 110,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 40,
+   "row": 5,
+   "col": 0,
+   "text": "o",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "o",
+   "kind": "latin",
+   "unicode": 111,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 41,
+   "row": 5,
+   "col": 1,
+   "text": "p",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "p",
+   "kind": "latin",
+   "unicode": 112,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 42,
+   "row": 5,
+   "col": 2,
+   "text": "q",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "q",
+   "kind": "latin",
+   "unicode": 113,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 43,
+   "row": 5,
+   "col": 3,
+   "text": "r",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "r",
+   "kind": "latin",
+   "unicode": 114,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 44,
+   "row": 5,
+   "col": 4,
+   "text": "s",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "s",
+   "kind": "latin",
+   "unicode": 115,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 45,
+   "row": 5,
+   "col": 5,
+   "text": "t",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "t",
+   "kind": "latin",
+   "unicode": 116,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 46,
+   "row": 5,
+   "col": 6,
+   "text": "u",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "u",
+   "kind": "latin",
+   "unicode": 117,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 47,
+   "row": 5,
+   "col": 7,
+   "text": "v",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "v",
+   "kind": "latin",
+   "unicode": 118,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 48,
+   "row": 6,
+   "col": 0,
+   "text": "w",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "w",
+   "kind": "latin",
+   "unicode": 119,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 49,
+   "row": 6,
+   "col": 1,
+   "text": "x",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "x",
+   "kind": "latin",
+   "unicode": 120,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 50,
+   "row": 6,
+   "col": 2,
+   "text": "y",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "y",
+   "kind": "latin",
+   "unicode": 121,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 51,
+   "row": 6,
+   "col": 3,
+   "text": "z",
+   "ghost": null,
+   "group": "lower",
+   "glyph": "z",
+   "kind": "latin",
+   "unicode": 122,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 52,
+   "row": 6,
+   "col": 4,
+   "text": "0",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "zero",
+   "kind": "latin",
+   "unicode": 48,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 53,
+   "row": 6,
+   "col": 5,
+   "text": "1",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "one",
+   "kind": "latin",
+   "unicode": 49,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 54,
+   "row": 6,
+   "col": 6,
+   "text": "2",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "two",
+   "kind": "latin",
+   "unicode": 50,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 55,
+   "row": 6,
+   "col": 7,
+   "text": "3",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "three",
+   "kind": "latin",
+   "unicode": 51,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 56,
+   "row": 7,
+   "col": 0,
+   "text": "4",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "four",
+   "kind": "latin",
+   "unicode": 52,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 57,
+   "row": 7,
+   "col": 1,
+   "text": "5",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "five",
+   "kind": "latin",
+   "unicode": 53,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 58,
+   "row": 7,
+   "col": 2,
+   "text": "6",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "six",
+   "kind": "latin",
+   "unicode": 54,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 59,
+   "row": 7,
+   "col": 3,
+   "text": "7",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "seven",
+   "kind": "latin",
+   "unicode": 55,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 60,
+   "row": 7,
+   "col": 4,
+   "text": "8",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "eight",
+   "kind": "latin",
+   "unicode": 56,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 61,
+   "row": 7,
+   "col": 5,
+   "text": "9",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "nine",
+   "kind": "latin",
+   "unicode": 57,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 62,
+   "row": 7,
+   "col": 6,
+   "text": ".",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "period",
+   "kind": "latin",
+   "unicode": 46,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 63,
+   "row": 7,
+   "col": 7,
+   "text": ",",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "comma",
+   "kind": "latin",
+   "unicode": 44,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 64,
+   "row": 8,
+   "col": 0,
+   "text": ";",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "semicolon",
+   "kind": "latin",
+   "unicode": 59,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 65,
+   "row": 8,
+   "col": 1,
+   "text": ":",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "colon",
+   "kind": "latin",
+   "unicode": 58,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 66,
+   "row": 8,
+   "col": 2,
+   "text": "!",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "exclam",
+   "kind": "latin",
+   "unicode": 33,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 67,
+   "row": 8,
+   "col": 3,
+   "text": "?",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "question",
+   "kind": "latin",
+   "unicode": 63,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 68,
+   "row": 8,
+   "col": 4,
+   "text": "'",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "quotesingle",
+   "kind": "latin",
+   "unicode": 39,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 69,
+   "row": 8,
+   "col": 5,
+   "text": "\"",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "quotedbl",
+   "kind": "latin",
+   "unicode": 34,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 70,
+   "row": 8,
+   "col": 6,
+   "text": "(",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "parenleft",
+   "kind": "latin",
+   "unicode": 40,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 71,
+   "row": 8,
+   "col": 7,
+   "text": ")",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "parenright",
+   "kind": "latin",
+   "unicode": 41,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 72,
+   "row": 9,
+   "col": 0,
+   "text": "-",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "hyphen",
+   "kind": "latin",
+   "unicode": 45,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 73,
+   "row": 9,
+   "col": 1,
+   "text": "&",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "ampersand",
+   "kind": "latin",
+   "unicode": 38,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 74,
+   "row": 9,
+   "col": 2,
+   "text": "@",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "at",
+   "kind": "latin",
+   "unicode": 64,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 1,
+   "index": 75,
+   "row": 9,
+   "col": 3,
+   "text": "/",
+   "ghost": null,
+   "group": "punct",
+   "glyph": "slash",
+   "kind": "latin",
+   "unicode": 47,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 0
+  },
+  {
+   "page": 2,
+   "index": 0,
+   "row": 0,
+   "col": 0,
+   "text": "অ",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "a-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 893
+  },
+  {
+   "page": 2,
+   "index": 1,
+   "row": 0,
+   "col": 1,
+   "text": "আ",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "aa-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1159
+  },
+  {
+   "page": 2,
+   "index": 2,
+   "row": 0,
+   "col": 2,
+   "text": "ই",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "i-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 534
+  },
+  {
+   "page": 2,
+   "index": 3,
+   "row": 0,
+   "col": 3,
+   "text": "ঈ",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "ii-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 689
+  },
+  {
+   "page": 2,
+   "index": 4,
+   "row": 0,
+   "col": 4,
+   "text": "উ",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "u-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 712
+  },
+  {
+   "page": 2,
+   "index": 5,
+   "row": 0,
+   "col": 5,
+   "text": "ঊ",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "uu-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 800
+  },
+  {
+   "page": 2,
+   "index": 6,
+   "row": 0,
+   "col": 6,
+   "text": "ঋ",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "rVocalic-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 846
+  },
+  {
+   "page": 2,
+   "index": 7,
+   "row": 0,
+   "col": 7,
+   "text": "এ",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "e-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 731
+  },
+  {
+   "page": 2,
+   "index": 8,
+   "row": 1,
+   "col": 0,
+   "text": "ঐ",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "ai-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 853
+  },
+  {
+   "page": 2,
+   "index": 9,
+   "row": 1,
+   "col": 1,
+   "text": "ও",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "o-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 738
+  },
+  {
+   "page": 2,
+   "index": 10,
+   "row": 1,
+   "col": 2,
+   "text": "ঔ",
+   "ghost": null,
+   "group": "vowel",
+   "glyph": "au-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 874
+  },
+  {
+   "page": 2,
+   "index": 11,
+   "row": 2,
+   "col": 0,
+   "text": "ক",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ka-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 807
+  },
+  {
+   "page": 2,
+   "index": 12,
+   "row": 2,
+   "col": 1,
+   "text": "খ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "kha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 661
+  },
+  {
+   "page": 2,
+   "index": 13,
+   "row": 2,
+   "col": 2,
+   "text": "গ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ga-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 646
+  },
+  {
+   "page": 2,
+   "index": 14,
+   "row": 2,
+   "col": 3,
+   "text": "ঘ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "gha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 621
+  },
+  {
+   "page": 2,
+   "index": 15,
+   "row": 2,
+   "col": 4,
+   "text": "ঙ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "nga-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 715
+  },
+  {
+   "page": 2,
+   "index": 16,
+   "row": 2,
+   "col": 5,
+   "text": "চ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ca-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 538
+  },
+  {
+   "page": 2,
+   "index": 17,
+   "row": 2,
+   "col": 6,
+   "text": "ছ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "cha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 609
+  },
+  {
+   "page": 2,
+   "index": 18,
+   "row": 2,
+   "col": 7,
+   "text": "জ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ja-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 862
+  },
+  {
+   "page": 2,
+   "index": 19,
+   "row": 3,
+   "col": 0,
+   "text": "ঝ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "jha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 797
+  },
+  {
+   "page": 2,
+   "index": 20,
+   "row": 3,
+   "col": 1,
+   "text": "ঞ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "nya-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 993
+  },
+  {
+   "page": 2,
+   "index": 21,
+   "row": 3,
+   "col": 2,
+   "text": "ট",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "tta-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 547
+  },
+  {
+   "page": 2,
+   "index": 22,
+   "row": 3,
+   "col": 3,
+   "text": "ঠ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ttha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 541
+  },
+  {
+   "page": 2,
+   "index": 23,
+   "row": 3,
+   "col": 4,
+   "text": "ড",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "dda-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 712
+  },
+  {
+   "page": 2,
+   "index": 24,
+   "row": 3,
+   "col": 5,
+   "text": "ঢ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ddha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 547
+  },
+  {
+   "page": 2,
+   "index": 25,
+   "row": 3,
+   "col": 6,
+   "text": "ণ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "nna-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 620
+  },
+  {
+   "page": 2,
+   "index": 26,
+   "row": 3,
+   "col": 7,
+   "text": "ত",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ta-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 707
+  },
+  {
+   "page": 2,
+   "index": 27,
+   "row": 4,
+   "col": 0,
+   "text": "থ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "tha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 645
+  },
+  {
+   "page": 2,
+   "index": 28,
+   "row": 4,
+   "col": 1,
+   "text": "দ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "da-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 553
+  },
+  {
+   "page": 2,
+   "index": 29,
+   "row": 4,
+   "col": 2,
+   "text": "ধ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "dha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 596
+  },
+  {
+   "page": 2,
+   "index": 30,
+   "row": 4,
+   "col": 3,
+   "text": "ন",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "na-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 602
+  },
+  {
+   "page": 2,
+   "index": 31,
+   "row": 4,
+   "col": 4,
+   "text": "প",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "pa-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 716
+  },
+  {
+   "page": 2,
+   "index": 32,
+   "row": 4,
+   "col": 5,
+   "text": "ফ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "pha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 833
+  },
+  {
+   "page": 2,
+   "index": 33,
+   "row": 4,
+   "col": 6,
+   "text": "ব",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ba-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 596
+  },
+  {
+   "page": 2,
+   "index": 34,
+   "row": 4,
+   "col": 7,
+   "text": "ভ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "bha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 701
+  },
+  {
+   "page": 2,
+   "index": 35,
+   "row": 5,
+   "col": 0,
+   "text": "ম",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ma-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 612
+  },
+  {
+   "page": 2,
+   "index": 36,
+   "row": 5,
+   "col": 1,
+   "text": "য",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ya-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 626
+  },
+  {
+   "page": 2,
+   "index": 37,
+   "row": 5,
+   "col": 2,
+   "text": "র",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 596
+  },
+  {
+   "page": 2,
+   "index": 38,
+   "row": 5,
+   "col": 3,
+   "text": "ল",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "la-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 731
+  },
+  {
+   "page": 2,
+   "index": 39,
+   "row": 5,
+   "col": 4,
+   "text": "শ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "sha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 681
+  },
+  {
+   "page": 2,
+   "index": 40,
+   "row": 5,
+   "col": 5,
+   "text": "ষ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ssa-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 626
+  },
+  {
+   "page": 2,
+   "index": 41,
+   "row": 5,
+   "col": 6,
+   "text": "স",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "sa-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 623
+  },
+  {
+   "page": 2,
+   "index": 42,
+   "row": 5,
+   "col": 7,
+   "text": "হ",
+   "ghost": null,
+   "group": "consonant",
+   "glyph": "ha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 534
+  },
+  {
+   "page": 2,
+   "index": 43,
+   "row": 6,
+   "col": 0,
+   "text": "য়",
+   "ghost": "য",
+   "group": "nukta",
+   "glyph": "nukta-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ya-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 230,
+   "target_y": 108,
+   "run_advance": 626
+  },
+  {
+   "page": 2,
+   "index": 44,
+   "row": 7,
+   "col": 0,
+   "text": "ৎ",
+   "ghost": null,
+   "group": "other",
+   "glyph": "taKhanda-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 542
+  },
+  {
+   "page": 2,
+   "index": 45,
+   "row": 7,
+   "col": 1,
+   "text": "কং",
+   "ghost": "ক",
+   "group": "other",
+   "glyph": "anusvara-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1245
+  },
+  {
+   "page": 2,
+   "index": 46,
+   "row": 7,
+   "col": 2,
+   "text": "কঃ",
+   "ghost": "ক",
+   "group": "other",
+   "glyph": "visarga-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1245
+  },
+  {
+   "page": 2,
+   "index": 47,
+   "row": 7,
+   "col": 3,
+   "text": "কঁ",
+   "ghost": "ক",
+   "group": "other",
+   "glyph": "candrabindu-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 446,
+   "target_y": 0,
+   "run_advance": 807
+  },
+  {
+   "page": 3,
+   "index": 0,
+   "row": 0,
+   "col": 0,
+   "text": "কা",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "aaMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1073
+  },
+  {
+   "page": 3,
+   "index": 1,
+   "row": 0,
+   "col": 1,
+   "text": "কি",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "iMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 266,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1073
+  },
+  {
+   "page": 3,
+   "index": 2,
+   "row": 0,
+   "col": 2,
+   "text": "কী",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "iiMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1073
+  },
+  {
+   "page": 3,
+   "index": 3,
+   "row": 0,
+   "col": 3,
+   "text": "কু",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "uMatra-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 414,
+   "target_y": 0,
+   "run_advance": 807
+  },
+  {
+   "page": 3,
+   "index": 4,
+   "row": 0,
+   "col": 4,
+   "text": "কূ",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "uuMatra-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 414,
+   "target_y": 0,
+   "run_advance": 807
+  },
+  {
+   "page": 3,
+   "index": 5,
+   "row": 0,
+   "col": 5,
+   "text": "কৃ",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "rVocalicMatra-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 414,
+   "target_y": 0,
+   "run_advance": 807
+  },
+  {
+   "page": 3,
+   "index": 6,
+   "row": 0,
+   "col": 6,
+   "text": "কে",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "eMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 361,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1168
+  },
+  {
+   "page": 3,
+   "index": 7,
+   "row": 0,
+   "col": 7,
+   "text": "কৈ",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "aiMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 361,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1168
+  },
+  {
+   "page": 3,
+   "index": 8,
+   "row": 1,
+   "col": 0,
+   "text": "কৗ",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "auLength-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1073
+  },
+  {
+   "page": 3,
+   "index": 9,
+   "row": 1,
+   "col": 1,
+   "text": "ক্",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "halant-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 414,
+   "target_y": 0,
+   "run_advance": 807
+  },
+  {
+   "page": 3,
+   "index": 10,
+   "row": 2,
+   "col": 0,
+   "text": "।",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "danda-deva",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 379
+  },
+  {
+   "page": 3,
+   "index": 11,
+   "row": 2,
+   "col": 1,
+   "text": "০",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "zero-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 12,
+   "row": 2,
+   "col": 2,
+   "text": "১",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "one-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 13,
+   "row": 2,
+   "col": 3,
+   "text": "২",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "two-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 14,
+   "row": 2,
+   "col": 4,
+   "text": "৩",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "three-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 15,
+   "row": 2,
+   "col": 5,
+   "text": "৪",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "four-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 16,
+   "row": 2,
+   "col": 6,
+   "text": "৫",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "five-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 17,
+   "row": 2,
+   "col": 7,
+   "text": "৬",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "six-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 18,
+   "row": 3,
+   "col": 0,
+   "text": "৭",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "seven-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 19,
+   "row": 3,
+   "col": 1,
+   "text": "৮",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "eight-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 20,
+   "row": 3,
+   "col": 2,
+   "text": "৯",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "nine-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592
+  },
+  {
+   "page": 3,
+   "index": 21,
+   "row": 4,
+   "col": 0,
+   "text": "র্ক",
+   "ghost": "ক",
+   "group": "phala",
+   "glyph": "reph-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 446,
+   "target_y": 0,
+   "run_advance": 807
+  },
+  {
+   "page": 3,
+   "index": 22,
+   "row": 4,
+   "col": 1,
+   "text": "প্র",
+   "ghost": "প",
+   "group": "phala",
+   "glyph": "raphala-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "pa-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 94,
+   "target_y": -158,
+   "run_advance": 716
+  },
+  {
+   "page": 3,
+   "index": 23,
+   "row": 4,
+   "col": 2,
+   "text": "ক্য",
+   "ghost": "ক",
+   "group": "phala",
+   "glyph": "ya-beng.pstf",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1077
+  },
+  {
+   "page": 3,
+   "index": 24,
+   "row": 5,
+   "col": 0,
+   "text": "ক্ষ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "k_ssa-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 859
+  },
+  {
+   "page": 3,
+   "index": 25,
+   "row": 5,
+   "col": 1,
+   "text": "ঙ্গ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "ng_ga-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 689
+  },
+  {
+   "page": 3,
+   "index": 26,
+   "row": 5,
+   "col": 2,
+   "text": "ত্ত",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "t_ta-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 710
+  },
+  {
+   "page": 3,
+   "index": 27,
+   "row": 5,
+   "col": 3,
+   "text": "ষ্ট",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "ss_tta-beng.noflag",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 531
+  },
+  {
+   "page": 3,
+   "index": 28,
+   "row": 5,
+   "col": 4,
+   "text": "জ্ঞ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "j_nya-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 939
+  },
+  {
+   "page": 3,
+   "index": 29,
+   "row": 5,
+   "col": 5,
+   "text": "ঞ্চ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "ny_ca-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 853
+  },
+  {
+   "page": 3,
+   "index": 30,
+   "row": 5,
+   "col": 6,
+   "text": "ঞ্জ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "ny_ja-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 763
+  },
+  {
+   "page": 3,
+   "index": 31,
+   "row": 6,
+   "col": 0,
+   "text": "ক্ত",
+   "ghost": null,
+   "group": "part",
+   "glyph": "ka-beng.arm2",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "t_ta-beng",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "headline-beng.200",
+     "x": 710,
+     "y": 0
+    }
+   ],
+   "target_x": 545,
+   "target_y": 23,
+   "run_advance": 910
+  },
+  {
+   "page": 3,
+   "index": 32,
+   "row": 6,
+   "col": 1,
+   "text": "ক্ত",
+   "ghost": null,
+   "group": "part",
+   "glyph": "headline-beng.200",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "t_ta-beng",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "ka-beng.arm2",
+     "x": 545,
+     "y": 23
+    }
+   ],
+   "target_x": 710,
+   "target_y": 0,
+   "run_advance": 910
+  },
+  {
+   "page": 3,
+   "index": 33,
+   "row": 6,
+   "col": 2,
+   "text": "ন্ত",
+   "ghost": null,
+   "group": "part",
+   "glyph": "n-beng.half3",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ta-beng.blws",
+     "x": -13,
+     "y": 52
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 756
+  },
+  {
+   "page": 3,
+   "index": 34,
+   "row": 6,
+   "col": 3,
+   "text": "ন্ত",
+   "ghost": null,
+   "group": "part",
+   "glyph": "ta-beng.blws",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "n-beng.half3",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": -13,
+   "target_y": 52,
+   "run_advance": 756
+  },
+  {
+   "page": 3,
+   "index": 35,
+   "row": 6,
+   "col": 4,
+   "text": "ন্দ",
+   "ghost": null,
+   "group": "part",
+   "glyph": "n-beng.headline",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "da-beng",
+     "x": 299,
+     "y": 0
+    },
+    {
+     "name": "n-beng.float",
+     "x": 25,
+     "y": -24
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 852
+  },
+  {
+   "page": 3,
+   "index": 36,
+   "row": 6,
+   "col": 5,
+   "text": "ন্দ",
+   "ghost": null,
+   "group": "part",
+   "glyph": "n-beng.float",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "n-beng.headline",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "da-beng",
+     "x": 299,
+     "y": 0
+    }
+   ],
+   "target_x": 25,
+   "target_y": -24,
+   "run_advance": 852
+  },
+  {
+   "page": 3,
+   "index": 37,
+   "row": 6,
+   "col": 6,
+   "text": "স্ত",
+   "ghost": null,
+   "group": "part",
+   "glyph": "s-beng.half3",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ta-beng.blws",
+     "x": 1,
+     "y": 52
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 782
+  },
+  {
+   "page": 3,
+   "index": 38,
+   "row": 6,
+   "col": 7,
+   "text": "ম্ব",
+   "ghost": null,
+   "group": "part",
+   "glyph": "m-beng.half",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "baphala-beng.alt4",
+     "x": 118,
+     "y": 126
+    },
+    {
+     "name": "headline-beng.200",
+     "x": 391,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 591
+  },
+  {
+   "page": 3,
+   "index": 39,
+   "row": 7,
+   "col": 0,
+   "text": "ম্ব",
+   "ghost": null,
+   "group": "part",
+   "glyph": "baphala-beng.alt4",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "m-beng.half",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "headline-beng.200",
+     "x": 391,
+     "y": 0
+    }
+   ],
+   "target_x": 118,
+   "target_y": 126,
+   "run_advance": 591
+  },
+  {
+   "page": 3,
+   "index": 40,
+   "row": 7,
+   "col": 1,
+   "text": "ন্ন",
+   "ghost": null,
+   "group": "part",
+   "glyph": "aaMatra-beng.part",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "n-beng.headline",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "n-beng.float",
+     "x": 30,
+     "y": 7
+    },
+    {
+     "name": "na-beng.blws1",
+     "x": 45,
+     "y": 45
+    }
+   ],
+   "target_x": 291,
+   "target_y": 0,
+   "run_advance": 555
+  },
+  {
+   "page": 3,
+   "index": 41,
+   "row": 7,
+   "col": 2,
+   "text": "ন্ন",
+   "ghost": null,
+   "group": "part",
+   "glyph": "na-beng.blws1",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "n-beng.headline",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "aaMatra-beng.part",
+     "x": 291,
+     "y": 0
+    },
+    {
+     "name": "n-beng.float",
+     "x": 30,
+     "y": 7
+    }
+   ],
+   "target_x": 45,
+   "target_y": 45,
+   "run_advance": 555
+  },
+  {
+   "page": 3,
+   "index": 42,
+   "row": 7,
+   "col": 3,
+   "text": "ল্প",
+   "ghost": null,
+   "group": "part",
+   "glyph": "l-beng.half3",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "aaMatra-beng.part2",
+     "x": 402,
+     "y": 0
+    },
+    {
+     "name": "pa-beng.blws",
+     "x": 52,
+     "y": -80
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 666
+  },
+  {
+   "page": 3,
+   "index": 43,
+   "row": 7,
+   "col": 4,
+   "text": "ল্প",
+   "ghost": null,
+   "group": "part",
+   "glyph": "aaMatra-beng.part2",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "l-beng.half3",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "pa-beng.blws",
+     "x": 52,
+     "y": -80
+    }
+   ],
+   "target_x": 402,
+   "target_y": 0,
+   "run_advance": 666
+  },
+  {
+   "page": 3,
+   "index": 44,
+   "row": 7,
+   "col": 5,
+   "text": "ল্প",
+   "ghost": null,
+   "group": "part",
+   "glyph": "pa-beng.blws",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "l-beng.half3",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "aaMatra-beng.part2",
+     "x": 402,
+     "y": 0
+    }
+   ],
+   "target_x": 52,
+   "target_y": -80,
+   "run_advance": 666
+  },
+  {
+   "page": 3,
+   "index": 45,
+   "row": 7,
+   "col": 6,
+   "text": "হ্ন",
+   "ghost": null,
+   "group": "part",
+   "glyph": "headline-beng.250",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ha-beng",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "ka-beng.arm2",
+     "x": 382,
+     "y": 14
+    }
+   ],
+   "target_x": 494,
+   "target_y": 0,
+   "run_advance": 744
+  },
+  {
+   "page": 3,
+   "index": 46,
+   "row": 7,
+   "col": 7,
+   "text": "ক্ব",
+   "ghost": null,
+   "group": "part",
+   "glyph": "k-beng.half",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "baphala-beng.alt4",
+     "x": 139,
+     "y": -88
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 801
+  },
+  {
+   "page": 3,
+   "index": 47,
+   "row": 8,
+   "col": 0,
+   "text": "খ্ব",
+   "ghost": null,
+   "group": "part",
+   "glyph": "baphala-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "kha-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 252,
+   "target_y": -181,
+   "run_advance": 661
+  }
+ ],
+ "excluded": [
+  {
+   "page": 2,
+   "text": "ড়",
+   "ghost": "ড",
+   "base_font": [
+    "dda-beng",
+    "nukta-beng"
+   ],
+   "basic_forms": [
+    "dda-beng",
+    "nukta-beng"
+   ],
+   "final_font": [
+    "dda-beng",
+    "nukta-beng"
+   ],
+   "glyph": null,
+   "status": "same glyph as cell য়"
+  },
+  {
+   "page": 2,
+   "text": "ঢ়",
+   "ghost": "ঢ",
+   "base_font": [
+    "ddha-beng",
+    "nukta-beng"
+   ],
+   "basic_forms": [
+    "ddha-beng",
+    "nukta-beng"
+   ],
+   "final_font": [
+    "ddha-beng",
+    "nukta-beng"
+   ],
+   "glyph": null,
+   "status": "same glyph as cell য়"
+  }
+ ],
+ "log": [
+  {
+   "page": 1,
+   "text": "A",
+   "glyph": "A",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "B",
+   "glyph": "B",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "C",
+   "glyph": "C",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "D",
+   "glyph": "D",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "E",
+   "glyph": "E",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "F",
+   "glyph": "F",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "G",
+   "glyph": "G",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "H",
+   "glyph": "H",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "I",
+   "glyph": "I",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "J",
+   "glyph": "J",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "K",
+   "glyph": "K",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "L",
+   "glyph": "L",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "M",
+   "glyph": "M",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "N",
+   "glyph": "N",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "O",
+   "glyph": "O",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "P",
+   "glyph": "P",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "Q",
+   "glyph": "Q",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "R",
+   "glyph": "R",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "S",
+   "glyph": "S",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "T",
+   "glyph": "T",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "U",
+   "glyph": "U",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "V",
+   "glyph": "V",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "W",
+   "glyph": "W",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "X",
+   "glyph": "X",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "Y",
+   "glyph": "Y",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "Z",
+   "glyph": "Z",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "a",
+   "glyph": "a",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "b",
+   "glyph": "b",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "c",
+   "glyph": "c",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "d",
+   "glyph": "d",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "e",
+   "glyph": "e",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "f",
+   "glyph": "f",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "g",
+   "glyph": "g",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "h",
+   "glyph": "h",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "i",
+   "glyph": "i",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "j",
+   "glyph": "j",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "k",
+   "glyph": "k",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "l",
+   "glyph": "l",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "m",
+   "glyph": "m",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "n",
+   "glyph": "n",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "o",
+   "glyph": "o",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "p",
+   "glyph": "p",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "q",
+   "glyph": "q",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "r",
+   "glyph": "r",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "s",
+   "glyph": "s",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "t",
+   "glyph": "t",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "u",
+   "glyph": "u",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "v",
+   "glyph": "v",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "w",
+   "glyph": "w",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "x",
+   "glyph": "x",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "y",
+   "glyph": "y",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "z",
+   "glyph": "z",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "0",
+   "glyph": "zero",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "1",
+   "glyph": "one",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "2",
+   "glyph": "two",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "3",
+   "glyph": "three",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "4",
+   "glyph": "four",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "5",
+   "glyph": "five",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "6",
+   "glyph": "six",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "7",
+   "glyph": "seven",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "8",
+   "glyph": "eight",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "9",
+   "glyph": "nine",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": ".",
+   "glyph": "period",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": ",",
+   "glyph": "comma",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": ";",
+   "glyph": "semicolon",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": ":",
+   "glyph": "colon",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "!",
+   "glyph": "exclam",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "?",
+   "glyph": "question",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "'",
+   "glyph": "quotesingle",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "\"",
+   "glyph": "quotedbl",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "(",
+   "glyph": "parenleft",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": ")",
+   "glyph": "parenright",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "-",
+   "glyph": "hyphen",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "&",
+   "glyph": "ampersand",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "@",
+   "glyph": "at",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 1,
+   "text": "/",
+   "glyph": "slash",
+   "kind": "latin",
+   "status": "new glyph"
+  },
+  {
+   "page": 2,
+   "text": "অ",
+   "ghost": null,
+   "base_font": [
+    "a-beng"
+   ],
+   "basic_forms": [
+    "a-beng"
+   ],
+   "final_font": [
+    "a-beng"
+   ],
+   "glyph": "a-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "আ",
+   "ghost": null,
+   "base_font": [
+    "aa-beng"
+   ],
+   "basic_forms": [
+    "aa-beng"
+   ],
+   "final_font": [
+    "aa-beng"
+   ],
+   "glyph": "aa-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ই",
+   "ghost": null,
+   "base_font": [
+    "i-beng"
+   ],
+   "basic_forms": [
+    "i-beng"
+   ],
+   "final_font": [
+    "i-beng"
+   ],
+   "glyph": "i-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঈ",
+   "ghost": null,
+   "base_font": [
+    "ii-beng"
+   ],
+   "basic_forms": [
+    "ii-beng"
+   ],
+   "final_font": [
+    "ii-beng"
+   ],
+   "glyph": "ii-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "উ",
+   "ghost": null,
+   "base_font": [
+    "u-beng"
+   ],
+   "basic_forms": [
+    "u-beng"
+   ],
+   "final_font": [
+    "u-beng"
+   ],
+   "glyph": "u-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঊ",
+   "ghost": null,
+   "base_font": [
+    "uu-beng"
+   ],
+   "basic_forms": [
+    "uu-beng"
+   ],
+   "final_font": [
+    "uu-beng"
+   ],
+   "glyph": "uu-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঋ",
+   "ghost": null,
+   "base_font": [
+    "rVocalic-beng"
+   ],
+   "basic_forms": [
+    "rVocalic-beng"
+   ],
+   "final_font": [
+    "rVocalic-beng"
+   ],
+   "glyph": "rVocalic-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "এ",
+   "ghost": null,
+   "base_font": [
+    "e-beng"
+   ],
+   "basic_forms": [
+    "e-beng"
+   ],
+   "final_font": [
+    "e-beng"
+   ],
+   "glyph": "e-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঐ",
+   "ghost": null,
+   "base_font": [
+    "ai-beng"
+   ],
+   "basic_forms": [
+    "ai-beng"
+   ],
+   "final_font": [
+    "ai-beng"
+   ],
+   "glyph": "ai-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ও",
+   "ghost": null,
+   "base_font": [
+    "o-beng"
+   ],
+   "basic_forms": [
+    "o-beng"
+   ],
+   "final_font": [
+    "o-beng"
+   ],
+   "glyph": "o-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঔ",
+   "ghost": null,
+   "base_font": [
+    "au-beng"
+   ],
+   "basic_forms": [
+    "au-beng"
+   ],
+   "final_font": [
+    "au-beng"
+   ],
+   "glyph": "au-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ক",
+   "ghost": null,
+   "base_font": [
+    "ka-beng"
+   ],
+   "basic_forms": [
+    "ka-beng"
+   ],
+   "final_font": [
+    "ka-beng"
+   ],
+   "glyph": "ka-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "খ",
+   "ghost": null,
+   "base_font": [
+    "kha-beng"
+   ],
+   "basic_forms": [
+    "kha-beng"
+   ],
+   "final_font": [
+    "kha-beng"
+   ],
+   "glyph": "kha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "গ",
+   "ghost": null,
+   "base_font": [
+    "ga-beng"
+   ],
+   "basic_forms": [
+    "ga-beng"
+   ],
+   "final_font": [
+    "ga-beng"
+   ],
+   "glyph": "ga-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঘ",
+   "ghost": null,
+   "base_font": [
+    "gha-beng"
+   ],
+   "basic_forms": [
+    "gha-beng"
+   ],
+   "final_font": [
+    "gha-beng"
+   ],
+   "glyph": "gha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঙ",
+   "ghost": null,
+   "base_font": [
+    "nga-beng"
+   ],
+   "basic_forms": [
+    "nga-beng"
+   ],
+   "final_font": [
+    "nga-beng"
+   ],
+   "glyph": "nga-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "চ",
+   "ghost": null,
+   "base_font": [
+    "ca-beng"
+   ],
+   "basic_forms": [
+    "ca-beng"
+   ],
+   "final_font": [
+    "ca-beng"
+   ],
+   "glyph": "ca-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ছ",
+   "ghost": null,
+   "base_font": [
+    "cha-beng"
+   ],
+   "basic_forms": [
+    "cha-beng"
+   ],
+   "final_font": [
+    "cha-beng"
+   ],
+   "glyph": "cha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "জ",
+   "ghost": null,
+   "base_font": [
+    "ja-beng"
+   ],
+   "basic_forms": [
+    "ja-beng"
+   ],
+   "final_font": [
+    "ja-beng"
+   ],
+   "glyph": "ja-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঝ",
+   "ghost": null,
+   "base_font": [
+    "jha-beng"
+   ],
+   "basic_forms": [
+    "jha-beng"
+   ],
+   "final_font": [
+    "jha-beng"
+   ],
+   "glyph": "jha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঞ",
+   "ghost": null,
+   "base_font": [
+    "nya-beng"
+   ],
+   "basic_forms": [
+    "nya-beng"
+   ],
+   "final_font": [
+    "nya-beng"
+   ],
+   "glyph": "nya-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ট",
+   "ghost": null,
+   "base_font": [
+    "tta-beng"
+   ],
+   "basic_forms": [
+    "tta-beng"
+   ],
+   "final_font": [
+    "tta-beng"
+   ],
+   "glyph": "tta-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঠ",
+   "ghost": null,
+   "base_font": [
+    "ttha-beng"
+   ],
+   "basic_forms": [
+    "ttha-beng"
+   ],
+   "final_font": [
+    "ttha-beng"
+   ],
+   "glyph": "ttha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ড",
+   "ghost": null,
+   "base_font": [
+    "dda-beng"
+   ],
+   "basic_forms": [
+    "dda-beng"
+   ],
+   "final_font": [
+    "dda-beng"
+   ],
+   "glyph": "dda-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ঢ",
+   "ghost": null,
+   "base_font": [
+    "ddha-beng"
+   ],
+   "basic_forms": [
+    "ddha-beng"
+   ],
+   "final_font": [
+    "ddha-beng"
+   ],
+   "glyph": "ddha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ণ",
+   "ghost": null,
+   "base_font": [
+    "nna-beng"
+   ],
+   "basic_forms": [
+    "nna-beng"
+   ],
+   "final_font": [
+    "nna-beng"
+   ],
+   "glyph": "nna-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ত",
+   "ghost": null,
+   "base_font": [
+    "ta-beng"
+   ],
+   "basic_forms": [
+    "ta-beng"
+   ],
+   "final_font": [
+    "ta-beng"
+   ],
+   "glyph": "ta-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "থ",
+   "ghost": null,
+   "base_font": [
+    "tha-beng"
+   ],
+   "basic_forms": [
+    "tha-beng"
+   ],
+   "final_font": [
+    "tha-beng"
+   ],
+   "glyph": "tha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "দ",
+   "ghost": null,
+   "base_font": [
+    "da-beng"
+   ],
+   "basic_forms": [
+    "da-beng"
+   ],
+   "final_font": [
+    "da-beng"
+   ],
+   "glyph": "da-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ধ",
+   "ghost": null,
+   "base_font": [
+    "dha-beng"
+   ],
+   "basic_forms": [
+    "dha-beng"
+   ],
+   "final_font": [
+    "dha-beng"
+   ],
+   "glyph": "dha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ন",
+   "ghost": null,
+   "base_font": [
+    "na-beng"
+   ],
+   "basic_forms": [
+    "na-beng"
+   ],
+   "final_font": [
+    "na-beng"
+   ],
+   "glyph": "na-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "প",
+   "ghost": null,
+   "base_font": [
+    "pa-beng"
+   ],
+   "basic_forms": [
+    "pa-beng"
+   ],
+   "final_font": [
+    "pa-beng"
+   ],
+   "glyph": "pa-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ফ",
+   "ghost": null,
+   "base_font": [
+    "pha-beng"
+   ],
+   "basic_forms": [
+    "pha-beng"
+   ],
+   "final_font": [
+    "pha-beng"
+   ],
+   "glyph": "pha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ব",
+   "ghost": null,
+   "base_font": [
+    "ba-beng"
+   ],
+   "basic_forms": [
+    "ba-beng"
+   ],
+   "final_font": [
+    "ba-beng"
+   ],
+   "glyph": "ba-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ভ",
+   "ghost": null,
+   "base_font": [
+    "bha-beng"
+   ],
+   "basic_forms": [
+    "bha-beng"
+   ],
+   "final_font": [
+    "bha-beng"
+   ],
+   "glyph": "bha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ম",
+   "ghost": null,
+   "base_font": [
+    "ma-beng"
+   ],
+   "basic_forms": [
+    "ma-beng"
+   ],
+   "final_font": [
+    "ma-beng"
+   ],
+   "glyph": "ma-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "য",
+   "ghost": null,
+   "base_font": [
+    "ya-beng"
+   ],
+   "basic_forms": [
+    "ya-beng"
+   ],
+   "final_font": [
+    "ya-beng"
+   ],
+   "glyph": "ya-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "র",
+   "ghost": null,
+   "base_font": [
+    "ra-beng"
+   ],
+   "basic_forms": [
+    "ra-beng"
+   ],
+   "final_font": [
+    "ra-beng"
+   ],
+   "glyph": "ra-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ল",
+   "ghost": null,
+   "base_font": [
+    "la-beng"
+   ],
+   "basic_forms": [
+    "la-beng"
+   ],
+   "final_font": [
+    "la-beng"
+   ],
+   "glyph": "la-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "শ",
+   "ghost": null,
+   "base_font": [
+    "sha-beng"
+   ],
+   "basic_forms": [
+    "sha-beng"
+   ],
+   "final_font": [
+    "sha-beng"
+   ],
+   "glyph": "sha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "ষ",
+   "ghost": null,
+   "base_font": [
+    "ssa-beng"
+   ],
+   "basic_forms": [
+    "ssa-beng"
+   ],
+   "final_font": [
+    "ssa-beng"
+   ],
+   "glyph": "ssa-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "স",
+   "ghost": null,
+   "base_font": [
+    "sa-beng"
+   ],
+   "basic_forms": [
+    "sa-beng"
+   ],
+   "final_font": [
+    "sa-beng"
+   ],
+   "glyph": "sa-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "হ",
+   "ghost": null,
+   "base_font": [
+    "ha-beng"
+   ],
+   "basic_forms": [
+    "ha-beng"
+   ],
+   "final_font": [
+    "ha-beng"
+   ],
+   "glyph": "ha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "য়",
+   "ghost": "য",
+   "base_font": [
+    "ya-beng",
+    "nukta-beng"
+   ],
+   "basic_forms": [
+    "ya-beng",
+    "nukta-beng"
+   ],
+   "final_font": [
+    "ya-beng",
+    "nukta-beng"
+   ],
+   "glyph": "nukta-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 2,
+   "text": "ড়",
+   "ghost": "ড",
+   "base_font": [
+    "dda-beng",
+    "nukta-beng"
+   ],
+   "basic_forms": [
+    "dda-beng",
+    "nukta-beng"
+   ],
+   "final_font": [
+    "dda-beng",
+    "nukta-beng"
+   ],
+   "glyph": null,
+   "status": "same glyph as cell য়"
+  },
+  {
+   "page": 2,
+   "text": "ঢ়",
+   "ghost": "ঢ",
+   "base_font": [
+    "ddha-beng",
+    "nukta-beng"
+   ],
+   "basic_forms": [
+    "ddha-beng",
+    "nukta-beng"
+   ],
+   "final_font": [
+    "ddha-beng",
+    "nukta-beng"
+   ],
+   "glyph": null,
+   "status": "same glyph as cell য়"
+  },
+  {
+   "page": 2,
+   "text": "ৎ",
+   "ghost": null,
+   "base_font": [
+    "taKhanda-beng"
+   ],
+   "basic_forms": [
+    "taKhanda-beng"
+   ],
+   "final_font": [
+    "taKhanda-beng"
+   ],
+   "glyph": "taKhanda-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "কং",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "anusvara-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "anusvara-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "anusvara-beng"
+   ],
+   "glyph": "anusvara-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "কঃ",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "visarga-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "visarga-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "visarga-beng"
+   ],
+   "glyph": "visarga-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "কঁ",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "candrabindu-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "candrabindu-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "candrabindu-beng"
+   ],
+   "glyph": "candrabindu-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "কা",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "aaMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "aaMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "aaMatra-beng"
+   ],
+   "glyph": "aaMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "কি",
+   "ghost": "ক",
+   "base_font": [
+    "iMatra-beng",
+    "ka-beng"
+   ],
+   "basic_forms": [
+    "iMatra-beng",
+    "ka-beng"
+   ],
+   "final_font": [
+    "iMatra-beng",
+    "ka-beng"
+   ],
+   "glyph": "iMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "কী",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "iiMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "iiMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "iiMatra-beng"
+   ],
+   "glyph": "iiMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "কু",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "uMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "uMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "uMatra-beng"
+   ],
+   "glyph": "uMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "কূ",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "uuMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "uuMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "uuMatra-beng"
+   ],
+   "glyph": "uuMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "কৃ",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "rVocalicMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "rVocalicMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "rVocalicMatra-beng"
+   ],
+   "glyph": "rVocalicMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "কে",
+   "ghost": "ক",
+   "base_font": [
+    "eMatra-beng.init",
+    "ka-beng"
+   ],
+   "basic_forms": [
+    "eMatra-beng",
+    "ka-beng"
+   ],
+   "final_font": [
+    "eMatra-beng",
+    "ka-beng"
+   ],
+   "glyph": "eMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "কৈ",
+   "ghost": "ক",
+   "base_font": [
+    "aiMatra-beng.init",
+    "ka-beng"
+   ],
+   "basic_forms": [
+    "aiMatra-beng",
+    "ka-beng"
+   ],
+   "final_font": [
+    "aiMatra-beng",
+    "ka-beng"
+   ],
+   "glyph": "aiMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "কৗ",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "auLength-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "auLength-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "auLength-beng"
+   ],
+   "glyph": "auLength-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ক্",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "halant-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "halant-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "halant-beng"
+   ],
+   "glyph": "halant-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "।",
+   "ghost": null,
+   "base_font": [
+    "danda-deva"
+   ],
+   "basic_forms": [
+    "danda-deva"
+   ],
+   "final_font": [
+    "danda-deva"
+   ],
+   "glyph": "danda-deva",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "০",
+   "ghost": null,
+   "base_font": [
+    "zero-beng"
+   ],
+   "basic_forms": [
+    "zero-beng"
+   ],
+   "final_font": [
+    "zero-beng"
+   ],
+   "glyph": "zero-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "১",
+   "ghost": null,
+   "base_font": [
+    "one-beng"
+   ],
+   "basic_forms": [
+    "one-beng"
+   ],
+   "final_font": [
+    "one-beng"
+   ],
+   "glyph": "one-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "২",
+   "ghost": null,
+   "base_font": [
+    "two-beng"
+   ],
+   "basic_forms": [
+    "two-beng"
+   ],
+   "final_font": [
+    "two-beng"
+   ],
+   "glyph": "two-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "৩",
+   "ghost": null,
+   "base_font": [
+    "three-beng"
+   ],
+   "basic_forms": [
+    "three-beng"
+   ],
+   "final_font": [
+    "three-beng"
+   ],
+   "glyph": "three-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "৪",
+   "ghost": null,
+   "base_font": [
+    "four-beng"
+   ],
+   "basic_forms": [
+    "four-beng"
+   ],
+   "final_font": [
+    "four-beng"
+   ],
+   "glyph": "four-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "৫",
+   "ghost": null,
+   "base_font": [
+    "five-beng"
+   ],
+   "basic_forms": [
+    "five-beng"
+   ],
+   "final_font": [
+    "five-beng"
+   ],
+   "glyph": "five-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "৬",
+   "ghost": null,
+   "base_font": [
+    "six-beng"
+   ],
+   "basic_forms": [
+    "six-beng"
+   ],
+   "final_font": [
+    "six-beng"
+   ],
+   "glyph": "six-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "৭",
+   "ghost": null,
+   "base_font": [
+    "seven-beng"
+   ],
+   "basic_forms": [
+    "seven-beng"
+   ],
+   "final_font": [
+    "seven-beng"
+   ],
+   "glyph": "seven-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "৮",
+   "ghost": null,
+   "base_font": [
+    "eight-beng"
+   ],
+   "basic_forms": [
+    "eight-beng"
+   ],
+   "final_font": [
+    "eight-beng"
+   ],
+   "glyph": "eight-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "৯",
+   "ghost": null,
+   "base_font": [
+    "nine-beng"
+   ],
+   "basic_forms": [
+    "nine-beng"
+   ],
+   "final_font": [
+    "nine-beng"
+   ],
+   "glyph": "nine-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "র্ক",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "reph-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "reph-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "reph-beng"
+   ],
+   "glyph": "reph-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "প্র",
+   "ghost": "প",
+   "base_font": [
+    "p-beng.half2",
+    "raphala-beng.alt02"
+   ],
+   "basic_forms": [
+    "pa-beng",
+    "raphala-beng"
+   ],
+   "final_font": [
+    "pa-beng",
+    "raphala-beng"
+   ],
+   "glyph": "raphala-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "ক্য",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "ya-beng.pstf"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "ya-beng.pstf"
+   ],
+   "final_font": [
+    "ka-beng",
+    "ya-beng.pstf"
+   ],
+   "glyph": "ya-beng.pstf",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ক্ষ",
+   "ghost": null,
+   "base_font": [
+    "k_ssa-beng"
+   ],
+   "basic_forms": [
+    "k_ssa-beng"
+   ],
+   "final_font": [
+    "k_ssa-beng"
+   ],
+   "glyph": "k_ssa-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ঙ্গ",
+   "ghost": null,
+   "base_font": [
+    "ng_ga-beng"
+   ],
+   "basic_forms": [
+    "ng_ga-beng"
+   ],
+   "final_font": [
+    "ng_ga-beng"
+   ],
+   "glyph": "ng_ga-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ত্ত",
+   "ghost": null,
+   "base_font": [
+    "t_ta-beng"
+   ],
+   "basic_forms": [
+    "t_ta-beng"
+   ],
+   "final_font": [
+    "t_ta-beng"
+   ],
+   "glyph": "t_ta-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ষ্ট",
+   "ghost": null,
+   "base_font": [
+    "ss_tta-beng.noflag",
+    "tta-beng.flag3"
+   ],
+   "basic_forms": [
+    "ss_tta-beng.noflag"
+   ],
+   "final_font": [
+    "ss_tta-beng.noflag"
+   ],
+   "glyph": "ss_tta-beng.noflag",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "জ্ঞ",
+   "ghost": null,
+   "base_font": [
+    "j_nya-beng"
+   ],
+   "basic_forms": [
+    "j_nya-beng"
+   ],
+   "final_font": [
+    "j_nya-beng"
+   ],
+   "glyph": "j_nya-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ঞ্চ",
+   "ghost": null,
+   "base_font": [
+    "ny_ca-beng"
+   ],
+   "basic_forms": [
+    "ny_ca-beng"
+   ],
+   "final_font": [
+    "ny_ca-beng"
+   ],
+   "glyph": "ny_ca-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ঞ্জ",
+   "ghost": null,
+   "base_font": [
+    "ny_ja-beng"
+   ],
+   "basic_forms": [
+    "ny_ja-beng"
+   ],
+   "final_font": [
+    "ny_ja-beng"
+   ],
+   "glyph": "ny_ja-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ক্ত",
+   "ghost": null,
+   "glyph": "ka-beng.arm2",
+   "kind": "mark",
+   "final_font": [
+    "t_ta-beng",
+    "ka-beng.arm2",
+    "headline-beng.200"
+   ],
+   "status": "part, ghost ['t_ta-beng', 'headline-beng.200']"
+  },
+  {
+   "page": 3,
+   "text": "ক্ত",
+   "ghost": null,
+   "glyph": "headline-beng.200",
+   "kind": "mark",
+   "final_font": [
+    "t_ta-beng",
+    "ka-beng.arm2",
+    "headline-beng.200"
+   ],
+   "status": "part, ghost ['t_ta-beng', 'ka-beng.arm2']"
+  },
+  {
+   "page": 3,
+   "text": "ন্ত",
+   "ghost": null,
+   "glyph": "n-beng.half3",
+   "kind": "base",
+   "final_font": [
+    "n-beng.half3",
+    "ta-beng.blws"
+   ],
+   "status": "part, ghost ['ta-beng.blws']"
+  },
+  {
+   "page": 3,
+   "text": "ন্ত",
+   "ghost": null,
+   "glyph": "ta-beng.blws",
+   "kind": "mark",
+   "final_font": [
+    "n-beng.half3",
+    "ta-beng.blws"
+   ],
+   "status": "part, ghost ['n-beng.half3']"
+  },
+  {
+   "page": 3,
+   "text": "ন্দ",
+   "ghost": null,
+   "glyph": "n-beng.headline",
+   "kind": "base",
+   "final_font": [
+    "n-beng.headline",
+    "da-beng",
+    "n-beng.float"
+   ],
+   "status": "part, ghost ['da-beng', 'n-beng.float']"
+  },
+  {
+   "page": 3,
+   "text": "ন্দ",
+   "ghost": null,
+   "glyph": "n-beng.float",
+   "kind": "mark",
+   "final_font": [
+    "n-beng.headline",
+    "da-beng",
+    "n-beng.float"
+   ],
+   "status": "part, ghost ['n-beng.headline', 'da-beng']"
+  },
+  {
+   "page": 3,
+   "text": "স্ত",
+   "ghost": null,
+   "glyph": "s-beng.half3",
+   "kind": "base",
+   "final_font": [
+    "s-beng.half3",
+    "ta-beng.blws"
+   ],
+   "status": "part, ghost ['ta-beng.blws']"
+  },
+  {
+   "page": 3,
+   "text": "ম্ব",
+   "ghost": null,
+   "glyph": "m-beng.half",
+   "kind": "base",
+   "final_font": [
+    "m-beng.half",
+    "baphala-beng.alt4",
+    "headline-beng.200"
+   ],
+   "status": "part, ghost ['baphala-beng.alt4', 'headline-beng.200']"
+  },
+  {
+   "page": 3,
+   "text": "ম্ব",
+   "ghost": null,
+   "glyph": "baphala-beng.alt4",
+   "kind": "mark",
+   "final_font": [
+    "m-beng.half",
+    "baphala-beng.alt4",
+    "headline-beng.200"
+   ],
+   "status": "part, ghost ['m-beng.half', 'headline-beng.200']"
+  },
+  {
+   "page": 3,
+   "text": "ন্ন",
+   "ghost": null,
+   "glyph": "aaMatra-beng.part",
+   "kind": "base",
+   "final_font": [
+    "n-beng.headline",
+    "aaMatra-beng.part",
+    "n-beng.float",
+    "na-beng.blws1"
+   ],
+   "status": "part, ghost ['n-beng.headline', 'n-beng.float', 'na-beng.blws1']"
+  },
+  {
+   "page": 3,
+   "text": "ন্ন",
+   "ghost": null,
+   "glyph": "na-beng.blws1",
+   "kind": "mark",
+   "final_font": [
+    "n-beng.headline",
+    "aaMatra-beng.part",
+    "n-beng.float",
+    "na-beng.blws1"
+   ],
+   "status": "part, ghost ['n-beng.headline', 'aaMatra-beng.part', 'n-beng.float']"
+  },
+  {
+   "page": 3,
+   "text": "ল্প",
+   "ghost": null,
+   "glyph": "l-beng.half3",
+   "kind": "base",
+   "final_font": [
+    "l-beng.half3",
+    "aaMatra-beng.part2",
+    "pa-beng.blws"
+   ],
+   "status": "part, ghost ['aaMatra-beng.part2', 'pa-beng.blws']"
+  },
+  {
+   "page": 3,
+   "text": "ল্প",
+   "ghost": null,
+   "glyph": "aaMatra-beng.part2",
+   "kind": "base",
+   "final_font": [
+    "l-beng.half3",
+    "aaMatra-beng.part2",
+    "pa-beng.blws"
+   ],
+   "status": "part, ghost ['l-beng.half3', 'pa-beng.blws']"
+  },
+  {
+   "page": 3,
+   "text": "ল্প",
+   "ghost": null,
+   "glyph": "pa-beng.blws",
+   "kind": "mark",
+   "final_font": [
+    "l-beng.half3",
+    "aaMatra-beng.part2",
+    "pa-beng.blws"
+   ],
+   "status": "part, ghost ['l-beng.half3', 'aaMatra-beng.part2']"
+  },
+  {
+   "page": 3,
+   "text": "হ্ন",
+   "ghost": null,
+   "glyph": "headline-beng.250",
+   "kind": "mark",
+   "final_font": [
+    "ha-beng",
+    "ka-beng.arm2",
+    "headline-beng.250"
+   ],
+   "status": "part, ghost ['ha-beng', 'ka-beng.arm2']"
+  },
+  {
+   "page": 3,
+   "text": "ক্ব",
+   "ghost": null,
+   "glyph": "k-beng.half",
+   "kind": "base",
+   "final_font": [
+    "k-beng.half",
+    "baphala-beng.alt4"
+   ],
+   "status": "part, ghost ['baphala-beng.alt4']"
+  },
+  {
+   "page": 3,
+   "text": "খ্ব",
+   "ghost": null,
+   "glyph": "baphala-beng",
+   "kind": "mark",
+   "final_font": [
+    "kha-beng",
+    "baphala-beng"
+   ],
+   "status": "part, ghost ['kha-beng']"
+  }
+ ],
+ "parts": [
+  {
+   "glyph": "ka-beng.arm2"
+  },
+  {
+   "glyph": "headline-beng.200"
+  },
+  {
+   "glyph": "n-beng.half3"
+  },
+  {
+   "glyph": "ta-beng.blws"
+  },
+  {
+   "glyph": "n-beng.headline"
+  },
+  {
+   "glyph": "n-beng.float"
+  },
+  {
+   "glyph": "s-beng.half3"
+  },
+  {
+   "glyph": "m-beng.half"
+  },
+  {
+   "glyph": "baphala-beng.alt4"
+  },
+  {
+   "glyph": "aaMatra-beng.part"
+  },
+  {
+   "glyph": "na-beng.blws1"
+  },
+  {
+   "glyph": "l-beng.half3"
+  },
+  {
+   "glyph": "aaMatra-beng.part2"
+  },
+  {
+   "glyph": "pa-beng.blws"
+  },
+  {
+   "glyph": "headline-beng.250"
+  },
+  {
+   "glyph": "k-beng.half"
+  },
+  {
+   "glyph": "baphala-beng"
+  }
+ ]
+}

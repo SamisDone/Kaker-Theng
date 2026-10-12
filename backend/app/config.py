@@ -11,9 +11,14 @@ BACKEND_DIR = APP_DIR.parent
 ASSETS_DIR = BACKEND_DIR / "assets"
 BASE_FONT_PATH = ASSETS_DIR / "NotoSansBengali-Regular.ttf"
 OFL_PATH = ASSETS_DIR / "OFL.txt"
+LAYOUT_CACHE_PATH = ASSETS_DIR / "layout.json"  # written by scripts/make_template.py
 
 # --- Colours -----------------------------------------------------------------
-DROPOUT_RGB = (0x9E, 0xC9, 0xE8)  # vanishes when the photo is thresholded
+# Everything printed inside a cell is this light grey. It has to survive a
+# black-and-white laser print or photocopy (which darken greys through dot
+# gain) and still come out clearly lighter than pen ink, so the scanner can
+# separate the two by darkness alone. 22% tint.
+GUIDE_RGB = (0xC6, 0xC6, 0xC6)
 INK_RGB = (0x1D, 0x21, 0x40)
 
 # --- Page (millimetres, origin top-left, y grows downwards) -------------------
