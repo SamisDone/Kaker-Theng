@@ -1,0 +1,547 @@
+/* A Bangladeshi school exercise khata: paper, faint blue rules, one red
+   margin line. Light only: it's paper. */
+
+:root {
+  --paper: #f4f0e6;
+  --ink: #1d2140;
+  --rule: #b9c6e0;
+  --margin: #c2412d;
+  /* #7a7468 is 4.08:1 on paper, below AA; this is 4.85:1. */
+  --pencil: #6e685d;
+
+  --line: 32px; /* rule spacing = line height: text sits on the rules */
+  --gutter: 96px; /* left of the margin line */
+  --margin-x: 72px;
+  --measure: 720px;
+
+  --bn: var(--font-tiro-bangla), serif;
+  --en: var(--font-spectral), serif;
+  --mono: var(--font-plex-mono), monospace;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  /* One hairline at the bottom of every 32 px line, across the page. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='32'%3E%3Crect y='25' width='8' height='1' fill='%23B9C6E0'/%3E%3C/svg%3E");
+  background-size: 8px var(--line);
+  color: var(--ink);
+  font-family: var(--bn);
+  font-size: 19px;
+  line-height: var(--line);
+  -webkit-text-size-adjust: 100%;
+}
+
+.sheet {
+  position: relative;
+  min-height: 100vh;
+  max-width: calc(var(--measure) + var(--gutter) + 48px);
+  margin: 0 auto;
+  padding: var(--line) 24px calc(var(--line) * 3) var(--gutter);
+}
+
+/* The red margin line, the full height of the page. */
+.sheet::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--margin-x);
+  border-left: 1.5px solid var(--margin);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 40px;
+    --margin-x: 24px;
+  }
+  .sheet {
+    padding-right: 16px;
+  }
+}
+
+[lang="en"],
+.en {
+  font-family: var(--en);
+}
+
+.en-sub {
+  display: block;
+  font-family: var(--en);
+  font-size: 15px;
+  color: var(--pencil);
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+p {
+  margin: 0 0 var(--line);
+  max-width: 62ch;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 400;
+  margin: 0;
+}
+
+a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--margin);
+  outline-offset: 2px;
+}
+
+/* ---- Masthead ------------------------------------------------------------ */
+
+.masthead {
+  margin-bottom: calc(var(--line) * 2);
+}
+
+.masthead h1 {
+  font-size: 54px;
+  line-height: calc(var(--line) * 2);
+}
+
+.masthead h1.in-hand {
+  font-size: 64px;
+  animation: fade-in 250ms ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .masthead h1.in-hand {
+    animation: none;
+  }
+}
+
+.masthead .latin-name {
+  font-family: var(--en);
+  font-size: 20px;
+  color: var(--pencil);
+  line-height: var(--line);
+}
+
+/* ---- Sections: notebook pages, not cards ---------------------------------- */
+
+.section {
+  margin-bottom: calc(var(--line) * 2);
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: var(--line);
+}
+
+.section-no {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--pencil);
+  white-space: nowrap;
+  min-width: 48px;
+}
+
+.section-head h2 {
+  font-size: 27px;
+  line-height: var(--line);
+}
+
+/* ---- Buttons: square, ink border, no shadow ------------------------------- */
+
+.button {
+  display: inline-block;
+  font: inherit;
+  font-size: 17px;
+  height: var(--line);
+  line-height: 29px;
+  padding: 0 14px;
+  margin: 0 12px 0 0;
+  vertical-align: top;
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.button:disabled {
+  cursor: default;
+  color: var(--pencil);
+  border-color: var(--pencil);
+}
+
+.button .en {
+  font-size: 15px;
+}
+
+/* ---- Template thumbnails ------------------------------------------------- */
+
+.thumbs {
+  display: flex;
+  gap: 0 16px;
+  margin: 0 0 var(--line);
+  flex-wrap: wrap;
+}
+
+.thumbs figure {
+  margin: 0;
+}
+
+.thumbs img {
+  display: block;
+  width: auto;
+  height: calc(var(--line) * 5);
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+
+.thumbs figcaption {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: var(--line);
+  color: var(--pencil);
+}
+
+/* ---- Upload slots ------------------------------------------------------- */
+
+.slot {
+  margin-bottom: calc(var(--line) * 2);
+}
+
+.slot-title {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.slot-title .tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--pencil);
+  border: 1px solid var(--pencil);
+  padding: 0 6px;
+  line-height: 20px;
+}
+
+.drop {
+  position: relative;
+  display: block;
+  outline: 1.5px dashed var(--ink);
+  outline-offset: -1.5px;
+  padding: var(--line) 20px;
+  margin: 0 0 var(--line);
+  cursor: pointer;
+  max-width: 420px;
+}
+
+.drop:hover {
+  background: rgba(29, 33, 64, 0.04);
+}
+
+.drop input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.drop:focus-within {
+  outline: 2px solid var(--margin);
+  outline-offset: 0;
+}
+
+.status {
+  min-height: var(--line);
+  color: var(--ink);
+}
+
+.result {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: var(--line);
+}
+
+@media (max-width: 640px) {
+  .result {
+    grid-template-columns: 1fr;
+  }
+}
+
+.result img {
+  display: block;
+  width: 100%;
+  height: calc(var(--line) * 10);
+  object-fit: contain;
+  object-position: left top;
+}
+
+/* A teacher's note: red, small, slanted, in the margin when there's room. */
+.margin-note {
+  color: var(--margin);
+  font-size: 16px;
+  font-style: italic;
+  line-height: var(--line);
+  margin: 0 0 var(--line);
+  padding-left: 12px;
+  border-left: 1.5px solid var(--margin);
+}
+
+.margin-note .en {
+  font-size: 14px;
+}
+
+/* ---- Coverage --------------------------------------------------------- */
+
+.coverage {
+  margin: 0 0 var(--line);
+}
+
+.coverage strong {
+  font-weight: 400;
+  font-size: 26px;
+}
+
+/* ---- Fragment examples ------------------------------------------------- */
+
+.examples summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.examples summary::-webkit-details-marker {
+  display: none;
+}
+
+.examples summary::before {
+  content: "+ ";
+  font-family: var(--mono);
+  color: var(--pencil);
+}
+
+.examples[open] summary::before {
+  content: "− ";
+}
+
+.example-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 0 16px;
+  margin: 0 0 var(--line);
+}
+
+.example {
+  margin: 0 0 var(--line);
+  outline: 1px solid var(--rule);
+  outline-offset: -1px;
+  background: var(--paper);
+}
+
+.example svg {
+  display: block;
+  width: 100%;
+  height: calc(var(--line) * 3);
+}
+
+.example .label {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: var(--line);
+  color: var(--pencil);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.example .label [lang="bn"] {
+  font-family: var(--bn);
+  font-size: 15px;
+  color: var(--ink);
+}
+
+/* ---- Try it ----------------------------------------------------------- */
+
+.tryit textarea {
+  display: block;
+  width: 100%;
+  min-height: calc(var(--line) * 6);
+  border: 0;
+  padding: 0;
+  resize: vertical;
+  color: var(--ink);
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='32'%3E%3Crect y='25' width='8' height='1' fill='%23B9C6E0'/%3E%3C/svg%3E");
+  background-attachment: local;
+  outline-offset: 4px;
+}
+
+.size-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--line);
+  margin: 0 0 var(--line);
+}
+
+.size-control input[type="range"] {
+  accent-color: var(--ink);
+  width: 160px;
+}
+
+/* ---- Specimen ---------------------------------------------------------- */
+
+.specimen-page {
+  margin-bottom: var(--line);
+}
+
+.specimen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+  margin-bottom: var(--line);
+}
+
+.glyph {
+  position: relative;
+  height: calc(var(--line) * 2);
+  border: 0;
+  outline: 1px solid var(--rule);
+  outline-offset: -0.5px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 28px;
+  line-height: 52px;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.glyph .tiny {
+  position: absolute;
+  left: 3px;
+  bottom: 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  line-height: 14px;
+  color: var(--pencil);
+}
+
+.glyph.missing::after {
+  /* a small red tick, like a teacher's mark */
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  width: 10px;
+  border-top: 2px solid var(--margin);
+  transform: rotate(-35deg);
+}
+
+.glyph[aria-pressed="true"] {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+.glyph:focus-visible {
+  outline: 2px solid var(--margin);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+.glyph-large {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  min-height: calc(var(--line) * 4);
+  margin-bottom: var(--line);
+}
+
+.glyph-large .big {
+  font-size: 112px;
+  line-height: calc(var(--line) * 4);
+}
+
+/* ---- Download --------------------------------------------------------- */
+
+.field {
+  display: block;
+}
+
+.field input {
+  display: block;
+  font: inherit;
+  font-size: 19px;
+  width: min(100%, 420px);
+  height: var(--line);
+  border: 0;
+  border-bottom: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  padding: 0;
+  border-radius: 0;
+}
+
+.field {
+  margin-bottom: var(--line);
+}
+
+.download-buttons {
+  margin: 0 0 var(--line);
+}
+
+/* ---- Footer ----------------------------------------------------------- */
+
+.footer {
+  font-family: var(--en);
+  font-size: 14px;
+  color: var(--pencil);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -86,3 +86,21 @@ def vectorize(ci: CellInk) -> Drawing:
     contours = trace_bitmap(ci.bitmap, to_units)
     c = ci.cell
     return Drawing(c.id, c.glyph, c.kind, c.unicode, contours, contours_bbox(contours))
+
+
+def drawing_to_dict(d: Drawing) -> dict:
+    return {
+        "cell_id": d.cell_id,
+        "glyph": d.glyph,
+        "kind": d.kind,
+        "unicode": d.unicode,
+        "contours": [[list(c.start), [[seg[0], *[list(p) for p in seg[1:]]] for seg in c.segments]] for c in d.contours],
+        "bbox": list(d.bbox),
+    }
+
+
+def drawing_from_dict(data: dict) -> Drawing:
+    contours = [
+        Contour(tuple(start), [(seg[0], *[tuple(p) for p in seg[1:]]) for seg in segs]) for start, segs in data["contours"]
+    ]
+    return Drawing(data["cell_id"], data["glyph"], data["kind"], data["unicode"], contours, tuple(data["bbox"]))

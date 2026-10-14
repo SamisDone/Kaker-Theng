@@ -1,5 +1,5 @@
 {
- "fingerprint": "6e11e3b0e5184b52",
+ "fingerprint": "3ef0e4190071c9e6",
  "cells": [
   {
    "page": 1,
@@ -1570,8 +1570,8 @@
   {
    "page": 2,
    "index": 11,
-   "row": 2,
-   "col": 0,
+   "row": 1,
+   "col": 3,
    "text": "ক",
    "ghost": null,
    "group": "consonant",
@@ -1582,14 +1582,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 807,
-   "y_mm": 83.0,
+   "y_mm": 61.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 12,
-   "row": 2,
-   "col": 1,
+   "row": 1,
+   "col": 4,
    "text": "খ",
    "ghost": null,
    "group": "consonant",
@@ -1600,14 +1600,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 661,
-   "y_mm": 83.0,
+   "y_mm": 61.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 13,
-   "row": 2,
-   "col": 2,
+   "row": 1,
+   "col": 5,
    "text": "গ",
    "ghost": null,
    "group": "consonant",
@@ -1618,14 +1618,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 646,
-   "y_mm": 83.0,
+   "y_mm": 61.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 14,
-   "row": 2,
-   "col": 3,
+   "row": 1,
+   "col": 6,
    "text": "ঘ",
    "ghost": null,
    "group": "consonant",
@@ -1636,14 +1636,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 621,
-   "y_mm": 83.0,
+   "y_mm": 61.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 15,
-   "row": 2,
-   "col": 4,
+   "row": 1,
+   "col": 7,
    "text": "ঙ",
    "ghost": null,
    "group": "consonant",
@@ -1654,14 +1654,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 715,
-   "y_mm": 83.0,
+   "y_mm": 61.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 16,
    "row": 2,
-   "col": 5,
+   "col": 0,
    "text": "চ",
    "ghost": null,
    "group": "consonant",
@@ -1679,7 +1679,7 @@
    "page": 2,
    "index": 17,
    "row": 2,
-   "col": 6,
+   "col": 1,
    "text": "ছ",
    "ghost": null,
    "group": "consonant",
@@ -1697,7 +1697,7 @@
    "page": 2,
    "index": 18,
    "row": 2,
-   "col": 7,
+   "col": 2,
    "text": "জ",
    "ghost": null,
    "group": "consonant",
@@ -1714,8 +1714,8 @@
   {
    "page": 2,
    "index": 19,
-   "row": 3,
-   "col": 0,
+   "row": 2,
+   "col": 3,
    "text": "ঝ",
    "ghost": null,
    "group": "consonant",
@@ -1726,14 +1726,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 797,
-   "y_mm": 105.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 20,
-   "row": 3,
-   "col": 1,
+   "row": 2,
+   "col": 4,
    "text": "ঞ",
    "ghost": null,
    "group": "consonant",
@@ -1744,14 +1744,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 993,
-   "y_mm": 105.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 21,
-   "row": 3,
-   "col": 2,
+   "row": 2,
+   "col": 5,
    "text": "ট",
    "ghost": null,
    "group": "consonant",
@@ -1762,14 +1762,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 547,
-   "y_mm": 105.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 22,
-   "row": 3,
-   "col": 3,
+   "row": 2,
+   "col": 6,
    "text": "ঠ",
    "ghost": null,
    "group": "consonant",
@@ -1780,14 +1780,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 541,
-   "y_mm": 105.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 23,
-   "row": 3,
-   "col": 4,
+   "row": 2,
+   "col": 7,
    "text": "ড",
    "ghost": null,
    "group": "consonant",
@@ -1798,14 +1798,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 712,
-   "y_mm": 105.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 24,
    "row": 3,
-   "col": 5,
+   "col": 0,
    "text": "ঢ",
    "ghost": null,
    "group": "consonant",
@@ -1823,7 +1823,7 @@
    "page": 2,
    "index": 25,
    "row": 3,
-   "col": 6,
+   "col": 1,
    "text": "ণ",
    "ghost": null,
    "group": "consonant",
@@ -1841,7 +1841,7 @@
    "page": 2,
    "index": 26,
    "row": 3,
-   "col": 7,
+   "col": 2,
    "text": "ত",
    "ghost": null,
    "group": "consonant",
@@ -1858,8 +1858,8 @@
   {
    "page": 2,
    "index": 27,
-   "row": 4,
-   "col": 0,
+   "row": 3,
+   "col": 3,
    "text": "থ",
    "ghost": null,
    "group": "consonant",
@@ -1870,14 +1870,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 645,
-   "y_mm": 127.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 28,
-   "row": 4,
-   "col": 1,
+   "row": 3,
+   "col": 4,
    "text": "দ",
    "ghost": null,
    "group": "consonant",
@@ -1888,14 +1888,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 553,
-   "y_mm": 127.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 29,
-   "row": 4,
-   "col": 2,
+   "row": 3,
+   "col": 5,
    "text": "ধ",
    "ghost": null,
    "group": "consonant",
@@ -1906,14 +1906,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 596,
-   "y_mm": 127.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 30,
-   "row": 4,
-   "col": 3,
+   "row": 3,
+   "col": 6,
    "text": "ন",
    "ghost": null,
    "group": "consonant",
@@ -1924,14 +1924,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 602,
-   "y_mm": 127.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 31,
-   "row": 4,
-   "col": 4,
+   "row": 3,
+   "col": 7,
    "text": "প",
    "ghost": null,
    "group": "consonant",
@@ -1942,14 +1942,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 716,
-   "y_mm": 127.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 32,
    "row": 4,
-   "col": 5,
+   "col": 0,
    "text": "ফ",
    "ghost": null,
    "group": "consonant",
@@ -1967,7 +1967,7 @@
    "page": 2,
    "index": 33,
    "row": 4,
-   "col": 6,
+   "col": 1,
    "text": "ব",
    "ghost": null,
    "group": "consonant",
@@ -1985,7 +1985,7 @@
    "page": 2,
    "index": 34,
    "row": 4,
-   "col": 7,
+   "col": 2,
    "text": "ভ",
    "ghost": null,
    "group": "consonant",
@@ -2002,8 +2002,8 @@
   {
    "page": 2,
    "index": 35,
-   "row": 5,
-   "col": 0,
+   "row": 4,
+   "col": 3,
    "text": "ম",
    "ghost": null,
    "group": "consonant",
@@ -2014,14 +2014,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 612,
-   "y_mm": 149.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 36,
-   "row": 5,
-   "col": 1,
+   "row": 4,
+   "col": 4,
    "text": "য",
    "ghost": null,
    "group": "consonant",
@@ -2032,14 +2032,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 626,
-   "y_mm": 149.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 37,
-   "row": 5,
-   "col": 2,
+   "row": 4,
+   "col": 5,
    "text": "র",
    "ghost": null,
    "group": "consonant",
@@ -2050,14 +2050,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 596,
-   "y_mm": 149.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 38,
-   "row": 5,
-   "col": 3,
+   "row": 4,
+   "col": 6,
    "text": "ল",
    "ghost": null,
    "group": "consonant",
@@ -2068,14 +2068,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 731,
-   "y_mm": 149.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 39,
-   "row": 5,
-   "col": 4,
+   "row": 4,
+   "col": 7,
    "text": "শ",
    "ghost": null,
    "group": "consonant",
@@ -2086,14 +2086,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 681,
-   "y_mm": 149.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 40,
    "row": 5,
-   "col": 5,
+   "col": 0,
    "text": "ষ",
    "ghost": null,
    "group": "consonant",
@@ -2111,7 +2111,7 @@
    "page": 2,
    "index": 41,
    "row": 5,
-   "col": 6,
+   "col": 1,
    "text": "স",
    "ghost": null,
    "group": "consonant",
@@ -2129,7 +2129,7 @@
    "page": 2,
    "index": 42,
    "row": 5,
-   "col": 7,
+   "col": 2,
    "text": "হ",
    "ghost": null,
    "group": "consonant",
@@ -2146,8 +2146,8 @@
   {
    "page": 2,
    "index": 43,
-   "row": 6,
-   "col": 0,
+   "row": 5,
+   "col": 3,
    "text": "য়",
    "ghost": "য",
    "group": "nukta",
@@ -2164,14 +2164,14 @@
    "target_x": 230,
    "target_y": 108,
    "run_advance": 626,
-   "y_mm": 171.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 44,
-   "row": 7,
-   "col": 0,
+   "row": 5,
+   "col": 4,
    "text": "ৎ",
    "ghost": null,
    "group": "other",
@@ -2182,14 +2182,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 542,
-   "y_mm": 193.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 45,
-   "row": 7,
-   "col": 1,
+   "row": 5,
+   "col": 5,
    "text": "কং",
    "ghost": "ক",
    "group": "other",
@@ -2206,14 +2206,14 @@
    "target_x": 807,
    "target_y": 0,
    "run_advance": 1245,
-   "y_mm": 193.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 46,
-   "row": 7,
-   "col": 2,
+   "row": 5,
+   "col": 6,
    "text": "কঃ",
    "ghost": "ক",
    "group": "other",
@@ -2230,18 +2230,138 @@
    "target_x": 807,
    "target_y": 0,
    "run_advance": 1245,
-   "y_mm": 193.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 47,
-   "row": 8,
-   "col": 0,
-   "text": "কঁ",
+   "row": 5,
+   "col": 7,
+   "text": "কা",
    "ghost": "ক",
-   "group": "tall",
-   "glyph": "candrabindu-beng",
+   "group": "sign",
+   "glyph": "aaMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1073,
+   "y_mm": 149.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 2,
+   "index": 48,
+   "row": 6,
+   "col": 0,
+   "text": "কি",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "iMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 266,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1073,
+   "y_mm": 171.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 2,
+   "index": 49,
+   "row": 6,
+   "col": 1,
+   "text": "কে",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "eMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 361,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1168,
+   "y_mm": 171.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 2,
+   "index": 50,
+   "row": 6,
+   "col": 2,
+   "text": "কৈ",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "aiMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 361,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1168,
+   "y_mm": 171.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 2,
+   "index": 51,
+   "row": 6,
+   "col": 3,
+   "text": "কৗ",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "auLength-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1073,
+   "y_mm": 171.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 2,
+   "index": 52,
+   "row": 6,
+   "col": 4,
+   "text": "ক্",
+   "ghost": "ক",
+   "group": "sign",
+   "glyph": "halant-beng",
    "kind": "mark",
    "unicode": null,
    "ghost_glyphs": [
@@ -2251,16 +2371,82 @@
      "y": 0
     }
    ],
-   "target_x": 446,
+   "target_x": 414,
    "target_y": 0,
    "run_advance": 807,
-   "y_mm": 215.0,
-   "h_mm": 33.0
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
-   "page": 3,
-   "index": 0,
-   "row": 0,
+   "page": 2,
+   "index": 53,
+   "row": 6,
+   "col": 5,
+   "text": "প্র",
+   "ghost": "প",
+   "group": "phala",
+   "glyph": "raphala-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "pa-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 94,
+   "target_y": -158,
+   "run_advance": 716,
+   "y_mm": 171.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 2,
+   "index": 54,
+   "row": 6,
+   "col": 6,
+   "text": "ক্য",
+   "ghost": "ক",
+   "group": "phala",
+   "glyph": "ya-beng.pstf",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1077,
+   "y_mm": 171.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 2,
+   "index": 55,
+   "row": 6,
+   "col": 7,
+   "text": "।",
+   "ghost": null,
+   "group": "sign",
+   "glyph": "danda-deva",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 379,
+   "y_mm": 171.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 2,
+   "index": 56,
+   "row": 7,
    "col": 0,
    "text": "কী",
    "ghost": "ক",
@@ -2278,13 +2464,13 @@
    "target_x": 807,
    "target_y": 0,
    "run_advance": 1073,
-   "y_mm": 39.0,
+   "y_mm": 193.0,
    "h_mm": 33.0
   },
   {
-   "page": 3,
-   "index": 1,
-   "row": 0,
+   "page": 2,
+   "index": 57,
+   "row": 7,
    "col": 1,
    "text": "কু",
    "ghost": "ক",
@@ -2302,13 +2488,13 @@
    "target_x": 414,
    "target_y": 0,
    "run_advance": 807,
-   "y_mm": 39.0,
+   "y_mm": 193.0,
    "h_mm": 33.0
   },
   {
-   "page": 3,
-   "index": 2,
-   "row": 0,
+   "page": 2,
+   "index": 58,
+   "row": 7,
    "col": 2,
    "text": "কূ",
    "ghost": "ক",
@@ -2326,13 +2512,13 @@
    "target_x": 414,
    "target_y": 0,
    "run_advance": 807,
-   "y_mm": 39.0,
+   "y_mm": 193.0,
    "h_mm": 33.0
   },
   {
-   "page": 3,
-   "index": 3,
-   "row": 0,
+   "page": 2,
+   "index": 59,
+   "row": 7,
    "col": 3,
    "text": "কৃ",
    "ghost": "ক",
@@ -2350,14 +2536,38 @@
    "target_x": 414,
    "target_y": 0,
    "run_advance": 807,
-   "y_mm": 39.0,
+   "y_mm": 193.0,
    "h_mm": 33.0
   },
   {
-   "page": 3,
-   "index": 4,
-   "row": 0,
+   "page": 2,
+   "index": 60,
+   "row": 7,
    "col": 4,
+   "text": "কঁ",
+   "ghost": "ক",
+   "group": "tall",
+   "glyph": "candrabindu-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 446,
+   "target_y": 0,
+   "run_advance": 807,
+   "y_mm": 193.0,
+   "h_mm": 33.0
+  },
+  {
+   "page": 2,
+   "index": 61,
+   "row": 7,
+   "col": 5,
    "text": "র্ক",
    "ghost": "ক",
    "group": "tall",
@@ -2374,224 +2584,14 @@
    "target_x": 446,
    "target_y": 0,
    "run_advance": 807,
-   "y_mm": 39.0,
+   "y_mm": 193.0,
    "h_mm": 33.0
   },
   {
    "page": 3,
-   "index": 5,
-   "row": 1,
+   "index": 0,
+   "row": 0,
    "col": 0,
-   "text": "কা",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "aaMatra-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 807,
-   "target_y": 0,
-   "run_advance": 1073,
-   "y_mm": 72.0,
-   "h_mm": 22.0
-  },
-  {
-   "page": 3,
-   "index": 6,
-   "row": 1,
-   "col": 1,
-   "text": "কি",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "iMatra-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 266,
-     "y": 0
-    }
-   ],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 1073,
-   "y_mm": 72.0,
-   "h_mm": 22.0
-  },
-  {
-   "page": 3,
-   "index": 7,
-   "row": 1,
-   "col": 2,
-   "text": "কে",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "eMatra-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 361,
-     "y": 0
-    }
-   ],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 1168,
-   "y_mm": 72.0,
-   "h_mm": 22.0
-  },
-  {
-   "page": 3,
-   "index": 8,
-   "row": 1,
-   "col": 3,
-   "text": "কৈ",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "aiMatra-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 361,
-     "y": 0
-    }
-   ],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 1168,
-   "y_mm": 72.0,
-   "h_mm": 22.0
-  },
-  {
-   "page": 3,
-   "index": 9,
-   "row": 1,
-   "col": 4,
-   "text": "কৗ",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "auLength-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 807,
-   "target_y": 0,
-   "run_advance": 1073,
-   "y_mm": 72.0,
-   "h_mm": 22.0
-  },
-  {
-   "page": 3,
-   "index": 10,
-   "row": 1,
-   "col": 5,
-   "text": "ক্",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "halant-beng",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 414,
-   "target_y": 0,
-   "run_advance": 807,
-   "y_mm": 72.0,
-   "h_mm": 22.0
-  },
-  {
-   "page": 3,
-   "index": 11,
-   "row": 1,
-   "col": 6,
-   "text": "প্র",
-   "ghost": "প",
-   "group": "phala",
-   "glyph": "raphala-beng",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "pa-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 94,
-   "target_y": -158,
-   "run_advance": 716,
-   "y_mm": 72.0,
-   "h_mm": 22.0
-  },
-  {
-   "page": 3,
-   "index": 12,
-   "row": 1,
-   "col": 7,
-   "text": "ক্য",
-   "ghost": "ক",
-   "group": "phala",
-   "glyph": "ya-beng.pstf",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 807,
-   "target_y": 0,
-   "run_advance": 1077,
-   "y_mm": 72.0,
-   "h_mm": 22.0
-  },
-  {
-   "page": 3,
-   "index": 13,
-   "row": 2,
-   "col": 0,
-   "text": "।",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "danda-deva",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 379,
-   "y_mm": 94.0,
-   "h_mm": 22.0
-  },
-  {
-   "page": 3,
-   "index": 14,
-   "row": 2,
-   "col": 1,
    "text": "০",
    "ghost": null,
    "group": "digit",
@@ -2602,14 +2602,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 94.0,
+   "y_mm": 39.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 15,
-   "row": 2,
-   "col": 2,
+   "index": 1,
+   "row": 0,
+   "col": 1,
    "text": "১",
    "ghost": null,
    "group": "digit",
@@ -2620,14 +2620,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 94.0,
+   "y_mm": 39.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 16,
-   "row": 2,
-   "col": 3,
+   "index": 2,
+   "row": 0,
+   "col": 2,
    "text": "২",
    "ghost": null,
    "group": "digit",
@@ -2638,14 +2638,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 94.0,
+   "y_mm": 39.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 17,
-   "row": 2,
-   "col": 4,
+   "index": 3,
+   "row": 0,
+   "col": 3,
    "text": "৩",
    "ghost": null,
    "group": "digit",
@@ -2656,14 +2656,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 94.0,
+   "y_mm": 39.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 18,
-   "row": 2,
-   "col": 5,
+   "index": 4,
+   "row": 0,
+   "col": 4,
    "text": "৪",
    "ghost": null,
    "group": "digit",
@@ -2674,14 +2674,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 94.0,
+   "y_mm": 39.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 19,
-   "row": 2,
-   "col": 6,
+   "index": 5,
+   "row": 0,
+   "col": 5,
    "text": "৫",
    "ghost": null,
    "group": "digit",
@@ -2692,14 +2692,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 94.0,
+   "y_mm": 39.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 20,
-   "row": 2,
-   "col": 7,
+   "index": 6,
+   "row": 0,
+   "col": 6,
    "text": "৬",
    "ghost": null,
    "group": "digit",
@@ -2710,14 +2710,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 94.0,
+   "y_mm": 39.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 21,
-   "row": 3,
-   "col": 0,
+   "index": 7,
+   "row": 0,
+   "col": 7,
    "text": "৭",
    "ghost": null,
    "group": "digit",
@@ -2728,14 +2728,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 116.0,
+   "y_mm": 39.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 22,
-   "row": 3,
-   "col": 1,
+   "index": 8,
+   "row": 1,
+   "col": 0,
    "text": "৮",
    "ghost": null,
    "group": "digit",
@@ -2746,14 +2746,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 116.0,
+   "y_mm": 61.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 23,
-   "row": 3,
-   "col": 2,
+   "index": 9,
+   "row": 1,
+   "col": 1,
    "text": "৯",
    "ghost": null,
    "group": "digit",
@@ -2764,14 +2764,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 592,
-   "y_mm": 116.0,
+   "y_mm": 61.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 24,
-   "row": 3,
-   "col": 3,
+   "index": 10,
+   "row": 2,
+   "col": 0,
    "text": "ক্ষ",
    "ghost": null,
    "group": "conjunct",
@@ -2782,14 +2782,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 859,
-   "y_mm": 116.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 25,
-   "row": 3,
-   "col": 4,
+   "index": 11,
+   "row": 2,
+   "col": 1,
    "text": "ঙ্গ",
    "ghost": null,
    "group": "conjunct",
@@ -2800,14 +2800,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 689,
-   "y_mm": 116.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 26,
-   "row": 3,
-   "col": 5,
+   "index": 12,
+   "row": 2,
+   "col": 2,
    "text": "ত্ত",
    "ghost": null,
    "group": "conjunct",
@@ -2818,14 +2818,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 710,
-   "y_mm": 116.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 27,
-   "row": 3,
-   "col": 6,
+   "index": 13,
+   "row": 2,
+   "col": 3,
    "text": "ষ্ট",
    "ghost": null,
    "group": "conjunct",
@@ -2836,14 +2836,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 531,
-   "y_mm": 116.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 28,
-   "row": 3,
-   "col": 7,
+   "index": 14,
+   "row": 2,
+   "col": 4,
    "text": "জ্ঞ",
    "ghost": null,
    "group": "conjunct",
@@ -2854,14 +2854,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 939,
-   "y_mm": 116.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 29,
-   "row": 4,
-   "col": 0,
+   "index": 15,
+   "row": 2,
+   "col": 5,
    "text": "ঞ্চ",
    "ghost": null,
    "group": "conjunct",
@@ -2872,14 +2872,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 853,
-   "y_mm": 138.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 30,
-   "row": 4,
-   "col": 1,
+   "index": 16,
+   "row": 2,
+   "col": 6,
    "text": "ঞ্জ",
    "ghost": null,
    "group": "conjunct",
@@ -2890,14 +2890,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 763,
-   "y_mm": 138.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 31,
-   "row": 4,
-   "col": 2,
+   "index": 17,
+   "row": 2,
+   "col": 7,
    "text": "ষ্ঠ",
    "ghost": null,
    "group": "conjunct",
@@ -2908,14 +2908,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 623,
-   "y_mm": 138.0,
+   "y_mm": 83.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 32,
-   "row": 4,
-   "col": 3,
+   "index": 18,
+   "row": 3,
+   "col": 0,
    "text": "ন্স",
    "ghost": null,
    "group": "conjunct",
@@ -2926,14 +2926,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 738,
-   "y_mm": 138.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 33,
-   "row": 4,
-   "col": 4,
+   "index": 19,
+   "row": 3,
+   "col": 1,
    "text": "ব্দ",
    "ghost": null,
    "group": "conjunct",
@@ -2944,14 +2944,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 815,
-   "y_mm": 138.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 34,
-   "row": 4,
-   "col": 5,
+   "index": 20,
+   "row": 3,
+   "col": 2,
    "text": "ক্স",
    "ghost": null,
    "group": "conjunct",
@@ -2962,14 +2962,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 892,
-   "y_mm": 138.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 35,
-   "row": 4,
-   "col": 6,
+   "index": 21,
+   "row": 3,
+   "col": 3,
    "text": "ণ্ড",
    "ghost": null,
    "group": "conjunct",
@@ -2980,14 +2980,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 758,
-   "y_mm": 138.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 36,
-   "row": 4,
-   "col": 7,
+   "index": 22,
+   "row": 3,
+   "col": 4,
    "text": "ক্ট",
    "ghost": null,
    "group": "conjunct",
@@ -2998,14 +2998,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 727,
-   "y_mm": 138.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 37,
-   "row": 5,
-   "col": 0,
+   "index": 23,
+   "row": 3,
+   "col": 5,
    "text": "ঙ্ক",
    "ghost": null,
    "group": "conjunct",
@@ -3016,14 +3016,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 689,
-   "y_mm": 160.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 38,
-   "row": 5,
-   "col": 1,
+   "index": 24,
+   "row": 3,
+   "col": 6,
    "text": "দ্দ",
    "ghost": null,
    "group": "conjunct",
@@ -3034,14 +3034,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 807,
-   "y_mm": 160.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 39,
-   "row": 5,
-   "col": 2,
+   "index": 25,
+   "row": 3,
+   "col": 7,
    "text": "দ্ভ",
    "ghost": null,
    "group": "conjunct",
@@ -3052,14 +3052,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 738,
-   "y_mm": 160.0,
+   "y_mm": 105.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 40,
-   "row": 5,
-   "col": 3,
+   "index": 26,
+   "row": 4,
+   "col": 0,
    "text": "ষ্ণ",
    "ghost": null,
    "group": "conjunct",
@@ -3070,14 +3070,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 883,
-   "y_mm": 160.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 41,
-   "row": 5,
-   "col": 4,
+   "index": 27,
+   "row": 4,
+   "col": 1,
    "text": "জ্জ",
    "ghost": null,
    "group": "conjunct",
@@ -3088,14 +3088,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 1169,
-   "y_mm": 160.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 42,
-   "row": 5,
-   "col": 5,
+   "index": 28,
+   "row": 4,
+   "col": 2,
    "text": "হ্ম",
    "ghost": null,
    "group": "conjunct",
@@ -3106,14 +3106,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 864,
-   "y_mm": 160.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 43,
-   "row": 5,
-   "col": 6,
+   "index": 29,
+   "row": 4,
+   "col": 3,
    "text": "ক্ষ্ম",
    "ghost": null,
    "group": "conjunct",
@@ -3124,14 +3124,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 1037,
-   "y_mm": 160.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 44,
-   "row": 5,
-   "col": 7,
+   "index": 30,
+   "row": 4,
+   "col": 4,
    "text": "ত্থ",
    "ghost": null,
    "group": "conjunct",
@@ -3142,14 +3142,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 735,
-   "y_mm": 160.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 45,
-   "row": 6,
-   "col": 0,
+   "index": 31,
+   "row": 4,
+   "col": 5,
    "text": "ড্ড",
    "ghost": null,
    "group": "conjunct",
@@ -3160,14 +3160,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 1122,
-   "y_mm": 182.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 46,
-   "row": 6,
-   "col": 1,
+   "index": 32,
+   "row": 4,
+   "col": 6,
    "text": "ব্জ",
    "ghost": null,
    "group": "conjunct",
@@ -3178,14 +3178,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 991,
-   "y_mm": 182.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 47,
-   "row": 6,
-   "col": 2,
+   "index": 33,
+   "row": 4,
+   "col": 7,
    "text": "স্ত",
    "ghost": null,
    "group": "part",
@@ -3202,14 +3202,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 782,
-   "y_mm": 182.0,
+   "y_mm": 127.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 48,
-   "row": 6,
-   "col": 3,
+   "index": 34,
+   "row": 5,
+   "col": 0,
    "text": "ম্ম",
    "ghost": null,
    "group": "part",
@@ -3226,14 +3226,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 813,
-   "y_mm": 182.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 49,
-   "row": 6,
-   "col": 4,
+   "index": 35,
+   "row": 5,
+   "col": 1,
    "text": "স্থ",
    "ghost": null,
    "group": "part",
@@ -3250,14 +3250,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 667,
-   "y_mm": 182.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 50,
-   "row": 6,
-   "col": 5,
+   "index": 36,
+   "row": 5,
+   "col": 2,
    "text": "ক্র",
    "ghost": null,
    "group": "part",
@@ -3279,14 +3279,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 862,
-   "y_mm": 182.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 51,
-   "row": 6,
-   "col": 6,
+   "index": 37,
+   "row": 5,
+   "col": 3,
    "text": "স্ট",
    "ghost": null,
    "group": "part",
@@ -3308,14 +3308,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 903,
-   "y_mm": 182.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 52,
-   "row": 6,
-   "col": 7,
+   "index": 38,
+   "row": 5,
+   "col": 4,
    "text": "স্প",
    "ghost": null,
    "group": "part",
@@ -3332,14 +3332,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 1206,
-   "y_mm": 182.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 53,
-   "row": 7,
-   "col": 0,
+   "index": 39,
+   "row": 5,
+   "col": 5,
    "text": "ন্ত্র",
    "ghost": null,
    "group": "part",
@@ -3356,14 +3356,14 @@
    "target_x": -14,
    "target_y": -136,
    "run_advance": 613,
-   "y_mm": 204.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 54,
-   "row": 7,
-   "col": 1,
+   "index": 40,
+   "row": 5,
+   "col": 6,
    "text": "ল্ম",
    "ghost": null,
    "group": "part",
@@ -3385,14 +3385,14 @@
    "target_x": 666,
    "target_y": 0,
    "run_advance": 898,
-   "y_mm": 204.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 55,
-   "row": 7,
-   "col": 2,
+   "index": 41,
+   "row": 5,
+   "col": 7,
    "text": "ম্ম",
    "ghost": null,
    "group": "part",
@@ -3409,14 +3409,14 @@
    "target_x": 586,
    "target_y": 0,
    "run_advance": 813,
-   "y_mm": 204.0,
+   "y_mm": 149.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 56,
-   "row": 7,
-   "col": 3,
+   "index": 42,
+   "row": 6,
+   "col": 0,
    "text": "প্ট",
    "ghost": null,
    "group": "part",
@@ -3438,14 +3438,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 996,
-   "y_mm": 204.0,
+   "y_mm": 171.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 57,
-   "row": 7,
-   "col": 4,
+   "index": 43,
+   "row": 6,
+   "col": 1,
    "text": "ট্ট",
    "ghost": null,
    "group": "part",
@@ -3462,14 +3462,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 562,
-   "y_mm": 204.0,
+   "y_mm": 171.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 58,
-   "row": 7,
-   "col": 5,
+   "index": 44,
+   "row": 6,
+   "col": 2,
    "text": "ত্ম",
    "ghost": null,
    "group": "part",
@@ -3486,14 +3486,14 @@
    "target_x": 723,
    "target_y": 0,
    "run_advance": 920,
-   "y_mm": 204.0,
+   "y_mm": 171.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 59,
-   "row": 7,
-   "col": 6,
+   "index": 45,
+   "row": 6,
+   "col": 3,
    "text": "ম্ন",
    "ghost": null,
    "group": "part",
@@ -3510,14 +3510,14 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 616,
-   "y_mm": 204.0,
+   "y_mm": 171.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 60,
-   "row": 7,
-   "col": 7,
+   "index": 46,
+   "row": 6,
+   "col": 4,
    "text": "ণ্ঠ",
    "ghost": null,
    "group": "part",
@@ -3539,14 +3539,14 @@
    "target_x": 569,
    "target_y": 0,
    "run_advance": 707,
-   "y_mm": 204.0,
+   "y_mm": 171.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 61,
-   "row": 8,
-   "col": 0,
+   "index": 47,
+   "row": 6,
+   "col": 5,
    "text": "দ্ম",
    "ghost": null,
    "group": "part",
@@ -3563,14 +3563,14 @@
    "target_x": 563,
    "target_y": 0,
    "run_advance": 795,
-   "y_mm": 226.0,
+   "y_mm": 171.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 62,
-   "row": 8,
-   "col": 1,
+   "index": 48,
+   "row": 6,
+   "col": 6,
    "text": "স্ফ",
    "ghost": null,
    "group": "part",
@@ -3587,14 +3587,14 @@
    "target_x": 640,
    "target_y": 0,
    "run_advance": 1070,
-   "y_mm": 226.0,
+   "y_mm": 171.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 63,
-   "row": 8,
-   "col": 2,
+   "index": 49,
+   "row": 6,
+   "col": 7,
    "text": "ঙ্খ",
    "ghost": null,
    "group": "part",
@@ -3611,14 +3611,14 @@
    "target_x": 635,
    "target_y": 0,
    "run_advance": 871,
-   "y_mm": 226.0,
+   "y_mm": 171.0,
    "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 64,
-   "row": 8,
-   "col": 3,
+   "index": 50,
+   "row": 7,
+   "col": 0,
    "text": "ত্ত্র",
    "ghost": null,
    "group": "part",
@@ -3629,7 +3629,7 @@
    "target_x": 0,
    "target_y": 0,
    "run_advance": 648,
-   "y_mm": 226.0,
+   "y_mm": 193.0,
    "h_mm": 22.0
   }
  ],
@@ -5071,126 +5071,6 @@
   },
   {
    "page": 2,
-   "text": "কঁ",
-   "ghost": "ক",
-   "base_font": [
-    "ka-beng",
-    "candrabindu-beng"
-   ],
-   "basic_forms": [
-    "ka-beng",
-    "candrabindu-beng"
-   ],
-   "final_font": [
-    "ka-beng",
-    "candrabindu-beng"
-   ],
-   "glyph": "candrabindu-beng",
-   "status": "ghost + one written glyph",
-   "kind": "mark"
-  },
-  {
-   "page": 3,
-   "text": "কী",
-   "ghost": "ক",
-   "base_font": [
-    "ka-beng",
-    "iiMatra-beng"
-   ],
-   "basic_forms": [
-    "ka-beng",
-    "iiMatra-beng"
-   ],
-   "final_font": [
-    "ka-beng",
-    "iiMatra-beng"
-   ],
-   "glyph": "iiMatra-beng",
-   "status": "ghost + one written glyph",
-   "kind": "base"
-  },
-  {
-   "page": 3,
-   "text": "কু",
-   "ghost": "ক",
-   "base_font": [
-    "ka-beng",
-    "uMatra-beng"
-   ],
-   "basic_forms": [
-    "ka-beng",
-    "uMatra-beng"
-   ],
-   "final_font": [
-    "ka-beng",
-    "uMatra-beng"
-   ],
-   "glyph": "uMatra-beng",
-   "status": "ghost + one written glyph",
-   "kind": "mark"
-  },
-  {
-   "page": 3,
-   "text": "কূ",
-   "ghost": "ক",
-   "base_font": [
-    "ka-beng",
-    "uuMatra-beng"
-   ],
-   "basic_forms": [
-    "ka-beng",
-    "uuMatra-beng"
-   ],
-   "final_font": [
-    "ka-beng",
-    "uuMatra-beng"
-   ],
-   "glyph": "uuMatra-beng",
-   "status": "ghost + one written glyph",
-   "kind": "mark"
-  },
-  {
-   "page": 3,
-   "text": "কৃ",
-   "ghost": "ক",
-   "base_font": [
-    "ka-beng",
-    "rVocalicMatra-beng"
-   ],
-   "basic_forms": [
-    "ka-beng",
-    "rVocalicMatra-beng"
-   ],
-   "final_font": [
-    "ka-beng",
-    "rVocalicMatra-beng"
-   ],
-   "glyph": "rVocalicMatra-beng",
-   "status": "ghost + one written glyph",
-   "kind": "mark"
-  },
-  {
-   "page": 3,
-   "text": "র্ক",
-   "ghost": "ক",
-   "base_font": [
-    "ka-beng",
-    "reph-beng"
-   ],
-   "basic_forms": [
-    "ka-beng",
-    "reph-beng"
-   ],
-   "final_font": [
-    "ka-beng",
-    "reph-beng"
-   ],
-   "glyph": "reph-beng",
-   "status": "ghost + one written glyph",
-   "kind": "mark"
-  },
-  {
-   "page": 3,
    "text": "কা",
    "ghost": "ক",
    "base_font": [
@@ -5210,7 +5090,7 @@
    "kind": "base"
   },
   {
-   "page": 3,
+   "page": 2,
    "text": "কি",
    "ghost": "ক",
    "base_font": [
@@ -5230,7 +5110,7 @@
    "kind": "base"
   },
   {
-   "page": 3,
+   "page": 2,
    "text": "কে",
    "ghost": "ক",
    "base_font": [
@@ -5250,7 +5130,7 @@
    "kind": "base"
   },
   {
-   "page": 3,
+   "page": 2,
    "text": "কৈ",
    "ghost": "ক",
    "base_font": [
@@ -5270,7 +5150,7 @@
    "kind": "base"
   },
   {
-   "page": 3,
+   "page": 2,
    "text": "কৗ",
    "ghost": "ক",
    "base_font": [
@@ -5290,7 +5170,7 @@
    "kind": "base"
   },
   {
-   "page": 3,
+   "page": 2,
    "text": "ক্",
    "ghost": "ক",
    "base_font": [
@@ -5310,7 +5190,7 @@
    "kind": "mark"
   },
   {
-   "page": 3,
+   "page": 2,
    "text": "প্র",
    "ghost": "প",
    "base_font": [
@@ -5330,7 +5210,7 @@
    "kind": "mark"
   },
   {
-   "page": 3,
+   "page": 2,
    "text": "ক্য",
    "ghost": "ক",
    "base_font": [
@@ -5350,7 +5230,7 @@
    "kind": "base"
   },
   {
-   "page": 3,
+   "page": 2,
    "text": "।",
    "ghost": null,
    "base_font": [
@@ -5365,6 +5245,126 @@
    "glyph": "danda-deva",
    "status": "single glyph",
    "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "কী",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "iiMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "iiMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "iiMatra-beng"
+   ],
+   "glyph": "iiMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 2,
+   "text": "কু",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "uMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "uMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "uMatra-beng"
+   ],
+   "glyph": "uMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 2,
+   "text": "কূ",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "uuMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "uuMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "uuMatra-beng"
+   ],
+   "glyph": "uuMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 2,
+   "text": "কৃ",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "rVocalicMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "rVocalicMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "rVocalicMatra-beng"
+   ],
+   "glyph": "rVocalicMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 2,
+   "text": "কঁ",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "candrabindu-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "candrabindu-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "candrabindu-beng"
+   ],
+   "glyph": "candrabindu-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 2,
+   "text": "র্ক",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "reph-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "reph-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "reph-beng"
+   ],
+   "glyph": "reph-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
   },
   {
    "page": 3,

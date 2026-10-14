@@ -7,3 +7,10 @@ packaging==26.3
 pluggy==1.6.0
 Pygments==2.21.0
 colorama==0.4.6
+httpx==0.28.1
+httpcore==1.0.9
+certifi==2026.7.22
+# UI walk-through only (scripts/ui_check.py); then: python -m playwright install chromium
+playwright==1.64.0
+greenlet==3.5.6
+pyee==14.0.0

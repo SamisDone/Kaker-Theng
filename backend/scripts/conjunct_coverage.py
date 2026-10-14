@@ -2,7 +2,7 @@
 
     python -m scripts.conjunct_coverage [--plan N_CELLS] [--top K]
 
-Uses data/conjunct_counts.json (scripts/count_conjuncts.py on a Bangla
+Uses assets/conjunct_counts.json (scripts/count_conjuncts.py on a Bangla
 Wikipedia dump). A cluster counts as covered when the finished font (the
 base font cut down to the planned glyphs) shapes it with no hasanta glyph
 and no .notdef.
@@ -21,10 +21,10 @@ from app.charset import CONJUNCTS, CORE_PART_CONJUNCTS, CORPUS_CONJUNCTS_PATH, P
 from app.derive import plan_part
 from app.glyphmap import HALANT, _discover_parts, _specials, build_layout
 
-COUNTS = Path(__file__).resolve().parent.parent / "data" / "conjunct_counts.json"
+COUNTS = Path(__file__).resolve().parent.parent / "assets" / "conjunct_counts.json"
 # Clusters the self-test (scripts/conjunct_selftest.py) found don't assemble
 # well from derived parts. The planner leaves them out.
-REJECTED = COUNTS.parent / "conjunct_rejected.txt"
+REJECTED = COUNTS.parent.parent / "data" / "conjunct_rejected.txt"
 
 
 def rejected() -> set[str]:

@@ -147,7 +147,10 @@ def _draw_cell(c, cell: Cell):
     if cell.kind == "latin":
         _latin(c, cell.text, x + LABEL_X_MM, y + LATIN_LABEL_BASE_MM, LATIN_LABEL[1], GUIDE, LATIN_LABEL[0])
     else:
-        _bangla(c, cell.text, x + LABEL_X_MM, y + BANGLA_LABEL_BASE_MM, BANGLA_LABEL_HEAD_MM, GUIDE)
+        w = _bangla(c, cell.text, x + LABEL_X_MM, y + BANGLA_LABEL_BASE_MM, BANGLA_LABEL_HEAD_MM, GUIDE)
+        if cell.group == "part":
+            # A piece of a conjunct: the page note explains the mark.
+            _latin(c, "*", x + LABEL_X_MM + w + 0.6, y + BANGLA_LABEL_BASE_MM + 0.4, 9, INK, "Helvetica-Bold")
 
     if cell.ghost_glyphs:
         glyphs = [(g.name, g.x, g.y) for g in cell.ghost_glyphs]
@@ -168,6 +171,8 @@ INSTRUCTIONS_EN = (
 )
 GHOST_NOTE_BN = "হালকা অক্ষরটা লিখবেন না, শুধু চিহ্নটা লিখুন।"
 GHOST_NOTE_EN = "Don't trace the faint letter; write only the sign around it."
+PIECE_NOTE_BN = "* ঘরে যুক্তবর্ণের শুধু হালকা অংশের বাকি টুকরোটা লিখুন। উদাহরণ ওয়েবসাইটে।"
+PIECE_NOTE_EN = "* cells: write only the missing piece (examples online)."
 PRINT_NOTE = "Print at 100% (actual size), colour or black-and-white. The grey guides disappear when we read the photo."
 
 
@@ -196,7 +201,10 @@ def _draw_page(c, page: int, cells: list[Cell]):
     _bangla(c, INSTRUCTIONS_BN, grid_left, 28.0, bn_h)
     size = _fit(_latin(c, INSTRUCTIONS_EN, 0, 0, 7.5, draw=False), grid_w, 7.5)
     _latin(c, INSTRUCTIONS_EN, grid_left, 32.0, size)
-    if any(cell.ghost_glyphs for cell in cells):
+    if any(cell.group == "part" for cell in cells):
+        w = _bangla(c, PIECE_NOTE_BN, grid_left, 36.0, 2.0)
+        _latin(c, PIECE_NOTE_EN, grid_left + w + 2.5, 36.0, _fit(_latin(c, PIECE_NOTE_EN, 0, 0, 7.5, draw=False), grid_w - w - 2.5, 7.5), INK, "Helvetica-Oblique")
+    elif any(cell.ghost_glyphs for cell in cells):
         w = _bangla(c, GHOST_NOTE_BN, grid_left, 36.0, 2.0)
         _latin(c, GHOST_NOTE_EN, grid_left + w + 2.5, 36.0, 7.5, INK, "Helvetica-Oblique")
 

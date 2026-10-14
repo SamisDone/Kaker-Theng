@@ -64,3 +64,15 @@ def test_small_marks_survive(mode):
         for i in range(1, n):
             piece = labels == i
             assert (near & piece).sum() >= 0.5 * piece.sum(), f"lost a piece of {ci.cell.text}"
+
+
+def test_sign_written_on_the_wrong_side_still_builds():
+    """A pre-base sign written right of its ghost must not give a negative
+    advance (that crashed the font build)."""
+    from app.vectorize import Contour, Drawing
+
+    cell = next(c for c in build_layout().cells if c.text == "কি")
+    box = [Contour((1300, 0), [("L", (1300, 500)), ("L", (1400, 500)), ("L", (1400, 0))])]
+    drawing = Drawing(cell.id, cell.glyph, cell.kind, None, box, (1300, 0, 1400, 500))
+    font = build_font([drawing], "Wrong Side")
+    assert font.ttf[:4] in (b"\x00\x01\x00\x00", b"true")

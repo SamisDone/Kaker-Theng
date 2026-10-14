@@ -115,11 +115,15 @@ def _placement(d: Drawing, cell: Cell | None, noto: TTFont, matra_glyphs: set[st
         if cell.target_x < min(g.x for g in cell.ghost_glyphs):
             # Before the letter (ি ে ৈ): the next letter's ink starts where the
             # ghost's ink started. ি's hook reaches over it, as written.
-            return -x_min, -cell.target_y, round(ghost_left - x_min)
+            advance = ghost_left - x_min
+            if advance <= 0.25 * width:
+                # Not written before the ghost after all: plain spacing.
+                return -x_min, -cell.target_y, round(width + rsb)
+            return -x_min, -cell.target_y, round(advance)
         # After the letter (া ী ৗ ং ঃ ্য): the previous letter's ink ends
         # -BANGLA_RSB past our origin, so put the origin there.
         dx = -(ghost_right + BANGLA_RSB)
-        return dx, -cell.target_y, round(x_max + dx + rsb)
+        return dx, -cell.target_y, max(0, round(x_max + dx + rsb))
     if d.glyph in matra_glyphs:
         # Letters with a মাত্রা: no gap on the left, a slight overlap on the
         # right, so headlines join inside a word.
@@ -257,7 +261,7 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
         glyph = _ttglyph(d, dx, dy)
         glyph.recalcBounds(glyf)
         glyf[d.glyph] = glyph
-        hmtx[d.glyph] = (advance, glyph.xMin if glyph.numberOfContours else 0)
+        hmtx[d.glyph] = (max(0, advance), glyph.xMin if glyph.numberOfContours else 0)
         if glyph.numberOfContours and not d.positioned and d.kind != "latin":
             boxes[d.glyph] = (glyph.xMin, glyph.yMin, glyph.xMax, glyph.yMax)
         if d.unicode is not None:

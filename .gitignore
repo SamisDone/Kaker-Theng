@@ -12,3 +12,7 @@ package-lock.json
 
 .env
 .env.local
+
+# Next.js generated
+frontend/tsconfig.tsbuildinfo
+frontend/next-env.d.ts
