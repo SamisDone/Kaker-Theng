@@ -67,8 +67,8 @@ def report(layout):
         print(f"  {s}\n    {' '.join(sim.names(s))}")
 
     print("\ncells per page: " + ", ".join(f"p{p}={len(layout.page(p))}" for p in (1, 2, 3)))
-    rows_used = {p: max(c.row for c in layout.page(p)) + 1 for p in (1, 2, 3)}
-    print("rows used per page (of 10): " + ", ".join(f"p{p}={r}" for p, r in rows_used.items()))
+    used = {p: max(c.box_mm()[1] + c.box_mm()[3] for c in layout.page(p)) - C.GRID_Y_MM for p in (1, 2, 3)}
+    print(f"grid height used (of {C.GRID_H_MM:.0f} mm): " + ", ".join(f"p{p}={h:.0f} mm" for p, h in used.items()))
     print("excluded: " + ", ".join(f"{e['text'] or e['glyph']} ({e['status']})" for e in layout.excluded))
 
 

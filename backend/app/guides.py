@@ -37,7 +37,10 @@ class Line:
 
 
 def baseline_mm(cell: Cell) -> float:
-    return cell.box_mm()[1] + C.BASELINE_FROM_TOP_MM
+    """Tall cells keep the same scale; their extra height is split evenly
+    above the মাত্রা and below the baseline."""
+    _, y, _, h = cell.box_mm()
+    return y + C.BASELINE_FROM_TOP_MM + (h - C.CELL_MM) / 2
 
 
 def headline_mm(cell: Cell) -> float:
@@ -92,22 +95,41 @@ def ghost_polygons_mm(cell: Cell) -> list[np.ndarray]:
     return out
 
 
-@lru_cache(maxsize=3)
-def guide_masks(page: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """(lines, labels, ghosts) masks for a page at canonical resolution,
-    undilated. Lines: borders and guide lines. Labels: the small label boxes.
-    Ghosts: the outlines of the faint ghost letters."""
+LINE_BIT, LABEL_BIT, GHOST_BIT = 1, 2, 4
+
+
+@lru_cache(maxsize=1)
+def guide_bits(page: int) -> np.ndarray:
+    """Everything printed inside the cells of a page, at canonical resolution,
+    undilated, packed into one uint8: LINE_BIT for borders and guide lines,
+    LABEL_BIT for the small label boxes, GHOST_BIT for ghost letters."""
     k = C.PX_PER_MM
-    lines = np.zeros((C.CANON_H_PX, C.CANON_W_PX), np.uint8)
-    labels = np.zeros_like(lines)
-    ghosts = np.zeros_like(lines)
+    bits = np.zeros((C.CANON_H_PX, C.CANON_W_PX), np.uint8)
+    layer = np.zeros_like(bits)
     for cell in build_layout().page(page):
         for ln in cell_lines(cell):
             t = max(1, round(ln.width_pt * PT_TO_MM * k))
-            cv2.line(lines, (round(ln.x1 * k), round(ln.y1 * k)), (round(ln.x2 * k), round(ln.y2 * k)), 255, t)
+            cv2.line(layer, (round(ln.x1 * k), round(ln.y1 * k)), (round(ln.x2 * k), round(ln.y2 * k)), LINE_BIT, t)
+    bits |= layer
+    layer[:] = 0
+    for cell in build_layout().page(page):
         x0, y0, x1, y1 = label_box_mm(cell)
-        cv2.rectangle(labels, (round(x0 * k), round(y0 * k)), (round(x1 * k), round(y1 * k)), 255, -1)
-        polys = [np.round(p * k).astype(np.int32) for p in ghost_polygons_mm(cell)]
-        for poly in polys:  # one by one: a union, so counters are covered too
-            cv2.fillPoly(ghosts, [poly], 255)
-    return lines, labels, ghosts
+        cv2.rectangle(layer, (round(x0 * k), round(y0 * k)), (round(x1 * k), round(y1 * k)), LABEL_BIT, -1)
+    bits |= layer
+    layer[:] = 0
+    for cell in build_layout().page(page):
+        for poly in ghost_polygons_mm(cell):  # one by one: a union, so counters are covered too
+            cv2.fillPoly(layer, [np.round(poly * k).astype(np.int32)], GHOST_BIT)
+    bits |= layer
+    return bits
+
+
+def grid_box_px(page: int, margin_px: int = 0) -> tuple[int, int, int, int]:
+    """x0, y0, x1, y1 of all of a page's cells, in canonical px."""
+    k = C.PX_PER_MM
+    boxes = [c.box_mm() for c in build_layout().page(page)]
+    x0 = max(0, round(min(b[0] for b in boxes) * k) - margin_px)
+    y0 = max(0, round(min(b[1] for b in boxes) * k) - margin_px)
+    x1 = min(C.CANON_W_PX, round(max(b[0] + b[2] for b in boxes) * k) + margin_px)
+    y1 = min(C.CANON_H_PX, round(max(b[1] + b[3] for b in boxes) * k) + margin_px)
+    return x0, y0, x1, y1

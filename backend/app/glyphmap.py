@@ -35,7 +35,7 @@ from fontTools.agl import UV2AGL
 
 from . import config as C
 from .basefont import PRESENTATION_FEATURES, ShapedGlyph, base_shaper, headline_units, simulated_shaper
-from .charset import CONSONANTS_FOR_CONTEXT, PAGES, PART_CONJUNCTS, CellSpec
+from .charset import CONSONANTS_FOR_CONTEXT, CORPUS_CONJUNCTS_PATH, PAGES, PART_CONJUNCTS, ROW_GROUP, CellSpec
 
 SPECIAL_GLYPH_UNICODES = [0x20, 0xA0, 0x200C, 0x200D, 0x25CC]
 logger = logging.getLogger(__name__)
@@ -65,6 +65,8 @@ class Cell:
     target_x: int = 0  # pen origin of the written glyph within the run
     target_y: int = 0
     run_advance: int = 0
+    y_mm: float = 0.0  # top of the cell on the page
+    h_mm: float = C.CELL_MM  # tall cells are taller; width and scale never change
 
     @property
     def id(self) -> str:
@@ -72,7 +74,7 @@ class Cell:
 
     def box_mm(self) -> tuple[float, float, float, float]:
         """x, y (top-left), w, h on the page in mm."""
-        return (C.GRID_X_MM + self.col * C.CELL_MM, C.GRID_Y_MM + self.row * C.CELL_MM, C.CELL_MM, C.CELL_MM)
+        return (C.GRID_X_MM + self.col * C.CELL_MM, self.y_mm, C.CELL_MM, self.h_mm)
 
 
 @dataclass
@@ -148,6 +150,16 @@ def _resolve(spec: CellSpec, sim) -> tuple[int | None, str, list[ShapedGlyph]]:
     rest = _diff(names, ghost)
     if len(rest) == 1 and len(names) == len(ghost) + 1:
         return rest[0], "ghost + one written glyph", run
+    # The font may build this cluster from other forms (প্র -> half প + a
+    # ra-phala variant). The user still writes the plain sign beside the
+    # plain letter: resolve with the basic forms, and the variants are made
+    # from what they write (derive.py).
+    off = {f: False for f in PRESENTATION_FEATURES}
+    basic = sim.shape(spec.text, off)
+    basic_names = [g.name for g in basic]
+    rest = _diff(basic_names, sim.names(spec.ghost, off))
+    if len(rest) == 1 and len(basic_names) == len(ghost) + 1 and ".notdef" not in basic_names:
+        return rest[0], f"ghost + one written glyph (basic forms; the font itself uses {' '.join(names)})", basic
     return None, f"ghost does not survive as-is ({names} vs ghost {ghost})", run
 
 
@@ -155,16 +167,18 @@ def _forms_like_base(sim, text: str) -> bool:
     return sim.names(text) == base_shaper().names(text)
 
 
-def _discover_parts(user: set[str]) -> list[str]:
-    """Part glyphs needed so every PART_CONJUNCT shapes as in the base font."""
+def _discover_parts(user: set[str], texts: list[str] | None = None) -> list[str]:
+    """Part glyphs needed so every text (default: PART_CONJUNCTS) shapes as
+    in the base font."""
+    texts = PART_CONJUNCTS if texts is None else texts
     base = base_shaper()
     parts: list[str] = []
-    for text in PART_CONJUNCTS:
+    for text in texts:
         for g in base.names(text):
             if g not in user and g not in parts:
                 parts.append(g)
     sim = simulated_shaper(user | set(parts))
-    for text in PART_CONJUNCTS:
+    for text in texts:
         if _forms_like_base(sim, text):
             continue
         extra = [g for _, names in base.trace(text) for g in names if g not in user and g not in parts]
@@ -212,24 +226,32 @@ def _make_cell(page, text, ghost, group, run, target_idx, kind) -> Cell:
     return cell
 
 
-def _place(groups: list[str]) -> list[tuple[int, int]]:
-    """Row/col per cell. Each group starts a new row when everything fits."""
+def _place(groups: list[str], heights: list[float]) -> list[tuple[int, int, float]]:
+    """(row, col, top y in mm) per cell. Each group starts a new row when
+    everything fits; a row is as tall as its tallest cell."""
+    keys = [ROW_GROUP.get(g, g) for g in groups]
     runs: list[list[int]] = []
-    for i, g in enumerate(groups):
-        if not runs or groups[runs[-1][0]] != g:
+    for i, key in enumerate(keys):
+        if not runs or keys[runs[-1][0]] != key:
             runs.append([])
         runs[-1].append(i)
-    rows_needed = sum(-(-len(r) // C.COLS) for r in runs)
-    pos: list[tuple[int, int]] = [(0, 0)] * len(groups)
-    if rows_needed <= C.ROWS:
-        row = 0
-        for r in runs:
-            for k, i in enumerate(r):
-                pos[i] = (row + k // C.COLS, k % C.COLS)
-            row += -(-len(r) // C.COLS)
-    else:
-        pos = [(i // C.COLS, i % C.COLS) for i in range(len(groups))]
-    if pos and max(r for r, _ in pos) >= C.ROWS:
+    rows = [r[k : k + C.COLS] for r in runs for k in range(0, len(r), C.COLS)]
+    if sum(max(heights[i] for i in row) for row in rows) > C.GRID_H_MM:
+        # Too many groups for a row each: let groups flow on, but never put
+        # tall and normal cells in the same row.
+        runs = []
+        for i, hgt in enumerate(heights):
+            if not runs or heights[runs[-1][0]] != hgt:
+                runs.append([])
+            runs[-1].append(i)
+        rows = [r[k : k + C.COLS] for r in runs for k in range(0, len(r), C.COLS)]
+    pos: list[tuple[int, int, float]] = [(0, 0, 0.0)] * len(groups)
+    y = C.GRID_Y_MM
+    for r, row in enumerate(rows):
+        for col, i in enumerate(row):
+            pos[i] = (r, col, y)
+        y += max(heights[i] for i in row)
+    if y - C.GRID_Y_MM > C.GRID_H_MM + 1e-6:
         raise ValueError(f"too many cells for one page ({len(groups)})")
     return pos
 
@@ -269,14 +291,16 @@ def compute_layout() -> Layout:
     # Which parts can be made from letters the user writes anyway?
     from .derive import plan_part
 
-    signs = [resolved[s_][2][resolved[s_][0]].name for s_ in bangla_specs if s_.group == "sign" and resolved[s_][0] is not None]
+    # Slice sources besides the conjunct's own letters: everything written
+    # beside a ghost (vowel signs, phala, reph), in template order.
+    signs = [resolved[s_][2][resolved[s_][0]].name for s_ in bangla_specs if s_.ghost and resolved[s_][0] is not None]
     plans = []
     for part in parts:
         context = next((t for t in PART_CONJUNCTS if part in sim.names(t)), None)
         if context is None:
             found = _part_context(part, glyphs, sim)
             context = found[0] if found else ""
-        plans.append(plan_part(part, context, signs, user))
+        plans.append(plan_part(part, context, signs, user, set(parts) - {part}))
 
     cells: list[Cell] = []
     excluded: list[dict] = []
@@ -310,6 +334,8 @@ def compute_layout() -> Layout:
                 continue
             entry["kind"] = kind_of(run[idx].name)
             page_cells.append(_make_cell(page, spec.text, spec.ghost, spec.group, run, idx, entry["kind"]))
+            if spec.tall:
+                page_cells[-1].h_mm = C.TALL_CELL_MM
 
         if page == 3:
             for part in parts:
@@ -329,8 +355,9 @@ def compute_layout() -> Layout:
                 entry |= {"text": text, "final_font": [g.name for g in run], "status": f"part, ghost {ghost_names}"}
                 page_cells.append(_make_cell(page, text, None, "part", run, idx, entry["kind"]))
 
-        for i, (cell, (row, col)) in enumerate(zip(page_cells, _place([c.group for c in page_cells]))):
-            cell.index, cell.row, cell.col = i, row, col
+        placed = _place([c.group for c in page_cells], [c.h_mm for c in page_cells])
+        for i, (cell, (row, col, y)) in enumerate(zip(page_cells, placed)):
+            cell.index, cell.row, cell.col, cell.y_mm = i, row, col, y
         cells += page_cells
 
     return Layout(
@@ -386,8 +413,9 @@ _SOURCES = ("charset.py", "glyphmap.py", "basefont.py", "config.py", "derive.py"
 
 def fingerprint() -> str:
     h = hashlib.sha256(C.BASE_FONT_PATH.read_bytes())
-    for name in _SOURCES:
-        h.update((C.APP_DIR / name).read_bytes().replace(b"\r\n", b"\n"))
+    for path in [C.APP_DIR / n for n in _SOURCES] + [CORPUS_CONJUNCTS_PATH]:
+        if path.exists():
+            h.update(path.read_bytes().replace(b"\r\n", b"\n"))
     return h.hexdigest()[:16]
 
 

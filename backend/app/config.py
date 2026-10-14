@@ -56,8 +56,10 @@ def marker_ids(page: int) -> list[int]:
 
 # --- Cell grid ---------------------------------------------------------------
 CELL_MM = 22.0
+TALL_CELL_MM = 33.0  # same width and scale; the extra height is split above and below
 COLS = 8
 ROWS = 10
+GRID_H_MM = ROWS * CELL_MM
 GRID_X_MM = (PAGE_W_MM - COLS * CELL_MM) / 2  # 17 mm
 GRID_Y_MM = 39.0
 

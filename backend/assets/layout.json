@@ -1,5 +1,5 @@
 {
- "fingerprint": "1370438751ece877",
+ "fingerprint": "6e11e3b0e5184b52",
  "cells": [
   {
    "page": 1,
@@ -15,7 +15,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -31,7 +33,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -47,7 +51,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -63,7 +69,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -79,7 +87,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -95,7 +105,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -111,7 +123,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -127,7 +141,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -143,7 +159,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -159,7 +177,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -175,7 +195,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -191,7 +213,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -207,7 +231,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -223,7 +249,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -239,7 +267,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -255,7 +285,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -271,7 +303,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -287,7 +321,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -303,7 +339,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -319,7 +357,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -335,7 +375,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -351,7 +393,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -367,7 +411,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -383,7 +429,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -399,7 +447,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -415,7 +465,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -431,7 +483,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -447,7 +501,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -463,7 +519,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -479,7 +537,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -495,7 +555,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -511,7 +573,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -527,7 +591,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -543,7 +609,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -559,7 +627,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -575,7 +645,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -591,7 +663,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -607,7 +681,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -623,7 +699,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -639,7 +717,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -655,7 +735,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -671,7 +753,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -687,7 +771,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -703,7 +789,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -719,7 +807,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -735,7 +825,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -751,7 +843,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -767,7 +861,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -783,7 +879,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -799,7 +897,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -815,7 +915,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -831,7 +933,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -847,7 +951,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -863,7 +969,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -879,7 +987,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -895,7 +1005,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -911,7 +1023,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -927,7 +1041,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -943,7 +1059,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -959,7 +1077,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -975,7 +1095,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -991,7 +1113,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1007,7 +1131,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1023,7 +1149,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1039,7 +1167,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 215.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1055,7 +1185,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 215.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1071,7 +1203,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 215.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1087,7 +1221,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 215.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1103,7 +1239,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 215.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1119,7 +1257,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 215.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1135,7 +1275,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 215.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1151,7 +1293,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 215.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1167,7 +1311,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 237.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1183,7 +1329,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 237.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1199,7 +1347,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 237.0,
+   "h_mm": 22.0
   },
   {
    "page": 1,
@@ -1215,7 +1365,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 0
+   "run_advance": 0,
+   "y_mm": 237.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1231,7 +1383,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 893
+   "run_advance": 893,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1247,7 +1401,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 1159
+   "run_advance": 1159,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1263,7 +1419,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 534
+   "run_advance": 534,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1279,7 +1437,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 689
+   "run_advance": 689,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1295,7 +1455,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 712
+   "run_advance": 712,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1311,7 +1473,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 800
+   "run_advance": 800,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1327,7 +1491,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 846
+   "run_advance": 846,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1343,7 +1509,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 731
+   "run_advance": 731,
+   "y_mm": 39.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1359,7 +1527,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 853
+   "run_advance": 853,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1375,7 +1545,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 738
+   "run_advance": 738,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1391,7 +1563,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 874
+   "run_advance": 874,
+   "y_mm": 61.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1407,7 +1581,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 807
+   "run_advance": 807,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1423,7 +1599,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 661
+   "run_advance": 661,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1439,7 +1617,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 646
+   "run_advance": 646,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1455,7 +1635,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 621
+   "run_advance": 621,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1471,7 +1653,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 715
+   "run_advance": 715,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1487,7 +1671,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 538
+   "run_advance": 538,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1503,7 +1689,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 609
+   "run_advance": 609,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1519,7 +1707,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 862
+   "run_advance": 862,
+   "y_mm": 83.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1535,7 +1725,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 797
+   "run_advance": 797,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1551,7 +1743,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 993
+   "run_advance": 993,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1567,7 +1761,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 547
+   "run_advance": 547,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1583,7 +1779,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 541
+   "run_advance": 541,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1599,7 +1797,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 712
+   "run_advance": 712,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1615,7 +1815,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 547
+   "run_advance": 547,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1631,7 +1833,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 620
+   "run_advance": 620,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1647,7 +1851,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 707
+   "run_advance": 707,
+   "y_mm": 105.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1663,7 +1869,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 645
+   "run_advance": 645,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1679,7 +1887,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 553
+   "run_advance": 553,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1695,7 +1905,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 596
+   "run_advance": 596,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1711,7 +1923,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 602
+   "run_advance": 602,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1727,7 +1941,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 716
+   "run_advance": 716,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1743,7 +1959,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 833
+   "run_advance": 833,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1759,7 +1977,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 596
+   "run_advance": 596,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1775,7 +1995,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 701
+   "run_advance": 701,
+   "y_mm": 127.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1791,7 +2013,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 612
+   "run_advance": 612,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1807,7 +2031,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 626
+   "run_advance": 626,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1823,7 +2049,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 596
+   "run_advance": 596,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1839,7 +2067,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 731
+   "run_advance": 731,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1855,7 +2085,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 681
+   "run_advance": 681,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1871,7 +2103,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 626
+   "run_advance": 626,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1887,7 +2121,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 623
+   "run_advance": 623,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1903,7 +2139,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 534
+   "run_advance": 534,
+   "y_mm": 149.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1925,7 +2163,9 @@
    ],
    "target_x": 230,
    "target_y": 108,
-   "run_advance": 626
+   "run_advance": 626,
+   "y_mm": 171.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1941,7 +2181,9 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 542
+   "run_advance": 542,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1963,7 +2205,9 @@
    ],
    "target_x": 807,
    "target_y": 0,
-   "run_advance": 1245
+   "run_advance": 1245,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
@@ -1985,16 +2229,18 @@
    ],
    "target_x": 807,
    "target_y": 0,
-   "run_advance": 1245
+   "run_advance": 1245,
+   "y_mm": 193.0,
+   "h_mm": 22.0
   },
   {
    "page": 2,
    "index": 47,
-   "row": 7,
-   "col": 3,
+   "row": 8,
+   "col": 0,
    "text": "কঁ",
    "ghost": "ক",
-   "group": "other",
+   "group": "tall",
    "glyph": "candrabindu-beng",
    "kind": "mark",
    "unicode": null,
@@ -2007,12 +2253,134 @@
    ],
    "target_x": 446,
    "target_y": 0,
-   "run_advance": 807
+   "run_advance": 807,
+   "y_mm": 215.0,
+   "h_mm": 33.0
   },
   {
    "page": 3,
    "index": 0,
    "row": 0,
+   "col": 0,
+   "text": "কী",
+   "ghost": "ক",
+   "group": "tall",
+   "glyph": "iiMatra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 807,
+   "target_y": 0,
+   "run_advance": 1073,
+   "y_mm": 39.0,
+   "h_mm": 33.0
+  },
+  {
+   "page": 3,
+   "index": 1,
+   "row": 0,
+   "col": 1,
+   "text": "কু",
+   "ghost": "ক",
+   "group": "tall",
+   "glyph": "uMatra-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 414,
+   "target_y": 0,
+   "run_advance": 807,
+   "y_mm": 39.0,
+   "h_mm": 33.0
+  },
+  {
+   "page": 3,
+   "index": 2,
+   "row": 0,
+   "col": 2,
+   "text": "কূ",
+   "ghost": "ক",
+   "group": "tall",
+   "glyph": "uuMatra-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 414,
+   "target_y": 0,
+   "run_advance": 807,
+   "y_mm": 39.0,
+   "h_mm": 33.0
+  },
+  {
+   "page": 3,
+   "index": 3,
+   "row": 0,
+   "col": 3,
+   "text": "কৃ",
+   "ghost": "ক",
+   "group": "tall",
+   "glyph": "rVocalicMatra-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 414,
+   "target_y": 0,
+   "run_advance": 807,
+   "y_mm": 39.0,
+   "h_mm": 33.0
+  },
+  {
+   "page": 3,
+   "index": 4,
+   "row": 0,
+   "col": 4,
+   "text": "র্ক",
+   "ghost": "ক",
+   "group": "tall",
+   "glyph": "reph-beng",
+   "kind": "mark",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ka-beng",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 446,
+   "target_y": 0,
+   "run_advance": 807,
+   "y_mm": 39.0,
+   "h_mm": 33.0
+  },
+  {
+   "page": 3,
+   "index": 5,
+   "row": 1,
    "col": 0,
    "text": "কা",
    "ghost": "ক",
@@ -2029,12 +2397,14 @@
    ],
    "target_x": 807,
    "target_y": 0,
-   "run_advance": 1073
+   "run_advance": 1073,
+   "y_mm": 72.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 1,
-   "row": 0,
+   "index": 6,
+   "row": 1,
    "col": 1,
    "text": "কি",
    "ghost": "ক",
@@ -2051,101 +2421,15 @@
    ],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 1073
+   "run_advance": 1073,
+   "y_mm": 72.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 2,
-   "row": 0,
+   "index": 7,
+   "row": 1,
    "col": 2,
-   "text": "কী",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "iiMatra-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 807,
-   "target_y": 0,
-   "run_advance": 1073
-  },
-  {
-   "page": 3,
-   "index": 3,
-   "row": 0,
-   "col": 3,
-   "text": "কু",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "uMatra-beng",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 414,
-   "target_y": 0,
-   "run_advance": 807
-  },
-  {
-   "page": 3,
-   "index": 4,
-   "row": 0,
-   "col": 4,
-   "text": "কূ",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "uuMatra-beng",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 414,
-   "target_y": 0,
-   "run_advance": 807
-  },
-  {
-   "page": 3,
-   "index": 5,
-   "row": 0,
-   "col": 5,
-   "text": "কৃ",
-   "ghost": "ক",
-   "group": "sign",
-   "glyph": "rVocalicMatra-beng",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 414,
-   "target_y": 0,
-   "run_advance": 807
-  },
-  {
-   "page": 3,
-   "index": 6,
-   "row": 0,
-   "col": 6,
    "text": "কে",
    "ghost": "ক",
    "group": "sign",
@@ -2161,13 +2445,15 @@
    ],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 1168
+   "run_advance": 1168,
+   "y_mm": 72.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 7,
-   "row": 0,
-   "col": 7,
+   "index": 8,
+   "row": 1,
+   "col": 3,
    "text": "কৈ",
    "ghost": "ক",
    "group": "sign",
@@ -2183,13 +2469,15 @@
    ],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 1168
+   "run_advance": 1168,
+   "y_mm": 72.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 8,
+   "index": 9,
    "row": 1,
-   "col": 0,
+   "col": 4,
    "text": "কৗ",
    "ghost": "ক",
    "group": "sign",
@@ -2205,13 +2493,15 @@
    ],
    "target_x": 807,
    "target_y": 0,
-   "run_advance": 1073
+   "run_advance": 1073,
+   "y_mm": 72.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 9,
+   "index": 10,
    "row": 1,
-   "col": 1,
+   "col": 5,
    "text": "ক্",
    "ghost": "ক",
    "group": "sign",
@@ -2227,211 +2517,15 @@
    ],
    "target_x": 414,
    "target_y": 0,
-   "run_advance": 807
-  },
-  {
-   "page": 3,
-   "index": 10,
-   "row": 2,
-   "col": 0,
-   "text": "।",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "danda-deva",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 379
+   "run_advance": 807,
+   "y_mm": 72.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
    "index": 11,
-   "row": 2,
-   "col": 1,
-   "text": "০",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "zero-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 12,
-   "row": 2,
-   "col": 2,
-   "text": "১",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "one-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 13,
-   "row": 2,
-   "col": 3,
-   "text": "২",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "two-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 14,
-   "row": 2,
-   "col": 4,
-   "text": "৩",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "three-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 15,
-   "row": 2,
-   "col": 5,
-   "text": "৪",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "four-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 16,
-   "row": 2,
+   "row": 1,
    "col": 6,
-   "text": "৫",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "five-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 17,
-   "row": 2,
-   "col": 7,
-   "text": "৬",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "six-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 18,
-   "row": 3,
-   "col": 0,
-   "text": "৭",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "seven-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 19,
-   "row": 3,
-   "col": 1,
-   "text": "৮",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "eight-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 20,
-   "row": 3,
-   "col": 2,
-   "text": "৯",
-   "ghost": null,
-   "group": "digit",
-   "glyph": "nine-beng",
-   "kind": "base",
-   "unicode": null,
-   "ghost_glyphs": [],
-   "target_x": 0,
-   "target_y": 0,
-   "run_advance": 592
-  },
-  {
-   "page": 3,
-   "index": 21,
-   "row": 4,
-   "col": 0,
-   "text": "র্ক",
-   "ghost": "ক",
-   "group": "phala",
-   "glyph": "reph-beng",
-   "kind": "mark",
-   "unicode": null,
-   "ghost_glyphs": [
-    {
-     "name": "ka-beng",
-     "x": 0,
-     "y": 0
-    }
-   ],
-   "target_x": 446,
-   "target_y": 0,
-   "run_advance": 807
-  },
-  {
-   "page": 3,
-   "index": 22,
-   "row": 4,
-   "col": 1,
    "text": "প্র",
    "ghost": "প",
    "group": "phala",
@@ -2447,13 +2541,15 @@
    ],
    "target_x": 94,
    "target_y": -158,
-   "run_advance": 716
+   "run_advance": 716,
+   "y_mm": 72.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
-   "index": 23,
-   "row": 4,
-   "col": 2,
+   "index": 12,
+   "row": 1,
+   "col": 7,
    "text": "ক্য",
    "ghost": "ক",
    "group": "phala",
@@ -2469,13 +2565,213 @@
    ],
    "target_x": 807,
    "target_y": 0,
-   "run_advance": 1077
+   "run_advance": 1077,
+   "y_mm": 72.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 13,
+   "row": 2,
+   "col": 0,
+   "text": "।",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "danda-deva",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 379,
+   "y_mm": 94.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 14,
+   "row": 2,
+   "col": 1,
+   "text": "০",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "zero-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 94.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 15,
+   "row": 2,
+   "col": 2,
+   "text": "১",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "one-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 94.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 16,
+   "row": 2,
+   "col": 3,
+   "text": "২",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "two-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 94.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 17,
+   "row": 2,
+   "col": 4,
+   "text": "৩",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "three-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 94.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 18,
+   "row": 2,
+   "col": 5,
+   "text": "৪",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "four-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 94.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 19,
+   "row": 2,
+   "col": 6,
+   "text": "৫",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "five-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 94.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 20,
+   "row": 2,
+   "col": 7,
+   "text": "৬",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "six-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 94.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 21,
+   "row": 3,
+   "col": 0,
+   "text": "৭",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "seven-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 116.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 22,
+   "row": 3,
+   "col": 1,
+   "text": "৮",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "eight-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 116.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 23,
+   "row": 3,
+   "col": 2,
+   "text": "৯",
+   "ghost": null,
+   "group": "digit",
+   "glyph": "nine-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 592,
+   "y_mm": 116.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
    "index": 24,
-   "row": 5,
-   "col": 0,
+   "row": 3,
+   "col": 3,
    "text": "ক্ষ",
    "ghost": null,
    "group": "conjunct",
@@ -2485,13 +2781,15 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 859
+   "run_advance": 859,
+   "y_mm": 116.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
    "index": 25,
-   "row": 5,
-   "col": 1,
+   "row": 3,
+   "col": 4,
    "text": "ঙ্গ",
    "ghost": null,
    "group": "conjunct",
@@ -2501,13 +2799,15 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 689
+   "run_advance": 689,
+   "y_mm": 116.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
    "index": 26,
-   "row": 5,
-   "col": 2,
+   "row": 3,
+   "col": 5,
    "text": "ত্ত",
    "ghost": null,
    "group": "conjunct",
@@ -2517,13 +2817,15 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 710
+   "run_advance": 710,
+   "y_mm": 116.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
    "index": 27,
-   "row": 5,
-   "col": 3,
+   "row": 3,
+   "col": 6,
    "text": "ষ্ট",
    "ghost": null,
    "group": "conjunct",
@@ -2533,13 +2835,15 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 531
+   "run_advance": 531,
+   "y_mm": 116.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
    "index": 28,
-   "row": 5,
-   "col": 4,
+   "row": 3,
+   "col": 7,
    "text": "জ্ঞ",
    "ghost": null,
    "group": "conjunct",
@@ -2549,13 +2853,15 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 939
+   "run_advance": 939,
+   "y_mm": 116.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
    "index": 29,
-   "row": 5,
-   "col": 5,
+   "row": 4,
+   "col": 0,
    "text": "ঞ্চ",
    "ghost": null,
    "group": "conjunct",
@@ -2565,13 +2871,15 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 853
+   "run_advance": 853,
+   "y_mm": 138.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
    "index": 30,
-   "row": 5,
-   "col": 6,
+   "row": 4,
+   "col": 1,
    "text": "ঞ্জ",
    "ghost": null,
    "group": "conjunct",
@@ -2581,34 +2889,748 @@
    "ghost_glyphs": [],
    "target_x": 0,
    "target_y": 0,
-   "run_advance": 763
+   "run_advance": 763,
+   "y_mm": 138.0,
+   "h_mm": 22.0
   },
   {
    "page": 3,
    "index": 31,
+   "row": 4,
+   "col": 2,
+   "text": "ষ্ঠ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "ss_ttha-beng.notop",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 623,
+   "y_mm": 138.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 32,
+   "row": 4,
+   "col": 3,
+   "text": "ন্স",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "n_sa-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 738,
+   "y_mm": 138.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 33,
+   "row": 4,
+   "col": 4,
+   "text": "ব্দ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "b_da-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 815,
+   "y_mm": 138.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 34,
+   "row": 4,
+   "col": 5,
+   "text": "ক্স",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "k_sa-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 892,
+   "y_mm": 138.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 35,
+   "row": 4,
+   "col": 6,
+   "text": "ণ্ড",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "nn_dda-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 758,
+   "y_mm": 138.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 36,
+   "row": 4,
+   "col": 7,
+   "text": "ক্ট",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "k_tta-beng.noflag",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 727,
+   "y_mm": 138.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 37,
+   "row": 5,
+   "col": 0,
+   "text": "ঙ্ক",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "ng_ka-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 689,
+   "y_mm": 160.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 38,
+   "row": 5,
+   "col": 1,
+   "text": "দ্দ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "d_da-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 807,
+   "y_mm": 160.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 39,
+   "row": 5,
+   "col": 2,
+   "text": "দ্ভ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "d_bha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 738,
+   "y_mm": 160.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 40,
+   "row": 5,
+   "col": 3,
+   "text": "ষ্ণ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "ss_nna-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 883,
+   "y_mm": 160.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 41,
+   "row": 5,
+   "col": 4,
+   "text": "জ্জ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "j_ja-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1169,
+   "y_mm": 160.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 42,
+   "row": 5,
+   "col": 5,
+   "text": "হ্ম",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "h_ma-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 864,
+   "y_mm": 160.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 43,
+   "row": 5,
+   "col": 6,
+   "text": "ক্ষ্ম",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "k_ss_ma-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1037,
+   "y_mm": 160.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 44,
+   "row": 5,
+   "col": 7,
+   "text": "ত্থ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "t_tha-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 735,
+   "y_mm": 160.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 45,
    "row": 6,
    "col": 0,
-   "text": "ক্ত",
+   "text": "ড্ড",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "dd_dda-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1122,
+   "y_mm": 182.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 46,
+   "row": 6,
+   "col": 1,
+   "text": "ব্জ",
+   "ghost": null,
+   "group": "conjunct",
+   "glyph": "b_ja-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 991,
+   "y_mm": 182.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 47,
+   "row": 6,
+   "col": 2,
+   "text": "স্ত",
    "ghost": null,
    "group": "part",
-   "glyph": "ka-beng.arm2",
+   "glyph": "s-beng.half3",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ta-beng.blws",
+     "x": 1,
+     "y": 52
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 782,
+   "y_mm": 182.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 48,
+   "row": 6,
+   "col": 3,
+   "text": "ম্ম",
+   "ghost": null,
+   "group": "part",
+   "glyph": "m-beng.half",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ma-beng.side2",
+     "x": 586,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 813,
+   "y_mm": 182.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 49,
+   "row": 6,
+   "col": 4,
+   "text": "স্থ",
+   "ghost": null,
+   "group": "part",
+   "glyph": "s-beng.half2",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "tha-beng.blws",
+     "x": 186,
+     "y": -148
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 667,
+   "y_mm": 182.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 50,
+   "row": 6,
+   "col": 5,
+   "text": "ক্র",
+   "ghost": null,
+   "group": "part",
+   "glyph": "t_ra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "headline-beng.200",
+     "x": 662,
+     "y": 0
+    },
+    {
+     "name": "ka-beng.arm2",
+     "x": 492,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 862,
+   "y_mm": 182.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 51,
+   "row": 6,
+   "col": 6,
+   "text": "স্ট",
+   "ghost": null,
+   "group": "part",
+   "glyph": "s-beng.half4",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ddha-beng.side",
+     "x": 623,
+     "y": 0
+    },
+    {
+     "name": "tta-beng.flag",
+     "x": 342,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 903,
+   "y_mm": 182.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 52,
+   "row": 6,
+   "col": 7,
+   "text": "স্প",
+   "ghost": null,
+   "group": "part",
+   "glyph": "s-beng.half",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "pa-beng",
+     "x": 490,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 1206,
+   "y_mm": 182.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 53,
+   "row": 7,
+   "col": 0,
+   "text": "ন্ত্র",
+   "ghost": null,
+   "group": "part",
+   "glyph": "t_ra-beng.blws",
    "kind": "mark",
    "unicode": null,
    "ghost_glyphs": [
     {
-     "name": "t_ta-beng",
+     "name": "n-beng.half2",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": -14,
+   "target_y": -136,
+   "run_advance": 613,
+   "y_mm": 204.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 54,
+   "row": 7,
+   "col": 1,
+   "text": "ল্ম",
+   "ghost": null,
+   "group": "part",
+   "glyph": "ma-beng.side",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "l-beng.half3",
      "x": 0,
      "y": 0
     },
     {
-     "name": "headline-beng.200",
-     "x": 710,
+     "name": "aaMatra-beng.part",
+     "x": 402,
      "y": 0
     }
    ],
-   "target_x": 545,
-   "target_y": 23,
-   "run_advance": 910
+   "target_x": 666,
+   "target_y": 0,
+   "run_advance": 898,
+   "y_mm": 204.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 55,
+   "row": 7,
+   "col": 2,
+   "text": "ম্ম",
+   "ghost": null,
+   "group": "part",
+   "glyph": "ma-beng.side2",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "m-beng.half",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 586,
+   "target_y": 0,
+   "run_advance": 813,
+   "y_mm": 204.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 56,
+   "row": 7,
+   "col": 3,
+   "text": "প্ট",
+   "ghost": null,
+   "group": "part",
+   "glyph": "p-beng.half3",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ddha-beng.side",
+     "x": 716,
+     "y": 0
+    },
+    {
+     "name": "tta-beng.flag",
+     "x": 435,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 996,
+   "y_mm": 204.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 57,
+   "row": 7,
+   "col": 4,
+   "text": "ট্ট",
+   "ghost": null,
+   "group": "part",
+   "glyph": "tt_tta-beng.noflag",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "tta-beng.flag",
+     "x": -29,
+     "y": 0
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 562,
+   "y_mm": 204.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 58,
+   "row": 7,
+   "col": 5,
+   "text": "ত্ম",
+   "ghost": null,
+   "group": "part",
+   "glyph": "ma-beng.side1",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "t-beng.half",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 723,
+   "target_y": 0,
+   "run_advance": 920,
+   "y_mm": 204.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 59,
+   "row": 7,
+   "col": 6,
+   "text": "ম্ন",
+   "ghost": null,
+   "group": "part",
+   "glyph": "m-beng.half2",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "na-beng.blws3",
+     "x": 92,
+     "y": -5
+    }
+   ],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 616,
+   "y_mm": 204.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 60,
+   "row": 7,
+   "col": 7,
+   "text": "ণ্ঠ",
+   "ghost": null,
+   "group": "part",
+   "glyph": "ttha-beng.side",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "nn-beng.half3",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "name": "ttha-beng.top2",
+     "x": 264,
+     "y": 0
+    }
+   ],
+   "target_x": 569,
+   "target_y": 0,
+   "run_advance": 707,
+   "y_mm": 204.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 61,
+   "row": 8,
+   "col": 0,
+   "text": "দ্ম",
+   "ghost": null,
+   "group": "part",
+   "glyph": "ma-beng.side3",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "d-beng.half",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 563,
+   "target_y": 0,
+   "run_advance": 795,
+   "y_mm": 226.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 62,
+   "row": 8,
+   "col": 1,
+   "text": "স্ফ",
+   "ghost": null,
+   "group": "part",
+   "glyph": "pha-beng.side",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "s-beng.half",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 640,
+   "target_y": 0,
+   "run_advance": 1070,
+   "y_mm": 226.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 63,
+   "row": 8,
+   "col": 2,
+   "text": "ঙ্খ",
+   "ghost": null,
+   "group": "part",
+   "glyph": "kha-beng.side",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [
+    {
+     "name": "ng-beng.half2",
+     "x": 0,
+     "y": 0
+    }
+   ],
+   "target_x": 635,
+   "target_y": 0,
+   "run_advance": 871,
+   "y_mm": 226.0,
+   "h_mm": 22.0
+  },
+  {
+   "page": 3,
+   "index": 64,
+   "row": 8,
+   "col": 3,
+   "text": "ত্ত্র",
+   "ghost": null,
+   "group": "part",
+   "glyph": "t_t_ra-beng",
+   "kind": "base",
+   "unicode": null,
+   "ghost_glyphs": [],
+   "target_x": 0,
+   "target_y": 0,
+   "run_advance": 648,
+   "y_mm": 226.0,
+   "h_mm": 22.0
   }
  ],
  "excluded": [
@@ -2649,6 +3671,23 @@
    ],
    "glyph": null,
    "status": "same glyph as cell য়"
+  },
+  {
+   "page": 3,
+   "text": "জ্জ্ব",
+   "ghost": null,
+   "base_font": [
+    "j_j_ba-beng"
+   ],
+   "basic_forms": [
+    "j_j_ba-beng"
+   ],
+   "final_font": [
+    "j_ja-beng",
+    "baphala-beng"
+   ],
+   "glyph": null,
+   "status": "not one glyph in the final font (2 glyphs)"
   }
  ],
  "log": [
@@ -4052,46 +5091,6 @@
   },
   {
    "page": 3,
-   "text": "কা",
-   "ghost": "ক",
-   "base_font": [
-    "ka-beng",
-    "aaMatra-beng"
-   ],
-   "basic_forms": [
-    "ka-beng",
-    "aaMatra-beng"
-   ],
-   "final_font": [
-    "ka-beng",
-    "aaMatra-beng"
-   ],
-   "glyph": "aaMatra-beng",
-   "status": "ghost + one written glyph",
-   "kind": "base"
-  },
-  {
-   "page": 3,
-   "text": "কি",
-   "ghost": "ক",
-   "base_font": [
-    "iMatra-beng",
-    "ka-beng"
-   ],
-   "basic_forms": [
-    "iMatra-beng",
-    "ka-beng"
-   ],
-   "final_font": [
-    "iMatra-beng",
-    "ka-beng"
-   ],
-   "glyph": "iMatra-beng",
-   "status": "ghost + one written glyph",
-   "kind": "base"
-  },
-  {
-   "page": 3,
    "text": "কী",
    "ghost": "ক",
    "base_font": [
@@ -4172,6 +5171,66 @@
   },
   {
    "page": 3,
+   "text": "র্ক",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "reph-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "reph-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "reph-beng"
+   ],
+   "glyph": "reph-beng",
+   "status": "ghost + one written glyph",
+   "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "কা",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "aaMatra-beng"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "aaMatra-beng"
+   ],
+   "final_font": [
+    "ka-beng",
+    "aaMatra-beng"
+   ],
+   "glyph": "aaMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "কি",
+   "ghost": "ক",
+   "base_font": [
+    "iMatra-beng",
+    "ka-beng"
+   ],
+   "basic_forms": [
+    "iMatra-beng",
+    "ka-beng"
+   ],
+   "final_font": [
+    "iMatra-beng",
+    "ka-beng"
+   ],
+   "glyph": "iMatra-beng",
+   "status": "ghost + one written glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
    "text": "কে",
    "ghost": "ক",
    "base_font": [
@@ -4249,6 +5308,46 @@
    "glyph": "halant-beng",
    "status": "ghost + one written glyph",
    "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "প্র",
+   "ghost": "প",
+   "base_font": [
+    "p-beng.half2",
+    "raphala-beng.alt02"
+   ],
+   "basic_forms": [
+    "pa-beng",
+    "raphala-beng"
+   ],
+   "final_font": [
+    "pa-beng",
+    "raphala-beng"
+   ],
+   "glyph": "raphala-beng",
+   "status": "ghost + one written glyph (basic forms; the font itself uses p-beng.half2 raphala-beng.alt02)",
+   "kind": "mark"
+  },
+  {
+   "page": 3,
+   "text": "ক্য",
+   "ghost": "ক",
+   "base_font": [
+    "ka-beng",
+    "ya-beng.pstf"
+   ],
+   "basic_forms": [
+    "ka-beng",
+    "ya-beng.pstf"
+   ],
+   "final_font": [
+    "ka-beng",
+    "ya-beng.pstf"
+   ],
+   "glyph": "ya-beng.pstf",
+   "status": "ghost + one written glyph",
+   "kind": "base"
   },
   {
    "page": 3,
@@ -4439,66 +5538,6 @@
   },
   {
    "page": 3,
-   "text": "র্ক",
-   "ghost": "ক",
-   "base_font": [
-    "ka-beng",
-    "reph-beng"
-   ],
-   "basic_forms": [
-    "ka-beng",
-    "reph-beng"
-   ],
-   "final_font": [
-    "ka-beng",
-    "reph-beng"
-   ],
-   "glyph": "reph-beng",
-   "status": "ghost + one written glyph",
-   "kind": "mark"
-  },
-  {
-   "page": 3,
-   "text": "প্র",
-   "ghost": "প",
-   "base_font": [
-    "p-beng.half2",
-    "raphala-beng.alt02"
-   ],
-   "basic_forms": [
-    "pa-beng",
-    "raphala-beng"
-   ],
-   "final_font": [
-    "pa-beng",
-    "raphala-beng"
-   ],
-   "glyph": "raphala-beng",
-   "status": "ghost + one written glyph",
-   "kind": "mark"
-  },
-  {
-   "page": 3,
-   "text": "ক্য",
-   "ghost": "ক",
-   "base_font": [
-    "ka-beng",
-    "ya-beng.pstf"
-   ],
-   "basic_forms": [
-    "ka-beng",
-    "ya-beng.pstf"
-   ],
-   "final_font": [
-    "ka-beng",
-    "ya-beng.pstf"
-   ],
-   "glyph": "ya-beng.pstf",
-   "status": "ghost + one written glyph",
-   "kind": "base"
-  },
-  {
-   "page": 3,
    "text": "ক্ষ",
    "ghost": null,
    "base_font": [
@@ -4619,128 +5658,1060 @@
   },
   {
    "page": 3,
-   "text": "ক্ত",
+   "text": "ষ্ঠ",
    "ghost": null,
+   "base_font": [
+    "ss_ttha-beng.notop",
+    "ttha-beng.top2"
+   ],
+   "basic_forms": [
+    "ss_ttha-beng.notop"
+   ],
+   "final_font": [
+    "ss_ttha-beng.notop"
+   ],
+   "glyph": "ss_ttha-beng.notop",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ন্স",
+   "ghost": null,
+   "base_font": [
+    "n_sa-beng"
+   ],
+   "basic_forms": [
+    "n_sa-beng"
+   ],
+   "final_font": [
+    "n_sa-beng"
+   ],
+   "glyph": "n_sa-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ব্দ",
+   "ghost": null,
+   "base_font": [
+    "b_da-beng"
+   ],
+   "basic_forms": [
+    "b_da-beng"
+   ],
+   "final_font": [
+    "b_da-beng"
+   ],
+   "glyph": "b_da-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ক্স",
+   "ghost": null,
+   "base_font": [
+    "k_sa-beng"
+   ],
+   "basic_forms": [
+    "k_sa-beng"
+   ],
+   "final_font": [
+    "k_sa-beng"
+   ],
+   "glyph": "k_sa-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ণ্ড",
+   "ghost": null,
+   "base_font": [
+    "nn_dda-beng"
+   ],
+   "basic_forms": [
+    "nn_dda-beng"
+   ],
+   "final_font": [
+    "nn_dda-beng"
+   ],
+   "glyph": "nn_dda-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ক্ট",
+   "ghost": null,
+   "base_font": [
+    "k_tta-beng.noflag",
+    "tta-beng.flag2"
+   ],
+   "basic_forms": [
+    "k_tta-beng.noflag"
+   ],
+   "final_font": [
+    "k_tta-beng.noflag"
+   ],
+   "glyph": "k_tta-beng.noflag",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ঙ্ক",
+   "ghost": null,
+   "base_font": [
+    "ng_ka-beng"
+   ],
+   "basic_forms": [
+    "ng_ka-beng"
+   ],
+   "final_font": [
+    "ng_ka-beng"
+   ],
+   "glyph": "ng_ka-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "দ্দ",
+   "ghost": null,
+   "base_font": [
+    "d_da-beng"
+   ],
+   "basic_forms": [
+    "d_da-beng"
+   ],
+   "final_font": [
+    "d_da-beng"
+   ],
+   "glyph": "d_da-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "দ্ভ",
+   "ghost": null,
+   "base_font": [
+    "d_bha-beng"
+   ],
+   "basic_forms": [
+    "d_bha-beng"
+   ],
+   "final_font": [
+    "d_bha-beng"
+   ],
+   "glyph": "d_bha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ষ্ণ",
+   "ghost": null,
+   "base_font": [
+    "ss_nna-beng"
+   ],
+   "basic_forms": [
+    "ss_nna-beng"
+   ],
+   "final_font": [
+    "ss_nna-beng"
+   ],
+   "glyph": "ss_nna-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "জ্জ",
+   "ghost": null,
+   "base_font": [
+    "j_ja-beng"
+   ],
+   "basic_forms": [
+    "j_ja-beng"
+   ],
+   "final_font": [
+    "j_ja-beng"
+   ],
+   "glyph": "j_ja-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "হ্ম",
+   "ghost": null,
+   "base_font": [
+    "h_ma-beng"
+   ],
+   "basic_forms": [
+    "h_ma-beng"
+   ],
+   "final_font": [
+    "h_ma-beng"
+   ],
+   "glyph": "h_ma-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ক্ষ্ম",
+   "ghost": null,
+   "base_font": [
+    "k_ss_ma-beng"
+   ],
+   "basic_forms": [
+    "k_ss_ma-beng"
+   ],
+   "final_font": [
+    "k_ss_ma-beng"
+   ],
+   "glyph": "k_ss_ma-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ত্থ",
+   "ghost": null,
+   "base_font": [
+    "t_tha-beng"
+   ],
+   "basic_forms": [
+    "t_tha-beng"
+   ],
+   "final_font": [
+    "t_tha-beng"
+   ],
+   "glyph": "t_tha-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "জ্জ্ব",
+   "ghost": null,
+   "base_font": [
+    "j_j_ba-beng"
+   ],
+   "basic_forms": [
+    "j_j_ba-beng"
+   ],
+   "final_font": [
+    "j_ja-beng",
+    "baphala-beng"
+   ],
+   "glyph": null,
+   "status": "not one glyph in the final font (2 glyphs)"
+  },
+  {
+   "page": 3,
+   "text": "ড্ড",
+   "ghost": null,
+   "base_font": [
+    "dd_dda-beng"
+   ],
+   "basic_forms": [
+    "dd_dda-beng"
+   ],
+   "final_font": [
+    "dd_dda-beng"
+   ],
+   "glyph": "dd_dda-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ব্জ",
+   "ghost": null,
+   "base_font": [
+    "b_ja-beng"
+   ],
+   "basic_forms": [
+    "b_ja-beng"
+   ],
+   "final_font": [
+    "b_ja-beng"
+   ],
+   "glyph": "b_ja-beng",
+   "status": "single glyph",
+   "kind": "base"
+  },
+  {
+   "page": 3,
+   "text": "ক্ত",
    "glyph": "ka-beng.arm2",
    "kind": "mark",
-   "final_font": [
-    "t_ta-beng",
-    "ka-beng.arm2",
-    "headline-beng.200"
-   ],
-   "status": "part, ghost ['t_ta-beng', 'headline-beng.200']"
+   "status": "derived (slice): cut from ta-beng (self-check overlap 0.72, largest miss 9%)"
   },
   {
    "page": 3,
    "text": "ক্ত",
    "glyph": "headline-beng.200",
    "kind": "mark",
-   "status": "derived (bar): solid bar the height of a মাত্রা"
+   "status": "derived (bar): a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
   },
   {
    "page": 3,
    "text": "ন্ত",
    "glyph": "n-beng.half3",
    "kind": "base",
-   "status": "derived (slice): half form: top of na-beng"
+   "status": "derived (slice): half form: top of na-beng (self-check overlap 0.79, largest miss 7%)"
   },
   {
    "page": 3,
    "text": "ন্ত",
    "glyph": "ta-beng.blws",
    "kind": "mark",
-   "status": "derived (body): below-base form: body of ta-beng, scaled"
+   "status": "derived (slice): cut from ta-beng (self-check overlap 0.76, largest miss 9%)"
   },
   {
    "page": 3,
    "text": "ন্দ",
    "glyph": "n-beng.headline",
    "kind": "base",
-   "status": "derived (bar): solid bar the height of a মাত্রা"
+   "status": "derived (bar): a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
   },
   {
    "page": 3,
    "text": "ন্দ",
    "glyph": "n-beng.float",
    "kind": "mark",
-   "status": "derived (slice): matches part of na-beng (IoU 0.84)"
+   "status": "derived (slice): cut from na-beng (self-check overlap 0.89, largest miss 0%)"
   },
   {
    "page": 3,
    "text": "স্ত",
+   "ghost": null,
    "glyph": "s-beng.half3",
    "kind": "base",
-   "status": "derived (slice): half form: top of sa-beng"
+   "final_font": [
+    "s-beng.half3",
+    "ta-beng.blws"
+   ],
+   "status": "part, ghost ['ta-beng.blws']"
   },
   {
    "page": 3,
-   "text": "ম্ব",
+   "text": "ম্ম",
+   "ghost": null,
    "glyph": "m-beng.half",
    "kind": "base",
-   "status": "derived (slice): half form: top of ma-beng"
+   "final_font": [
+    "m-beng.half",
+    "ma-beng.side2"
+   ],
+   "status": "part, ghost ['ma-beng.side2']"
   },
   {
    "page": 3,
    "text": "ম্ব",
    "glyph": "baphala-beng.alt4",
    "kind": "mark",
-   "status": "derived (body): below-base form: body of ba-beng, scaled"
+   "status": "derived (variant): baphala-beng fitted to its box (GSUB variant) (self-check overlap 0.98, largest miss 0%)"
   },
   {
    "page": 3,
    "text": "ন্ন",
    "glyph": "aaMatra-beng.part",
    "kind": "base",
-   "status": "derived (slice): matches part of aaMatra-beng (IoU 0.96)"
+   "status": "derived (slice): cut from the sign aaMatra-beng (self-check overlap 0.92, largest miss 0%)"
   },
   {
    "page": 3,
    "text": "ন্ন",
    "glyph": "na-beng.blws1",
    "kind": "mark",
-   "status": "derived (slice): matches part of na-beng (IoU 0.84)"
+   "status": "derived (slice): cut from na-beng (self-check overlap 0.81, largest miss 0%)"
   },
   {
    "page": 3,
    "text": "ল্প",
    "glyph": "l-beng.half3",
    "kind": "base",
-   "status": "derived (slice): half form: top of la-beng"
+   "status": "derived (slice): half form: top of la-beng (self-check overlap 0.77, largest miss 8%)"
   },
   {
    "page": 3,
    "text": "ল্প",
    "glyph": "aaMatra-beng.part2",
    "kind": "base",
-   "status": "derived (slice): matches part of aaMatra-beng (IoU 0.96)"
+   "status": "derived (slice): cut from the sign aaMatra-beng (self-check overlap 0.93, largest miss 0%)"
   },
   {
    "page": 3,
    "text": "ল্প",
    "glyph": "pa-beng.blws",
    "kind": "mark",
-   "status": "derived (body): below-base form: body of pa-beng, scaled"
+   "status": "derived (slice): cut from pa-beng (self-check overlap 0.78, largest miss 3%)"
   },
   {
    "page": 3,
    "text": "হ্ন",
    "glyph": "headline-beng.250",
    "kind": "mark",
-   "status": "derived (bar): solid bar the height of a মাত্রা"
+   "status": "derived (bar): a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "প্র",
+   "glyph": "p-beng.half2",
+   "kind": "base",
+   "status": "derived (slice): half form: top of pa-beng (self-check overlap 0.96, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "প্র",
+   "glyph": "raphala-beng.alt02",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.84, largest miss 6%)"
+  },
+  {
+   "page": 3,
+   "text": "দ্ধ",
+   "glyph": "d-beng.half3",
+   "kind": "base",
+   "status": "derived (slice): half form: top of da-beng (self-check overlap 0.84, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "দ্ধ",
+   "glyph": "dha-beng.part",
+   "kind": "mark",
+   "status": "derived (slice): cut from the sign aaMatra-beng (self-check overlap 0.87, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "দ্ধ",
+   "glyph": "headline-beng.130",
+   "kind": "mark",
+   "status": "derived (bar): a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "স্থ",
+   "ghost": null,
+   "glyph": "s-beng.half2",
+   "kind": "base",
+   "final_font": [
+    "s-beng.half2",
+    "tha-beng.blws"
+   ],
+   "status": "part, ghost ['tha-beng.blws']"
+  },
+  {
+   "page": 3,
+   "text": "স্থ",
+   "glyph": "tha-beng.blws",
+   "kind": "mark",
+   "status": "derived (slice): cut from tha-beng (self-check overlap 0.80, largest miss 3%)"
+  },
+  {
+   "page": 3,
+   "text": "ক্র",
+   "ghost": null,
+   "glyph": "t_ra-beng",
+   "kind": "base",
+   "final_font": [
+    "t_ra-beng",
+    "headline-beng.200",
+    "ka-beng.arm2"
+   ],
+   "status": "part, ghost ['headline-beng.200', 'ka-beng.arm2']"
+  },
+  {
+   "page": 3,
+   "text": "স্ট",
+   "ghost": null,
+   "glyph": "s-beng.half4",
+   "kind": "base",
+   "final_font": [
+    "s-beng.half4",
+    "ddha-beng.side",
+    "tta-beng.flag"
+   ],
+   "status": "part, ghost ['ddha-beng.side', 'tta-beng.flag']"
+  },
+  {
+   "page": 3,
+   "text": "স্ট",
+   "glyph": "ddha-beng.side",
+   "kind": "base",
+   "status": "derived (slice): half form: top of tta-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "স্ট",
+   "glyph": "tta-beng.flag",
+   "kind": "mark",
+   "status": "derived (slice): cut from tta-beng (self-check overlap 0.75, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ন্ড",
+   "glyph": "dda-beng.side",
+   "kind": "base",
+   "status": "derived (slice): half form: top of dda-beng (self-check overlap 0.85, largest miss 8%)"
+  },
+  {
+   "page": 3,
+   "text": "স্প",
+   "ghost": null,
+   "glyph": "s-beng.half",
+   "kind": "base",
+   "final_font": [
+    "s-beng.half",
+    "pa-beng"
+   ],
+   "status": "part, ghost ['pa-beng']"
+  },
+  {
+   "page": 3,
+   "text": "স্ক",
+   "glyph": "ka-beng.part",
+   "kind": "mark",
+   "status": "derived (slice): cut from ka-beng (self-check overlap 0.80, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "শ্ব",
+   "glyph": "sh-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of sha-beng (self-check overlap 0.85, largest miss 8%)"
+  },
+  {
+   "page": 3,
+   "text": "শ্ব",
+   "glyph": "aaMatra-beng.side",
+   "kind": "mark",
+   "status": "derived (slice): cut from ba-beng (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "চ্চ",
+   "glyph": "c-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ca-beng (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ন্ত্র",
+   "glyph": "n-beng.half2",
+   "kind": "base",
+   "status": "derived (slice): half form: top of na-beng (self-check overlap 0.86, largest miss 8%)"
+  },
+  {
+   "page": 3,
+   "text": "ন্ত্র",
+   "ghost": null,
+   "glyph": "t_ra-beng.blws",
+   "kind": "mark",
+   "final_font": [
+    "n-beng.half2",
+    "t_ra-beng.blws"
+   ],
+   "status": "part, ghost ['n-beng.half2']"
+  },
+  {
+   "page": 3,
+   "text": "ত্ব",
+   "glyph": "t-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ta-beng (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ত্ব",
+   "glyph": "baphala-beng.alt2",
+   "kind": "mark",
+   "status": "derived (variant): baphala-beng fitted to its box (GSUB variant) (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ল্ল",
+   "glyph": "la-beng.blws2",
+   "kind": "mark",
+   "status": "derived (slice): cut from la-beng (self-check overlap 0.72, largest miss 8%)"
+  },
+  {
+   "page": 3,
+   "text": "ন্দ্র",
+   "glyph": "d-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of da-beng (self-check overlap 0.97, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ন্দ্র",
+   "glyph": "raphala-beng.alt09",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.86, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ল্ম",
+   "ghost": null,
+   "glyph": "ma-beng.side",
+   "kind": "base",
+   "final_font": [
+    "l-beng.half3",
+    "aaMatra-beng.part",
+    "ma-beng.side"
+   ],
+   "status": "part, ghost ['l-beng.half3', 'aaMatra-beng.part']"
+  },
+  {
+   "page": 3,
+   "text": "ফ্র",
+   "glyph": "ph-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of pha-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ফ্র",
+   "glyph": "raphala-beng.alt14",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ম্ম",
+   "ghost": null,
+   "glyph": "ma-beng.side2",
+   "kind": "base",
+   "final_font": [
+    "m-beng.half",
+    "ma-beng.side2"
+   ],
+   "status": "part, ghost ['m-beng.half']"
+  },
+  {
+   "page": 3,
+   "text": "শ্চ",
+   "glyph": "ca-beng.side",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ca-beng (self-check overlap 0.99, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ক্ল",
+   "glyph": "k-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ka-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ক্ল",
+   "glyph": "la-beng.blws",
+   "kind": "mark",
+   "status": "derived (slice): cut from la-beng (self-check overlap 0.70, largest miss 8%)"
+  },
+  {
+   "page": 3,
+   "text": "স্ট্র",
+   "glyph": "ddh-beng.side",
+   "kind": "base",
+   "status": "derived (slice): half form: top of tta-beng (self-check overlap 0.89, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "স্ট্র",
+   "glyph": "raphala-beng.alt03",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.92, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "প্ট",
+   "ghost": null,
+   "glyph": "p-beng.half3",
+   "kind": "base",
+   "final_font": [
+    "p-beng.half3",
+    "ddha-beng.side",
+    "tta-beng.flag"
+   ],
+   "status": "part, ghost ['ddha-beng.side', 'tta-beng.flag']"
+  },
+  {
+   "page": 3,
+   "text": "প্ল",
+   "glyph": "p-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of pa-beng (self-check overlap 0.92, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "প্ল",
+   "glyph": "la-beng.blws1",
+   "kind": "mark",
+   "status": "derived (slice): cut from la-beng (self-check overlap 0.78, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ট্ট",
+   "ghost": null,
+   "glyph": "tt_tta-beng.noflag",
+   "kind": "base",
+   "final_font": [
+    "tt_tta-beng.noflag",
+    "tta-beng.flag"
+   ],
+   "status": "part, ghost ['tta-beng.flag']"
+  },
+  {
+   "page": 3,
+   "text": "ত্ত্ব",
+   "glyph": "t_t-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ta-beng (self-check overlap 0.89, largest miss 5%)"
+  },
+  {
+   "page": 3,
+   "text": "ষ্ম",
+   "glyph": "ss-beng.half4",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ssa-beng (self-check overlap 0.69, largest miss 7%)"
+  },
+  {
+   "page": 3,
+   "text": "ম্ভ",
+   "glyph": "m-beng.half3",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ma-beng (self-check overlap 0.73, largest miss 9%)"
+  },
+  {
+   "page": 3,
+   "text": "ম্ভ",
+   "glyph": "bha-beng.blws",
+   "kind": "mark",
+   "status": "derived (body): body of bha-beng, scaled (self-check overlap 0.79, largest miss 9%)"
+  },
+  {
+   "page": 3,
+   "text": "ত্ম",
+   "ghost": null,
+   "glyph": "ma-beng.side1",
+   "kind": "base",
+   "final_font": [
+    "t-beng.half",
+    "ma-beng.side1"
+   ],
+   "status": "part, ghost ['t-beng.half']"
+  },
+  {
+   "page": 3,
+   "text": "ব্ব",
+   "glyph": "ba-beng.side",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ba-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ম্প্র",
+   "glyph": "raphala-beng.alt12",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.81, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ক্ক",
+   "glyph": "b-beng.half2",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ka-beng (self-check overlap 0.86, largest miss 4%)"
+  },
+  {
+   "page": 3,
+   "text": "ক্ক",
+   "glyph": "ka-beng.arm1",
+   "kind": "mark",
+   "status": "derived (slice): cut from the sign anusvara-beng (self-check overlap 0.68, largest miss 9%)"
+  },
+  {
+   "page": 3,
+   "text": "গ্ন",
+   "glyph": "g-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ga-beng (self-check overlap 0.78, largest miss 10%)"
+  },
+  {
+   "page": 3,
+   "text": "স্ন",
+   "glyph": "na-beng.blws3",
+   "kind": "mark",
+   "status": "derived (slice): cut from na-beng (self-check overlap 0.88, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ম্ন",
+   "ghost": null,
+   "glyph": "m-beng.half2",
+   "kind": "base",
+   "final_font": [
+    "m-beng.half2",
+    "na-beng.blws3"
+   ],
+   "status": "part, ghost ['na-beng.blws3']"
+  },
+  {
+   "page": 3,
+   "text": "ত্ন",
+   "glyph": "na-beng.blws2",
+   "kind": "mark",
+   "status": "derived (slice): cut from the sign raphala-beng (self-check overlap 0.69, largest miss 6%)"
+  },
+  {
+   "page": 3,
+   "text": "ণ্ঠ",
+   "glyph": "nn-beng.half3",
+   "kind": "base",
+   "status": "derived (slice): half form: top of nna-beng (self-check overlap 0.75, largest miss 7%)"
+  },
+  {
+   "page": 3,
+   "text": "ণ্ঠ",
+   "ghost": null,
+   "glyph": "ttha-beng.side",
+   "kind": "base",
+   "final_font": [
+    "nn-beng.half3",
+    "ttha-beng.side",
+    "ttha-beng.top2"
+   ],
+   "status": "part, ghost ['nn-beng.half3', 'ttha-beng.top2']"
+  },
+  {
+   "page": 3,
+   "text": "ণ্ঠ",
+   "glyph": "ttha-beng.top2",
+   "kind": "mark",
+   "status": "derived (slice): cut from the sign rVocalicMatra-beng (self-check overlap 0.79, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "স্র",
+   "glyph": "raphala-beng.alt10",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.84, largest miss 6%)"
+  },
+  {
+   "page": 3,
+   "text": "দ্ম",
+   "ghost": null,
+   "glyph": "ma-beng.side3",
+   "kind": "base",
+   "final_font": [
+    "d-beng.half",
+    "ma-beng.side3"
+   ],
+   "status": "part, ghost ['d-beng.half']"
+  },
+  {
+   "page": 3,
+   "text": "স্ফ",
+   "ghost": null,
+   "glyph": "pha-beng.side",
+   "kind": "base",
+   "final_font": [
+    "s-beng.half",
+    "pha-beng.side"
+   ],
+   "status": "part, ghost ['s-beng.half']"
+  },
+  {
+   "page": 3,
+   "text": "জ্ব",
+   "glyph": "j-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ja-beng (self-check overlap 0.95, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "জ্ব",
+   "glyph": "baphala-beng.alt3",
+   "kind": "mark",
+   "status": "derived (variant): baphala-beng fitted to its box (GSUB variant) (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ণ্ট",
+   "glyph": "nn-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of nna-beng (self-check overlap 0.84, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ন্ড্র",
+   "glyph": "raphala-beng.alt05",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.94, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "দ্গ",
+   "glyph": "d-beng.half4",
+   "kind": "base",
+   "status": "derived (slice): half form: top of da-beng (self-check overlap 0.96, largest miss 4%)"
+  },
+  {
+   "page": 3,
+   "text": "দ্গ",
+   "glyph": "ga-beng.side",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ga-beng (self-check overlap 0.99, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ঙ্খ",
+   "glyph": "ng-beng.half2",
+   "kind": "base",
+   "status": "derived (slice): half form: top of nga-beng (self-check overlap 0.76, largest miss 6%)"
+  },
+  {
+   "page": 3,
+   "text": "ঙ্খ",
+   "ghost": null,
+   "glyph": "kha-beng.side",
+   "kind": "base",
+   "final_font": [
+    "ng-beng.half2",
+    "kha-beng.side"
+   ],
+   "status": "part, ghost ['ng-beng.half2']"
+  },
+  {
+   "page": 3,
+   "text": "হ্ব",
+   "glyph": "h-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ha-beng (self-check overlap 0.95, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ল্দ",
+   "glyph": "da-beng.side",
+   "kind": "base",
+   "status": "derived (slice): half form: top of da-beng (self-check overlap 0.99, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "স্ক্য",
+   "glyph": "ya-beng.pstf.short",
+   "kind": "base",
+   "status": "derived (variant): ya-beng.pstf fitted to its box (GSUB variant) (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ঙ্ঘ",
+   "glyph": "ng-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of nga-beng (self-check overlap 0.97, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ঙ্ঘ",
+   "glyph": "headline-beng.100",
+   "kind": "mark",
+   "status": "derived (bar): a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ন্ধ্র",
+   "glyph": "raphala-beng.alt11",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.86, largest miss 0%)"
   },
   {
    "page": 3,
    "text": "ক্ব",
-   "glyph": "k-beng.half",
+   "glyph": "ka-beng.arm",
+   "kind": "mark",
+   "status": "derived (slice): cut from the sign anusvara-beng (self-check overlap 0.68, largest miss 8%)"
+  },
+  {
+   "page": 3,
+   "text": "চ্ছ্ব",
+   "glyph": "ch-beng.half",
    "kind": "base",
-   "status": "derived (slice): matches part of ka-beng (IoU 0.89)"
+   "status": "derived (slice): half form: top of cha-beng (self-check overlap 0.90, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ত্ত্র",
+   "ghost": null,
+   "glyph": "t_t_ra-beng",
+   "kind": "base",
+   "final_font": [
+    "t_t_ra-beng"
+   ],
+   "status": "part, ghost []"
+  },
+  {
+   "page": 3,
+   "text": "স্ফ্র",
+   "glyph": "raphala-beng.alt01",
+   "kind": "mark",
+   "status": "derived (slice): cut from the sign raphala-beng (self-check overlap 0.90, largest miss 6%)"
+  },
+  {
+   "page": 3,
+   "text": "ঙ্ঘ্র",
+   "glyph": "gh-beng.half",
+   "kind": "base",
+   "status": "derived (slice): half form: top of gha-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "হ্র্য",
+   "glyph": "h-beng.half2",
+   "kind": "base",
+   "status": "derived (slice): half form: top of ha-beng (self-check overlap 0.92, largest miss 2%)"
+  },
+  {
+   "page": 3,
+   "text": "হ্র্য",
+   "glyph": "raphala-beng.alt07",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "শ্ব্র",
+   "glyph": "raphala-beng.alt15",
+   "kind": "mark",
+   "status": "derived (variant): raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.88, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ল্ত্র",
+   "glyph": "aaMatra-beng.part.short",
+   "kind": "base",
+   "status": "derived (slice): cut from the sign aaMatra-beng (self-check overlap 0.92, largest miss 0%)"
+  },
+  {
+   "page": 3,
+   "text": "ফ্ব",
+   "glyph": "baphala-beng.alt1",
+   "kind": "mark",
+   "status": "derived (variant): baphala-beng fitted to its box (GSUB variant) (self-check overlap 0.92, largest miss 0%)"
   },
   {
    "page": 3,
    "text": "খ্ব",
    "glyph": "baphala-beng",
    "kind": "mark",
-   "status": "derived (body): below-base form: body of ba-beng, scaled"
+   "status": "derived (body): body of ba-beng, scaled (self-check overlap 0.93, largest miss 0%)"
   }
  ],
  "parts": [
@@ -4790,7 +6761,244 @@
    "glyph": "headline-beng.250"
   },
   {
+   "glyph": "p-beng.half2"
+  },
+  {
+   "glyph": "raphala-beng.alt02"
+  },
+  {
+   "glyph": "d-beng.half3"
+  },
+  {
+   "glyph": "dha-beng.part"
+  },
+  {
+   "glyph": "headline-beng.130"
+  },
+  {
+   "glyph": "s-beng.half2"
+  },
+  {
+   "glyph": "tha-beng.blws"
+  },
+  {
+   "glyph": "t_ra-beng"
+  },
+  {
+   "glyph": "s-beng.half4"
+  },
+  {
+   "glyph": "ddha-beng.side"
+  },
+  {
+   "glyph": "tta-beng.flag"
+  },
+  {
+   "glyph": "dda-beng.side"
+  },
+  {
+   "glyph": "s-beng.half"
+  },
+  {
+   "glyph": "ka-beng.part"
+  },
+  {
+   "glyph": "sh-beng.half"
+  },
+  {
+   "glyph": "aaMatra-beng.side"
+  },
+  {
+   "glyph": "c-beng.half"
+  },
+  {
+   "glyph": "n-beng.half2"
+  },
+  {
+   "glyph": "t_ra-beng.blws"
+  },
+  {
+   "glyph": "t-beng.half"
+  },
+  {
+   "glyph": "baphala-beng.alt2"
+  },
+  {
+   "glyph": "la-beng.blws2"
+  },
+  {
+   "glyph": "d-beng.half"
+  },
+  {
+   "glyph": "raphala-beng.alt09"
+  },
+  {
+   "glyph": "ma-beng.side"
+  },
+  {
+   "glyph": "ph-beng.half"
+  },
+  {
+   "glyph": "raphala-beng.alt14"
+  },
+  {
+   "glyph": "ma-beng.side2"
+  },
+  {
+   "glyph": "ca-beng.side"
+  },
+  {
    "glyph": "k-beng.half"
+  },
+  {
+   "glyph": "la-beng.blws"
+  },
+  {
+   "glyph": "ddh-beng.side"
+  },
+  {
+   "glyph": "raphala-beng.alt03"
+  },
+  {
+   "glyph": "p-beng.half3"
+  },
+  {
+   "glyph": "p-beng.half"
+  },
+  {
+   "glyph": "la-beng.blws1"
+  },
+  {
+   "glyph": "tt_tta-beng.noflag"
+  },
+  {
+   "glyph": "t_t-beng.half"
+  },
+  {
+   "glyph": "ss-beng.half4"
+  },
+  {
+   "glyph": "m-beng.half3"
+  },
+  {
+   "glyph": "bha-beng.blws"
+  },
+  {
+   "glyph": "ma-beng.side1"
+  },
+  {
+   "glyph": "ba-beng.side"
+  },
+  {
+   "glyph": "raphala-beng.alt12"
+  },
+  {
+   "glyph": "b-beng.half2"
+  },
+  {
+   "glyph": "ka-beng.arm1"
+  },
+  {
+   "glyph": "g-beng.half"
+  },
+  {
+   "glyph": "na-beng.blws3"
+  },
+  {
+   "glyph": "m-beng.half2"
+  },
+  {
+   "glyph": "na-beng.blws2"
+  },
+  {
+   "glyph": "nn-beng.half3"
+  },
+  {
+   "glyph": "ttha-beng.side"
+  },
+  {
+   "glyph": "ttha-beng.top2"
+  },
+  {
+   "glyph": "raphala-beng.alt10"
+  },
+  {
+   "glyph": "ma-beng.side3"
+  },
+  {
+   "glyph": "pha-beng.side"
+  },
+  {
+   "glyph": "j-beng.half"
+  },
+  {
+   "glyph": "baphala-beng.alt3"
+  },
+  {
+   "glyph": "nn-beng.half"
+  },
+  {
+   "glyph": "raphala-beng.alt05"
+  },
+  {
+   "glyph": "d-beng.half4"
+  },
+  {
+   "glyph": "ga-beng.side"
+  },
+  {
+   "glyph": "ng-beng.half2"
+  },
+  {
+   "glyph": "kha-beng.side"
+  },
+  {
+   "glyph": "h-beng.half"
+  },
+  {
+   "glyph": "da-beng.side"
+  },
+  {
+   "glyph": "ya-beng.pstf.short"
+  },
+  {
+   "glyph": "ng-beng.half"
+  },
+  {
+   "glyph": "headline-beng.100"
+  },
+  {
+   "glyph": "raphala-beng.alt11"
+  },
+  {
+   "glyph": "ka-beng.arm"
+  },
+  {
+   "glyph": "ch-beng.half"
+  },
+  {
+   "glyph": "t_t_ra-beng"
+  },
+  {
+   "glyph": "raphala-beng.alt01"
+  },
+  {
+   "glyph": "gh-beng.half"
+  },
+  {
+   "glyph": "h-beng.half2"
+  },
+  {
+   "glyph": "raphala-beng.alt07"
+  },
+  {
+   "glyph": "raphala-beng.alt15"
+  },
+  {
+   "glyph": "aaMatra-beng.part.short"
+  },
+  {
+   "glyph": "baphala-beng.alt1"
   },
   {
    "glyph": "baphala-beng"
@@ -4799,10 +7007,13 @@
  "derived": [
   {
    "glyph": "ka-beng.arm2",
-   "method": "written",
-   "source": null,
-   "score": 0.0,
-   "offset": null,
+   "method": "slice",
+   "source": "ta-beng",
+   "score": 0.724,
+   "offset": [
+    170.0,
+    200.5
+   ],
    "bbox": [
     20,
     169,
@@ -4811,13 +7022,13 @@
    ],
    "advance": 0,
    "context": "ক্ত",
-   "reason": "no letter the user writes has this shape"
+   "reason": "cut from ta-beng (self-check overlap 0.72, largest miss 9%)"
   },
   {
    "glyph": "headline-beng.200",
    "method": "bar",
    "source": null,
-   "score": 0.0,
+   "score": 1.0,
    "offset": null,
    "bbox": [
     -10,
@@ -4827,13 +7038,13 @@
    ],
    "advance": 0,
    "context": "ক্ত",
-   "reason": "solid bar the height of a মাত্রা"
+   "reason": "a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
   },
   {
    "glyph": "n-beng.half3",
    "method": "slice",
    "source": "na-beng",
-   "score": 0.656,
+   "score": 0.785,
    "offset": [
     -150.0,
     0.0
@@ -4846,14 +7057,17 @@
    ],
    "advance": 756,
    "context": "ন্ত",
-   "reason": "half form: top of na-beng"
+   "reason": "half form: top of na-beng (self-check overlap 0.79, largest miss 7%)"
   },
   {
    "glyph": "ta-beng.blws",
-   "method": "body",
+   "method": "slice",
    "source": "ta-beng",
-   "score": 0.0,
-   "offset": null,
+   "score": 0.763,
+   "offset": [
+    -55.0,
+    152.5
+   ],
    "bbox": [
     20,
     -82,
@@ -4862,13 +7076,13 @@
    ],
    "advance": 0,
    "context": "ন্ত",
-   "reason": "below-base form: body of ta-beng, scaled"
+   "reason": "cut from ta-beng (self-check overlap 0.76, largest miss 9%)"
   },
   {
    "glyph": "n-beng.headline",
    "method": "bar",
    "source": null,
-   "score": 0.0,
+   "score": 1.0,
    "offset": null,
    "bbox": [
     -10,
@@ -4878,13 +7092,13 @@
    ],
    "advance": 545,
    "context": "ন্দ",
-   "reason": "solid bar the height of a মাত্রা"
+   "reason": "a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
   },
   {
    "glyph": "n-beng.float",
    "method": "slice",
    "source": "na-beng",
-   "score": 0.838,
+   "score": 0.888,
    "offset": [
     45.0,
     -23.5
@@ -4897,17 +7111,14 @@
    ],
    "advance": 0,
    "context": "ন্দ",
-   "reason": "matches part of na-beng (IoU 0.84)"
+   "reason": "cut from na-beng (self-check overlap 0.89, largest miss 0%)"
   },
   {
    "glyph": "s-beng.half3",
-   "method": "slice",
-   "source": "sa-beng",
-   "score": 0.581,
-   "offset": [
-    -187.5,
-    0.0
-   ],
+   "method": "written",
+   "source": null,
+   "score": 0.725,
+   "offset": null,
    "bbox": [
     -10,
     306,
@@ -4916,17 +7127,14 @@
    ],
    "advance": 782,
    "context": "স্ত",
-   "reason": "half form: top of sa-beng"
+   "reason": "best try (slice from sa-beng) doesn't reproduce the base font's part (self-check overlap 0.72, largest miss 12%)"
   },
   {
    "glyph": "m-beng.half",
-   "method": "slice",
-   "source": "ma-beng",
-   "score": 0.589,
-   "offset": [
-    0.0,
-    0.0
-   ],
+   "method": "written",
+   "source": null,
+   "score": 0.768,
+   "offset": null,
    "bbox": [
     -10,
     300,
@@ -4935,13 +7143,13 @@
    ],
    "advance": 586,
    "context": "ম্ব",
-   "reason": "half form: top of ma-beng"
+   "reason": "best try (slice from ma-beng) doesn't reproduce the base font's part (self-check overlap 0.77, largest miss 12%)"
   },
   {
    "glyph": "baphala-beng.alt4",
-   "method": "body",
-   "source": "ba-beng",
-   "score": 0.0,
+   "method": "variant",
+   "source": "baphala-beng",
+   "score": 0.981,
    "offset": null,
    "bbox": [
     20,
@@ -4951,13 +7159,13 @@
    ],
    "advance": 0,
    "context": "ম্ব",
-   "reason": "below-base form: body of ba-beng, scaled"
+   "reason": "baphala-beng fitted to its box (GSUB variant) (self-check overlap 0.98, largest miss 0%)"
   },
   {
    "glyph": "aaMatra-beng.part",
    "method": "slice",
    "source": "aaMatra-beng",
-   "score": 0.961,
+   "score": 0.925,
    "offset": [
     0.0,
     3.5
@@ -4970,13 +7178,13 @@
    ],
    "advance": 264,
    "context": "ন্ন",
-   "reason": "matches part of aaMatra-beng (IoU 0.96)"
+   "reason": "cut from the sign aaMatra-beng (self-check overlap 0.92, largest miss 0%)"
   },
   {
    "glyph": "na-beng.blws1",
    "method": "slice",
    "source": "na-beng",
-   "score": 0.841,
+   "score": 0.812,
    "offset": [
     70.0,
     250.5
@@ -4989,13 +7197,13 @@
    ],
    "advance": 0,
    "context": "ন্ন",
-   "reason": "matches part of na-beng (IoU 0.84)"
+   "reason": "cut from na-beng (self-check overlap 0.81, largest miss 0%)"
   },
   {
    "glyph": "l-beng.half3",
    "method": "slice",
    "source": "la-beng",
-   "score": 0.713,
+   "score": 0.771,
    "offset": [
     37.5,
     0.0
@@ -5008,13 +7216,13 @@
    ],
    "advance": 668,
    "context": "ল্প",
-   "reason": "half form: top of la-beng"
+   "reason": "half form: top of la-beng (self-check overlap 0.77, largest miss 8%)"
   },
   {
    "glyph": "aaMatra-beng.part2",
    "method": "slice",
    "source": "aaMatra-beng",
-   "score": 0.963,
+   "score": 0.929,
    "offset": [
     0.0,
     3.5
@@ -5027,14 +7235,17 @@
    ],
    "advance": 264,
    "context": "ল্প",
-   "reason": "matches part of aaMatra-beng (IoU 0.96)"
+   "reason": "cut from the sign aaMatra-beng (self-check overlap 0.93, largest miss 0%)"
   },
   {
    "glyph": "pa-beng.blws",
-   "method": "body",
+   "method": "slice",
    "source": "pa-beng",
-   "score": 0.0,
-   "offset": null,
+   "score": 0.777,
+   "offset": [
+    85.5,
+    340.0
+   ],
    "bbox": [
     20,
     -81,
@@ -5043,13 +7254,13 @@
    ],
    "advance": 0,
    "context": "ল্প",
-   "reason": "below-base form: body of pa-beng, scaled"
+   "reason": "cut from pa-beng (self-check overlap 0.78, largest miss 3%)"
   },
   {
    "glyph": "headline-beng.250",
    "method": "bar",
    "source": null,
-   "score": 0.0,
+   "score": 1.0,
    "offset": null,
    "bbox": [
     -90,
@@ -5059,13 +7270,528 @@
    ],
    "advance": 0,
    "context": "হ্ন",
-   "reason": "solid bar the height of a মাত্রা"
+   "reason": "a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "glyph": "p-beng.half2",
+   "method": "slice",
+   "source": "pa-beng",
+   "score": 0.961,
+   "offset": [
+    -47.0,
+    0.0
+   ],
+   "bbox": [
+    90,
+    180,
+    774,
+    688
+   ],
+   "advance": 764,
+   "context": "প্র",
+   "reason": "half form: top of pa-beng (self-check overlap 0.96, largest miss 0%)"
+  },
+  {
+   "glyph": "raphala-beng.alt02",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.84,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    621,
+    288
+   ],
+   "advance": 0,
+   "context": "প্র",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.84, largest miss 6%)"
+  },
+  {
+   "glyph": "d-beng.half3",
+   "method": "slice",
+   "source": "da-beng",
+   "score": 0.843,
+   "offset": [
+    0.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    188,
+    541,
+    622
+   ],
+   "advance": 531,
+   "context": "দ্ধ",
+   "reason": "half form: top of da-beng (self-check overlap 0.84, largest miss 0%)"
+  },
+  {
+   "glyph": "dha-beng.part",
+   "method": "slice",
+   "source": "aaMatra-beng",
+   "score": 0.867,
+   "offset": [
+    -30.0,
+    342.5
+   ],
+   "bbox": [
+    20,
+    -94,
+    229,
+    308
+   ],
+   "advance": 0,
+   "context": "দ্ধ",
+   "reason": "cut from the sign aaMatra-beng (self-check overlap 0.87, largest miss 0%)"
+  },
+  {
+   "glyph": "headline-beng.130",
+   "method": "bar",
+   "source": null,
+   "score": 1.0,
+   "offset": null,
+   "bbox": [
+    -10,
+    551,
+    125,
+    622
+   ],
+   "advance": 0,
+   "context": "দ্ধ",
+   "reason": "a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "glyph": "s-beng.half2",
+   "method": "written",
+   "source": null,
+   "score": 0.781,
+   "offset": null,
+   "bbox": [
+    -10,
+    300,
+    677,
+    622
+   ],
+   "advance": 667,
+   "context": "স্থ",
+   "reason": "best try (slice from sa-beng) doesn't reproduce the base font's part (self-check overlap 0.78, largest miss 14%)"
+  },
+  {
+   "glyph": "tha-beng.blws",
+   "method": "slice",
+   "source": "tha-beng",
+   "score": 0.796,
+   "offset": [
+    -13.5,
+    149.0
+   ],
+   "bbox": [
+    20,
+    -49,
+    474,
+    464
+   ],
+   "advance": 0,
+   "context": "স্থ",
+   "reason": "cut from tha-beng (self-check overlap 0.80, largest miss 3%)"
+  },
+  {
+   "glyph": "t_ra-beng",
+   "method": "written",
+   "source": null,
+   "score": 0.678,
+   "offset": null,
+   "bbox": [
+    -10,
+    0,
+    672,
+    622
+   ],
+   "advance": 662,
+   "context": "ক্র",
+   "reason": "best try (slice from ka-beng) doesn't reproduce the base font's part (self-check overlap 0.68, largest miss 15%)"
+  },
+  {
+   "glyph": "s-beng.half4",
+   "method": "written",
+   "source": null,
+   "score": 0.85,
+   "offset": null,
+   "bbox": [
+    -10,
+    121,
+    499,
+    622
+   ],
+   "advance": 623,
+   "context": "স্ট",
+   "reason": "best try (slice from sa-beng) doesn't reproduce the base font's part (self-check overlap 0.85, largest miss 11%)"
+  },
+  {
+   "glyph": "ddha-beng.side",
+   "method": "slice",
+   "source": "tta-beng",
+   "score": 0.978,
+   "offset": [
+    262.0,
+    2.5
+   ],
+   "bbox": [
+    -172,
+    24,
+    290,
+    622
+   ],
+   "advance": 280,
+   "context": "স্ট",
+   "reason": "half form: top of tta-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "glyph": "tta-beng.flag",
+   "method": "slice",
+   "source": "tta-beng",
+   "score": 0.747,
+   "offset": [
+    -17.5,
+    0.0
+   ],
+   "bbox": [
+    20,
+    617,
+    487,
+    912
+   ],
+   "advance": 0,
+   "context": "স্ট",
+   "reason": "cut from tta-beng (self-check overlap 0.75, largest miss 0%)"
+  },
+  {
+   "glyph": "dda-beng.side",
+   "method": "slice",
+   "source": "dda-beng",
+   "score": 0.848,
+   "offset": [
+    450.0,
+    0.0
+   ],
+   "bbox": [
+    -335,
+    24,
+    271,
+    622
+   ],
+   "advance": 261,
+   "context": "ন্ড",
+   "reason": "half form: top of dda-beng (self-check overlap 0.85, largest miss 8%)"
+  },
+  {
+   "glyph": "s-beng.half",
+   "method": "written",
+   "source": null,
+   "score": 0.771,
+   "offset": null,
+   "bbox": [
+    -10,
+    300,
+    583,
+    622
+   ],
+   "advance": 640,
+   "context": "স্ক",
+   "reason": "best try (slice from sa-beng) doesn't reproduce the base font's part (self-check overlap 0.77, largest miss 15%)"
+  },
+  {
+   "glyph": "ka-beng.part",
+   "method": "slice",
+   "source": "ka-beng",
+   "score": 0.802,
+   "offset": [
+    495.0,
+    239.0
+   ],
+   "bbox": [
+    20,
+    -42,
+    260,
+    258
+   ],
+   "advance": 0,
+   "context": "স্ক",
+   "reason": "cut from ka-beng (self-check overlap 0.80, largest miss 0%)"
+  },
+  {
+   "glyph": "sh-beng.half",
+   "method": "slice",
+   "source": "sha-beng",
+   "score": 0.848,
+   "offset": [
+    0.0,
+    -6.5
+   ],
+   "bbox": [
+    -5,
+    267,
+    538,
+    632
+   ],
+   "advance": 681,
+   "context": "শ্ব",
+   "reason": "half form: top of sha-beng (self-check overlap 0.85, largest miss 8%)"
+  },
+  {
+   "glyph": "aaMatra-beng.side",
+   "method": "slice",
+   "source": "ba-beng",
+   "score": 0.908,
+   "offset": [
+    407.5,
+    -3.5
+   ],
+   "bbox": [
+    20,
+    190,
+    202,
+    688
+   ],
+   "advance": 0,
+   "context": "শ্ব",
+   "reason": "cut from ba-beng (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "glyph": "c-beng.half",
+   "method": "slice",
+   "source": "ca-beng",
+   "score": 0.912,
+   "offset": [
+    0.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    78,
+    548,
+    622
+   ],
+   "advance": 363,
+   "context": "চ্চ",
+   "reason": "half form: top of ca-beng (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "glyph": "n-beng.half2",
+   "method": "slice",
+   "source": "na-beng",
+   "score": 0.856,
+   "offset": [
+    -12.5,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    300,
+    623,
+    622
+   ],
+   "advance": 613,
+   "context": "ন্ত্র",
+   "reason": "half form: top of na-beng (self-check overlap 0.86, largest miss 8%)"
+  },
+  {
+   "glyph": "t_ra-beng.blws",
+   "method": "written",
+   "source": null,
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    528,
+    508
+   ],
+   "advance": 0,
+   "context": "ন্ত্র",
+   "reason": "no letter the user writes has this shape"
+  },
+  {
+   "glyph": "t-beng.half",
+   "method": "slice",
+   "source": "ta-beng",
+   "score": 0.906,
+   "offset": [
+    0.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    97,
+    698,
+    622
+   ],
+   "advance": 688,
+   "context": "ত্ব",
+   "reason": "half form: top of ta-beng (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "glyph": "baphala-beng.alt2",
+   "method": "variant",
+   "source": "baphala-beng",
+   "score": 0.979,
+   "offset": null,
+   "bbox": [
+    20,
+    -97,
+    355,
+    234
+   ],
+   "advance": 0,
+   "context": "ত্ব",
+   "reason": "baphala-beng fitted to its box (GSUB variant) (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "glyph": "la-beng.blws2",
+   "method": "slice",
+   "source": "la-beng",
+   "score": 0.722,
+   "offset": [
+    170.0,
+    363.5
+   ],
+   "bbox": [
+    20,
+    -19,
+    475,
+    321
+   ],
+   "advance": 0,
+   "context": "ল্ল",
+   "reason": "cut from la-beng (self-check overlap 0.72, largest miss 8%)"
+  },
+  {
+   "glyph": "d-beng.half",
+   "method": "slice",
+   "source": "da-beng",
+   "score": 0.973,
+   "offset": [
+    0.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    88,
+    573,
+    622
+   ],
+   "advance": 563,
+   "context": "ন্দ্র",
+   "reason": "half form: top of da-beng (self-check overlap 0.97, largest miss 0%)"
+  },
+  {
+   "glyph": "raphala-beng.alt09",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.86,
+   "offset": null,
+   "bbox": [
+    20,
+    -15,
+    519,
+    254
+   ],
+   "advance": 0,
+   "context": "ন্দ্র",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.86, largest miss 0%)"
+  },
+  {
+   "glyph": "ma-beng.side",
+   "method": "written",
+   "source": null,
+   "score": 0.621,
+   "offset": null,
+   "bbox": [
+    -280,
+    -33,
+    242,
+    622
+   ],
+   "advance": 232,
+   "context": "ন্ম",
+   "reason": "best try (slice from ma-beng) doesn't reproduce the base font's part (self-check overlap 0.62, largest miss 42%)"
+  },
+  {
+   "glyph": "ph-beng.half",
+   "method": "slice",
+   "source": "pha-beng",
+   "score": 0.98,
+   "offset": [
+    -12.5,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    25,
+    853,
+    622
+   ],
+   "advance": 843,
+   "context": "ফ্র",
+   "reason": "half form: top of pha-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "glyph": "raphala-beng.alt14",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.915,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    502,
+    230
+   ],
+   "advance": 0,
+   "context": "ফ্র",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "glyph": "ma-beng.side2",
+   "method": "written",
+   "source": null,
+   "score": 0.705,
+   "offset": null,
+   "bbox": [
+    -265,
+    -53,
+    237,
+    622
+   ],
+   "advance": 227,
+   "context": "ম্ম",
+   "reason": "best try (slice from ma-beng) doesn't reproduce the base font's part (self-check overlap 0.71, largest miss 17%)"
+  },
+  {
+   "glyph": "ca-beng.side",
+   "method": "slice",
+   "source": "ca-beng",
+   "score": 0.989,
+   "offset": [
+    262.0,
+    0.0
+   ],
+   "bbox": [
+    -172,
+    24,
+    281,
+    622
+   ],
+   "advance": 271,
+   "context": "শ্চ",
+   "reason": "half form: top of ca-beng (self-check overlap 0.99, largest miss 0%)"
   },
   {
    "glyph": "k-beng.half",
    "method": "slice",
    "source": "ka-beng",
-   "score": 0.89,
+   "score": 0.983,
    "offset": [
     -12.5,
     0.0
@@ -5077,14 +7803,901 @@
     622
    ],
    "advance": 801,
+   "context": "ক্ল",
+   "reason": "half form: top of ka-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "glyph": "la-beng.blws",
+   "method": "slice",
+   "source": "la-beng",
+   "score": 0.704,
+   "offset": [
+    170.0,
+    393.5
+   ],
+   "bbox": [
+    20,
+    -43,
+    471,
+    241
+   ],
+   "advance": 0,
+   "context": "ক্ল",
+   "reason": "cut from la-beng (self-check overlap 0.70, largest miss 8%)"
+  },
+  {
+   "glyph": "ddh-beng.side",
+   "method": "slice",
+   "source": "tta-beng",
+   "score": 0.888,
+   "offset": [
+    274.5,
+    -10.0
+   ],
+   "bbox": [
+    -172,
+    79,
+    270,
+    622
+   ],
+   "advance": 260,
+   "context": "স্ট্র",
+   "reason": "half form: top of tta-beng (self-check overlap 0.89, largest miss 0%)"
+  },
+  {
+   "glyph": "raphala-beng.alt03",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.915,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    487,
+    324
+   ],
+   "advance": 0,
+   "context": "স্ট্র",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.92, largest miss 0%)"
+  },
+  {
+   "glyph": "p-beng.half3",
+   "method": "written",
+   "source": null,
+   "score": 0.841,
+   "offset": null,
+   "bbox": [
+    22,
+    185,
+    611,
+    632
+   ],
+   "advance": 716,
+   "context": "প্ট",
+   "reason": "best try (slice from pa-beng) doesn't reproduce the base font's part (self-check overlap 0.84, largest miss 11%)"
+  },
+  {
+   "glyph": "p-beng.half",
+   "method": "slice",
+   "source": "pa-beng",
+   "score": 0.916,
+   "offset": [
+    11.0,
+    0.0
+   ],
+   "bbox": [
+    32,
+    215,
+    711,
+    688
+   ],
+   "advance": 701,
+   "context": "প্ল",
+   "reason": "half form: top of pa-beng (self-check overlap 0.92, largest miss 0%)"
+  },
+  {
+   "glyph": "la-beng.blws1",
+   "method": "slice",
+   "source": "la-beng",
+   "score": 0.776,
+   "offset": [
+    82.5,
+    223.5
+   ],
+   "bbox": [
+    20,
+    -64,
+    492,
+    261
+   ],
+   "advance": 0,
+   "context": "প্ল",
+   "reason": "cut from la-beng (self-check overlap 0.78, largest miss 0%)"
+  },
+  {
+   "glyph": "tt_tta-beng.noflag",
+   "method": "written",
+   "source": null,
+   "score": 0.692,
+   "offset": null,
+   "bbox": [
+    -10,
+    -97,
+    572,
+    622
+   ],
+   "advance": 562,
+   "context": "ট্ট",
+   "reason": "best try (slice from tta-beng) doesn't reproduce the base font's part (self-check overlap 0.69, largest miss 23%)"
+  },
+  {
+   "glyph": "t_t-beng.half",
+   "method": "slice",
+   "source": "ta-beng",
+   "score": 0.893,
+   "offset": [
+    0.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    40,
+    700,
+    622
+   ],
+   "advance": 690,
+   "context": "ত্ত্ব",
+   "reason": "half form: top of ta-beng (self-check overlap 0.89, largest miss 5%)"
+  },
+  {
+   "glyph": "ss-beng.half4",
+   "method": "slice",
+   "source": "ssa-beng",
+   "score": 0.691,
+   "offset": [
+    75.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    262,
+    460,
+    622
+   ],
+   "advance": 517,
+   "context": "ষ্ম",
+   "reason": "half form: top of ssa-beng (self-check overlap 0.69, largest miss 7%)"
+  },
+  {
+   "glyph": "m-beng.half3",
+   "method": "slice",
+   "source": "ma-beng",
+   "score": 0.734,
+   "offset": [
+    -150.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    300,
+    751,
+    622
+   ],
+   "advance": 741,
+   "context": "ম্ভ",
+   "reason": "half form: top of ma-beng (self-check overlap 0.73, largest miss 9%)"
+  },
+  {
+   "glyph": "bha-beng.blws",
+   "method": "body",
+   "source": "bha-beng",
+   "score": 0.79,
+   "offset": null,
+   "bbox": [
+    20,
+    -115,
+    709,
+    357
+   ],
+   "advance": 0,
+   "context": "ম্ভ",
+   "reason": "body of bha-beng, scaled (self-check overlap 0.79, largest miss 9%)"
+  },
+  {
+   "glyph": "ma-beng.side1",
+   "method": "written",
+   "source": null,
+   "score": 0.62,
+   "offset": null,
+   "bbox": [
+    -295,
+    -198,
+    207,
+    622
+   ],
+   "advance": 197,
+   "context": "ত্ম",
+   "reason": "best try (slice from ma-beng) doesn't reproduce the base font's part (self-check overlap 0.62, largest miss 29%)"
+  },
+  {
+   "glyph": "ba-beng.side",
+   "method": "slice",
+   "source": "ba-beng",
+   "score": 0.983,
+   "offset": [
+    195.5,
+    0.0
+   ],
+   "bbox": [
+    -118,
+    0,
+    412,
+    622
+   ],
+   "advance": 402,
+   "context": "ব্ব",
+   "reason": "half form: top of ba-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "glyph": "raphala-beng.alt12",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.81,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    739,
+    264
+   ],
+   "advance": 0,
+   "context": "ম্প্র",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.81, largest miss 0%)"
+  },
+  {
+   "glyph": "b-beng.half2",
+   "method": "slice",
+   "source": "ka-beng",
+   "score": 0.859,
+   "offset": [
+    12.5,
+    -12.5
+   ],
+   "bbox": [
+    -10,
+    188,
+    479,
+    622
+   ],
+   "advance": 574,
+   "context": "ক্ক",
+   "reason": "half form: top of ka-beng (self-check overlap 0.86, largest miss 4%)"
+  },
+  {
+   "glyph": "ka-beng.arm1",
+   "method": "slice",
+   "source": "anusvara-beng",
+   "score": 0.678,
+   "offset": [
+    -34.5,
+    -25.0
+   ],
+   "bbox": [
+    20,
+    184,
+    395,
+    622
+   ],
+   "advance": 0,
+   "context": "ক্ক",
+   "reason": "cut from the sign anusvara-beng (self-check overlap 0.68, largest miss 9%)"
+  },
+  {
+   "glyph": "g-beng.half",
+   "method": "slice",
+   "source": "ga-beng",
+   "score": 0.783,
+   "offset": [
+    4.5,
+    -6.5
+   ],
+   "bbox": [
+    30,
+    179,
+    485,
+    632
+   ],
+   "advance": 635,
+   "context": "গ্ন",
+   "reason": "half form: top of ga-beng (self-check overlap 0.78, largest miss 10%)"
+  },
+  {
+   "glyph": "na-beng.blws3",
+   "method": "slice",
+   "source": "na-beng",
+   "score": 0.884,
+   "offset": [
+    82.5,
+    165.0
+   ],
+   "bbox": [
+    20,
+    0,
+    418,
+    332
+   ],
+   "advance": 0,
+   "context": "স্ন",
+   "reason": "cut from na-beng (self-check overlap 0.88, largest miss 0%)"
+  },
+  {
+   "glyph": "m-beng.half2",
+   "method": "written",
+   "source": null,
+   "score": 0.789,
+   "offset": null,
+   "bbox": [
+    -10,
+    300,
+    626,
+    622
+   ],
+   "advance": 616,
+   "context": "ম্ন",
+   "reason": "best try (slice from ma-beng) doesn't reproduce the base font's part (self-check overlap 0.79, largest miss 11%)"
+  },
+  {
+   "glyph": "na-beng.blws2",
+   "method": "slice",
+   "source": "raphala-beng",
+   "score": 0.694,
+   "offset": [
+    150.0,
+    17.5
+   ],
+   "bbox": [
+    20,
+    -123,
+    384,
+    249
+   ],
+   "advance": 0,
+   "context": "ত্ন",
+   "reason": "cut from the sign raphala-beng (self-check overlap 0.69, largest miss 6%)"
+  },
+  {
+   "glyph": "nn-beng.half3",
+   "method": "slice",
+   "source": "nna-beng",
+   "score": 0.748,
+   "offset": [
+    25.0,
+    -6.5
+   ],
+   "bbox": [
+    40,
+    299,
+    435,
+    632
+   ],
+   "advance": 569,
+   "context": "ণ্ঠ",
+   "reason": "half form: top of nna-beng (self-check overlap 0.75, largest miss 7%)"
+  },
+  {
+   "glyph": "ttha-beng.side",
+   "method": "written",
+   "source": null,
+   "score": 0.872,
+   "offset": null,
+   "bbox": [
+    -388,
+    0,
+    148,
+    622
+   ],
+   "advance": 138,
+   "context": "ণ্ঠ",
+   "reason": "best try (slice from ttha-beng) doesn't reproduce the base font's part (self-check overlap 0.87, largest miss 10%)"
+  },
+  {
+   "glyph": "ttha-beng.top2",
+   "method": "slice",
+   "source": "rVocalicMatra-beng",
+   "score": 0.789,
+   "offset": [
+    -76.5,
+    -854.5
+   ],
+   "bbox": [
+    20,
+    604,
+    196,
+    917
+   ],
+   "advance": 0,
+   "context": "ণ্ঠ",
+   "reason": "cut from the sign rVocalicMatra-beng (self-check overlap 0.79, largest miss 0%)"
+  },
+  {
+   "glyph": "raphala-beng.alt10",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.843,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    502,
+    368
+   ],
+   "advance": 0,
+   "context": "স্র",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.84, largest miss 6%)"
+  },
+  {
+   "glyph": "ma-beng.side3",
+   "method": "written",
+   "source": null,
+   "score": 0.609,
+   "offset": null,
+   "bbox": [
+    -280,
+    -153,
+    242,
+    622
+   ],
+   "advance": 232,
+   "context": "দ্ম",
+   "reason": "best try (slice from ma-beng) doesn't reproduce the base font's part (self-check overlap 0.61, largest miss 40%)"
+  },
+  {
+   "glyph": "pha-beng.side",
+   "method": "written",
+   "source": null,
+   "score": 0.759,
+   "offset": null,
+   "bbox": [
+    -296,
+    -78,
+    440,
+    622
+   ],
+   "advance": 430,
+   "context": "স্ফ",
+   "reason": "best try (slice from pha-beng) doesn't reproduce the base font's part (self-check overlap 0.76, largest miss 14%)"
+  },
+  {
+   "glyph": "j-beng.half",
+   "method": "slice",
+   "source": "ja-beng",
+   "score": 0.953,
+   "offset": [
+    12.5,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    42,
+    827,
+    622
+   ],
+   "advance": 817,
+   "context": "জ্ব",
+   "reason": "half form: top of ja-beng (self-check overlap 0.95, largest miss 0%)"
+  },
+  {
+   "glyph": "baphala-beng.alt3",
+   "method": "variant",
+   "source": "baphala-beng",
+   "score": 1.0,
+   "offset": null,
+   "bbox": [
+    20,
+    -34,
+    314,
+    254
+   ],
+   "advance": 0,
+   "context": "জ্ব",
+   "reason": "baphala-beng fitted to its box (GSUB variant) (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "glyph": "nn-beng.half",
+   "method": "slice",
+   "source": "nna-beng",
+   "score": 0.845,
+   "offset": [
+    0.0,
+    -6.5
+   ],
+   "bbox": [
+    40,
+    269,
+    442,
+    632
+   ],
+   "advance": 592,
+   "context": "ণ্ট",
+   "reason": "half form: top of nna-beng (self-check overlap 0.84, largest miss 0%)"
+  },
+  {
+   "glyph": "raphala-beng.alt05",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.943,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    566,
+    311
+   ],
+   "advance": 0,
+   "context": "ন্ড্র",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.94, largest miss 0%)"
+  },
+  {
+   "glyph": "d-beng.half4",
+   "method": "slice",
+   "source": "da-beng",
+   "score": 0.957,
+   "offset": [
+    0.0,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    -10,
+    490,
+    622
+   ],
+   "advance": 433,
+   "context": "দ্গ",
+   "reason": "half form: top of da-beng (self-check overlap 0.96, largest miss 4%)"
+  },
+  {
+   "glyph": "ga-beng.side",
+   "method": "slice",
+   "source": "ga-beng",
+   "score": 0.995,
+   "offset": [
+    0.0,
+    0.0
+   ],
+   "bbox": [
+    22,
+    0,
+    656,
+    688
+   ],
+   "advance": 646,
+   "context": "দ্গ",
+   "reason": "half form: top of ga-beng (self-check overlap 0.99, largest miss 0%)"
+  },
+  {
+   "glyph": "ng-beng.half2",
+   "method": "slice",
+   "source": "nga-beng",
+   "score": 0.758,
+   "offset": [
+    27.5,
+    -48.5
+   ],
+   "bbox": [
+    -10,
+    110,
+    552,
+    643
+   ],
+   "advance": 635,
+   "context": "ঙ্খ",
+   "reason": "half form: top of nga-beng (self-check overlap 0.76, largest miss 6%)"
+  },
+  {
+   "glyph": "kha-beng.side",
+   "method": "written",
+   "source": null,
+   "score": 0.729,
+   "offset": null,
+   "bbox": [
+    -262,
+    -220,
+    246,
+    688
+   ],
+   "advance": 236,
+   "context": "ঙ্খ",
+   "reason": "best try (slice from kha-beng) doesn't reproduce the base font's part (self-check overlap 0.73, largest miss 18%)"
+  },
+  {
+   "glyph": "h-beng.half",
+   "method": "slice",
+   "source": "ha-beng",
+   "score": 0.946,
+   "offset": [
+    -12.5,
+    -12.5
+   ],
+   "bbox": [
+    -10,
+    8,
+    569,
+    622
+   ],
+   "advance": 559,
+   "context": "হ্ব",
+   "reason": "half form: top of ha-beng (self-check overlap 0.95, largest miss 0%)"
+  },
+  {
+   "glyph": "da-beng.side",
+   "method": "slice",
+   "source": "da-beng",
+   "score": 0.989,
+   "offset": [
+    249.5,
+    0.0
+   ],
+   "bbox": [
+    -172,
+    -10,
+    319,
+    622
+   ],
+   "advance": 309,
+   "context": "ল্দ",
+   "reason": "half form: top of da-beng (self-check overlap 0.99, largest miss 0%)"
+  },
+  {
+   "glyph": "ya-beng.pstf.short",
+   "method": "variant",
+   "source": "ya-beng.pstf",
+   "score": 1.0,
+   "offset": null,
+   "bbox": [
+    -10,
+    -52,
+    280,
+    622
+   ],
+   "advance": 270,
+   "context": "স্ক্য",
+   "reason": "ya-beng.pstf fitted to its box (GSUB variant) (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "glyph": "ng-beng.half",
+   "method": "slice",
+   "source": "nga-beng",
+   "score": 0.975,
+   "offset": [
+    0.0,
+    -12.5
+   ],
+   "bbox": [
+    30,
+    45,
+    659,
+    632
+   ],
+   "advance": 699,
+   "context": "ঙ্ঘ",
+   "reason": "half form: top of nga-beng (self-check overlap 0.97, largest miss 0%)"
+  },
+  {
+   "glyph": "headline-beng.100",
+   "method": "bar",
+   "source": null,
+   "score": 1.0,
+   "offset": null,
+   "bbox": [
+    -120,
+    551,
+    10,
+    622
+   ],
+   "advance": 0,
+   "context": "ঙ্ঘ",
+   "reason": "a bar at the user's মাত্রা (self-check overlap 1.00, largest miss 0%)"
+  },
+  {
+   "glyph": "raphala-beng.alt11",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.862,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    468,
+    230
+   ],
+   "advance": 0,
+   "context": "ন্ধ্র",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.86, largest miss 0%)"
+  },
+  {
+   "glyph": "ka-beng.arm",
+   "method": "slice",
+   "source": "anusvara-beng",
+   "score": 0.677,
+   "offset": [
+    -22.0,
+    -25.0
+   ],
+   "bbox": [
+    20,
+    164,
+    395,
+    622
+   ],
+   "advance": 0,
    "context": "ক্ব",
-   "reason": "matches part of ka-beng (IoU 0.89)"
+   "reason": "cut from the sign anusvara-beng (self-check overlap 0.68, largest miss 8%)"
+  },
+  {
+   "glyph": "ch-beng.half",
+   "method": "slice",
+   "source": "cha-beng",
+   "score": 0.902,
+   "offset": [
+    12.5,
+    0.0
+   ],
+   "bbox": [
+    -10,
+    -9,
+    594,
+    622
+   ],
+   "advance": 584,
+   "context": "চ্ছ্ব",
+   "reason": "half form: top of cha-beng (self-check overlap 0.90, largest miss 0%)"
+  },
+  {
+   "glyph": "t_t_ra-beng",
+   "method": "written",
+   "source": null,
+   "score": 0.0,
+   "offset": null,
+   "bbox": [
+    -10,
+    -10,
+    658,
+    622
+   ],
+   "advance": 648,
+   "context": "ত্ত্র",
+   "reason": "no letter the user writes has this shape"
+  },
+  {
+   "glyph": "raphala-beng.alt01",
+   "method": "slice",
+   "source": "raphala-beng",
+   "score": 0.904,
+   "offset": [
+    -12.5,
+    -47.5
+   ],
+   "bbox": [
+    20,
+    0,
+    548,
+    264
+   ],
+   "advance": 0,
+   "context": "স্ফ্র",
+   "reason": "cut from the sign raphala-beng (self-check overlap 0.90, largest miss 6%)"
+  },
+  {
+   "glyph": "gh-beng.half",
+   "method": "slice",
+   "source": "gha-beng",
+   "score": 0.981,
+   "offset": [
+    0.0,
+    -12.5
+   ],
+   "bbox": [
+    -10,
+    25,
+    631,
+    622
+   ],
+   "advance": 621,
+   "context": "ঙ্ঘ্র",
+   "reason": "half form: top of gha-beng (self-check overlap 0.98, largest miss 0%)"
+  },
+  {
+   "glyph": "h-beng.half2",
+   "method": "slice",
+   "source": "ha-beng",
+   "score": 0.917,
+   "offset": [
+    -75.0,
+    -12.5
+   ],
+   "bbox": [
+    -10,
+    8,
+    624,
+    622
+   ],
+   "advance": 614,
+   "context": "হ্র্য",
+   "reason": "half form: top of ha-beng (self-check overlap 0.92, largest miss 2%)"
+  },
+  {
+   "glyph": "raphala-beng.alt07",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.914,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    462,
+    245
+   ],
+   "advance": 0,
+   "context": "হ্র্য",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.91, largest miss 0%)"
+  },
+  {
+   "glyph": "raphala-beng.alt15",
+   "method": "variant",
+   "source": "raphala-beng",
+   "score": 0.876,
+   "offset": null,
+   "bbox": [
+    20,
+    0,
+    468,
+    230
+   ],
+   "advance": 0,
+   "context": "শ্ব্র",
+   "reason": "raphala-beng fitted to its box (GSUB variant) (self-check overlap 0.88, largest miss 0%)"
+  },
+  {
+   "glyph": "aaMatra-beng.part.short",
+   "method": "slice",
+   "source": "aaMatra-beng",
+   "score": 0.917,
+   "offset": [
+    0.0,
+    3.5
+   ],
+   "bbox": [
+    -10,
+    260,
+    274,
+    622
+   ],
+   "advance": 264,
+   "context": "ল্ত্র",
+   "reason": "cut from the sign aaMatra-beng (self-check overlap 0.92, largest miss 0%)"
+  },
+  {
+   "glyph": "baphala-beng.alt1",
+   "method": "variant",
+   "source": "baphala-beng",
+   "score": 0.924,
+   "offset": null,
+   "bbox": [
+    20,
+    -80,
+    377,
+    267
+   ],
+   "advance": 0,
+   "context": "ফ্ব",
+   "reason": "baphala-beng fitted to its box (GSUB variant) (self-check overlap 0.92, largest miss 0%)"
   },
   {
    "glyph": "baphala-beng",
    "method": "body",
    "source": "ba-beng",
-   "score": 0.0,
+   "score": 0.93,
    "offset": null,
    "bbox": [
     20,
@@ -5094,7 +8707,7 @@
    ],
    "advance": 0,
    "context": "খ্ব",
-   "reason": "below-base form: body of ba-beng, scaled"
+   "reason": "body of ba-beng, scaled (self-check overlap 0.93, largest miss 0%)"
   }
  ],
  "matra_glyphs": [
@@ -5102,54 +8715,107 @@
   "aa-beng",
   "aaMatra-beng",
   "aaMatra-beng.part",
+  "aaMatra-beng.part.short",
   "aaMatra-beng.part2",
   "aiMatra-beng",
+  "b-beng.half2",
+  "b_da-beng",
+  "b_ja-beng",
   "ba-beng",
+  "ba-beng.side",
   "bha-beng",
+  "c-beng.half",
   "ca-beng",
+  "ca-beng.side",
+  "ch-beng.half",
   "cha-beng",
+  "d-beng.half",
+  "d-beng.half3",
+  "d-beng.half4",
+  "d_bha-beng",
+  "d_da-beng",
   "da-beng",
+  "da-beng.side",
   "danda-deva",
+  "dd_dda-beng",
   "dda-beng",
+  "ddh-beng.side",
   "ddha-beng",
+  "ddha-beng.side",
   "eMatra-beng",
   "ga-beng",
+  "ga-beng.side",
+  "gh-beng.half",
   "gha-beng",
+  "h-beng.half",
+  "h-beng.half2",
+  "h_ma-beng",
   "ha-beng",
   "i-beng",
   "ii-beng",
+  "j-beng.half",
+  "j_ja-beng",
   "j_nya-beng",
   "ja-beng",
   "jha-beng",
   "k-beng.half",
+  "k_sa-beng",
+  "k_ss_ma-beng",
   "k_ssa-beng",
+  "k_tta-beng.noflag",
   "ka-beng",
   "l-beng.half3",
   "la-beng",
   "m-beng.half",
+  "m-beng.half2",
+  "m-beng.half3",
   "ma-beng",
+  "ma-beng.side1",
+  "ma-beng.side2",
+  "n-beng.half2",
   "n-beng.half3",
   "n-beng.headline",
+  "n_sa-beng",
   "na-beng",
+  "ng-beng.half2",
   "ng_ga-beng",
+  "ng_ka-beng",
+  "nn-beng.half",
+  "nn-beng.half3",
   "nna-beng",
   "ny_ja-beng",
+  "ph-beng.half",
   "pha-beng",
+  "pha-beng.side",
   "ra-beng",
+  "s-beng.half",
+  "s-beng.half2",
   "s-beng.half3",
+  "s-beng.half4",
   "sa-beng",
+  "sh-beng.half",
   "sha-beng",
+  "ss-beng.half4",
+  "ss_nna-beng",
   "ss_tta-beng.noflag",
+  "ss_ttha-beng.notop",
   "ssa-beng",
+  "t-beng.half",
+  "t_ra-beng",
+  "t_t-beng.half",
+  "t_t_ra-beng",
   "t_ta-beng",
+  "t_tha-beng",
   "ta-beng",
   "tha-beng",
+  "tt_tta-beng.noflag",
   "tta-beng",
   "ttha-beng",
   "u-beng",
   "uu-beng",
   "visarga-beng",
   "ya-beng",
-  "ya-beng.pstf"
+  "ya-beng.pstf",
+  "ya-beng.pstf.short"
  ]
 }

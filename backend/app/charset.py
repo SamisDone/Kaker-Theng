@@ -6,6 +6,7 @@ glyph a Bangla cell actually fills is decided by shaping, in glyphmap.py.
 """
 
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass(frozen=True)
@@ -13,6 +14,7 @@ class CellSpec:
     text: str
     ghost: str | None = None
     group: str = ""
+    tall: bool = False  # extra room above and below, for deep or tall marks
 
 
 ENGLISH = (
@@ -36,11 +38,13 @@ BANGLA_LETTERS = (
         CellSpec("ৎ", group="other"),
         CellSpec("কং", ghost="ক", group="other"),
         CellSpec("কঃ", ghost="ক", group="other"),
-        CellSpec("কঁ", ghost="ক", group="other"),
+        CellSpec("কঁ", ghost="ক", group="tall", tall=True),
     ]
 )
 
-BN_SIGNS = ["া", "ি", "ী", "ু", "ূ", "ৃ", "ে", "ৈ", "ৗ"]
+# Signs that reach far above the মাত্রা or below the baseline get tall cells.
+BN_TALL_SIGNS = ["ী", "ু", "ূ", "ৃ"]
+BN_SIGNS = ["া", "ি", "ে", "ৈ", "ৗ"]
 # Conjuncts that are one glyph in the final font: the user writes them whole.
 CONJUNCTS = "ক্ষ ঙ্গ ত্ত ষ্ট জ্ঞ ঞ্চ ঞ্জ".split()
 
@@ -50,7 +54,29 @@ CONJUNCTS = "ক্ষ ঙ্গ ত্ত ষ্ট জ্ঞ ঞ্চ ঞ্�
 # printed as a ghost.
 # হ্ন is not in the original list, but once ka-beng.arm2 exists it forms
 # without its headline piece and the মাত্রা breaks, so it gets its part too.
-PART_CONJUNCTS = "ক্ত ন্ত ন্দ স্ত ম্ব ন্ন ল্প হ্ন".split()
+CORE_PART_CONJUNCTS = "ক্ত ন্ত ন্দ স্ত ম্ব ন্ন ল্প হ্ন".split()
+
+# More clusters, picked by scripts/conjunct_coverage.py --plan from how often
+# they occur in Bangla Wikipedia (data/conjunct_counts.json): the best text
+# coverage per template cell, plus any cluster the new parts would otherwise
+# leave half-built. Almost all of their parts are made from the user's own
+# letters, so they cost few or no cells.
+CORPUS_CONJUNCTS_PATH = Path(__file__).resolve().parent.parent / "assets" / "corpus_conjuncts.txt"
+
+
+def _corpus_conjuncts() -> tuple[list[str], list[str]]:
+    """(whole-glyph conjuncts, conjuncts built from parts) from the file."""
+    try:
+        lines = CORPUS_CONJUNCTS_PATH.read_text(encoding="utf-8").split()
+    except OSError:
+        return [], []
+    whole = [t.removeprefix("whole:") for t in lines if t.startswith("whole:")]
+    parts = [t for t in lines if not t.startswith("whole:") and t not in CORE_PART_CONJUNCTS]
+    return whole, parts
+
+
+CORPUS_WHOLE, CORPUS_PARTS = _corpus_conjuncts()
+PART_CONJUNCTS = CORE_PART_CONJUNCTS + CORPUS_PARTS
 
 # Contexts searched when a part only exists as an intermediate glyph (for
 # example the half form ক্ that ক্ত passes through) and we need somewhere it
@@ -58,17 +84,18 @@ PART_CONJUNCTS = "ক্ত ন্ত ন্দ স্ত ম্ব ন্ন �
 CONSONANTS_FOR_CONTEXT = "ক খ গ ঘ ঙ চ ছ জ ঝ ঞ ট ঠ ড ঢ ণ ত থ দ ধ ন প ফ ব ভ ম য র ল শ ষ স হ".split()
 
 BANGLA_SIGNS = (
-    [CellSpec("ক" + s, ghost="ক", group="sign") for s in BN_SIGNS]
+    [CellSpec("ক" + s, ghost="ক", group="tall", tall=True) for s in BN_TALL_SIGNS]
+    + [CellSpec("র্ক", ghost="ক", group="tall", tall=True)]
+    + [CellSpec("ক" + s, ghost="ক", group="sign") for s in BN_SIGNS]
     + [CellSpec("ক্", ghost="ক", group="sign")]
+    + [CellSpec("প্র", ghost="প", group="phala"), CellSpec("ক্য", ghost="ক", group="phala")]
     + [CellSpec("।", group="digit")]
     + [CellSpec(c, group="digit") for c in "০১২৩৪৫৬৭৮৯"]
-    + [
-        CellSpec("র্ক", ghost="ক", group="phala"),
-        CellSpec("প্র", ghost="প", group="phala"),
-        CellSpec("ক্য", ghost="ক", group="phala"),
-    ]
-    + [CellSpec(c, group="conjunct") for c in CONJUNCTS]
+    + [CellSpec(c, group="conjunct") for c in CONJUNCTS + [t for t in CORPUS_WHOLE if t not in CONJUNCTS]]
 )
+
+# For laying out rows: groups that share rows.
+ROW_GROUP = {"phala": "sign", "part": "conjunct"}
 
 PAGES: dict[int, list[CellSpec]] = {1: ENGLISH, 2: BANGLA_LETTERS, 3: BANGLA_SIGNS}
 
