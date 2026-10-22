@@ -77,6 +77,12 @@ def main():
             page.locator("#try-title").scroll_into_view_if_needed()
             page.locator("section").nth(2).screenshot(path=SHOTS / "06-try-specimen-download.png")
 
+            old = browser.new_page(viewport={"width": 1280, "height": 900})
+            old.goto("http://localhost:3123/")
+            old.locator("input[type=file]").nth(1).set_input_files(str(PHOTOS / "old-p2.jpg"))
+            old.wait_for_selector("text=current template", timeout=120_000)
+            old.locator(".slot").nth(1).screenshot(path=SHOTS / "08-old-template.png")
+
             mobile = browser.new_page(viewport={"width": 390, "height": 844}, device_scale_factor=2)
             mobile.goto("http://localhost:3123/")
             mobile.wait_for_timeout(2000)

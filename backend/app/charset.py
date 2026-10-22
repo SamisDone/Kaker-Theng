@@ -83,14 +83,15 @@ BANGLA_LETTERS = (
     + [CellSpec("ক্", ghost="ক", group="sign")]
     + [CellSpec("প্র", ghost="প", group="phala"), CellSpec("ক্য", ghost="ক", group="phala")]
     + [CellSpec("।", group="sign")]
+    + [CellSpec(c, group="digit") for c in "০১২৩৪৫৬৭"]
     + [CellSpec("ক" + s, ghost="ক", group="tall", tall=True) for s in BN_TALL_SIGNS]
     + [CellSpec("কঁ", ghost="ক", group="tall", tall=True), CellSpec("র্ক", ghost="ক", group="tall", tall=True)]
+    # Digits are 3.7% of Bangla text; the tall row has two spare slots, and a
+    # tall cell keeps the same scale, so ৮ and ৯ fit on page 2 too.
+    + [CellSpec(c, group="tall", tall=True) for c in "৮৯"]
 )
 
-BANGLA_EXTRA = (
-    [CellSpec(c, group="digit") for c in "০১২৩৪৫৬৭৮৯"]
-    + [CellSpec(c, group="conjunct") for c in CONJUNCTS + [t for t in CORPUS_WHOLE if t not in CONJUNCTS]]
-)
+BANGLA_EXTRA = [CellSpec(c, group="conjunct") for c in CONJUNCTS + [t for t in CORPUS_WHOLE if t not in CONJUNCTS]]
 OPTIONAL_PAGES = {3}
 
 # For laying out rows: groups that share rows.
@@ -100,6 +101,6 @@ PAGES: dict[int, list[CellSpec]] = {1: ENGLISH, 2: BANGLA_LETTERS, 3: BANGLA_EXT
 
 PAGE_TITLES = {
     1: ("ইংরেজি", "English"),
-    2: ("বর্ণ, কার, ফলা", "Letters, vowel signs, phala"),
-    3: ("যুক্তবর্ণ ও সংখ্যা (ঐচ্ছিক)", "Conjuncts and digits (optional)"),
+    2: ("বর্ণ, কার, ফলা, সংখ্যা", "Letters, vowel signs, phala, digits"),
+    3: ("যুক্তবর্ণ (ঐচ্ছিক)", "Conjuncts (optional)"),
 }

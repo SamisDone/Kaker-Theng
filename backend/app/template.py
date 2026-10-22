@@ -149,8 +149,9 @@ def _draw_cell(c, cell: Cell):
     else:
         w = _bangla(c, cell.text, x + LABEL_X_MM, y + BANGLA_LABEL_BASE_MM, BANGLA_LABEL_HEAD_MM, GUIDE)
         if cell.group == "part":
-            # A piece of a conjunct: the page note explains the mark.
-            _latin(c, "*", x + LABEL_X_MM + w + 0.6, y + BANGLA_LABEL_BASE_MM + 0.4, 9, INK, "Helvetica-Bold")
+            # A piece of a conjunct: the page note explains the mark. Guide
+            # grey, like the label, so the scanner drops it with the guides.
+            _latin(c, "*", x + LABEL_X_MM + w + 0.6, y + BANGLA_LABEL_BASE_MM + 0.4, 9, GUIDE, "Helvetica-Bold")
 
     if cell.ghost_glyphs:
         glyphs = [(g.name, g.x, g.y) for g in cell.ghost_glyphs]
@@ -211,9 +212,11 @@ def _draw_page(c, page: int, cells: list[Cell]):
     for cell in cells:
         _draw_cell(c, cell)
 
+    vx, vy = C.version_marker_origin_mm()
+    _draw_marker(c, C.VERSION_MARKER_BASE + C.TEMPLATE_VERSION, vx, vy, C.VERSION_MARKER_MM)
     foot_y = C.PAGE_H_MM - C.MARKER_MARGIN_MM - 3
-    _latin(c, PRINT_NOTE, left, foot_y, 6.5, INK, "Helvetica-Oblique")
-    tag = f"kaker-theng template v1 · p{page}"
+    _latin(c, PRINT_NOTE, vx + C.VERSION_MARKER_MM + 3, foot_y, 6.5, INK, "Helvetica-Oblique")
+    tag = f"kaker-theng template v{C.TEMPLATE_VERSION} · p{page}"
     _latin(c, tag, right - _latin(c, tag, 0, 0, 6.5, draw=False), foot_y, 6.5)
 
 

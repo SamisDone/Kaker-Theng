@@ -14,6 +14,8 @@ import re
 import unicodedata
 from dataclasses import dataclass
 
+import cv2
+import numpy as np
 from fontTools.pens.cu2quPen import Cu2QuPen
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
@@ -23,9 +25,17 @@ from .basefont import ALWAYS_KEEP_UNICODES, base_shaper, base_ttfont, subset_fon
 from .derive import derive_parts, measure_matra
 from .glyphmap import Cell, build_layout
 from .guides import run_left_mm
+from .outline import Raster, contour_polygons
 from .vectorize import Drawing, contours_bbox
 
-LATIN_SIDE_BEARING = 60
+# Latin side bearings follow the writer's pen and each side's shape: a
+# straight stem gets 0.4 of a stroke width, a curve or a point 0.2. Fitted to
+# Patrick Hand's own (professional) spacing: mean error 12 units, against 31
+# for a flat 60 on each side.
+LATIN_SB_MIN = 0.20  # x stroke width, for a point or a curve
+LATIN_SB_RANGE = 0.20  # added for a straight vertical side
+LATIN_STRAIGHT_FROM = 0.2  # share of height at the edge where "straight" starts
+LATIN_DEFAULT_STROKE = 60
 BANGLA_RSB = -10  # headlines overlap a little so words join
 BANGLA_OPEN_SIDE_BEARING = 30  # Bangla letters without a full মাত্রা, digits, ।
 VENDOR_ID = "NONE"  # unregistered
@@ -89,14 +99,57 @@ def _ttglyph(drawing: Drawing, dx: float, dy: float = 0):
     return glyph
 
 
-def _placement(d: Drawing, cell: Cell | None, noto: TTFont, matra_glyphs: set[str]) -> tuple[float, float, int]:
+def _raster(d: Drawing, res: float = 0.2) -> Raster:
+    x0, y0, x1, y1 = d.bbox
+    r = Raster(x0, y0, x1, y1, res, margin=0)
+    r.fill(contour_polygons(d.contours))
+    return r
+
+
+def stroke_width(drawings: list[Drawing]) -> float:
+    """The writer's typical line width (font units): twice area over
+    perimeter, median over their English letters."""
+    widths = []
+    for d in drawings:
+        if d.kind != "latin" or not d.contours:
+            continue
+        r = _raster(d)
+        contours, _ = cv2.findContours(r.img, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
+        perimeter = sum(cv2.arcLength(c, True) for c in contours)
+        if perimeter > 0:
+            widths.append(2 * r.img.sum() / perimeter / r.res)
+    return float(np.median(widths)) if widths else LATIN_DEFAULT_STROKE
+
+
+def _side_straightness(d: Drawing, stroke: float) -> tuple[float, float]:
+    """Share of the glyph's height with ink within one stroke width of the
+    left and of the right edge: ~1 for a stem (H, l), small for o, v, A."""
+    r = _raster(d)
+    band = max(1, round(stroke * r.res))
+    rows = r.img.shape[0]
+    left = r.img[:, :band].any(axis=1).sum() / rows
+    right = r.img[:, -band:].any(axis=1).sum() / rows
+    return float(left), float(right)
+
+
+def latin_side_bearings(d: Drawing, stroke: float) -> tuple[float, float]:
+    def sb(straight: float) -> float:
+        f = np.clip((straight - LATIN_STRAIGHT_FROM) / 0.5, 0, 1)
+        return stroke * (LATIN_SB_MIN + LATIN_SB_RANGE * f)
+
+    left, right = _side_straightness(d, stroke)
+    return sb(left), sb(right)
+
+
+def _placement(d: Drawing, cell: Cell | None, noto: TTFont, matra_glyphs: set[str], stroke: float = LATIN_DEFAULT_STROKE) -> tuple[float, float, int]:
     """(dx, dy, advance) that put a drawing into its final glyph coordinates."""
     if d.positioned:
         return 0, 0, d.advance or 0
     x_min, y_min, x_max, y_max = d.bbox
     width = x_max - x_min
     if d.kind == "latin":
-        return LATIN_SIDE_BEARING - x_min, 0, round(width + 2 * LATIN_SIDE_BEARING)
+        lsb, rsb = latin_side_bearings(d, stroke)
+        return lsb - x_min, 0, round(width + lsb + rsb)
     ng = noto["glyf"][d.glyph]
     if d.kind == "mark":
         # Zero-advance marks: centre on the base font's mark, keep the scale.
@@ -241,6 +294,7 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
     matra = measure_matra(by_glyph, matra_glyphs)
     derived = [d for d in derive_parts(layout.plans(), by_glyph, matra) if d.glyph not in by_glyph]
     drawings = [d for d in drawings if d.contours] + derived
+    stroke = stroke_width(drawings)
     for d in derived:
         d.bbox = contours_bbox(d.contours)
 
@@ -257,7 +311,7 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
 
     boxes = {}
     for d in drawings:
-        dx, dy, advance = _placement(d, cells.get(d.glyph), noto, matra_glyphs)
+        dx, dy, advance = _placement(d, cells.get(d.glyph), noto, matra_glyphs, stroke)
         glyph = _ttglyph(d, dx, dy)
         glyph.recalcBounds(glyf)
         glyf[d.glyph] = glyph

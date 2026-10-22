@@ -72,12 +72,34 @@ def report(layout):
     print("excluded: " + ", ".join(f"{e['text'] or e['glyph']} ({e['status']})" for e in layout.excluded))
 
 
+def record_version():
+    """Keep assets/template_versions.json in step with the layout. A page whose
+    cell map changed needs a new TEMPLATE_VERSION, or old prints of it would
+    be read with the wrong cells."""
+    import json
+
+    from app.versions import HISTORY_PATH, current_fingerprints, history
+
+    history.cache_clear()
+    hist = history()
+    now = current_fingerprints()
+    key = str(C.TEMPLATE_VERSION)
+    if key in hist and hist[key] != now:
+        changed = [p for p in now if hist[key].get(p) != now[p]]
+        raise SystemExit(f"page(s) {changed} changed but TEMPLATE_VERSION is still {key}: bump it in app/config.py")
+    hist[key] = now
+    HISTORY_PATH.write_text(json.dumps(hist, indent=1) + "\n", encoding="utf-8", newline="\n")
+    same = [p for p in now if all(hist[v].get(p) == now[p] for v in hist)]
+    print(f"template v{key}; pages unchanged in every version: {same or 'none'}")
+
+
 def main():
     out = Path(sys.argv[1] if len(sys.argv) > 1 else "build")
     out.mkdir(parents=True, exist_ok=True)
     layout = compute_layout()
     C.LAYOUT_CACHE_PATH.write_text(layout_json(layout), encoding="utf-8", newline="\n")
     print(f"wrote {C.LAYOUT_CACHE_PATH}")
+    record_version()
     report(layout)
 
     pdf = build_template_pdf()

@@ -24,6 +24,7 @@ GUIDE_INSET_MM = 1.5  # guide lines stop short of the border
 LATIN_LABEL = ("Helvetica-Bold", 7.5)
 LABEL_X_MM, LATIN_LABEL_BASE_MM, BANGLA_LABEL_BASE_MM, BANGLA_LABEL_HEAD_MM = 1.2, 3.4, 3.6, 1.9
 PT_TO_MM = 25.4 / 72
+PIECE_MARK_MM = 3.0  # room for the * that marks a fragment cell
 
 
 @dataclass(frozen=True)
@@ -79,6 +80,8 @@ def label_box_mm(cell: Cell) -> tuple[float, float, float, float]:
     else:
         s = BANGLA_LABEL_HEAD_MM / headline_units()
         w = sum(g.x_advance for g in base_shaper().shape(cell.text)) * s
+        if cell.group == "part":
+            w += PIECE_MARK_MM  # the * after the label
         top = BANGLA_LABEL_BASE_MM - 950 * s
         bottom = BANGLA_LABEL_BASE_MM + 300 * s
     return x + LABEL_X_MM, y + top, x + LABEL_X_MM + w, y + bottom

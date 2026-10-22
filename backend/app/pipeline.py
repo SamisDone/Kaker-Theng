@@ -10,10 +10,12 @@ import numpy as np
 from . import config as C
 from .cells import CellInk, cut_cells
 from .ink import InkStats, extract_ink
+from . import versions
 from .scan import ScanError, find_page
 from .vectorize import Drawing, vectorize
 
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
+UNPRINTED_GHOST = 0.04  # darkness where a printed ghost letter should be
 MARGIN_RED_BGR = (0x2D, 0x41, 0xC2)
 THUMB_W = 900
 
@@ -58,7 +60,17 @@ def _thumbnail(gray: np.ndarray, cells: list[CellInk]) -> tuple[bytes, list[dict
 def process_page(image: np.ndarray, expected_page: int | None = None) -> PageResult:
     found = find_page(image, expected_page)
     del image
+    versions.check(found.version, found.page)  # never read with the wrong cell map
     ink, stats = extract_ink(found.gray, found.page)
+    if found.version is None and stats.ghost_darkness < UNPRINTED_GHOST:
+        # No version marker, and the ghost letters this layout prints aren't
+        # on the paper: an older print whose boxes have moved.
+        raise ScanError(
+            "old_template",
+            "This page is from an older template; its boxes have moved since. Please print the current template and write this page again.",
+            "এই পাতাটা পুরোনো টেমপ্লেটের, তারপর ঘরগুলো বদলেছে। নতুন টেমপ্লেট ছেপে পাতাটা আবার লিখুন।",
+            page=found.page,
+        )
     cells = cut_cells(ink, found.page)
     drawings = [vectorize(ci) for ci in cells if ci.status != "missing"]
     thumb, info = _thumbnail(found.gray, cells)

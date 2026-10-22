@@ -258,11 +258,16 @@ def photograph(page_bgr: np.ndarray, rng) -> bytes:
 MODES = ["colour", "laser", "copy", "ballpoint"]
 
 
-def make_page(page: int, mode: str, seed: int = 7) -> SynthPage:
+def make_page(page: int, mode: str, seed: int = 7, hide_version: bool = False) -> SynthPage:
     """mode: colour | laser | copy (felt-tip pen), or ballpoint (laser print,
-    blue ballpoint: thinner, lighter, uneven ink)."""
+    blue ballpoint: thinner, lighter, uneven ink). hide_version: blank the
+    version marker, like a template printed before it existed."""
     rng = np.random.default_rng(seed + page)
     printed = template_page_rgb(page)
+    if hide_version:
+        k = C.PX_PER_MM
+        x, y = C.version_marker_origin_mm()
+        printed[round((y - 1) * k) : round((y + C.VERSION_MARKER_MM + 1) * k), round((x - 1) * k) : round((x + C.VERSION_MARKER_MM + 1) * k)] = 255
     if mode == "colour":
         printed = print_colour(printed, rng)
     elif mode == "copy":

@@ -54,6 +54,23 @@ def marker_ids(page: int) -> list[int]:
     return [4 * page + i for i in range(4)]
 
 
+# Template version: a fifth, smaller marker on every page (id = base +
+# version), beside the bottom-left corner marker. Bump TEMPLATE_VERSION
+# whenever a page's cell layout changes; assets/template_versions.json keeps
+# each version's page fingerprints so old prints are never read with the
+# wrong cell map.
+TEMPLATE_VERSION = 2
+VERSION_MARKER_BASE = 16  # ids 16..49 in DICT_4X4_50: versions 0..33
+VERSION_MARKER_MM = 9.0
+UNVERSIONED = 1  # templates printed before the version marker existed
+
+
+def version_marker_origin_mm() -> tuple[float, float]:
+    x = MARKER_MARGIN_MM + MARKER_MM + 5
+    y = PAGE_H_MM - MARKER_MARGIN_MM - VERSION_MARKER_MM
+    return x, y
+
+
 # --- Cell grid ---------------------------------------------------------------
 CELL_MM = 22.0
 TALL_CELL_MM = 33.0  # same width and scale; the extra height is split above and below

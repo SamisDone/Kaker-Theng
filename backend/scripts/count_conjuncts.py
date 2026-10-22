@@ -48,6 +48,7 @@ def pages(path: str):
 def main():
     src, out = sys.argv[1], sys.argv[2]
     counts: Counter[str] = Counter()
+    chars: Counter[str] = Counter()
     articles = words = 0
     for page in pages(src):
         if "<ns>0</ns>" not in page or "<redirect" in page:
@@ -60,12 +61,14 @@ def main():
         words += len(re.findall("[ঀ-৿]+", text))
         for c in CLUSTER.findall(text):
             counts[c] += 1
+        chars.update(ch for ch in text if "ঀ" <= ch <= "৿" or ch in "।॥")  # dari lives in the Devanagari block
     json.dump(
         {
             "source": "Bangla Wikipedia article dump (dumps.wikimedia.org/bnwiki), CC BY-SA 4.0; first part of the file",
             "articles": articles,
             "bangla_words": words,
             "clusters": dict(counts.most_common()),
+            "characters": dict(chars.most_common()),
         },
         open(out, "w", encoding="utf-8"),
         ensure_ascii=False,

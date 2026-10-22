@@ -132,7 +132,7 @@ export default function Home() {
         err instanceof ApiError
           ? err
           : new ApiError("error", "That photo couldn't be read. Please try another.", "ছবিটা পড়া গেল না। আরেকটা ছবি দিয়ে দেখুন।");
-      setSlot(page, { kind: "error", bn: e.bn, en: e.message });
+      setSlot(page, { kind: "error", bn: e.bn, en: e.message, code: e.code });
     }
   }
 
@@ -157,6 +157,12 @@ export default function Home() {
           গাঢ় কলমে, ঘরের ভেতরে লিখুন। পুরো পাতা আর চার কোণের কালো চৌকো ছবিতে রাখুন।
           <span className="en-sub" lang="en">
             Write in a dark pen, inside the boxes. Keep the whole page and its four black corner squares in the photo.
+          </span>
+        </p>
+        <p>
+          ছবিগুলো এক ঘণ্টা পর মুছে যায়।
+          <span className="en-sub" lang="en">
+            Photos are deleted after an hour.
           </span>
         </p>
         {[1, 2, 3].map((n) => {

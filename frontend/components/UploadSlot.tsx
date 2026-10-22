@@ -1,13 +1,13 @@
 "use client";
 
 import { useId } from "react";
-import { fileUrl, type PageInfo } from "@/lib/api";
+import { fileUrl, type PageInfo, templateUrl } from "@/lib/api";
 import { bnNum, cornerBn } from "@/lib/bn";
 
 export type SlotState =
   | { kind: "idle" }
   | { kind: "busy"; step: "shrinking" | "sending" | "queued" | "reading" | "waking"; ahead?: number }
-  | { kind: "error"; bn: string; en: string };
+  | { kind: "error"; bn: string; en: string; code?: string };
 
 const STEP: Record<string, [string, string]> = {
   shrinking: ["ছবি ছোট করছি…", "resizing the photo…"],
@@ -92,6 +92,11 @@ export function UploadSlot(props: {
           <span className="en-sub en" lang="en">
             {state.en}
           </span>
+          {state.code === "old_template" && (
+            <a href={templateUrl()} target="_blank" rel="noopener">
+              নতুন টেমপ্লেট · current template
+            </a>
+          )}
         </p>
       )}
       {props.note && (

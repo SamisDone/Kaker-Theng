@@ -29,6 +29,24 @@ class FoundPage:
     page: int
     gray: np.ndarray  # canonical CANON_H_PX x CANON_W_PX, uint8
     missing_corners: list[str] = field(default_factory=list)
+    version: int | None = None  # None: no version marker found
+
+
+def _version(ids) -> int | None:
+    v = [i - C.VERSION_MARKER_BASE for i in ids if C.VERSION_MARKER_BASE <= i < 50]
+    return max(v) if v else None
+
+
+def _version_on_page(warped: np.ndarray) -> int | None:
+    """Second chance: look for the version marker where it should be on the
+    straightened page, enlarged."""
+    k = C.PX_PER_MM
+    x, y = C.version_marker_origin_mm()
+    pad = 6
+    crop = warped[max(0, round((y - pad) * k)) : round((y + C.VERSION_MARKER_MM + pad) * k), max(0, round((x - pad) * k)) : round((x + C.VERSION_MARKER_MM + pad) * k)]
+    if crop.size == 0:
+        return None
+    return _version(_detect(cv2.resize(crop, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)))
 
 
 @lru_cache(maxsize=1)
@@ -123,4 +141,7 @@ def find_page(image: np.ndarray, expected_page: int | None = None) -> FoundPage:
             page=page,
         )
     warped = cv2.warpPerspective(gray, h, (C.CANON_W_PX, C.CANON_H_PX), flags=cv2.INTER_LINEAR, borderValue=255)
-    return FoundPage(page, warped, missing)
+    version = _version(found)
+    if version is None:
+        version = _version_on_page(warped)
+    return FoundPage(page, warped, missing, version)

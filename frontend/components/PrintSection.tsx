@@ -47,9 +47,9 @@ export function PrintSection({ layout }: { layout: Layout | null }) {
         })}
       </div>
       <p>
-        পাতা ১ আর ২ দিলেই ফন্ট চলবে। পাতা ৩ ঐচ্ছিক: যুক্তবর্ণ আর সংখ্যা আরও ভালো হয়।
+        পাতা ১ আর ২ দিলেই ফন্ট চলবে। পাতা ৩ ঐচ্ছিক: যুক্তবর্ণ আরও ভালো হয়।
         <span className="en-sub" lang="en">
-          Pages 1 and 2 make a working font. Page 3 is optional: it adds better conjuncts and Bangla digits.
+          Pages 1 and 2 make a working font. Page 3 is optional: it makes conjuncts better.
         </span>
       </p>
     </section>
