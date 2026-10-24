@@ -30,7 +30,8 @@ from .outline import Raster, contour_polygons, glyph_polygons, polys_bbox
 
 HALANT = "্"
 MATCH_RES = 0.08  # px per unit for planning
-BUILD_RES = 0.25  # px per unit when deriving from the user's drawings
+BUILD_RES = 0.15  # px per unit when deriving from the user's drawings (speed on a 0.1-CPU server)
+CHECK_RES = 0.25  # px per unit for the offline self-check; fixed so plans don't drift
 MAX_STRETCH = 1.35  # body: horizontal / vertical scale at most this far apart
 
 
@@ -281,8 +282,12 @@ def self_check(plan: "DerivePlan") -> "Check":
         src = _noto_drawing(plan.source)
         if not src.contours:
             return Check(0.0, 1.0)
-        contours = {"slice": _slice, "variant": _variant}.get(plan.method)
-        contours = contours(plan, src) if contours else _body(plan, src, matra)
+        if plan.method == "slice":
+            contours = _slice(plan, src, CHECK_RES)
+        elif plan.method == "variant":
+            contours = _variant(plan, src)
+        else:
+            contours = _body(plan, src, matra, CHECK_RES)
     if not contours:
         return Check(0.0, 1.0)
     x0, y0, x1, y1 = plan.bbox
@@ -363,7 +368,7 @@ def _bar(plan: DerivePlan, matra: tuple[float, float]):
     return [Contour((x0, lo), [("L", (x0, hi)), ("L", (x1, hi)), ("L", (x1, lo))])]
 
 
-def _slice(plan: DerivePlan, d):
+def _slice(plan: DerivePlan, d, res: float = BUILD_RES):
     from .vectorize import trace_bitmap
 
     tt = base_shaper().tt
@@ -376,17 +381,17 @@ def _slice(plan: DerivePlan, d):
     # all glyphs) -> part coordinates.
     moved = [[(sg.xMin + (x - ux0) * kx - ox, y - oy) for x, y in p] for p in polys]
     x0, y0, x1, y1 = plan.bbox
-    r = Raster(x0 - 10, y0 - 10, x1 + 10, y1 + 10, BUILD_RES)
+    r = Raster(x0 - 10, y0 - 10, x1 + 10, y1 + 10, res)
     r.fill(moved)
     return trace_bitmap(r.img > 0, r.to_units)
 
 
-def _body(plan: DerivePlan, d, matra: tuple[float, float]):
+def _body(plan: DerivePlan, d, matra: tuple[float, float], res: float = BUILD_RES):
     from .vectorize import Contour, trace_bitmap
 
     polys = contour_polygons(d.contours)
     x0, y0, x1, y1 = polys_bbox(polys)
-    r = Raster(x0, y0, x1, y1, BUILD_RES)
+    r = Raster(x0, y0, x1, y1, res)
     r.fill(polys)
     centre, thick = matra
     cut_row = int(round((r.y1 - (centre - 0.75 * thick)) * r.res + r.m))

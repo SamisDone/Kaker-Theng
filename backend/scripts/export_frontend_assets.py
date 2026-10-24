@@ -15,6 +15,7 @@ import pypdfium2 as pdfium
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 
+from app import config as C
 from app.basefont import base_shaper, headline_units
 from app.charset import OPTIONAL_PAGES, PAGE_TITLES
 from app.coverage import complete_coverage, pages_1_2_coverage
@@ -42,7 +43,14 @@ def fragment_example(cell) -> dict:
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     layout = build_layout()
-    doc = pdfium.PdfDocument(build_template_pdf())
+    pdf = build_template_pdf()
+    # A static copy: the "print" step works instantly, even while the free
+    # backend is still waking up.
+    for old in OUT.glob("kaker-theng-template-v*.pdf"):
+        old.unlink()
+    pdf_name = f"kaker-theng-template-v{C.TEMPLATE_VERSION}.pdf"
+    (OUT / pdf_name).write_bytes(pdf)
+    doc = pdfium.PdfDocument(pdf)
     for i in range(len(doc)):
         doc[i].render(scale=72 / 72).to_pil().convert("L").save(OUT / f"template-p{i + 1}.png", optimize=True)
 
@@ -60,6 +68,8 @@ def main():
         }
     data = {
         "fingerprint": fingerprint(),
+        "template_version": C.TEMPLATE_VERSION,
+        "template_pdf": pdf_name,
         "headline": headline_units(),
         "pages": pages,
         "fragments": [fragment_example(c) for c in layout.cells if c.group == "part"],

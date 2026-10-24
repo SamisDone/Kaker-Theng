@@ -3,6 +3,8 @@ import { bnNum } from "@/lib/bn";
 import type { Layout } from "@/lib/layout";
 
 export function PrintSection({ layout }: { layout: Layout | null }) {
+  // The static copy loads instantly; the backend's copy is the fallback.
+  const pdf = layout ? `/kt/${layout.template_pdf}` : templateUrl();
   return (
     <section className="section" aria-labelledby="print-title">
       <div className="section-head">
@@ -21,7 +23,7 @@ export function PrintSection({ layout }: { layout: Layout | null }) {
         </span>
       </p>
       <p>
-        <a className="button" href={templateUrl()} target="_blank" rel="noopener">
+        <a className="button" href={pdf} target="_blank" rel="noopener">
           টেমপ্লেট (PDF) <span className="en">· template</span>
         </a>
       </p>
@@ -30,7 +32,7 @@ export function PrintSection({ layout }: { layout: Layout | null }) {
           const page = layout?.pages[n];
           return (
             <figure key={n}>
-              <a href={templateUrl()} target="_blank" rel="noopener">
+              <a href={pdf} target="_blank" rel="noopener">
                 <img
                   src={`/kt/template-p${n}.png`}
                   width={128}

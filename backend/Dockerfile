@@ -12,6 +12,10 @@ WORKDIR /srv
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+# One thread per library: faster on Render's 0.1 CPU (see app/__init__.py).
+# Set after the install so changing it keeps the cached dependency layer.
+ENV KT_THREADS=1
+
 COPY app ./app
 COPY assets ./assets
 

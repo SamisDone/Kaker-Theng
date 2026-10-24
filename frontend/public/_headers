@@ -1,0 +1,11 @@
+# Cloudflare Pages response headers.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=()
+
+/kt/*
+  Cache-Control: public, max-age=3600
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable

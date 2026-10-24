@@ -8,6 +8,7 @@ the error bodies: `message_bn` and `message`.
 from __future__ import annotations
 
 import os
+import threading
 from contextlib import asynccontextmanager
 from functools import lru_cache
 
@@ -21,9 +22,28 @@ from .fontbuild import FontNameError, clean_family_name
 from .jobs import JobQueue, QueueFull
 from .pipeline import MAX_UPLOAD_BYTES
 
+def _warm_up():
+    """Load what the first upload would otherwise wait for (layout, base
+    font, template, reference coverage). On a 0.1-CPU free server that is
+    ~20 s; done here, it happens while the visitor is still printing."""
+    try:
+        from .coverage import complete_coverage, pages_1_2_coverage
+        from .glyphmap import build_layout
+
+        build_layout()
+        _template_pdf()
+        complete_coverage()
+        pages_1_2_coverage()
+    except Exception:  # noqa: BLE001 - a failed warm-up only costs speed
+        import traceback
+
+        traceback.print_exc()
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     sessions.start_sweeper()
+    threading.Thread(target=_warm_up, name="warm-up", daemon=True).start()
     yield
 
 
@@ -177,7 +197,12 @@ def get_file(session_id: str, name: str):
 def info():
     from .coverage import complete_coverage, pages_1_2_coverage
 
+    from . import config as C
+    from .glyphmap import fingerprint
+
     return {
+        "template_version": C.TEMPLATE_VERSION,
+        "layout_fingerprint": fingerprint(),
         "max_upload_bytes": MAX_UPLOAD_BYTES,
         "coverage_targets": {"pages_1_2": pages_1_2_coverage(), "all_pages": complete_coverage()},
         "busy": queue.waiting(),

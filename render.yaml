@@ -1,0 +1,22 @@
+# Render Blueprint for the backend: a free web service built from
+# backend/Dockerfile. Render > New > Blueprint > pick this repo (README, "Deploy").
+services:
+  - type: web
+    name: kaker-theng-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    autoDeploy: true
+    buildFilter:
+      paths:
+        - backend/**
+    envVars:
+      # Your Cloudflare Pages address(es), comma-separated, no trailing slash,
+      # e.g. https://kaker-theng.pages.dev. Render asks for it when you apply.
+      - key: ALLOWED_ORIGINS
+        sync: false
+      # How many uploads may wait in line before people are asked to retry.
+      - key: MAX_QUEUE
+        value: "12"
