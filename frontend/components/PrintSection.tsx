@@ -2,13 +2,15 @@ import { templateUrl } from "@/lib/api";
 import { bnNum } from "@/lib/bn";
 import type { Layout } from "@/lib/layout";
 
-export function PrintSection({ layout }: { layout: Layout | null }) {
+export function PrintSection({ layout, number }: { layout: Layout | null; number: number }) {
   // The static copy loads instantly; the backend's copy is the fallback.
   const pdf = layout ? `/kt/${layout.template_pdf}` : templateUrl();
   return (
     <section className="section" aria-labelledby="print-title">
       <div className="section-head">
-        <span className="section-no">১ / 1</span>
+        <span className="section-no">
+          {bnNum(number)} / {number}
+        </span>
         <h2 id="print-title">
           ছাপুন
           <span className="en-sub" lang="en">

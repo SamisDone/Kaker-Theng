@@ -22,10 +22,11 @@ from .scan import ScanError
 JOB_TTL_S = 3600
 
 # Seconds per job on the free server (0.1 CPU, 512 MB), measured with
-# synthetic photos: page 1 21 s, page 2 44 s, page 3 37 s, download 22 s.
+# synthetic photos: page 1 21 s, page 2 44 s, page 3 37 s, download 22 s; a
+# preview of drawn letters 3 s (a few letters) to 18 s (everything).
 # Only a starting point: each finished job moves the estimate for its kind
 # (EXPECTED_WEIGHT of the new time), so it follows the server it runs on.
-EXPECTED_S = {"page": 35.0, "download": 22.0}
+EXPECTED_S = {"page": 35.0, "download": 22.0, "preview": 12.0}
 EXPECTED_WEIGHT = 0.3
 
 

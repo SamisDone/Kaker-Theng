@@ -209,6 +209,160 @@ a {
   font-size: 15px;
 }
 
+.button.primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.button.primary:disabled {
+  background: transparent;
+  color: var(--pencil);
+}
+
+/* ---- Two ways in: draw, or write on paper ------------------------------- */
+
+.modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+}
+
+.mode {
+  padding-left: 12px;
+  border-left: 1.5px solid var(--rule);
+  margin-bottom: var(--line);
+}
+
+.mode.chosen {
+  border-left-color: var(--ink);
+}
+
+.mode h3 {
+  font-size: 23px;
+  line-height: var(--line);
+  margin-bottom: var(--line);
+}
+
+.modes-note {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 640px) {
+  .modes {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Drawing ---------------------------------------------------------- */
+
+.draw-progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: var(--line);
+  margin-bottom: var(--line);
+}
+
+.draw-bar {
+  flex: 1;
+  height: 4px;
+  outline: 1px solid var(--rule);
+}
+
+.draw-bar span {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+}
+
+.draw-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 0 32px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .draw-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.draw-target {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.draw-letter {
+  font-size: 44px;
+  line-height: calc(var(--line) * 2);
+}
+
+.draw-target .mono {
+  color: var(--pencil);
+}
+
+.draw-hint {
+  margin-bottom: 16px;
+}
+
+.draw-canvas {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.draw-canvas canvas {
+  display: block;
+  touch-action: none; /* the finger draws instead of scrolling */
+  cursor: crosshair;
+  outline: 1.5px solid var(--ink);
+  outline-offset: -1.5px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.draw-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 0;
+  margin-bottom: 16px;
+}
+
+.draw-side .example {
+  max-width: 260px;
+}
+
+.neighbours {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  overflow-x: auto;
+  min-height: calc(var(--line) * 2);
+}
+
+.mini-cell {
+  flex: none;
+  background: var(--paper);
+  outline: 1px solid var(--rule);
+  outline-offset: -1px;
+}
+
+.mini-cell:last-child {
+  outline: 1.5px solid var(--ink);
+}
+
+.draw-sample p {
+  font-size: 26px;
+  line-height: calc(var(--line) * 1.5);
+  margin-bottom: 0;
+}
+
+.draw-sample {
+  margin-bottom: var(--line);
+}
+
 /* ---- Template thumbnails ------------------------------------------------- */
 
 .thumbs {

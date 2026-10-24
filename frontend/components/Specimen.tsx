@@ -11,6 +11,7 @@ export function Specimen({ layout, meta, userFont }: { layout: Layout; meta: Ses
   const [picked, setPicked] = useState<{ cell: LayoutCell; ok: boolean } | null>(null);
   const status = new Map<string, string>();
   for (const p of Object.values(meta?.pages ?? {})) for (const c of p.cells) status.set(c.id, c.status);
+  for (const id of Object.keys(meta?.drawn ?? {})) status.set(id, "ok"); // drawn in the browser
   const font = userFont ? `"${userFont}", var(--bn)` : undefined;
 
   return (

@@ -18,9 +18,11 @@ import time
 import zipfile
 from pathlib import Path
 
+from . import strokes
 from .config import OFL_PATH
 from .coverage import complete_coverage, font_coverage, pages_1_2_coverage
 from .fontbuild import BuiltFont, build_font, clean_family_name, postscript_name
+from .glyphmap import build_layout
 from .pipeline import PageResult
 from .vectorize import drawing_from_dict, drawing_to_dict
 
@@ -28,6 +30,7 @@ SESSION_TTL_S = 3600
 ROOT = Path(os.environ.get("KT_DATA_DIR") or Path(tempfile.gettempdir()) / "kaker-theng")
 ID_RE = re.compile(r"^[A-Za-z0-9_-]{8,32}$")
 PREVIEW_FAMILY = "Kaker Theng Preview"
+DRAWN_FILE = "drawn.json"
 
 
 def _dir(session_id: str) -> Path:
@@ -78,13 +81,61 @@ def file_path(session_id: str, name: str) -> Path | None:
     return p if p.is_file() else None
 
 
-def _drawings(d: Path, pages) -> list:
-    out = []
-    for page in pages:
+def _drawn(d: Path) -> dict:
+    """Letters drawn in the browser: {cell id: {"strokes": [...], "t": time}}."""
+    p = d / DRAWN_FILE
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+
+
+def _drawings(d: Path, meta: dict) -> list:
+    """Everything the user wrote, photographed pages and drawn letters
+    together. A cell written both ways keeps the newer one."""
+    newest: dict[str, tuple[float, object]] = {}
+    for page, info in meta["pages"].items():
         p = d / f"drawings-p{page}.json"
         if p.exists():
-            out += [drawing_from_dict(x) for x in json.loads(p.read_text(encoding="utf-8"))]
-    return out
+            for x in json.loads(p.read_text(encoding="utf-8")):
+                newest[x["cell_id"]] = (info.get("processed", 0), drawing_from_dict(x))
+    if (d / DRAWN_FILE).exists():
+        cells = {c.id: c for c in build_layout().cells}
+        for cell_id, entry in _drawn(d).items():
+            if cell_id in cells and entry["t"] >= newest.get(cell_id, (0, None))[0]:
+                newest[cell_id] = (entry["t"], strokes.drawing(cells[cell_id], entry["strokes"]))
+    return [drawing for _, drawing in newest.values()]
+
+
+def save_drawn(session_id: str, cells: dict) -> dict:
+    """Store drawn letters ({cell id: strokes}, an empty list removes one).
+    Only saves: the font is rebuilt by rebuild(), through the queue."""
+    d = _dir(session_id)
+    meta = load(session_id)
+    if meta is None:
+        raise KeyError(session_id)
+    layout = {c.id: c for c in build_layout().cells}
+    drawn, now = _drawn(d), time.time()
+    for cell_id, s in cells.items():
+        if cell_id not in layout:
+            raise strokes.StrokeError(f"no cell {cell_id!r}")
+        if s:
+            drawn[cell_id] = {"strokes": strokes.check_strokes(s, layout[cell_id]), "t": now}
+        else:
+            drawn.pop(cell_id, None)
+    tmp = d / f"{DRAWN_FILE}.tmp"
+    tmp.write_text(json.dumps(drawn), encoding="utf-8")
+    tmp.replace(d / DRAWN_FILE)
+    meta["drawn"] = {cell_id: entry["t"] for cell_id, entry in drawn.items()}
+    _write_meta(d, meta)
+    return meta
+
+
+def rebuild(session_id: str) -> dict:
+    """Rebuild the preview font and its coverage from everything written."""
+    d = _dir(session_id)
+    meta = load(session_id)
+    if meta is None:
+        raise KeyError(session_id)
+    _rebuild(d, meta)
+    return meta
 
 
 def save_page(session_id: str, result: PageResult) -> dict:
@@ -103,8 +154,12 @@ def save_page(session_id: str, result: PageResult) -> dict:
         "thumbnail": f"page-{page}.png",
         "processed": time.time(),
     }
+    _rebuild(d, meta)
+    return meta
 
-    drawings = _drawings(d, sorted(int(p) for p in meta["pages"]))
+
+def _rebuild(d: Path, meta: dict):
+    drawings = _drawings(d, meta)
     if drawings:
         font = build_font(drawings, PREVIEW_FAMILY)
         version = meta["font_version"] + 1
@@ -116,6 +171,9 @@ def save_page(session_id: str, result: PageResult) -> dict:
         written = {x.glyph for x in drawings if x.kind != "latin"}
         meta["coverage"] = font_coverage(font.ttf, written) if written else 0.0
         meta["glyphs"] = sorted(set(font.glyphs))
+    else:  # everything removed again
+        meta.pop("font", None)
+        meta["coverage"], meta["glyphs"] = 0.0, []
     meta["coverage_targets"] = {"pages_1_2": pages_1_2_coverage(), "all_pages": complete_coverage()}
     _write_meta(d, meta)
     return meta
@@ -128,7 +186,7 @@ def build_download(session_id: str, family: str, fmt: str) -> dict:
     if meta is None:
         raise KeyError(session_id)
     family = clean_family_name(family)
-    font: BuiltFont = build_font(_drawings(d, sorted(int(p) for p in meta["pages"])), family)
+    font: BuiltFont = build_font(_drawings(d, meta), family)
     base = postscript_name(family)
     data = font.ttf if fmt == "ttf" else font.woff2
     buf = io.BytesIO()

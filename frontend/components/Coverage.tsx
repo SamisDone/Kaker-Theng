@@ -5,8 +5,9 @@ import { bnNum, pct } from "@/lib/bn";
 // phala, measured against Bangla Wikipedia), updated after every page.
 export function Coverage({ meta, targets }: { meta: SessionMeta | null; targets: { pages_1_2: number; all_pages: number } | null }) {
   if (!meta || meta.coverage === undefined) return null;
-  const has2 = Boolean(meta.pages["2"]);
-  const has3 = Boolean(meta.pages["3"]);
+  const drawnIds = Object.keys(meta.drawn ?? {});
+  const has2 = Boolean(meta.pages["2"]) || drawnIds.some((id) => id.startsWith("p2-"));
+  const has3 = Boolean(meta.pages["3"]) || drawnIds.some((id) => id.startsWith("p3-"));
   const now = pct(meta.coverage);
   const all = targets ? pct(targets.all_pages) : 99;
 

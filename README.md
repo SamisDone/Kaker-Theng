@@ -1,9 +1,10 @@
 # কাকের ঠ্যাং · Kaker Theng
 
-Turn your handwriting into a Bangla + English font. Print a template, write
-the letters in the boxes, photograph the pages, download a working font
-(TTF and WOFF2) with correct Bangla vowel-sign placement, reph, phala and
-conjuncts.
+Turn your handwriting into a Bangla + English font. Draw the letters one at
+a time in the browser (finger, stylus or mouse), or print a template, write
+in the boxes and photograph the pages, or mix the two. Download a working
+font (TTF and WOFF2) with correct Bangla vowel-sign placement, reph, phala
+and conjuncts.
 
 The name comes from the idiom কাকের ঠ্যাং বকের ঠ্যাং, said of messy handwriting.
 
@@ -49,6 +50,11 @@ Tests: `cd backend && .venv/Scripts/python -m pytest tests`.
   and black-and-white prints), traces each cell with potrace and builds the
   font on top of Noto Sans Bengali's layout tables, so HarfBuzz in the
   browser handles reordering, reph, phala and conjuncts.
+- Drawn letters skip the photo entirely: each stroke arrives as points in
+  millimetres inside the same cell box the template prints, is widened to
+  the pen width and merged (`app/strokes.py`, pyclipper), and goes through
+  the same transform, glyph map, derived parts and font build. The drawing
+  screen asks for the most useful letters first (`app/draworder.py`).
 - `frontend/` (Next.js, static export) is the one-page site. In production
   the backend serves it at `/` and the API under `/api` from the same
   address, so it needs no settings. `NEXT_PUBLIC_API_URL` is only for

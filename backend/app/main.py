@@ -12,18 +12,20 @@ allowed only when the API runs without the site, i.e. in development.
 
 from __future__ import annotations
 
+import json
 import os
 import threading
 from contextlib import asynccontextmanager
 from functools import lru_cache
 from pathlib import Path
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
+from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response
 from pydantic import BaseModel
 
-from . import sessions
+from . import sessions, strokes
 from .fontbuild import FontNameError, clean_family_name
 from .jobs import JobQueue, QueueFull
 from .pipeline import MAX_UPLOAD_BYTES
@@ -63,7 +65,7 @@ if not SITE_DIR:
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_methods=["GET", "POST"],
+    allow_methods=["GET", "POST", "PUT"],
     allow_headers=["Content-Type"],
 )
 app.add_middleware(SiteHeaders)
@@ -163,6 +165,45 @@ async def upload_page(session_id: str, photo: UploadFile = File(...)):
     return _job_view(job)
 
 
+MAX_DRAWN_BYTES = 4 * 1024 * 1024  # a whole template drawn is ~0.5 MB of JSON
+_previews: dict[str, str] = {}  # session id -> its latest preview job
+
+
+@app.put("/api/sessions/{session_id}/drawn")
+async def put_drawn(session_id: str, request: Request):
+    """Letters drawn in the browser, {"cells": {cell id: strokes}}. Only
+    stores them (quick); POST .../preview rebuilds the font."""
+    if sessions.load(session_id) is None:
+        return _gone()
+    body = await request.body()
+    if len(body) > MAX_DRAWN_BYTES:
+        return _error(413, "too_large", "That's too much drawing for one request.", "একবারে এত আঁকা পাঠানো যায় না।")
+    try:
+        cells = json.loads(body)["cells"]
+        if not isinstance(cells, dict):
+            raise ValueError
+        return await run_in_threadpool(sessions.save_drawn, session_id, cells)
+    except (ValueError, KeyError, TypeError, strokes.StrokeError) as err:
+        return _error(400, "bad_strokes", f"That drawing couldn't be read: {err}", "আঁকাটা পড়া গেল না। আবার আঁকুন।")
+
+
+@app.post("/api/sessions/{session_id}/preview", status_code=202)
+def request_preview(session_id: str):
+    """Rebuild the preview font and coverage from everything written. While
+    one rebuild is still waiting, asking again returns that one."""
+    if sessions.load(session_id) is None:
+        return _gone()
+    waiting = queue.get(_previews.get(session_id, ""))
+    if waiting is not None and waiting.status == "queued":
+        return _job_view(waiting)
+    try:
+        job = queue.submit("preview", lambda: {"session": sessions.rebuild(session_id)})
+    except QueueFull:
+        return _busy()
+    _previews[session_id] = job.id
+    return _job_view(job)
+
+
 class DownloadRequest(BaseModel):
     name: str
     format: str
@@ -173,8 +214,8 @@ def request_download(session_id: str, req: DownloadRequest):
     meta = sessions.load(session_id)
     if meta is None:
         return _gone()
-    if not meta.get("pages"):
-        return _error(400, "no_pages", "Add a page photo first.", "আগে একটা পাতার ছবি দিন।")
+    if not meta.get("pages") and not meta.get("drawn"):
+        return _error(400, "no_pages", "Add a page photo or draw some letters first.", "আগে একটা পাতার ছবি দিন বা কয়েকটা অক্ষর আঁকুন।")
     if req.format not in ("ttf", "woff2"):
         raise HTTPException(400, "format must be ttf or woff2")
     try:

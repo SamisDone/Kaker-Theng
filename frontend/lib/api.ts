@@ -2,7 +2,9 @@
 // comes back within WAKE_AFTER_MS we say so and keep trying for up to
 // GIVE_UP_MS instead of failing.
 
-export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+import type { Stroke } from "@/lib/strokes";
+
+export const API_URL =(process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 
 const WAKE_AFTER_MS = 5_000;
 const GIVE_UP_MS = 90_000;
@@ -31,6 +33,7 @@ export type PageInfo = {
 
 export type SessionMeta = {
   pages: Record<string, PageInfo>;
+  drawn?: Record<string, number>; // cell id -> when it was drawn
   font?: string;
   font_version: number;
   coverage?: number;
@@ -132,6 +135,24 @@ export async function requestDownload(session: string, name: string, format: "tt
   );
   const job = await json<Job<{ file: string }>>(res);
   return waitForJob(job, progress);
+}
+
+/** Store drawn letters ({cell id: strokes}; [] removes one). Quick: the
+ *  font is rebuilt by requestPreview. */
+export async function putDrawn(session: string, cells: Record<string, Stroke[]>): Promise<SessionMeta> {
+  const res = await patientFetch(
+    `/api/sessions/${session}/drawn`,
+    { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ cells }) },
+    undefined,
+  );
+  return json<SessionMeta>(res);
+}
+
+/** Rebuild the preview font and coverage from everything written so far. */
+export async function requestPreview(session: string, progress?: Progress): Promise<SessionMeta> {
+  const res = await patientFetch(`/api/sessions/${session}/preview`, { method: "POST" }, progress);
+  const job = await json<Job<{ session: SessionMeta }>>(res);
+  return (await waitForJob(job, progress)).session;
 }
 
 export function fileUrl(session: string, name: string) {
