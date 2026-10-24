@@ -38,11 +38,14 @@ def _warm_up():
     try:
         from .coverage import complete_coverage, pages_1_2_coverage
         from .glyphmap import build_layout
+        from .wordcov import complete_word_coverage, pages_1_2_word_coverage
 
         build_layout()
         _template_pdf()
         complete_coverage()
         pages_1_2_coverage()
+        complete_word_coverage()
+        pages_1_2_word_coverage()
     except Exception:  # noqa: BLE001 - a failed warm-up only costs speed
         import traceback
 

@@ -3,7 +3,8 @@
 The server is small: processing two photos at once could run it out of
 memory. Jobs go into a queue that a single worker thread drains. Clients poll
 a job and are told how many people are ahead of them and roughly how long
-they will wait. When the line is full they get a clear message instead of a
+they will wait. Photos and downloads go before preview rebuilds of drawn
+letters: someone waiting on a photo shouldn't wait behind a preview. When the line is full they get a clear message instead of a
 failure halfway through.
 """
 
@@ -20,6 +21,7 @@ from typing import Callable
 from .scan import ScanError
 
 JOB_TTL_S = 3600
+LOW_PRIORITY = {"preview"}
 
 # Seconds per job on the free server (0.1 CPU, 512 MB), measured with
 # synthetic photos: page 1 21 s, page 2 44 s, page 3 37 s, download 22 s; a
@@ -68,13 +70,18 @@ class JobQueue:
             self._cv.notify()
             return job
 
+    def _ordered(self) -> list[Job]:
+        """Waiting jobs in the order they will run (call with the lock held)."""
+        first = [j for j in self._waiting if j.kind not in LOW_PRIORITY]
+        return first + [j for j in self._waiting if j.kind in LOW_PRIORITY]
+
     def ahead(self, job: Job) -> int:
         """People ahead of this job: the one being worked on, and those
         waiting in front of it."""
         with self._cv:
             if job.status != "queued":
                 return 0
-            index = next((i for i, j in enumerate(self._waiting) if j is job), 0)
+            index = next((i for i, j in enumerate(self._ordered()) if j is job), 0)
             return index + (1 if self._running else 0)
 
     def eta(self, job: Job) -> int | None:
@@ -88,7 +95,7 @@ class JobQueue:
                 left = self._left(job)
                 return round(left) if left > 0 else None
             total = max(self._left(self._running), 5.0) if self._running else 0.0
-            for j in self._waiting:
+            for j in self._ordered():
                 total += self._expected.get(j.kind, EXPECTED_S["page"])
                 if j is job:
                     break
@@ -117,7 +124,8 @@ class JobQueue:
                 while not self._waiting:
                     self._cv.wait(timeout=60)
                     self._prune()
-                job = self._waiting.popleft()
+                job = self._ordered()[0]
+                self._waiting.remove(job)
                 job.status = "working"
                 job.started = time.time()
                 self._running = job

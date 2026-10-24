@@ -54,7 +54,10 @@ Tests: `cd backend && .venv/Scripts/python -m pytest tests`.
   millimetres inside the same cell box the template prints, is widened to
   the pen width and merged (`app/strokes.py`, pyclipper), and goes through
   the same transform, glyph map, derived parts and font build. The drawing
-  screen asks for the most useful letters first (`app/draworder.py`).
+  screen asks for the most useful letters first (`app/draworder.py`),
+  Bangla or English first as the user picks, and rebuilds the preview font
+  after every 5 letters or 3 s without drawing. Photo jobs go before these
+  rebuilds in the queue.
 - `frontend/` (Next.js, static export) is the one-page site. In production
   the backend serves it at `/` and the API under `/api` from the same
   address, so it needs no settings. `NEXT_PUBLIC_API_URL` is only for
@@ -240,5 +243,10 @@ The template, the scanner and the website share one layout:
   [Bangla Wikipedia](https://bn.wikipedia.org/), text licensed
   [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Only
   aggregate counts are kept (`backend/assets/conjunct_counts.json`).
+- The word figure ("you can write 40% of Bangla words") comes from the same
+  source: the first 46 MB of the October 2026 dump, 12.7 million words.
+  `backend/assets/word_needs.json` keeps no words, only what each word
+  needs (its characters and conjunct clusters), for the 40,000 most common
+  needs, which stand for 94.6% of the words; the figure is a share of those.
 - Test handwriting fonts: Patrick Hand and Galada, SIL Open Font License 1.1.
 - Site fonts: Tiro Bangla, Spectral, IBM Plex Mono (Google Fonts, OFL).

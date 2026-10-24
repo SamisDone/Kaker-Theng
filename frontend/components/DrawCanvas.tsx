@@ -12,7 +12,15 @@ const INK = "#1d2140";
 // One letter's box, drawn like the template cell: border, baseline and
 // মাত্রা line (dashed x-height for English), the faint ghost letter, and the
 // user's strokes. Pointer events cover finger, stylus and mouse alike.
-export function DrawCanvas({ cell, strokes, penMm, onStroke }: { cell: LayoutCell; strokes: Stroke[]; penMm: number; onStroke: (s: Stroke) => void }) {
+export function DrawCanvas(props: {
+  cell: LayoutCell;
+  strokes: Stroke[];
+  penMm: number;
+  maxHeight: number; // css px the canvas may take; it is as large as this and its column allow
+  onStroke: (s: Stroke) => void;
+  onActivity?: () => void; // a stroke started or ended
+}) {
+  const { cell, strokes, penMm, maxHeight, onStroke } = props;
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const live = useRef<{ id: number; type: string; stroke: Stroke } | null>(null);
@@ -74,7 +82,7 @@ export function DrawCanvas({ cell, strokes, penMm, onStroke }: { cell: LayoutCel
     const c = canvas.current;
     if (!el || !c) return;
     const fit = () => {
-      const cssW = el.clientWidth;
+      const cssW = Math.max(160, Math.min(el.clientWidth, (maxHeight * g.w) / g.h));
       const dpr = window.devicePixelRatio || 1;
       c.style.width = `${cssW}px`;
       c.style.height = `${(cssW * g.h) / g.w}px`;
@@ -87,7 +95,21 @@ export function DrawCanvas({ cell, strokes, penMm, onStroke }: { cell: LayoutCel
     ro.observe(el);
     return () => ro.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [g.w, g.h]);
+  }, [g.w, g.h, maxHeight]);
+
+  // The page must never scroll or zoom under a drawing finger. touch-action
+  // (CSS) does it in current browsers; these listeners cover older ones.
+  useEffect(() => {
+    const c = canvas.current;
+    if (!c) return;
+    const stop = (e: TouchEvent) => e.preventDefault();
+    c.addEventListener("touchstart", stop, { passive: false });
+    c.addEventListener("touchmove", stop, { passive: false });
+    return () => {
+      c.removeEventListener("touchstart", stop);
+      c.removeEventListener("touchmove", stop);
+    };
+  }, []);
 
   useEffect(paint);
 
@@ -110,7 +132,9 @@ export function DrawCanvas({ cell, strokes, penMm, onStroke }: { cell: LayoutCel
         role="img"
         aria-label={`আঁকার ঘর: ${cell.text}. Drawing box for ${cell.text}.`}
         onPointerDown={(e) => {
+          e.preventDefault();
           if (live.current || (e.pointerType === "mouse" && e.button !== 0)) return;
+          props.onActivity?.();
           e.currentTarget.setPointerCapture(e.pointerId);
           const stroke: Stroke = [];
           addPoint(stroke, toMm(e), e.pointerType);
@@ -118,6 +142,7 @@ export function DrawCanvas({ cell, strokes, penMm, onStroke }: { cell: LayoutCel
           schedule();
         }}
         onPointerMove={(e) => {
+          e.preventDefault();
           const l = live.current;
           if (!l || l.id !== e.pointerId) return;
           const events = e.nativeEvent.getCoalescedEvents?.() ?? [e.nativeEvent];
@@ -128,9 +153,11 @@ export function DrawCanvas({ cell, strokes, penMm, onStroke }: { cell: LayoutCel
         onPointerUp={(e) => {
           const l = live.current;
           if (!l || l.id !== e.pointerId) return;
+          e.preventDefault();
           addPoint(l.stroke, toMm(e), l.type);
           live.current = null;
           onStroke(l.stroke);
+          props.onActivity?.();
         }}
         onPointerCancel={(e) => {
           if (live.current?.id === e.pointerId) {
@@ -143,18 +170,14 @@ export function DrawCanvas({ cell, strokes, penMm, onStroke }: { cell: LayoutCel
   );
 }
 
-// A small, same-scale view of a drawn letter, for the neighbours strip.
-export function MiniCell({ cell, strokes, penMm, pxPerMm, offsetMm = 0 }: { cell: LayoutCell; strokes: Stroke[]; penMm: number; pxPerMm: number; offsetMm?: number }) {
+// A small view of a drawn letter for the neighbours strip. Every cell in the
+// strip uses the same frame (mm above and below the baseline), so they share
+// one scale and their baselines line up whatever their height.
+export function MiniCell({ cell, strokes, penMm, above, below, current }: { cell: LayoutCell; strokes: Stroke[]; penMm: number; above: number; below: number; current: boolean }) {
   const g = cell.draw;
   return (
-    <svg
-      className="mini-cell"
-      viewBox={`0 0 ${g.w} ${g.h}`}
-      width={g.w * pxPerMm}
-      height={g.h * pxPerMm}
-      style={{ marginTop: offsetMm * pxPerMm }}
-      aria-hidden="true"
-    >
+    <svg className={`mini-cell${current ? " current" : ""}`} viewBox={`0 ${g.base - above} ${g.w} ${above + below}`} aria-hidden="true">
+      <rect x={0.15} y={0.15} width={g.w - 0.3} height={g.h - 0.3} fill="none" stroke={current ? INK : RULE} strokeWidth={current ? 0.5 : 0.3} />
       <line x1={g.inset} x2={g.w - g.inset} y1={g.base} y2={g.base} stroke={RULE} strokeWidth={0.25} />
       <line x1={g.inset} x2={g.w - g.inset} y1={g.head} y2={g.head} stroke={RULE} strokeWidth={0.25} />
       {g.ghost && <path d={g.ghost} fill={GHOST} />}

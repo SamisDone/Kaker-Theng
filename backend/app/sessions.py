@@ -20,11 +20,13 @@ from pathlib import Path
 
 from . import strokes
 from .config import OFL_PATH
-from .coverage import complete_coverage, font_coverage, pages_1_2_coverage
+from .basefont import Shaper
+from .coverage import complete_coverage, coverage, pages_1_2_coverage, plain_glyphs
 from .fontbuild import BuiltFont, build_font, clean_family_name, postscript_name
 from .glyphmap import build_layout
 from .pipeline import PageResult
 from .vectorize import drawing_from_dict, drawing_to_dict
+from .wordcov import complete_word_coverage, pages_1_2_word_coverage, word_coverage
 
 SESSION_TTL_S = 3600
 ROOT = Path(os.environ.get("KT_DATA_DIR") or Path(tempfile.gettempdir()) / "kaker-theng")
@@ -169,12 +171,22 @@ def _rebuild(d: Path, meta: dict):
         meta["font_version"] = version
         meta["font"] = f"preview-{version}.woff2"
         written = {x.glyph for x in drawings if x.kind != "latin"}
-        meta["coverage"] = font_coverage(font.ttf, written) if written else 0.0
+        if written:
+            shaper, plain = Shaper(font.ttf), plain_glyphs(written)
+            meta["coverage"] = coverage(shaper, plain)
+            meta["word_coverage"] = word_coverage(shaper, plain)
+        else:
+            meta["coverage"] = meta["word_coverage"] = 0.0
         meta["glyphs"] = sorted(set(font.glyphs))
     else:  # everything removed again
         meta.pop("font", None)
-        meta["coverage"], meta["glyphs"] = 0.0, []
-    meta["coverage_targets"] = {"pages_1_2": pages_1_2_coverage(), "all_pages": complete_coverage()}
+        meta["coverage"], meta["word_coverage"], meta["glyphs"] = 0.0, 0.0, []
+    meta["coverage_targets"] = {
+        "pages_1_2": pages_1_2_coverage(),
+        "all_pages": complete_coverage(),
+        "words_pages_1_2": pages_1_2_word_coverage(),
+        "words_all_pages": complete_word_coverage(),
+    }
     _write_meta(d, meta)
     return meta
 

@@ -21,6 +21,7 @@ from app.basefont import base_shaper, headline_units
 from app.charset import OPTIONAL_PAGES, PAGE_TITLES
 from app.coverage import complete_coverage, pages_1_2_coverage
 from app.draworder import draw_order
+from app.wordcov import complete_word_coverage, pages_1_2_word_coverage
 from app.glyphmap import build_layout, fingerprint
 from app.guides import GUIDE_INSET_MM, baseline_mm, headline_mm, run_left_mm
 from app.strokes import PEN_MM
@@ -56,6 +57,42 @@ def draw_geometry(cell) -> dict:
     if cell.kind == "latin":
         out["xh"] = mm(base - headline_units() * C.LATIN_XHEIGHT_RATIO * s)
     return out
+
+
+def missing_font() -> bytes:
+    """A tiny font where every Bangla and ASCII character is one faint grey
+    box (a colour layer, so it stays grey whatever the text colour). The site
+    puts it after the user's preview font: letters not drawn yet show as
+    boxes, never in another typeface."""
+    import io
+
+    from fontTools.fontBuilder import FontBuilder
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+
+    def box(x0, y0, x1, y1):
+        pen = TTGlyphPen(None)
+        pen.moveTo((x0, y0)), pen.lineTo((x0, y1)), pen.lineTo((x1, y1)), pen.lineTo((x1, y0)), pen.closePath()
+        return pen.glyph()
+
+    empty = TTGlyphPen(None).glyph()
+    fb = FontBuilder(1000, isTTF=True)
+    fb.setupGlyphOrder([".notdef", "space", "zero", "box"])
+    cmap = {0x20: "space", 0xA0: "space", 0x200C: "zero", 0x200D: "zero"}
+    for cp in [*range(0x21, 0x7F), *range(0x0980, 0x0A00), 0x0964, 0x0965, 0x25CC]:
+        cmap[cp] = "box"
+    fb.setupCharacterMap(cmap)
+    fb.setupGlyf({".notdef": box(80, -60, 520, 680), "space": empty, "zero": empty, "box": box(80, -60, 520, 680)})
+    fb.setupHorizontalMetrics({".notdef": (600, 80), "space": (300, 0), "zero": (0, 0), "box": (600, 80)})
+    fb.setupHorizontalHeader(ascent=900, descent=-300)
+    fb.setupNameTable({"familyName": "KT Missing", "styleName": "Regular"})
+    fb.setupOS2(sTypoAscender=900, sTypoDescender=-300, usWinAscent=900, usWinDescent=300)
+    fb.setupPost()
+    fb.setupCPAL([[(0x1D / 255, 0x21 / 255, 0x40 / 255, 0.13)]])  # ink at 13%: faint on paper
+    fb.setupCOLR({"box": [("box", 0)]})
+    fb.font.flavor = "woff2"
+    out = io.BytesIO()
+    fb.save(out)
+    return out.getvalue()
 
 
 def fragment_example(cell) -> dict:
@@ -101,9 +138,15 @@ def main():
         "fragments": [fragment_example(c) for c in layout.cells if c.group == "part"],
         "draw_order": draw_order(),
         "pen_mm": PEN_MM,
-        "coverage_targets": {"pages_1_2": pages_1_2_coverage(), "all_pages": complete_coverage()},
+        "coverage_targets": {
+            "pages_1_2": pages_1_2_coverage(),
+            "all_pages": complete_coverage(),
+            "words_pages_1_2": pages_1_2_word_coverage(),
+            "words_all_pages": complete_word_coverage(),
+        },
     }
     (OUT / "layout.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8", newline="\n")
+    (OUT / "missing.woff2").write_bytes(missing_font())
     print(f"wrote {OUT}: 3 thumbnails, {sum(len(p['cells']) for p in pages.values())} cells, {len(data['fragments'])} fragment examples")
 
 

@@ -1,10 +1,12 @@
 """Count Bangla consonant clusters (conjuncts, reph, phala) in a Wikipedia dump.
 
-    python -I scripts/count_conjuncts.py <bnwiki-...-pages-articles.xml.bz2> <out.json>
+    python -I scripts/count_conjuncts.py <bnwiki-...-pages-articles.xml.bz2> <out.json> [--words <words.json>]
 
 Reads article pages (namespace 0, no redirects) from a bz2 dump, which may
 be truncated (only the first part downloaded). Writes counts per cluster.
-No app imports, so it can run isolated on downloaded data.
+With --words, also what each Bangla word needs to render: its characters
+and its clusters, words needing the same merged (app/wordcov.py). No app
+imports, so it can run isolated on downloaded data.
 """
 
 import bz2
@@ -47,6 +49,8 @@ def pages(path: str):
 
 def main():
     src, out = sys.argv[1], sys.argv[2]
+    words_out = sys.argv[sys.argv.index("--words") + 1] if "--words" in sys.argv else None
+    word_counts: Counter[str] = Counter()
     counts: Counter[str] = Counter()
     chars: Counter[str] = Counter()
     articles = words = 0
@@ -58,7 +62,10 @@ def main():
             continue
         text = unicodedata.normalize("NFC", m.group(1))
         articles += 1
-        words += len(re.findall("[ঀ-৿]+", text))
+        tokens = re.findall("[ঀ-৿]+", text)
+        words += len(tokens)
+        if words_out:
+            word_counts.update(tokens)
         for c in CLUSTER.findall(text):
             counts[c] += 1
         chars.update(ch for ch in text if "ঀ" <= ch <= "৿" or ch in "।॥")  # dari lives in the Devanagari block
@@ -75,6 +82,32 @@ def main():
         indent=0,
     )
     print(f"{articles} articles, {words} Bangla words, {sum(counts.values())} clusters, {len(counts)} distinct")
+    if words_out:
+        write_words(word_counts, words, words_out)
+
+
+def write_words(word_counts: Counter, total: int, out: str, keep: int = 40000):
+    """Words reduced to what they need: sorted characters | sorted clusters,
+    words needing the same merged. Only the `keep` most common needs are
+    kept (the long tail of rare letter combinations would make the file
+    huge); "kept_words" says how many words they stand for."""
+    needs: Counter[str] = Counter()
+    for word, n in word_counts.items():
+        needs["".join(sorted(set(word))) + "|" + " ".join(sorted(set(CLUSTER.findall(word))))] += n
+    kept = dict(needs.most_common(keep))
+    json.dump(
+        {
+            "source": "Bangla Wikipedia article dump (dumps.wikimedia.org/bnwiki), CC BY-SA 4.0; first part of the file",
+            "words": total,
+            "distinct_words": len(word_counts),
+            "kept_words": sum(kept.values()),
+            "needs": kept,
+        },
+        open(out, "w", encoding="utf-8"),
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
+    print(f"{len(word_counts)} distinct words, {len(needs)} distinct needs, kept {len(kept)} standing for {sum(kept.values()) / total:.2%} of words")
 
 
 if __name__ == "__main__":

@@ -255,29 +255,66 @@ a {
 
 /* ---- Drawing ---------------------------------------------------------- */
 
-.draw-progress {
+/* Missing letters in the sample: faint grey boxes (public/kt/missing.woff2,
+   made by scripts/export_frontend_assets.py), never another typeface. */
+@font-face {
+  font-family: "KT Missing";
+  src: url("/kt/missing.woff2") format("woff2");
+  font-display: block;
+}
+
+.mode-chosen {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 16px;
+}
+
+.mode-chosen .button {
+  margin: 0;
+}
+
+.draw-tabs {
+  display: flex;
+  gap: 0 24px;
   height: var(--line);
-  margin-bottom: var(--line);
 }
 
-.draw-bar {
-  flex: 1;
-  height: 4px;
-  outline: 1px solid var(--rule);
+.tab {
+  font: inherit;
+  font-size: 19px;
+  color: var(--pencil);
+  background: none;
+  border: 0;
+  border-bottom: 1.5px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  line-height: 28px;
 }
 
-.draw-bar span {
-  display: block;
-  height: 100%;
-  background: var(--ink);
+.tab.chosen {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.tab .mono {
+  font-size: 12px;
+  color: var(--pencil);
+}
+
+.draw-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--pencil);
+  line-height: var(--line);
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .draw-grid {
   display: grid;
-  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
   gap: 0 32px;
   align-items: start;
 }
@@ -290,44 +327,58 @@ a {
 
 .draw-target {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
   gap: 16px;
+  min-height: calc(var(--line) * 2);
 }
 
 .draw-letter {
   font-size: 44px;
   line-height: calc(var(--line) * 2);
-}
-
-.draw-target .mono {
-  color: var(--pencil);
+  min-width: 1.4em;
 }
 
 .draw-hint {
-  margin-bottom: 16px;
+  line-height: 24px;
+}
+
+.draw-hint .en-sub {
+  line-height: 22px;
 }
 
 .draw-canvas {
-  width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .draw-canvas canvas {
   display: block;
-  touch-action: none; /* the finger draws instead of scrolling */
+  margin: 0 auto;
+  touch-action: none; /* the finger draws: no scrolling, no zooming */
   cursor: crosshair;
   outline: 1.5px solid var(--ink);
   outline-offset: -1.5px;
   -webkit-user-select: none;
   user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* On a phone the canvas takes the whole width, across the margin line. */
+@media (max-width: 640px) {
+  .draw-canvas {
+    margin-left: calc(8px - var(--gutter));
+    margin-right: -8px;
+  }
 }
 
 .draw-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 0;
-  margin-bottom: 16px;
+  gap: 8px 0;
+  margin-bottom: 8px;
+}
+
+.draw-buttons .button {
+  padding: 0 10px;
 }
 
 .draw-side .example {
@@ -335,22 +386,32 @@ a {
 }
 
 .neighbours {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 64px));
   gap: 6px;
-  overflow-x: auto;
-  min-height: calc(var(--line) * 2);
+  align-items: start;
+  margin-top: var(--line);
 }
 
 .mini-cell {
-  flex: none;
+  display: block;
+  width: 100%;
+  height: auto;
   background: var(--paper);
-  outline: 1px solid var(--rule);
-  outline-offset: -1px;
 }
 
-.mini-cell:last-child {
-  outline: 1.5px solid var(--ink);
+.word-coverage strong {
+  font-weight: 400;
+  font-size: 40px;
+  line-height: calc(var(--line) * 1.5);
+}
+
+.word-coverage {
+  margin-bottom: 8px;
+}
+
+.conjunct-line {
+  margin-bottom: var(--line);
 }
 
 .draw-sample p {
@@ -698,4 +759,9 @@ a {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+.draw-sample .en-sub {
+  font-size: 15px;
+  line-height: var(--line);
 }

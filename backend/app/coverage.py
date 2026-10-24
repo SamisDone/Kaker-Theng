@@ -32,21 +32,31 @@ def _base_runs() -> dict[str, list[str]]:
     return {t: base.names(t) for t in cluster_counts()}
 
 
+@lru_cache(maxsize=1)
 def _halant() -> str:
     return base_shaper().tt.getBestCmap()[ord(HALANT)]
+
+
+@lru_cache(maxsize=None)
+def base_run(text: str) -> list[str]:
+    runs = _base_runs()
+    return runs[text] if text in runs else base_shaper().names(text)
+
+
+def cluster_ok(shaper: Shaper, text: str, plain: set[str]) -> bool:
+    """Built correctly: no hasanta glyph, no .notdef, and either exactly as
+    the base font builds it or only from glyphs written whole."""
+    names = shaper.names(text)
+    if ".notdef" in names or _halant() in names:
+        return False
+    return names == base_run(text) or all(g in plain for g in names)
 
 
 def coverage(shaper: Shaper, plain: set[str]) -> float:
     """Share of cluster occurrences the font builds correctly. `plain`: the
     glyphs the user wrote as whole units (letters, signs, whole conjuncts)."""
-    counts, base_runs, halant = cluster_counts(), _base_runs(), _halant()
-    good = 0
-    for text, n in counts.items():
-        names = shaper.names(text)
-        if ".notdef" in names or halant in names:
-            continue
-        if names == base_runs[text] or all(g in plain for g in names):
-            good += n
+    counts = cluster_counts()
+    good = sum(n for text, n in counts.items() if cluster_ok(shaper, text, plain))
     return good / sum(counts.values())
 
 

@@ -122,3 +122,19 @@ def test_full_queue_says_how_long_to_wait(client, monkeypatch):
     assert r.status_code == 503 and r.json()["code"] == "queue_full"
     assert int(r.headers["Retry-After"]) == r.json()["retry_after_s"] > 0
     assert "about 2 min" in r.json()["message"] and "প্রায় ২ মিনিট" in r.json()["message_bn"]
+
+
+def test_photos_go_before_preview_rebuilds():
+    q = main.JobQueue(max_waiting=5)
+    gate, ran = threading.Event(), []
+    q.submit("page", lambda: gate.wait(10) and {})
+    time.sleep(0.2)  # the worker is busy with the first job
+    preview = q.submit("preview", lambda: ran.append("preview") or {})
+    photo = q.submit("page", lambda: ran.append("photo") or {})
+    assert q.ahead(photo) == 1 and q.ahead(preview) == 2  # the photo jumps ahead
+    assert q.eta(photo) < q.eta(preview)
+    gate.set()
+    t = time.time()
+    while len(ran) < 2 and time.time() - t < 5:
+        time.sleep(0.05)
+    assert ran == ["photo", "preview"]

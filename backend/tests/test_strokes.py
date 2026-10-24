@@ -17,6 +17,7 @@ from app.draworder import draw_order
 from app.glyphmap import build_layout
 from app.guides import baseline_mm
 from app.strokes import PEN_MM, StrokeError, check_strokes, drawing
+from app.wordcov import pages_1_2_word_coverage
 from tests.synth import make_page
 from tests.synth_strokes import drawn_cells
 
@@ -107,6 +108,8 @@ def test_drawn_letters_make_the_same_font_as_paper():
         meta = job["result"]["session"]
         # Drawn pages 1+2 cover exactly what written pages 1+2 do.
         assert meta["coverage"] == pytest.approx(pages_1_2_coverage(), abs=1e-9)
+        assert meta["word_coverage"] == pytest.approx(pages_1_2_word_coverage(), abs=1e-9)
+        assert 0.5 < meta["word_coverage"] < meta["coverage_targets"]["words_all_pages"] <= 1
         assert c.get(f"/api/sessions/{sid}/files/{meta['font']}").content[:4] == b"wOF2"
         # Drawn only, no photo: the download works (it once asked for a photo).
         job = wait(c, c.post(f"/api/sessions/{sid}/download", json={"name": "Drawn", "format": "ttf"}).json()["id"])

@@ -1,14 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import type { SessionMeta } from "@/lib/api";
 import { bnNum } from "@/lib/bn";
-import type { Layout, LayoutCell } from "@/lib/layout";
+import type { Layout } from "@/lib/layout";
 
-// Every glyph on a thin-ruled grid. Click one to see it large (inline, no
-// popup). Glyphs not in the font yet: an empty box with a small red mark.
-export function Specimen({ layout, meta, userFont }: { layout: Layout; meta: SessionMeta | null; userFont: string | null }) {
-  const [picked, setPicked] = useState<{ cell: LayoutCell; ok: boolean } | null>(null);
+// Every glyph on a thin-ruled grid. Tap one to redraw it on the canvas.
+// Glyphs not in the font yet: an empty box with a small red mark.
+export function Specimen({ layout, meta, userFont, onRedraw }: { layout: Layout; meta: SessionMeta | null; userFont: string | null; onRedraw: (id: string) => void }) {
   const status = new Map<string, string>();
   for (const p of Object.values(meta?.pages ?? {})) for (const c of p.cells) status.set(c.id, c.status);
   for (const id of Object.keys(meta?.drawn ?? {})) status.set(id, "ok"); // drawn in the browser
@@ -16,28 +14,12 @@ export function Specimen({ layout, meta, userFont }: { layout: Layout; meta: Ses
 
   return (
     <div>
-      <div className="glyph-large" aria-live="polite">
-        {picked ? (
-          <>
-            <span className="big" style={{ fontFamily: picked.ok ? font : undefined, color: picked.ok ? undefined : "var(--rule)" }}>
-              {picked.cell.text}
-            </span>
-            <span>
-              {picked.ok ? "ফন্টে আছে" : "এখনো নেই"}
-              <span className="en-sub" lang="en">
-                {picked.ok ? "in your font" : "not in your font yet"} · <span className="mono">{picked.cell.id}</span>
-              </span>
-            </span>
-          </>
-        ) : (
-          <span>
-            একটা অক্ষরে চাপ দিন, বড় করে দেখাবে।
-            <span className="en-sub" lang="en">
-              Click a glyph to see it large.
-            </span>
-          </span>
-        )}
-      </div>
+      <p>
+        যেকোনো অক্ষরে চাপ দিন: আঁকার ঘরে খুলবে, আবার আঁকতে পারবেন।
+        <span className="en-sub" lang="en">
+          Tap any letter to open it on the canvas and draw it again.
+        </span>
+      </p>
       {[1, 2, 3].map((n) => {
         const page = layout.pages[n];
         return (
@@ -55,9 +37,8 @@ export function Specimen({ layout, meta, userFont }: { layout: Layout; meta: Ses
                     key={cell.id}
                     type="button"
                     className={`glyph${flagged ? " missing" : ""}`}
-                    aria-pressed={picked?.cell.id === cell.id}
-                    aria-label={`${cell.text}${ok ? "" : ", not in the font yet"}`}
-                    onClick={() => setPicked({ cell, ok })}
+                    aria-label={`${cell.text}${ok ? "" : ", not in the font yet"}: আবার আঁকুন, draw again`}
+                    onClick={() => onRedraw(cell.id)}
                     style={{ fontFamily: font }}
                   >
                     {ok ? cell.text : ""}

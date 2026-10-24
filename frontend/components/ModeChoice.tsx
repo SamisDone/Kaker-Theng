@@ -3,6 +3,19 @@ import type { Mode } from "@/lib/drawstore";
 // The two ways in, side by side, drawing first. Both make the same font and
 // can be mixed: a letter drawn and photographed keeps the newer one.
 export function ModeChoice({ mode, onMode }: { mode: Mode | null; onMode: (m: Mode) => void }) {
+  // Once chosen, one line: the drawing (or the paper steps) comes right after.
+  if (mode) {
+    const other: Mode = mode === "draw" ? "paper" : "draw";
+    return (
+      <p className="mode-chosen">
+        {mode === "draw" ? "আঁকছেন" : "কাগজে লিখছেন"}
+        <span className="en"> · {mode === "draw" ? "drawing" : "on paper"}</span>
+        <button type="button" className="button" onClick={() => onMode(other)}>
+          {other === "draw" ? "আঁকুন" : "কাগজে লিখুন"} <span className="en">· {other === "draw" ? "draw instead" : "use paper instead"}</span>
+        </button>
+      </p>
+    );
+  }
   return (
     <div className="modes">
       <div className={`mode${mode === "draw" ? " chosen" : ""}`}>

@@ -36,8 +36,9 @@ export type SessionMeta = {
   drawn?: Record<string, number>; // cell id -> when it was drawn
   font?: string;
   font_version: number;
-  coverage?: number;
-  coverage_targets?: { pages_1_2: number; all_pages: number };
+  coverage?: number; // conjunct clusters built correctly, share of occurrences
+  word_coverage?: number; // Bangla words the font renders fully and correctly
+  coverage_targets?: { pages_1_2: number; all_pages: number; words_pages_1_2?: number; words_all_pages?: number };
 };
 
 type Job<T> = {

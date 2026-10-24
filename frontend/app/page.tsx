@@ -31,6 +31,8 @@ import { cellsById, type Layout, loadLayout } from "@/lib/layout";
 import type { Stroke } from "@/lib/strokes";
 
 const SESSION_KEY = "kaker-theng-session";
+const REBUILD_EVERY = 5; // letters
+const IDLE_MS = 3000;
 
 function remember(id: string | null) {
   try {
@@ -68,8 +70,10 @@ export default function Home() {
   const [recalled, setRecalled] = useState(false);
   const savedRef = useRef<Saved | null>(null);
   const unsynced = useRef<Set<string>>(new Set());
-  const syncing = useRef(false);
+  const syncRun = useRef<Promise<void> | null>(null);
   const preview = useRef({ running: false, again: false });
+  const pendingLetters = useRef(0); // drawn since the last rebuild
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     wake();
@@ -103,8 +107,9 @@ export default function Home() {
     const remote = Object.keys(meta?.drawn ?? {}).sort().join();
     if (local && (local !== remote || !meta?.font)) {
       for (const id of Object.keys(s.cells)) unsynced.current.add(id);
-      void syncDrawn();
+      void rebuildPreview();
     }
+    if (loadMode() === "draw") showDrawpad();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layout, recalled]);
 
@@ -154,11 +159,10 @@ export default function Home() {
   }
 
   // Send drawn letters that changed (or all of them, after the server forgot
-  // us), then ask for a new preview font.
-  async function syncDrawn() {
-    if (syncing.current) return;
-    syncing.current = true;
-    try {
+  // us). Only stores them; rebuilding the font is scheduled separately.
+  function syncDrawn(): Promise<void> {
+    if (syncRun.current) return syncRun.current.then(() => (unsynced.current.size ? syncDrawn() : undefined));
+    const run = (async () => {
       while (unsynced.current.size) {
         const ids = [...unsynced.current];
         unsynced.current.clear();
@@ -178,15 +182,28 @@ export default function Home() {
           return;
         }
       }
-    } finally {
-      syncing.current = false;
-    }
-    void rebuildPreview();
+    })().finally(() => {
+      syncRun.current = null;
+    });
+    syncRun.current = run;
+    return run;
+  }
+
+  // Rebuild the preview font after every REBUILD_EVERY letters, or once the
+  // pen has rested IDLE_MS, whichever comes first, or when asked. The free
+  // server has a tenth of a CPU: a rebuild per letter would keep it busy.
+  function scheduleRebuild() {
+    if (idleTimer.current) clearTimeout(idleTimer.current);
+    idleTimer.current = null;
+    if (pendingLetters.current >= REBUILD_EVERY) void rebuildPreview();
+    else if (pendingLetters.current > 0) idleTimer.current = setTimeout(() => void rebuildPreview(), IDLE_MS);
   }
 
   // One preview build at a time; letters drawn meanwhile get one more after.
   async function rebuildPreview() {
-    if (!sessionRef.current) return;
+    if (idleTimer.current) clearTimeout(idleTimer.current);
+    idleTimer.current = null;
+    pendingLetters.current = 0;
     if (preview.current.running) {
       preview.current.again = true;
       return;
@@ -196,21 +213,21 @@ export default function Home() {
     try {
       do {
         preview.current.again = false;
-        setMeta(await requestPreview(sessionRef.current!));
-      } while (preview.current.again && sessionRef.current);
+        await syncDrawn();
+        if (!sessionRef.current) break;
+        setMeta(await requestPreview(sessionRef.current));
+      } while (preview.current.again);
     } catch (err) {
       if (err instanceof ApiError && err.code === "session_gone") {
         forgetSession();
         for (const id of Object.keys(savedRef.current?.cells ?? {})) unsynced.current.add(id);
-        preview.current.running = false;
-        setBuilding(false);
-        void syncDrawn();
-        return;
+        pendingLetters.current = REBUILD_EVERY;
       }
     } finally {
       preview.current.running = false;
       setBuilding(false);
     }
+    if (pendingLetters.current >= REBUILD_EVERY) void rebuildPreview();
   }
 
   function updateSaved(change: (s: Saved) => Saved) {
@@ -230,11 +247,28 @@ export default function Home() {
     });
     unsynced.current.add(id);
     void syncDrawn();
+    pendingLetters.current += 1;
+    scheduleRebuild();
+  }
+
+  // Bring the drawing to the top of the screen: on a phone the canvas then
+  // fills it, no scrolling needed.
+  function showDrawpad() {
+    requestAnimationFrame(() => document.getElementById("drawpad")?.scrollIntoView({ block: "start" }));
   }
 
   function chooseMode(m: Mode) {
     setMode(m);
     saveMode(m);
+    if (m === "draw") showDrawpad();
+  }
+
+  // Tapping a letter in the specimen opens it on the canvas to redraw.
+  function redraw(id: string) {
+    const cell = cells?.get(id);
+    if (!cell) return;
+    updateSaved((s) => ({ ...s, at: id, lang: cell.kind === "latin" ? "en" : "bn" }));
+    chooseMode("draw");
   }
 
   const sessionProgress = (page: number) => (p: ProgressState) => setSlot(page, { kind: "busy", step: p.waking ? "waking" : "sending" });
@@ -263,7 +297,7 @@ export default function Home() {
         setNotes((n) => ({ ...n, [page]: { bn: "আগের সেশন শেষ হয়ে গিয়েছিল, নতুন করে শুরু করলাম। অন্য পাতাগুলো আবার দিন।", en: "The earlier session had expired, so this starts a new one. Please add your other pages again." } }));
         result = await uploadPage(await ensureSession(sessionProgress(page)), photo, progress);
         for (const id of Object.keys(savedRef.current?.cells ?? {})) unsynced.current.add(id);
-        void syncDrawn();
+        void rebuildPreview();
       }
       setMeta(result.session);
       setSlot(page, { kind: "idle" });
@@ -325,8 +359,12 @@ export default function Home() {
               drawn={saved.cells}
               at={saved.at}
               fromPaper={fromPaper}
-              coverage={meta?.font ? (meta.coverage ?? 0) : null}
-              building={building}
+              lang={saved.lang ?? null}
+              progress={{
+                words: meta?.font ? (meta.word_coverage ?? 0) : null,
+                conjuncts: meta?.font ? (meta.coverage ?? 0) : null,
+                building,
+              }}
               userFont={userFont}
               syncNote={syncNote}
               draft={saved.draft ?? null}
@@ -335,6 +373,12 @@ export default function Home() {
               }}
               onSave={onDrawn}
               onAt={(id) => updateSaved((s) => ({ ...s, at: id }))}
+              onLang={(lang) => {
+                updateSaved((s) => ({ ...s, lang, at: null }));
+                showDrawpad();
+              }}
+              onActivity={scheduleRebuild}
+              onPreview={() => void rebuildPreview()}
             />
           ) : (
             <p>
@@ -419,7 +463,7 @@ export default function Home() {
           </h2>
         </div>
         <TryIt userFont={userFont} />
-        {layout && <Specimen layout={layout} meta={meta} userFont={userFont} />}
+        {layout && <Specimen layout={layout} meta={meta} userFont={userFont} onRedraw={redraw} />}
         <Download session={session} ready={Boolean(meta?.font)} />
       </section>
 
