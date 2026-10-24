@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaker Theng in the browser (prototype)</title>
+<style>
+  :root { --paper: #F4F0E6; --ink: #1D2140; --pencil: #6E685D; --red: #C2412D; }
+  body { background: var(--paper); color: var(--ink); font: 16px/1.5 Georgia, serif; max-width: 720px; margin: 2rem auto; padding: 0 16px; }
+  button, label.button { border: 1.5px solid var(--ink); background: none; color: var(--ink); padding: .4rem .9rem; font: inherit; cursor: pointer; display: inline-block; }
+  input[type=file] { display: none; }
+  pre { font: 13px/1.5 ui-monospace, Consolas, monospace; color: var(--pencil); white-space: pre-wrap; }
+  #sample { font-size: 40px; line-height: 1.3; margin: 1rem 0; }
+  img { max-width: 240px; border: 1px solid #B9C6E0; }
+  .error { color: var(--red); }
+</style>
+</head>
+<body>
+<h1>Kaker Theng, in the browser</h1>
+<p>Feasibility prototype: reads a page 1 photo and builds the Latin font with Pyodide. No server.</p>
+<p>
+  <button id="use-sample" type="button">Use the sample photo</button>
+  <label class="button">Choose a page 1 photo<input id="file" type="file" accept="image/*"></label>
+  <button id="check" type="button">HarfBuzz check</button>
+</p>
+<pre id="log"></pre>
+<div id="sample" hidden>The quick brown fox jumps over the lazy dog. 0123456789</div>
+<p id="downloads"></p>
+<img id="thumb" alt="Straightened page" hidden>
+<script type="module">
+  const log = document.getElementById("log");
+  const say = (s, cls) => { const line = document.createElement("div"); line.textContent = s; if (cls) line.className = cls; log.append(line); };
+  const worker = new Worker(new URL("./worker.mjs", import.meta.url), { type: "module" });
+  const t0 = performance.now();
+  say("loading Python…");
+
+  let resolveRun, resolveCheck, resolveFull;
+  window.__run = new Promise((r) => (resolveRun = r));
+  window.__check = new Promise((r) => (resolveCheck = r));
+  window.__full = new Promise((r) => (resolveFull = r));
+
+  function link(bytes, name, type) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([bytes], { type }));
+    a.download = name;
+    a.textContent = `${name} (${(bytes.byteLength / 1024).toFixed(0)} KB)`;
+    return a;
+  }
+
+  worker.onmessage = async (e) => {
+    const m = e.data;
+    if (m.type === "progress") say(`${m.step}: ${(m.ms / 1000).toFixed(1)} s`);
+    if (m.type === "error") { say(m.message, "error"); for (const r of [resolveRun, resolveCheck, resolveFull]) r({ error: m.message }); }
+    if (m.type === "full") {
+      const s = JSON.parse(m.summary);
+      say(`pages 1+2: coverage ${s.coverage.toFixed(4)}; ${JSON.stringify(s)}`);
+      resolveFull({ ...s, wasmBytes: m.wasmBytes });
+    }
+    if (m.type === "result") {
+      const s = JSON.parse(m.summary);
+      say(`page ${s.page}: ${s.cells_read} of ${s.cells_total} cells read; read ${s.seconds.process_page} s, font ${s.seconds.build_font} s`);
+      const face = new FontFace("Prototype", m.woff2);
+      await face.load();
+      document.fonts.add(face);
+      const sample = document.getElementById("sample");
+      sample.style.fontFamily = "Prototype";
+      sample.hidden = false;
+      const dl = document.getElementById("downloads");
+      dl.replaceChildren(link(m.zip, "Prototype-ttf.zip", "application/zip"), " · ", link(m.woff2, "Prototype.woff2", "font/woff2"));
+      const thumb = document.getElementById("thumb");
+      thumb.src = URL.createObjectURL(new Blob([m.thumb], { type: "image/png" }));
+      thumb.hidden = false;
+      resolveRun({ summary: s, timings: m.timings, wasmBytes: m.wasmBytes, sinceStartMs: m.sinceStartMs, pageMs: Math.round(performance.now() - t0),
+                   ttf: Array.from(m.ttf), woff2Bytes: m.woff2.byteLength, fontRendered: document.fonts.check('40px "Prototype"') });
+    }
+    if (m.type === "coverage") {
+      const s = JSON.parse(m.summary);
+      say(`HarfBuzz: shaping ${s.shaping_match ? "matches" : "DIFFERS FROM"} uharfbuzz; coverage ${s.complete_coverage.toFixed(4)} / ${s.pages_1_2_coverage.toFixed(4)}; ${JSON.stringify(s.seconds)}`, s.shaping_match ? "" : "error");
+      resolveCheck({ ...s, wasmBytes: m.wasmBytes });
+    }
+  };
+
+  async function runPhoto(blob) {
+    say("reading the photo…");
+    worker.postMessage({ type: "run", photo: new Uint8Array(await blob.arrayBuffer()), profile: new URLSearchParams(location.search).has("profile") });
+  }
+  document.getElementById("use-sample").onclick = async () => runPhoto(await (await fetch("dist/sample-page1.jpg")).blob());
+  document.getElementById("file").onchange = (e) => e.target.files[0] && runPhoto(e.target.files[0]);
+  document.getElementById("check").onclick = () => worker.postMessage({ type: "coverage" });
+
+  const params = new URLSearchParams(location.search);
+  if (params.has("auto")) document.getElementById("use-sample").click();
+  if (params.has("check")) window.__run.then(() => worker.postMessage({ type: "coverage" }));
+  if (params.has("full")) worker.postMessage({ type: "full" });
+</script>
+</body>
+</html>
