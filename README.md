@@ -53,12 +53,15 @@ Tests: `cd backend && .venv/Scripts/python -m pytest tests`.
 - Drawn letters skip the photo entirely: each stroke arrives as points in
   millimetres inside the same cell box the template prints, is widened to
   the pen width and merged (`app/strokes.py`, pyclipper), and goes through
-  the same transform, glyph map, derived parts and font build. The drawing
-  screen asks for the most useful letters first (`app/draworder.py`),
-  Bangla or English first as the user picks, and rebuilds the preview font
-  after every 5 letters or 3 s without drawing. Photo jobs go before these
+  the same transform, glyph map, derived parts and font build. Drawing goes
+  chapter by chapter (vowels, consonants, vowel signs, phala and reph,
+  optional conjuncts, digits, English; `frontend/lib/chapters.ts`), the
+  most used letters first within each (`app/draworder.py`). Each letter is
+  shown faintly to trace: Noto Sans Bengali for Bangla, Bitstream Vera for
+  English. The preview font is rebuilt after every 5 letters, 3 s without
+  drawing, and at the end of each chapter. Photo jobs go before these
   rebuilds in the queue.
-- `frontend/` (Next.js, static export) is the one-page site. In production
+- `frontend/` (Next.js, static export) is the site: one screen per step. In production
   the backend serves it at `/` and the API under `/api` from the same
   address, so it needs no settings. `NEXT_PUBLIC_API_URL` is only for
   development and for hosting the site elsewhere.
@@ -138,13 +141,13 @@ argument.
 
 Then by hand, on a desktop browser:
 
-1. Open the site. The template link opens a 3-page PDF ("template v2" in the
-   footer).
-2. In section ২ / 2, add a photo of a filled page 1 (or
+1. Open the site and tap **কাগজে লিখুন**. The template button opens a 3-page
+   PDF ("template v2" at the foot of each page).
+2. Go on to the photo step and add a photo of a filled page 1 (or
    `backend/tests/data/sample-page1.jpg`). You should see "হাতের লেখা পড়ছি…",
    then the straightened page and "৭৬টার মধ্যে … ঘর পড়া গেছে".
-3. Section ৩ / 3: the try-it box and the name at the top switch to the
-   handwriting; **TTF** downloads a zip with the font, `OFL.txt` and
+3. **আমার ফন্ট**: the try-it box switches to the handwriting, and
+   **ডাউনলোড** gives a zip with the font as TTF and WOFF2, `OFL.txt` and
    `README.txt`.
 
 How long things take on the free plan (0.1 CPU, 512 MB), measured locally
@@ -248,5 +251,8 @@ The template, the scanner and the website share one layout:
   `backend/assets/word_needs.json` keeps no words, only what each word
   needs (its characters and conjunct clusters), for the 40,000 most common
   needs, which stand for 94.6% of the words; the figure is a share of those.
+- English tracing guides on the drawing screen: outlines from Bitstream Vera
+  Sans (bundled with reportlab), Copyright (c) 2003 Bitstream, Inc., under the
+  Bitstream Vera licence.
 - Test handwriting fonts: Patrick Hand and Galada, SIL Open Font License 1.1.
 - Site fonts: Tiro Bangla, Spectral, IBM Plex Mono (Google Fonts, OFL).

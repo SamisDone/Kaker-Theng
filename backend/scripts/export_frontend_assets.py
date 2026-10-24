@@ -10,11 +10,14 @@ layout fingerprint; tests/test_frontend_assets.py fails if it goes stale.
 
 import json
 import sys
+from functools import lru_cache
 from pathlib import Path
 
 import pypdfium2 as pdfium
+from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
+from fontTools.ttLib import TTFont
 
 from app import config as C
 from app.basefont import base_shaper, headline_units
@@ -41,21 +44,63 @@ def mm(v: float) -> float:
     return round(v, 2)
 
 
-def draw_geometry(cell) -> dict:
+@lru_cache(maxsize=1)
+def latin_font() -> TTFont:
+    """Bitstream Vera Sans, which reportlab ships: Noto Sans Bengali has no
+    Latin, and the English cells need a tracing guide too."""
+    import reportlab
+
+    return TTFont(Path(reportlab.__file__).parent / "fonts" / "Vera.ttf")
+
+
+def _path(gs, name: str, transform) -> tuple[str, tuple | None]:
+    """SVG path and bounds of one glyph, through `transform`."""
+    pen = SVGPathPen(gs, ntos=lambda v: f"{v:.2f}".rstrip("0").rstrip("."))
+    gs[name].draw(TransformPen(pen, transform))
+    bounds = BoundsPen(gs)
+    gs[name].draw(TransformPen(bounds, transform))
+    return pen.getCommands(), bounds.bounds
+
+
+def latin_guide(cell, base: float) -> tuple[str, tuple | None]:
+    """The English letter in Vera, centred in the cell: capitals, digits and
+    punctuation scaled to the cap line, lowercase to the dotted x-height."""
+    font = latin_font()
+    gs, name = font.getGlyphSet(), font.getBestCmap()[ord(cell.text)]
+    upm = font["head"].unitsPerEm
+    cap, xh = 1493 / upm, 1120 / upm  # Vera's H and x heights, in em
+    head_mm = headline_units() * C.MM_PER_UNIT
+    s = (head_mm * C.LATIN_XHEIGHT_RATIO / xh if cell.text.islower() else head_mm / cap) / upm
+    left = (C.CELL_MM - gs[name].width * s) / 2
+    return _path(gs, name, (s, 0, 0, -s, left, base))
+
+
+def draw_geometry(cell, matra_glyphs: set[str]) -> dict:
     """What the drawing canvas shows, in mm inside the cell box (origin
-    top-left, y down): the same guides and faint ghost as the template."""
+    top-left, y down): the same guides and faint ghost as the template, plus
+    the letter itself as a tracing guide. For a sign written next to a ghost
+    letter, `box` marks where it goes."""
     x, y, w, h = cell.box_mm()
     base, head = baseline_mm(cell) - y, headline_mm(cell) - y
     s, left = C.MM_PER_UNIT, run_left_mm(cell) - x
-    ghost = []
     gs = base_shaper().tt.getGlyphSet()
-    for g in cell.ghost_glyphs:
-        pen = SVGPathPen(gs, ntos=lambda v: f"{v:.2f}".rstrip("0").rstrip("."))
-        gs[g.name].draw(TransformPen(pen, (s, 0, 0, -s, left + g.x * s, base - g.y * s)))
-        ghost.append(pen.getCommands())
-    out = {"w": mm(w), "h": mm(h), "base": mm(base), "head": mm(head), "inset": GUIDE_INSET_MM, "ghost": " ".join(p for p in ghost if p)}
+    ghost = [_path(gs, g.name, (s, 0, 0, -s, left + g.x * s, base - g.y * s))[0] for g in cell.ghost_glyphs]
+    if cell.kind == "latin":
+        guide, bounds = latin_guide(cell, base)
+    else:
+        guide, bounds = _path(gs, cell.glyph, (s, 0, 0, -s, left + cell.target_x * s, base - cell.target_y * s))
+    out = {"w": mm(w), "h": mm(h), "base": mm(base), "head": mm(head), "inset": GUIDE_INSET_MM, "ghost": " ".join(p for p in ghost if p), "guide": guide}
+    if cell.ghost_glyphs and bounds:
+        pad = 1.2
+        x0, y0, x1, y1 = bounds
+        out["box"] = [mm(max(0.4, x0 - pad)), mm(max(0.4, y0 - pad)), mm(min(w - 0.4, x1 + pad)), mm(min(h - 0.4, y1 + pad))]
     if cell.kind == "latin":
         out["xh"] = mm(base - headline_units() * C.LATIN_XHEIGHT_RATIO * s)
+    elif not cell.ghost_glyphs:
+        # Does this letter have a মাত্রা to put on the line? The test in
+        # glyphmap.py also passes the দাঁড়ি (a bar reaching the line), the
+        # one written sign without a ghost.
+        out["matra"] = cell.glyph in matra_glyphs and cell.group != "sign"
     return out
 
 
@@ -117,6 +162,7 @@ def main():
     for i in range(len(doc)):
         doc[i].render(scale=72 / 72).to_pil().convert("L").save(OUT / f"template-p{i + 1}.png", optimize=True)
 
+    matra = set(layout.matra_glyphs)
     pages = {}
     for n in (1, 2, 3):
         cells = layout.page(n)
@@ -125,7 +171,7 @@ def main():
             "title_en": PAGE_TITLES[n][1],
             "optional": n in OPTIONAL_PAGES,
             "cells": [
-                {"id": c.id, "text": c.text, "ghost": c.ghost, "group": c.group, "kind": c.kind, "fragment": c.group == "part", "draw": draw_geometry(c)}
+                {"id": c.id, "text": c.text, "ghost": c.ghost, "group": c.group, "kind": c.kind, "fragment": c.group == "part", "draw": draw_geometry(c, matra)}
                 for c in cells
             ],
         }

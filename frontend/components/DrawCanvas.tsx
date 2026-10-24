@@ -6,21 +6,25 @@ import { addPoint, type Stroke, strokePath } from "@/lib/strokes";
 
 const PAPER = "#f4f0e6";
 const RULE = "#b9c6e0";
-const GHOST = "rgba(29, 33, 64, 0.16)";
+const PENCIL = "#6e685d";
+const GUIDE = "rgba(29, 33, 64, 0.16)"; // the letter to draw, to trace
+const GHOST = "rgba(29, 33, 64, 0.07)"; // the letter a sign goes with: only context
 const INK = "#1d2140";
 
 // One letter's box, drawn like the template cell: border, baseline and
-// মাত্রা line (dashed x-height for English), the faint ghost letter, and the
-// user's strokes. Pointer events cover finger, stylus and mouse alike.
+// মাত্রা line (dashed x-height for English), the letter itself faintly to
+// trace, and the user's strokes. A sign is shown on a fainter ghost letter,
+// with a dashed box where it goes. Pointer events cover finger, stylus and
+// mouse alike. The canvas is as large as its box allows, keeping the cell's
+// proportions.
 export function DrawCanvas(props: {
   cell: LayoutCell;
   strokes: Stroke[];
   penMm: number;
-  maxHeight: number; // css px the canvas may take; it is as large as this and its column allow
   onStroke: (s: Stroke) => void;
   onActivity?: () => void; // a stroke started or ended
 }) {
-  const { cell, strokes, penMm, maxHeight, onStroke } = props;
+  const { cell, strokes, penMm, onStroke } = props;
   const wrap = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const live = useRef<{ id: number; type: string; stroke: Stroke } | null>(null);
@@ -58,6 +62,18 @@ export function DrawCanvas(props: {
       ctx.fillStyle = GHOST;
       ctx.fill(new Path2D(g.ghost));
     }
+    if (g.guide) {
+      ctx.fillStyle = GUIDE;
+      ctx.fill(new Path2D(g.guide));
+    }
+    if (g.box) {
+      const [x0, y0, x1, y1] = g.box;
+      ctx.strokeStyle = PENCIL;
+      ctx.lineWidth = 0.15;
+      ctx.setLineDash([0.8, 0.6]);
+      ctx.strokeRect(x0, y0, x1 - x0, y1 - y0);
+      ctx.setLineDash([]);
+    }
 
     ctx.strokeStyle = INK;
     ctx.lineWidth = penMm;
@@ -82,7 +98,7 @@ export function DrawCanvas(props: {
     const c = canvas.current;
     if (!el || !c) return;
     const fit = () => {
-      const cssW = Math.max(160, Math.min(el.clientWidth, (maxHeight * g.w) / g.h));
+      const cssW = Math.max(120, Math.floor(Math.min(el.clientWidth, (el.clientHeight * g.w) / g.h)));
       const dpr = window.devicePixelRatio || 1;
       c.style.width = `${cssW}px`;
       c.style.height = `${(cssW * g.h) / g.w}px`;
@@ -95,7 +111,7 @@ export function DrawCanvas(props: {
     ro.observe(el);
     return () => ro.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [g.w, g.h, maxHeight]);
+  }, [g.w, g.h]);
 
   // The page must never scroll or zoom under a drawing finger. touch-action
   // (CSS) does it in current browsers; these listeners cover older ones.
@@ -170,24 +186,19 @@ export function DrawCanvas(props: {
   );
 }
 
-// A small view of a drawn letter for the neighbours strip. Every cell in the
-// strip uses the same frame (mm above and below the baseline), so they share
-// one scale and their baselines line up whatever their height.
-export function MiniCell({ cell, strokes, penMm, above, below, current }: { cell: LayoutCell; strokes: Stroke[]; penMm: number; above: number; below: number; current: boolean }) {
+// A letter's box as an example (chapter cards): guides, the ghost letter a
+// sign goes with, and the letter or sign written in ink.
+export function ExampleCell({ cell }: { cell: LayoutCell }) {
   const g = cell.draw;
   return (
-    <svg className={`mini-cell${current ? " current" : ""}`} viewBox={`0 ${g.base - above} ${g.w} ${above + below}`} aria-hidden="true">
-      <rect x={0.15} y={0.15} width={g.w - 0.3} height={g.h - 0.3} fill="none" stroke={current ? INK : RULE} strokeWidth={current ? 0.5 : 0.3} />
+    <svg className="example-cell" viewBox={`0 0 ${g.w} ${g.h}`} aria-hidden="true">
+      <rect x={0.1} y={0.1} width={g.w - 0.2} height={g.h - 0.2} fill={PAPER} stroke={RULE} strokeWidth={0.2} />
       <line x1={g.inset} x2={g.w - g.inset} y1={g.base} y2={g.base} stroke={RULE} strokeWidth={0.25} />
       <line x1={g.inset} x2={g.w - g.inset} y1={g.head} y2={g.head} stroke={RULE} strokeWidth={0.25} />
-      {g.ghost && <path d={g.ghost} fill={GHOST} />}
-      {strokes.map((s, i) =>
-        s.length === 1 ? (
-          <circle key={i} cx={s[0][0]} cy={s[0][1]} r={penMm / 2} fill={INK} />
-        ) : (
-          <path key={i} d={strokePath(s)} fill="none" stroke={INK} strokeWidth={penMm} strokeLinecap="round" strokeLinejoin="round" />
-        ),
-      )}
+      {g.xh !== undefined && <line x1={g.inset} x2={g.w - g.inset} y1={g.xh} y2={g.xh} stroke={RULE} strokeWidth={0.25} strokeDasharray="0.6 0.6" />}
+      {g.ghost && <path d={g.ghost} fill={GUIDE} />}
+      <path d={g.guide} fill={INK} />
+      {g.box && <rect x={g.box[0]} y={g.box[1]} width={g.box[2] - g.box[0]} height={g.box[3] - g.box[1]} fill="none" stroke={PENCIL} strokeWidth={0.15} strokeDasharray="0.8 0.6" />}
     </svg>
   );
 }

@@ -192,7 +192,8 @@ def _rebuild(d: Path, meta: dict):
 
 
 def build_download(session_id: str, family: str, fmt: str) -> dict:
-    """A zip with the font in one format, its licence, and a short README."""
+    """A zip with the font (TTF, WOFF2, or both for "both"), its licence,
+    and a short README."""
     d = _dir(session_id)
     meta = load(session_id)
     if meta is None:
@@ -200,13 +201,15 @@ def build_download(session_id: str, family: str, fmt: str) -> dict:
     family = clean_family_name(family)
     font: BuiltFont = build_font(_drawings(d, meta), family)
     base = postscript_name(family)
-    data = font.ttf if fmt == "ttf" else font.woff2
+    files = {"ttf": font.ttf, "woff2": font.woff2}
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
-        z.writestr(f"{base}.{fmt}", data)
+        for ext, data in files.items():
+            if fmt in (ext, "both"):
+                z.writestr(f"{base}.{ext}", data)
         z.writestr("OFL.txt", OFL_PATH.read_text(encoding="utf-8"))
         z.writestr("README.txt", _readme(family, meta))
-    name = f"{base}-{fmt}.zip"
+    name = f"{base}.zip" if fmt == "both" else f"{base}-{fmt}.zip"
     (d / name).write_bytes(buf.getvalue())
     _write_meta(d, meta)
     return {"file": name, "family": family, "format": fmt}

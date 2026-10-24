@@ -2,33 +2,23 @@
 
 import { useId, useState } from "react";
 import { ApiError, fileUrl, requestDownload } from "@/lib/api";
-import { bnNum, timeLeft } from "@/lib/bn";
+import { timeLeft } from "@/lib/bn";
+import { useLang } from "@/lib/i18n";
 
 type State = { kind: "idle" } | { kind: "busy"; ahead?: number; waking?: boolean; eta?: number | null } | { kind: "error"; bn: string; en: string };
 
-function busyText(s: Extract<State, { kind: "busy" }>): [string, string] {
-  if (s.waking) return ["কাক ঘুম থেকে উঠছে…", "waking up the crow…"];
-  const [bn, en] = s.ahead
-    ? [`আপনার আগে ${bnNum(s.ahead)} জন আছে`, `${s.ahead} ${s.ahead === 1 ? "person" : "people"} ahead of you`]
-    : ["ফন্ট বানাচ্ছি…", "making your font…"];
-  const left = timeLeft(s.eta);
-  return left ? [`${bn} · ${left[0]}`, `${en} · ${left[1]}`] : [bn, en];
-}
-
 export function Download({ session, ready }: { session: string | null; ready: boolean }) {
+  const { t, num } = useLang();
   const id = useId();
   const [name, setName] = useState("");
   const [state, setState] = useState<State>({ kind: "idle" });
+  const fallback = t("আমার হাতের লেখা", "My Handwriting");
 
-  async function get(format: "ttf" | "woff2") {
+  async function get() {
     if (!session) return;
-    if (!name.trim()) {
-      setState({ kind: "error", bn: "ফন্টের একটা নাম দিন।", en: "Give your font a name." });
-      return;
-    }
     setState({ kind: "busy" });
     try {
-      const out = await requestDownload(session, name, format, (p) => setState({ kind: "busy", ahead: p.working ? 0 : p.ahead, waking: p.waking, eta: p.eta }));
+      const out = await requestDownload(session, name.trim() || fallback, (p) => setState({ kind: "busy", ahead: p.working ? 0 : p.ahead, waking: p.waking, eta: p.eta }));
       const a = document.createElement("a");
       a.href = fileUrl(session, out.file);
       a.download = out.file;
@@ -42,48 +32,33 @@ export function Download({ session, ready }: { session: string | null; ready: bo
     }
   }
 
-  const busy = state.kind === "busy";
+  let busy: string | null = null;
+  if (state.kind === "busy") {
+    busy = state.waking
+      ? t("কাক ঘুম থেকে উঠছে…", "waking up the crow…")
+      : state.ahead
+        ? t(`আপনার আগে ${num(state.ahead)} জন আছে`, `${state.ahead} ${state.ahead === 1 ? "person" : "people"} ahead of you`)
+        : t("ফন্ট বানাচ্ছি…", "making your font…");
+    const left = timeLeft(state.eta);
+    if (left) busy += ` · ${t(left[0], left[1])}`;
+  }
+
   return (
-    <div>
+    <div className="download">
       <label className="field" htmlFor={id}>
-        <span lang="bn">ফন্টের নাম</span>
-        <span className="en-sub" lang="en">
-          Font name
-        </span>
-        <input id={id} value={name} maxLength={40} autoComplete="off" onChange={(e) => setName(e.target.value)} placeholder="আমার হাতের লেখা" />
+        {t("ফন্টের নাম", "Font name")}
+        <input id={id} value={name} maxLength={40} autoComplete="off" onChange={(e) => setName(e.target.value)} placeholder={fallback} />
       </label>
-      <div className="download-buttons">
-        <button type="button" className="button" disabled={!ready || busy} onClick={() => get("ttf")}>
-          TTF
-        </button>
-        <button type="button" className="button" disabled={!ready || busy} onClick={() => get("woff2")}>
-          WOFF2
-        </button>
-        <span className="mono">zip · with licence</span>
-      </div>
+      <button type="button" className="button big primary" disabled={!ready || state.kind === "busy"} onClick={get}>
+        {t("ডাউনলোড", "Download")}
+      </button>
+      <p className="mono pencil formats">{t("zip: TTF আর WOFF2, লাইসেন্সসহ", "zip: TTF and WOFF2, with the licence")}</p>
       <div aria-live="polite">
-        {!ready && (
-          <p>
-            একটা পাতা পড়া হলে নামানো যাবে।
-            <span className="en-sub" lang="en">
-              You can download once a page has been read.
-            </span>
-          </p>
-        )}
-        {busy && (
-          <p>
-            {busyText(state)[0]}
-            <span className="en-sub" lang="en">
-              {busyText(state)[1]}
-            </span>
-          </p>
-        )}
+        {!ready && <p>{t("কয়েকটা অক্ষর আঁকলে বা একটা পাতার ছবি দিলে নামানো যাবে।", "You can download once you've drawn a few letters or added a page photo.")}</p>}
+        {busy && <p>{busy}</p>}
         {state.kind === "error" && (
           <p className="margin-note" role="alert">
-            {state.bn}
-            <span className="en-sub en" lang="en">
-              {state.en}
-            </span>
+            {t(state.bn, state.en)}
           </p>
         )}
       </div>

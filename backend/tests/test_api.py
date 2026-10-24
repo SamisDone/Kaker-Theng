@@ -58,11 +58,13 @@ def test_full_flow_pages_1_and_2_then_download(client):
     assert client.get(f"/api/sessions/{sid}/files/{meta['font']}").content[:4] == b"wOF2"
     assert client.get(f"/api/sessions/{sid}/files/page-2.png").headers["content-type"] == "image/png"
 
-    r = client.post(f"/api/sessions/{sid}/download", json={"name": "আমার হাত", "format": "ttf"})
+    # The site asks for no format: one zip with both.
+    r = client.post(f"/api/sessions/{sid}/download", json={"name": "আমার হাত"})
     job = wait(client, r.json()["id"])
     z = zipfile.ZipFile(io.BytesIO(client.get(f"/api/sessions/{sid}/files/{job['result']['file']}").content))
     names = z.namelist()
-    assert "OFL.txt" in names and "README.txt" in names and any(n.endswith(".ttf") for n in names)
+    assert "OFL.txt" in names and "README.txt" in names
+    assert any(n.endswith(".ttf") for n in names) and any(n.endswith(".woff2") for n in names)
 
 
 def test_bad_inputs_get_clear_messages(client):

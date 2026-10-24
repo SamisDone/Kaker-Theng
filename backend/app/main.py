@@ -209,7 +209,7 @@ def request_preview(session_id: str):
 
 class DownloadRequest(BaseModel):
     name: str
-    format: str
+    format: str = "both"  # "both": TTF and WOFF2 in one zip
 
 
 @app.post("/api/sessions/{session_id}/download", status_code=202)
@@ -219,8 +219,8 @@ def request_download(session_id: str, req: DownloadRequest):
         return _gone()
     if not meta.get("pages") and not meta.get("drawn"):
         return _error(400, "no_pages", "Add a page photo or draw some letters first.", "আগে একটা পাতার ছবি দিন বা কয়েকটা অক্ষর আঁকুন।")
-    if req.format not in ("ttf", "woff2"):
-        raise HTTPException(400, "format must be ttf or woff2")
+    if req.format not in ("ttf", "woff2", "both"):
+        raise HTTPException(400, "format must be ttf, woff2 or both")
     try:
         family = clean_family_name(req.name)
     except FontNameError as err:

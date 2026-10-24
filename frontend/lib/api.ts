@@ -128,10 +128,11 @@ export async function uploadPage(session: string, photo: Blob, progress?: Progre
   return waitForJob(job, progress);
 }
 
-export async function requestDownload(session: string, name: string, format: "ttf" | "woff2", progress?: Progress) {
+/** One zip with the font as TTF and WOFF2, its licence and a README. */
+export async function requestDownload(session: string, name: string, progress?: Progress) {
   const res = await patientFetch(
     `/api/sessions/${session}/download`,
-    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, format }) },
+    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, format: "both" }) },
     progress,
   );
   const job = await json<Job<{ file: string }>>(res);

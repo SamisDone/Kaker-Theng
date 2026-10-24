@@ -1,16 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Coverage } from "@/components/Coverage";
-import { Download } from "@/components/Download";
-import { DrawPad } from "@/components/DrawPad";
-import { FragmentExamples } from "@/components/FragmentExamples";
-import { Masthead } from "@/components/Masthead";
-import { ModeChoice } from "@/components/ModeChoice";
-import { PrintSection } from "@/components/PrintSection";
-import { Specimen } from "@/components/Specimen";
-import { TryIt } from "@/components/TryIt";
-import { type SlotState, UploadSlot } from "@/components/UploadSlot";
+import { ChapterCard } from "@/components/ChapterCard";
+import { ChapterList } from "@/components/ChapterList";
+import { DrawScreen } from "@/components/DrawScreen";
+import { FontScreen } from "@/components/FontScreen";
+import { PaperScreen, type PaperStep } from "@/components/PaperScreen";
+import { RewardScreen } from "@/components/RewardScreen";
+import { StartScreen } from "@/components/StartScreen";
+import { TopBar } from "@/components/TopBar";
+import type { SlotState } from "@/components/UploadSlot";
 import {
   ApiError,
   createSession,
@@ -25,35 +24,56 @@ import {
   wake,
 } from "@/lib/api";
 import { bnNum } from "@/lib/bn";
-import { loadDrawn, loadMode, type Mode, type Saved, saveDrawn, saveMode } from "@/lib/drawstore";
+import { CHAPTERS, chapterById, type ChapterId, chapterLists, chapterOf } from "@/lib/chapters";
+import { loadDrawn, type Saved, saveDrawn } from "@/lib/drawstore";
+import { LangProvider, useLang } from "@/lib/i18n";
 import { shrinkPhoto } from "@/lib/image";
 import { cellsById, type Layout, loadLayout } from "@/lib/layout";
 import type { Stroke } from "@/lib/strokes";
 
 const SESSION_KEY = "kaker-theng-session";
+const SCREEN_KEY = "kaker-theng-screen";
 const REBUILD_EVERY = 5; // letters
 const IDLE_MS = 3000;
 
-function remember(id: string | null) {
-  try {
-    if (id) sessionStorage.setItem(SESSION_KEY, id);
-    else sessionStorage.removeItem(SESSION_KEY);
-  } catch {
-    // private mode etc.: the session just won't survive a reload
-  }
-}
-
-function recall(): string | null {
-  try {
-    return sessionStorage.getItem(SESSION_KEY);
-  } catch {
-    return null;
-  }
-}
+// One job per screen. Each is a browser history entry, so the phone's back
+// button goes back a screen instead of leaving the site.
+type Screen =
+  | { name: "start" }
+  | { name: "chapters" }
+  | { name: "card"; chapter: ChapterId }
+  | { name: "draw" }
+  | { name: "reward"; chapter: ChapterId }
+  | { name: "font" }
+  | { name: "paper"; step: PaperStep };
 
 type Note = { bn: string; en: string } | null;
 
+function store(kind: "get" | "set" | "remove", key: string, value = ""): string | null {
+  try {
+    if (kind === "get") return sessionStorage.getItem(key);
+    if (kind === "set") sessionStorage.setItem(key, value);
+    else sessionStorage.removeItem(key);
+  } catch {
+    // private mode etc.: it just won't survive a reload
+  }
+  return null;
+}
+
+const remember = (id: string | null) => (id ? store("set", SESSION_KEY, id) : store("remove", SESSION_KEY));
+
 export default function Home() {
+  return (
+    <LangProvider>
+      <App />
+    </LangProvider>
+  );
+}
+
+function App() {
+  const { t } = useLang();
+  const [screen, setScreen] = useState<Screen>({ name: "start" });
+  const depth = useRef(0);
   const [layout, setLayout] = useState<Layout | null>(null);
   const [session, setSession] = useState<string | null>(null);
   const [meta, setMeta] = useState<SessionMeta | null>(null);
@@ -63,10 +83,9 @@ export default function Home() {
   const sessionRef = useRef<string | null>(null);
 
   // Drawing: the letters live in this browser (saved), the server gets a copy.
-  const [mode, setMode] = useState<Mode | null>(null);
   const [saved, setSaved] = useState<Saved | null>(null);
   const [building, setBuilding] = useState(false);
-  const [syncNote, setSyncNote] = useState<string | null>(null);
+  const [syncNote, setSyncNote] = useState<Note>(null);
   const [recalled, setRecalled] = useState(false);
   const savedRef = useRef<Saved | null>(null);
   const unsynced = useRef<Set<string>>(new Set());
@@ -75,11 +94,45 @@ export default function Home() {
   const pendingLetters = useRef(0); // drawn since the last rebuild
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // ---- Screens -------------------------------------------------------------
+
+  const go = useCallback((s: Screen, replace = false) => {
+    if (!replace) depth.current += 1;
+    const state = { screen: s, depth: depth.current };
+    if (replace) history.replaceState(state, "");
+    else history.pushState(state, "");
+    store("set", SCREEN_KEY, JSON.stringify(s));
+    setScreen(s);
+  }, []);
+
+  // Back a screen; to the start if this one was opened by a reload.
+  const back = () => (depth.current > 0 ? history.back() : go({ name: "start" }, true));
+
+  useEffect(() => {
+    let first: Screen = { name: "start" };
+    try {
+      first = JSON.parse(store("get", SCREEN_KEY) ?? "null") ?? first;
+    } catch {
+      // unreadable: the start
+    }
+    history.replaceState({ screen: first, depth: 0 }, "");
+    setScreen(first);
+    const onPop = (e: PopStateEvent) => {
+      const s: Screen = e.state?.screen ?? { name: "start" };
+      depth.current = e.state?.depth ?? 0;
+      store("set", SCREEN_KEY, JSON.stringify(s));
+      setScreen(s);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  // ---- Session and layout --------------------------------------------------
+
   useEffect(() => {
     wake();
-    setMode(loadMode());
     loadLayout().then(setLayout).catch(() => undefined);
-    const id = recall();
+    const id = store("get", SESSION_KEY);
     if (!id) {
       setRecalled(true);
       return;
@@ -109,16 +162,17 @@ export default function Home() {
       for (const id of Object.keys(s.cells)) unsynced.current.add(id);
       void rebuildPreview();
     }
-    if (loadMode() === "draw") showDrawpad();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layout, recalled]);
 
   const cells = useMemo(() => (layout ? cellsById(layout) : null), [layout]);
+  const lists = useMemo(() => (layout && cells ? chapterLists(layout, cells) : null), [layout, cells]);
   const fromPaper = useMemo(() => {
     const out = new Set<string>();
     for (const p of Object.values(meta?.pages ?? {})) for (const c of p.cells) if (c.status !== "missing") out.add(c.id);
     return out;
   }, [meta]);
+  const done = useCallback((id: string) => Boolean(saved?.cells[id]?.length) || fromPaper.has(id), [saved, fromPaper]);
 
   // Load the preview font whenever the server has built a new one.
   useEffect(() => {
@@ -178,7 +232,10 @@ export default function Home() {
             continue;
           }
           for (const id of ids) unsynced.current.add(id);
-          setSyncNote("সার্ভারে পাঠানো গেল না। অক্ষরগুলো এখানে রাখা আছে, পরেরটার সাথে আবার পাঠাব। · Couldn't reach the server. Your letters are kept here and go with the next one.");
+          setSyncNote({
+            bn: "সার্ভারে পাঠানো গেল না। অক্ষরগুলো এখানে রাখা আছে, পরেরটার সাথে আবার পাঠাব।",
+            en: "Couldn't reach the server. Your letters are kept here and go with the next one.",
+          });
           return;
         }
       }
@@ -235,7 +292,8 @@ export default function Home() {
     const next = change(savedRef.current);
     savedRef.current = next;
     setSaved(next);
-    if (!saveDrawn(next)) setSyncNote("এই ব্রাউজারে আঁকা জমানো যাচ্ছে না; ট্যাব বন্ধ করলে হারাবে। · This browser won't store the drawing; it's lost if you close the tab.");
+    if (!saveDrawn(next))
+      setSyncNote({ bn: "এই ব্রাউজারে আঁকা জমানো যাচ্ছে না; ট্যাব বন্ধ করলে হারাবে।", en: "This browser won't store the drawing; it's lost if you close the tab." });
   }
 
   function onDrawn(id: string, strokes: Stroke[]) {
@@ -251,25 +309,54 @@ export default function Home() {
     scheduleRebuild();
   }
 
-  // Bring the drawing to the top of the screen: on a phone the canvas then
-  // fills it, no scrolling needed.
-  function showDrawpad() {
-    requestAnimationFrame(() => document.getElementById("drawpad")?.scrollIntoView({ block: "start" }));
+  // ---- Moving between chapters ---------------------------------------------
+
+  const setAt = (id: string) => updateSaved((s) => ({ ...s, at: id }));
+
+  // A chapter not started yet opens with its card; one under way goes on
+  // where it stopped.
+  function openChapter(c: ChapterId) {
+    if (!lists) return;
+    const ids = lists[c];
+    if (!ids.some(done)) return go({ name: "card", chapter: c });
+    setAt(ids.find((id) => !done(id)) ?? ids[0]);
+    go({ name: "draw" });
   }
 
-  function chooseMode(m: Mode) {
-    setMode(m);
-    saveMode(m);
-    if (m === "draw") showDrawpad();
+  function startChapter(c: ChapterId) {
+    if (!lists) return;
+    const ids = lists[c];
+    setAt(ids.find((id) => !done(id)) ?? ids[0]);
+    go({ name: "draw" });
   }
 
-  // Tapping a letter in the specimen opens it on the canvas to redraw.
+  /** The next chapter after `c` with letters left, wrapping round. */
+  function nextChapter(c: ChapterId) {
+    if (!lists) return null;
+    const i = CHAPTERS.findIndex((x) => x.id === c);
+    const order = [...CHAPTERS.slice(i + 1), ...CHAPTERS.slice(0, i)];
+    return order.find((x) => lists[x.id].some((id) => !done(id))) ?? null;
+  }
+
+  // Draw: on where the last visit stopped, or at the start.
+  function startDrawing() {
+    const at = saved?.at ? cells?.get(saved.at) : undefined;
+    let c: ChapterId = at ? chapterOf(at) : "vowels";
+    if (lists?.[c].every(done)) c = nextChapter(c)?.id ?? c;
+    openChapter(c);
+  }
+
+  function openFont() {
+    if (pendingLetters.current > 0 || unsynced.current.size) void rebuildPreview();
+    go({ name: "font" });
+  }
+
   function redraw(id: string) {
-    const cell = cells?.get(id);
-    if (!cell) return;
-    updateSaved((s) => ({ ...s, at: id, lang: cell.kind === "latin" ? "en" : "bn" }));
-    chooseMode("draw");
+    setAt(id);
+    go({ name: "draw" });
   }
+
+  // ---- Paper ---------------------------------------------------------------
 
   const sessionProgress = (page: number) => (p: ProgressState) => setSlot(page, { kind: "busy", step: p.waking ? "waking" : "sending" });
 
@@ -305,173 +392,118 @@ export default function Home() {
         setSlot(result.page, { kind: "idle" });
         setNotes((n) => ({
           ...n,
-          [page]: {
-            bn: `এটা পাতা ${bnNum(result.page)}-এর ছবি, ওখানেই রাখলাম।`,
-            en: `That was a photo of page ${result.page}, so it went there.`,
-          },
+          [page]: { bn: `এটা পাতা ${bnNum(result.page)}-এর ছবি, ওখানেই রাখলাম।`, en: `That was a photo of page ${result.page}, so it went there.` },
         }));
       }
     } catch (err) {
-      const e =
-        err instanceof ApiError
-          ? err
-          : new ApiError("error", "That photo couldn't be read. Please try another.", "ছবিটা পড়া গেল না। আরেকটা ছবি দিয়ে দেখুন।");
+      const e = err instanceof ApiError ? err : new ApiError("error", "That photo couldn't be read. Please try another.", "ছবিটা পড়া গেল না। আরেকটা ছবি দিয়ে দেখুন।");
       setSlot(page, { kind: "error", bn: e.bn, en: e.message, code: e.code });
     }
   }
 
-  const targets = meta?.coverage_targets ?? layout?.coverage_targets ?? null;
+  // ---- Render ----------------------------------------------------------------
 
-  const lastNo = mode === "draw" ? 3 : mode === "paper" ? 4 : 2;
+  const ready = Boolean(layout && cells && lists && saved);
+  const words = meta?.font ? (meta.word_coverage ?? 0) : null;
+  const note = syncNote ? t(syncNote.bn, syncNote.en) : null;
+  let body: React.ReactNode;
 
-  return (
-    <main className="sheet">
-      <Masthead userFont={userFont} />
+  if (screen.name === "start") {
+    body = <StartScreen userFont={userFont} onDraw={startDrawing} onPaper={() => go({ name: "paper", step: "print" })} onFont={meta?.font ? openFont : undefined} />;
+  } else if (screen.name === "paper") {
+    body = (
+      <PaperScreen
+        step={screen.step}
+        layout={layout}
+        session={session}
+        pages={meta?.pages ?? {}}
+        slots={slots}
+        notes={notes}
+        onPhoto={onPhoto}
+        onStep={(step) => go({ name: "paper", step })}
+        onBack={back}
+        onFont={openFont}
+      />
+    );
+  } else if (!ready) {
+    body = (
+      <div className="screen">
+        <TopBar />
+        <p>{t("খাতা খুলছি…", "opening the notebook…")}</p>
+      </div>
+    );
+  } else if (screen.name === "chapters") {
+    const at = saved!.at ? cells!.get(saved!.at) : undefined;
+    body = <ChapterList lists={lists!} done={done} current={at ? chapterOf(at) : null} onChapter={openChapter} onBack={back} onPaper={() => go({ name: "paper", step: "print" })} onFont={openFont} />;
+  } else if (screen.name === "card") {
+    const c = chapterById(screen.chapter);
+    const ids = lists![c.id];
+    body = (
+      <ChapterCard
+        chapter={c}
+        example={cells!.get(ids[0])!}
+        count={ids.length}
+        onStart={() => startChapter(c.id)}
+        onSkip={() => {
+          const next = nextChapter(c.id);
+          if (next) go({ name: "card", chapter: next.id }, true);
+          else go({ name: "font" }, true);
+        }}
+        onChapters={() => go({ name: "chapters" })}
+        onFont={openFont}
+      />
+    );
+  } else if (screen.name === "reward") {
+    const c = chapterById(screen.chapter);
+    const ids = lists![c.id];
+    const next = nextChapter(c.id);
+    body = (
+      <RewardScreen
+        chapter={c}
+        next={next}
+        drawn={ids.filter(done).length}
+        total={ids.length}
+        words={words}
+        building={building}
+        userFont={userFont}
+        note={note}
+        onContinue={() => next && openChapter(next.id)}
+        onFont={openFont}
+      />
+    );
+  } else if (screen.name === "font") {
+    body = <FontScreen session={session} meta={meta} lists={lists!} cells={cells!} userFont={userFont} building={building} onBack={back} onRedraw={redraw} />;
+  } else {
+    // Drawing: the letter saved as "at", or the first one not drawn yet.
+    const at = saved!.at && cells!.has(saved!.at) ? saved!.at : (layout!.draw_order.find((id) => !done(id)) ?? layout!.draw_order[0]);
+    const chapter = chapterOf(cells!.get(at)!);
+    body = (
+      <DrawScreen
+        key={chapter}
+        chapter={chapter}
+        order={lists![chapter]}
+        cells={cells!}
+        at={at}
+        drawn={saved!.cells}
+        done={done}
+        penMm={layout!.pen_mm}
+        draft={saved!.draft ?? null}
+        syncNote={note}
+        onDraft={(draft) => {
+          if (JSON.stringify(draft) !== JSON.stringify(savedRef.current?.draft ?? null)) updateSaved((s) => ({ ...s, draft }));
+        }}
+        onSave={onDrawn}
+        onAt={setAt}
+        onChapterEnd={() => {
+          void rebuildPreview();
+          go({ name: "reward", chapter });
+        }}
+        onActivity={scheduleRebuild}
+        onChapters={() => go({ name: "chapters" })}
+        onFont={openFont}
+      />
+    );
+  }
 
-      <section className="section" aria-labelledby="mode-title">
-        <div className="section-head">
-          <span className="section-no">১ / 1</span>
-          <h2 id="mode-title">
-            কীভাবে লিখবেন?
-            <span className="en-sub" lang="en">
-              How do you want to write?
-            </span>
-          </h2>
-        </div>
-        <ModeChoice mode={mode} onMode={chooseMode} />
-      </section>
-
-      {mode === "draw" && (
-        <section className="section" aria-labelledby="draw-title">
-          <div className="section-head">
-            <span className="section-no">২ / 2</span>
-            <h2 id="draw-title">
-              আঁকুন
-              <span className="en-sub" lang="en">
-                Draw your letters
-              </span>
-            </h2>
-          </div>
-          {layout && cells && saved ? (
-            <DrawPad
-              layout={layout}
-              cells={cells}
-              drawn={saved.cells}
-              at={saved.at}
-              fromPaper={fromPaper}
-              lang={saved.lang ?? null}
-              progress={{
-                words: meta?.font ? (meta.word_coverage ?? 0) : null,
-                conjuncts: meta?.font ? (meta.coverage ?? 0) : null,
-                building,
-              }}
-              userFont={userFont}
-              syncNote={syncNote}
-              draft={saved.draft ?? null}
-              onDraft={(draft) => {
-                if (JSON.stringify(draft) !== JSON.stringify(savedRef.current?.draft ?? null)) updateSaved((s) => ({ ...s, draft }));
-              }}
-              onSave={onDrawn}
-              onAt={(id) => updateSaved((s) => ({ ...s, at: id }))}
-              onLang={(lang) => {
-                updateSaved((s) => ({ ...s, lang, at: null }));
-                showDrawpad();
-              }}
-              onActivity={scheduleRebuild}
-              onPreview={() => void rebuildPreview()}
-            />
-          ) : (
-            <p>
-              খাতা খুলছি…
-              <span className="en-sub" lang="en">
-                opening the notebook…
-              </span>
-            </p>
-          )}
-        </section>
-      )}
-
-      {mode === "paper" && <PrintSection layout={layout} number={2} />}
-
-      {mode === "paper" && (
-      <section className="section" aria-labelledby="write-title">
-        <div className="section-head">
-          <span className="section-no">৩ / 3</span>
-          <h2 id="write-title">
-            লিখুন, ছবি তুলুন
-            <span className="en-sub" lang="en">
-              Write and photograph each page
-            </span>
-          </h2>
-        </div>
-        <p>
-          গাঢ় কলমে, ঘরের ভেতরে লিখুন। পুরো পাতা আর চার কোণের কালো চৌকো ছবিতে রাখুন।
-          <span className="en-sub" lang="en">
-            Write in a dark pen, inside the boxes. Keep the whole page and its four black corner squares in the photo.
-          </span>
-        </p>
-        <p>
-          ছবিগুলো এক ঘণ্টা পর মুছে যায়।
-          <span className="en-sub" lang="en">
-            Photos are deleted after an hour.
-          </span>
-        </p>
-        {[1, 2, 3].map((n) => {
-          const page = layout?.pages[n];
-          return (
-            <UploadSlot
-              key={n}
-              page={n}
-              titleBn={page?.title_bn ?? ""}
-              titleEn={page?.title_en ?? ""}
-              optional={Boolean(page?.optional)}
-              session={session}
-              info={meta?.pages[String(n)]}
-              state={slots[n]}
-              note={notes[n] ?? null}
-              onPhoto={(f) => onPhoto(n, f)}
-            >
-              {n === 3 && layout && <FragmentExamples fragments={layout.fragments} headline={layout.headline} />}
-            </UploadSlot>
-          );
-        })}
-        <Coverage meta={meta} targets={targets} />
-        <p>
-          কিছু ঘর খালি বা পড়া যায়নি? সেগুলো এখানেই এঁকে নিতে পারেন।
-          <span className="en-sub" lang="en">
-            Some boxes empty or unreadable? You can draw those here instead.
-          </span>
-        </p>
-        <p>
-          <button type="button" className="button" onClick={() => chooseMode("draw")}>
-            বাকিগুলো আঁকুন <span className="en">· draw the rest</span>
-          </button>
-        </p>
-      </section>
-      )}
-
-      <section className="section" id="download" aria-labelledby="try-title">
-        <div className="section-head">
-          <span className="section-no">
-            {bnNum(lastNo)} / {lastNo}
-          </span>
-          <h2 id="try-title">
-            দেখুন, নামান
-            <span className="en-sub" lang="en">
-              Try it and download
-            </span>
-          </h2>
-        </div>
-        <TryIt userFont={userFont} />
-        {layout && <Specimen layout={layout} meta={meta} userFont={userFont} onRedraw={redraw} />}
-        <Download session={session} ready={Boolean(meta?.font)} />
-      </section>
-
-      <footer className="footer">
-        <p>
-          Built on Noto Sans Bengali (SIL Open Font License 1.1). Conjunct frequencies from Bangla Wikipedia (CC BY-SA 4.0).
-        </p>
-      </footer>
-    </main>
-  );
+  return <main className={`sheet${screen.name === "draw" ? " fit" : ""}`}>{body}</main>;
 }

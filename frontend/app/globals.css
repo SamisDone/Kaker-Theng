@@ -42,12 +42,41 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+/* One language on screen: English copy is set in Spectral, Bangla in Tiro. */
+html[lang="en"] body,
+[lang="en"],
+.en {
+  font-family: var(--en);
+}
+
+[lang="bn"]:not(html) {
+  font-family: var(--bn);
+}
+
 .sheet {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   max-width: calc(var(--measure) + var(--gutter) + 48px);
   margin: 0 auto;
-  padding: var(--line) 24px calc(var(--line) * 3) var(--gutter);
+  padding: 8px 24px calc(var(--line) * 2) var(--gutter);
+}
+
+/* The drawing screen is exactly the screen: nothing scrolls, nothing
+   bounces, nothing pulls to refresh. */
+.sheet.fit {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  padding-bottom: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+html:has(.sheet.fit) {
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 /* The red margin line, the full height of the page. */
@@ -70,22 +99,14 @@ body {
   }
 }
 
-[lang="en"],
-.en {
-  font-family: var(--en);
-}
-
-.en-sub {
-  display: block;
-  font-family: var(--en);
-  font-size: 15px;
-  color: var(--pencil);
-}
-
 .mono {
   font-family: var(--mono);
   font-size: 13px;
   letter-spacing: 0.02em;
+}
+
+.pencil {
+  color: var(--pencil);
 }
 
 p {
@@ -100,6 +121,19 @@ h3 {
   margin: 0;
 }
 
+h2 {
+  font-size: 32px;
+  line-height: 48px;
+  margin-bottom: 16px;
+}
+
+.h2-sub {
+  display: block;
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--pencil);
+}
+
 a {
   color: var(--ink);
   text-decoration-thickness: 1px;
@@ -111,22 +145,6 @@ a {
   outline-offset: 2px;
 }
 
-/* ---- Masthead ------------------------------------------------------------ */
-
-.masthead {
-  margin-bottom: calc(var(--line) * 2);
-}
-
-.masthead h1 {
-  font-size: 54px;
-  line-height: calc(var(--line) * 2);
-}
-
-.masthead h1.in-hand {
-  font-size: 64px;
-  animation: fade-in 250ms ease-out;
-}
-
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -134,45 +152,6 @@ a {
   to {
     opacity: 1;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .masthead h1.in-hand {
-    animation: none;
-  }
-}
-
-.masthead .latin-name {
-  font-family: var(--en);
-  font-size: 20px;
-  color: var(--pencil);
-  line-height: var(--line);
-}
-
-/* ---- Sections: notebook pages, not cards ---------------------------------- */
-
-.section {
-  margin-bottom: calc(var(--line) * 2);
-}
-
-.section-head {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: var(--line);
-}
-
-.section-no {
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--pencil);
-  white-space: nowrap;
-  min-width: 48px;
-}
-
-.section-head h2 {
-  font-size: 27px;
-  line-height: var(--line);
 }
 
 /* ---- Buttons: square, ink border, no shadow ------------------------------- */
@@ -192,6 +171,7 @@ a {
   border-radius: 0;
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .button:hover:not(:disabled) {
@@ -205,10 +185,6 @@ a {
   border-color: var(--pencil);
 }
 
-.button .en {
-  font-size: 15px;
-}
-
 .button.primary {
   background: var(--ink);
   color: var(--paper);
@@ -219,38 +195,257 @@ a {
   color: var(--pencil);
 }
 
-/* ---- Two ways in: draw, or write on paper ------------------------------- */
-
-.modes {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 32px;
+.button.big {
+  height: 52px;
+  line-height: 49px;
+  font-size: 21px;
+  padding: 0 22px;
 }
 
-.mode {
-  padding-left: 12px;
-  border-left: 1.5px solid var(--rule);
-  margin-bottom: var(--line);
+.button.small {
+  height: 30px;
+  line-height: 27px;
+  font-size: 15px;
+  padding: 0 8px;
+  margin: 0;
 }
 
-.mode.chosen {
-  border-left-color: var(--ink);
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
 }
 
-.mode h3 {
-  font-size: 23px;
-  line-height: var(--line);
-  margin-bottom: var(--line);
+.card-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 var(--line);
 }
 
-.modes-note {
-  grid-column: 1 / -1;
+.card-buttons .button {
+  margin: 0;
 }
 
-@media (max-width: 640px) {
-  .modes {
-    grid-template-columns: 1fr;
+.tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--pencil);
+  border: 1px solid var(--pencil);
+  padding: 0 6px;
+  line-height: 20px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+/* ---- Top bar: what this screen is; my font and the language switch ------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 40px;
+  margin-bottom: 8px;
+  flex: none;
+}
+
+.topbar-left {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+
+.lang-switch {
+  display: flex;
+}
+
+.lang-switch button {
+  font-size: 14px;
+  line-height: 22px;
+  background: none;
+  border: 0;
+  border-bottom: 1.5px solid transparent;
+  padding: 2px 3px;
+  margin: 0 2px;
+  color: var(--pencil);
+  cursor: pointer;
+}
+
+.lang-switch button[lang="en"] {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+.lang-switch button[aria-pressed="true"] {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.chapter-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chapter-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chapter-button .count {
+  color: var(--pencil);
+}
+
+.chapter-button svg {
+  flex: none;
+  color: var(--pencil);
+}
+
+/* ---- Start ------------------------------------------------------------- */
+
+.start-screen {
+  min-height: calc(100dvh - 8px - var(--line) * 2);
+  display: flex;
+  flex-direction: column;
+}
+
+.start-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 12vh;
+}
+
+.start-body h1 {
+  font-size: 54px;
+  line-height: 80px;
+}
+
+.start-body h1.in-hand {
+  font-size: 64px;
+  animation: fade-in 250ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .start-body h1.in-hand {
+    animation: none;
   }
+}
+
+.start-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 320px;
+}
+
+.start-buttons .button {
+  margin: 0;
+  width: 100%;
+}
+
+/* ---- Chapter card, reward, chapter list ---------------------------------- */
+
+.card-body h2,
+.reward-body h2 {
+  font-size: 36px;
+}
+
+.card-example {
+  width: min(220px, 62%);
+  margin: 0 0 var(--line);
+}
+
+.example-cell {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card-example figcaption {
+  font-size: 16px;
+  color: var(--pencil);
+}
+
+.reward-number {
+  min-height: calc(var(--line) * 2);
+  margin-bottom: var(--line);
+}
+
+.reward-number strong {
+  display: block;
+  font-weight: 400;
+  font-size: 72px;
+  line-height: 88px;
+}
+
+.reward-sample {
+  font-size: 34px;
+  line-height: 64px;
+  margin-bottom: 8px;
+  overflow-wrap: anywhere;
+}
+
+.small-note {
+  font-size: 15px;
+}
+
+.chapter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--line);
+  max-width: 480px;
+}
+
+.chapter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 56px;
+  font: inherit;
+  font-size: 21px;
+  color: var(--ink);
+  text-align: left;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 0 4px 0 12px;
+  cursor: pointer;
+}
+
+.chapter-row.current {
+  border-left: 3px solid var(--ink);
+}
+
+.chapter-row:hover {
+  background: rgba(29, 33, 64, 0.04);
 }
 
 /* ---- Drawing ---------------------------------------------------------- */
@@ -263,96 +458,56 @@ a {
   font-display: block;
 }
 
-.mode-chosen {
+.draw-screen {
+  flex: 1;
+  min-height: 0;
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0 16px;
+  flex-direction: column;
 }
 
-.mode-chosen .button {
-  margin: 0;
+.progress {
+  flex: none;
+  height: 3px;
+  background: var(--rule);
+  margin: 4px 0 2px;
 }
 
-.draw-tabs {
-  display: flex;
-  gap: 0 24px;
-  height: var(--line);
-}
-
-.tab {
-  font: inherit;
-  font-size: 19px;
-  color: var(--pencil);
-  background: none;
-  border: 0;
-  border-bottom: 1.5px solid transparent;
-  padding: 0;
-  cursor: pointer;
-  line-height: 28px;
-}
-
-.tab.chosen {
-  color: var(--ink);
-  border-bottom-color: var(--ink);
-}
-
-.tab .mono {
-  font-size: 12px;
-  color: var(--pencil);
-}
-
-.draw-status {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  color: var(--pencil);
-  line-height: var(--line);
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.draw-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
-  gap: 0 32px;
-  align-items: start;
-}
-
-@media (max-width: 760px) {
-  .draw-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--ink);
 }
 
 .draw-target {
+  flex: none;
   display: flex;
   align-items: center;
-  gap: 16px;
-  min-height: calc(var(--line) * 2);
+  gap: 14px;
+  min-height: 64px;
 }
 
 .draw-letter {
-  font-size: 44px;
-  line-height: calc(var(--line) * 2);
-  min-width: 1.4em;
+  font-size: 48px;
+  line-height: 64px;
+  min-width: 1.2em;
 }
 
 .draw-hint {
+  font-size: 18px;
   line-height: 24px;
 }
 
-.draw-hint .en-sub {
-  line-height: 22px;
-}
-
 .draw-canvas {
-  margin-bottom: 8px;
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
 }
 
 .draw-canvas canvas {
   display: block;
-  margin: 0 auto;
   touch-action: none; /* the finger draws: no scrolling, no zooming */
   cursor: crosshair;
   outline: 1.5px solid var(--ink);
@@ -362,69 +517,90 @@ a {
   -webkit-touch-callout: none;
 }
 
-/* On a phone the canvas takes the whole width, across the margin line. */
-@media (max-width: 640px) {
-  .draw-canvas {
-    margin-left: calc(8px - var(--gutter));
-    margin-right: -8px;
-  }
+.sync-note {
+  flex: none;
+  margin: 0;
+  font-size: 15px;
+  line-height: 20px;
 }
 
-.draw-buttons {
+.draw-actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 8px;
+}
+
+.icon-button {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--ink);
+  background: none;
+  border: 1.5px solid var(--rule);
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.icon-button:disabled {
+  color: var(--rule);
+  cursor: default;
+}
+
+.draw-actions .button {
+  margin: 0;
+}
+
+/* Undo is the one used most: an ink border, next to "next". */
+.icon-button.undo {
+  border-color: var(--ink);
+}
+
+.icon-button.undo:disabled {
+  border-color: var(--rule);
+}
+
+.button.next {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 52px;
+  line-height: normal;
+  font-size: 21px;
+  padding: 0 10px;
+  margin-left: 6px;
+}
+
+/* ---- Paper ------------------------------------------------------------ */
+
+.steps {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 0;
-  margin-bottom: 8px;
+  gap: 4px 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--line);
+  font-size: 17px;
+  color: var(--pencil);
 }
 
-.draw-buttons .button {
-  padding: 0 10px;
+.steps li {
+  border-bottom: 1.5px solid transparent;
 }
 
-.draw-side .example {
-  max-width: 260px;
+.steps li.past {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
 }
 
-.neighbours {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 64px));
-  gap: 6px;
-  align-items: start;
-  margin-top: var(--line);
+.steps li[aria-current="step"] {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
 }
-
-.mini-cell {
-  display: block;
-  width: 100%;
-  height: auto;
-  background: var(--paper);
-}
-
-.word-coverage strong {
-  font-weight: 400;
-  font-size: 40px;
-  line-height: calc(var(--line) * 1.5);
-}
-
-.word-coverage {
-  margin-bottom: 8px;
-}
-
-.conjunct-line {
-  margin-bottom: var(--line);
-}
-
-.draw-sample p {
-  font-size: 26px;
-  line-height: calc(var(--line) * 1.5);
-  margin-bottom: 0;
-}
-
-.draw-sample {
-  margin-bottom: var(--line);
-}
-
-/* ---- Template thumbnails ------------------------------------------------- */
 
 .thumbs {
   display: flex;
@@ -435,43 +611,26 @@ a {
 
 .thumbs figure {
   margin: 0;
+  width: 96px;
 }
 
 .thumbs img {
   display: block;
-  width: auto;
-  height: calc(var(--line) * 5);
+  width: 96px;
+  height: auto;
   border: 1px solid var(--rule);
   background: #fff;
 }
 
 .thumbs figcaption {
-  font-family: var(--mono);
-  font-size: 12px;
-  line-height: var(--line);
+  font-size: 13px;
+  line-height: 18px;
+  padding-top: 6px;
   color: var(--pencil);
 }
-
-/* ---- Upload slots ------------------------------------------------------- */
 
 .slot {
-  margin-bottom: calc(var(--line) * 2);
-}
-
-.slot-title {
-  display: flex;
-  gap: 12px;
-  align-items: baseline;
-  flex-wrap: wrap;
-}
-
-.slot-title .tag {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--pencil);
-  border: 1px solid var(--pencil);
-  padding: 0 6px;
-  line-height: 20px;
+  margin-bottom: var(--line);
 }
 
 .drop {
@@ -528,7 +687,7 @@ a {
   object-position: left top;
 }
 
-/* A teacher's note: red, small, slanted, in the margin when there's room. */
+/* A teacher's note: red, small, slanted. */
 .margin-note {
   color: var(--margin);
   font-size: 16px;
@@ -539,22 +698,11 @@ a {
   border-left: 1.5px solid var(--margin);
 }
 
-.margin-note .en {
-  font-size: 14px;
-}
-
-/* ---- Coverage --------------------------------------------------------- */
-
-.coverage {
-  margin: 0 0 var(--line);
-}
-
-.coverage strong {
-  font-weight: 400;
-  font-size: 26px;
-}
-
 /* ---- Fragment examples ------------------------------------------------- */
+
+.examples {
+  margin-bottom: var(--line);
+}
 
 .examples summary {
   cursor: pointer;
@@ -577,13 +725,13 @@ a {
 
 .example-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
-  gap: 0 16px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0 12px;
   margin: 0 0 var(--line);
 }
 
 .example {
-  margin: 0 0 var(--line);
+  margin: 0 0 12px;
   outline: 1px solid var(--rule);
   outline-offset: -1px;
   background: var(--paper);
@@ -596,25 +744,16 @@ a {
 }
 
 .example .label {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
   padding: 0 6px;
-  font-family: var(--mono);
-  font-size: 11px;
-  line-height: var(--line);
-  color: var(--pencil);
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.example .label [lang="bn"] {
-  font-family: var(--bn);
   font-size: 15px;
-  color: var(--ink);
+  line-height: var(--line);
 }
 
-/* ---- Try it ----------------------------------------------------------- */
+/* ---- My font: try it, specimen, download -------------------------------- */
+
+.tryit {
+  margin-bottom: var(--line);
+}
 
 .tryit textarea {
   display: block;
@@ -630,29 +769,19 @@ a {
   outline-offset: 4px;
 }
 
-.size-control {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  height: var(--line);
-  margin: 0 0 var(--line);
-}
-
-.size-control input[type="range"] {
-  accent-color: var(--ink);
-  width: 160px;
-}
-
-/* ---- Specimen ---------------------------------------------------------- */
-
 .specimen-page {
   margin-bottom: var(--line);
+}
+
+.specimen-page h3 {
+  font-size: 21px;
+  line-height: var(--line);
+  margin-bottom: 8px;
 }
 
 .specimen-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
-  margin-bottom: var(--line);
 }
 
 .glyph {
@@ -674,8 +803,8 @@ a {
   position: absolute;
   left: 3px;
   bottom: 0;
-  font-family: var(--mono);
-  font-size: 9px;
+  font-family: var(--bn);
+  font-size: 11px;
   line-height: 14px;
   color: var(--pencil);
 }
@@ -691,35 +820,19 @@ a {
   transform: rotate(-35deg);
 }
 
-.glyph[aria-pressed="true"] {
-  outline: 2px solid var(--ink);
-  outline-offset: -2px;
-  z-index: 1;
-}
-
 .glyph:focus-visible {
   outline: 2px solid var(--margin);
   outline-offset: -2px;
   z-index: 1;
 }
 
-.glyph-large {
-  display: flex;
-  align-items: baseline;
-  gap: 24px;
-  min-height: calc(var(--line) * 4);
-  margin-bottom: var(--line);
+.download {
+  margin-bottom: calc(var(--line) * 2);
 }
-
-.glyph-large .big {
-  font-size: 112px;
-  line-height: calc(var(--line) * 4);
-}
-
-/* ---- Download --------------------------------------------------------- */
 
 .field {
   display: block;
+  margin-bottom: 16px;
 }
 
 .field input {
@@ -736,32 +849,13 @@ a {
   border-radius: 0;
 }
 
-.field {
-  margin-bottom: var(--line);
+.download .formats {
+  margin: 8px 0 var(--line);
 }
-
-.download-buttons {
-  margin: 0 0 var(--line);
-}
-
-/* ---- Footer ----------------------------------------------------------- */
 
 .footer {
   font-family: var(--en);
   font-size: 14px;
+  line-height: 22px;
   color: var(--pencil);
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
-.draw-sample .en-sub {
-  font-size: 15px;
-  line-height: var(--line);
 }

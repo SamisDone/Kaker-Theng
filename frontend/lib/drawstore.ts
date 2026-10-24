@@ -6,16 +6,12 @@
 import type { Stroke } from "@/lib/strokes";
 
 const KEY = "kaker-theng-drawn-v1";
-const MODE_KEY = "kaker-theng-mode";
-
-export type Lang = "bn" | "en";
 
 export type Saved = {
   fingerprint: string; // the template layout these cell ids belong to
   cells: Record<string, Stroke[]>;
   at: string | null; // the cell on screen
   draft?: { id: string; strokes: Stroke[] } | null; // its strokes before "next"
-  lang?: Lang | null; // which letters are being drawn: Bangla or English
 };
 
 export function loadDrawn(fingerprint: string): Saved {
@@ -37,24 +33,5 @@ export function saveDrawn(saved: Saved): boolean {
     return true;
   } catch {
     return false;
-  }
-}
-
-export type Mode = "draw" | "paper";
-
-export function loadMode(): Mode | null {
-  try {
-    const m = localStorage.getItem(MODE_KEY);
-    return m === "draw" || m === "paper" ? m : null;
-  } catch {
-    return null;
-  }
-}
-
-export function saveMode(m: Mode) {
-  try {
-    localStorage.setItem(MODE_KEY, m);
-  } catch {
-    // fine: it only remembers the choice
   }
 }

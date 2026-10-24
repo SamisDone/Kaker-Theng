@@ -10,7 +10,10 @@ export type DrawGeometry = {
   head: number; // মাত্রা / cap line
   xh?: number; // Latin x-height (dashed)
   inset: number; // guide lines stop this far from the border
-  ghost: string; // SVG path of the faint ghost letter(s); "" if none
+  ghost: string; // SVG path of the faint ghost letter(s) the sign goes with; "" if none
+  guide: string; // SVG path of the letter itself, shown faintly to trace
+  box?: [number, number, number, number]; // x0 y0 x1 y1: where a sign goes, next to a ghost
+  matra?: boolean; // whole Bangla letters: does it have a মাত্রা?
 };
 
 export type LayoutCell = {
