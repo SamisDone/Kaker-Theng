@@ -8,7 +8,8 @@ size. Checks that the drawing screen never scrolls (not while drawing, not
 from letter to letter), that the canvas stays right of the margin line and
 on screen, that nothing in the top bar overflows, the chapter reward, the
 language switch, the back button, the draft surviving a reload, redrawing
-from the specimen, and the paper steps. Prints every letter's hint. Dev
+from the specimen, saving the try-it text as an image, the hidden strokes
+export (long-press and ?debug=1), and the paper steps. Prints every letter's hint. Dev
 only (Playwright).
 """
 
@@ -110,7 +111,8 @@ def run(name: str, viewport: dict):
         ctx = browser.new_context(viewport=viewport, device_scale_factor=3, has_touch=True, is_mobile=True)
         page = ctx.new_page()
         cdp = ctx.new_cdp_session(page)
-        page.on("console", lambda m: m.type == "error" and errors.append(m.text))
+        page.on("console", lambda m: m.type == "error" and not m.text.startswith("Failed to load resource") and errors.append(m.text))
+        page.on("response", lambda r: r.status >= 400 and errors.append(f"{r.status} {r.url}"))
         page.goto(base + "/")
         page.wait_for_selector("text=কাকের ঠ্যাং")
         page.wait_for_timeout(800)
@@ -199,6 +201,30 @@ def run(name: str, viewport: dict):
         page.wait_for_selector(".draw-canvas canvas")
         check(current_cell(page) == "ক", f"{name}: tapping ক in the specimen opens it to redraw ({current_cell(page)})")
 
+        # My font: save as image, where to use the font, the hidden export.
+        page.get_by_role("button", name="আমার ফন্ট").click()
+        page.wait_for_selector(".font-screen")
+        check("Canva" in page.locator(".where-to-use").inner_text(), f"{name}: the download says where to use the font on a phone")
+        export = page.get_by_role("button", name="আমার আঁকা অক্ষরগুলো ফাইলে দিন (JSON)")
+        check(export.count() == 0, f"{name}: the strokes export is hidden")
+        with page.expect_download() as dl:
+            page.get_by_role("button", name="ছবি হিসেবে সেভ করুন").click()
+        dl.value.save_as(shots / f"{name}-18-saved-image.png")
+        check(dl.value.suggested_filename == "kaker-theng.png", f"{name}: save as image gives a PNG ({dl.value.suggested_filename})")
+        b = page.locator(".font-title").bounding_box()
+        cdp.send("Input.dispatchTouchEvent", {"type": "touchStart", "touchPoints": [{"x": b["x"] + 20, "y": b["y"] + b["height"] / 2}]})
+        page.wait_for_timeout(900)
+        cdp.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
+        check(export.count() == 1, f"{name}: holding the heading shows the strokes export")
+        with page.expect_download() as dl:
+            export.click()
+        exported = json.loads(Path(dl.value.path()).read_text(encoding="utf-8"))
+        check(len(exported["cells"]) >= 44 and exported["fingerprint"] == layout["fingerprint"], f"{name}: the export holds the drawn letters ({len(exported['cells'])}) and the layout")
+        page.locator(".download").scroll_into_view_if_needed()
+        page.screenshot(path=shots / f"{name}-19-font-tools.png")
+        page.go_back()
+        page.wait_for_selector(".draw-canvas canvas")
+
         # Every Bangla letter's hint.
         for ch in ("স্বরবর্ণ", "ব্যঞ্জনবর্ণ", "কার-চিহ্ন", "ফলা ও রেফ", "সংখ্যা"):
             print(f"  hints, {ch}: " + " | ".join(hints(page, ch)))
@@ -218,6 +244,13 @@ def run(name: str, viewport: dict):
         page.wait_for_selector(".card-body")
         page.get_by_role("button", name="শুরু করুন →").click()
         page.screenshot(path=shots / f"{name}-17-draw-english.png")
+
+        # ?debug=1 shows the export without holding anything.
+        page.goto(base + "/?debug=1")
+        page.evaluate("sessionStorage.setItem('kaker-theng-screen', JSON.stringify({name: 'font'}))")
+        page.reload()
+        page.wait_for_selector(".font-screen")
+        check(page.get_by_role("button", name="আমার আঁকা অক্ষরগুলো ফাইলে দিন (JSON)").count() == 1, f"{name}: ?debug=1 shows the strokes export")
 
         # Paper.
         page.goto(base + "/")

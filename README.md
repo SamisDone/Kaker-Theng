@@ -43,6 +43,14 @@ bun run dev
 
 Tests: `cd backend && .venv/Scripts/python -m pytest tests`.
 
+**When a drawn font looks wrong:** open the site with `?debug=1` (or hold
+down the "আমার ফন্ট" heading on the My font screen) and tap **Export my
+strokes**. The file has the strokes exactly as drawn. Rebuild and check
+that font with
+`cd backend && .venv/Scripts/python -X utf8 -m scripts.from_export <file> <out dir>`:
+it prints each glyph's advance against its ink, the letters that collide,
+and renders sample words.
+
 ## How it works
 
 - `backend/` (Python, FastAPI) makes the printable template, reads page
@@ -61,6 +69,15 @@ Tests: `cd backend && .venv/Scripts/python -m pytest tests`.
   English. The preview font is rebuilt after every 5 letters, 3 s without
   drawing, and at the end of each chapter. Photo jobs go before these
   rebuilds in the queue.
+- Spacing comes from the writer's ink. A sign drawn beside the faint ghost
+  keeps the gap the writer left, but its body never reaches into the next
+  letter. Conjunct parts cut from the writer's letters, and a visible
+  হসন্ত, are checked by shaping the 200 most common clusters with the new
+  font and widened where they run into a letter (`app/spacing.py`).
+  `tests/test_spacing.py` builds fonts from traced, sloppy and synthetic
+  drawing and fails if neighbouring letters share ink under the মাত্রা.
+- Phones can't install fonts: the My font screen can save the try-it text
+  as a picture, on khata paper, through the phone's share sheet.
 - `frontend/` (Next.js, static export) is the site: one screen per step. In production
   the backend serves it at `/` and the API under `/api` from the same
   address, so it needs no settings. `NEXT_PUBLIC_API_URL` is only for

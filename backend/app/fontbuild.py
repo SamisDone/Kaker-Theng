@@ -13,6 +13,7 @@ import io
 import re
 import unicodedata
 from dataclasses import dataclass
+from functools import lru_cache
 
 import cv2
 import numpy as np
@@ -21,11 +22,12 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
 
 from . import config as C
-from .basefont import ALWAYS_KEEP_UNICODES, base_shaper, base_ttfont, subset_font
+from .basefont import ALWAYS_KEEP_UNICODES, base_shaper, base_ttfont, headline_units, subset_font
 from .derive import derive_parts, measure_matra
-from .glyphmap import Cell, build_layout
+from .glyphmap import HALANT, Cell, build_layout
 from .guides import run_left_mm
 from .outline import Raster, contour_polygons
+from .spacing import widen
 from .vectorize import Drawing, contours_bbox
 
 # Latin side bearings follow the writer's pen and each side's shape: a
@@ -38,7 +40,24 @@ LATIN_STRAIGHT_FROM = 0.2  # share of height at the edge where "straight" starts
 LATIN_DEFAULT_STROKE = 60
 BANGLA_RSB = -10  # headlines overlap a little so words join
 BANGLA_OPEN_SIDE_BEARING = 30  # Bangla letters without a full মাত্রা, digits, ।
+# A sign written next to a ghost keeps the gap the writer left, but its body
+# (the ink below the মাত্রা) never reaches the neighbouring letter: at least
+# this far from where the body of the writer's tightest letter can start. A
+# finger often lands a sign on the faint ghost, and the writer's own letter
+# isn't the ghost's shape.
+SIGN_CLEARANCE = 20
 VENDOR_ID = "NONE"  # unregistered
+
+
+COMMON_CLUSTERS = 200  # 99.5% of conjunct use on Bangla Wikipedia
+
+
+@lru_cache(maxsize=1)
+def common_clusters() -> list[str]:
+    from .coverage import cluster_counts
+
+    counts = cluster_counts()
+    return sorted(counts, key=lambda t: -counts[t])[:COMMON_CLUSTERS]
 
 
 class FontNameError(ValueError):
@@ -141,7 +160,42 @@ def latin_side_bearings(d: Drawing, stroke: float) -> tuple[float, float]:
     return sb(left), sb(right)
 
 
-def _placement(d: Drawing, cell: Cell | None, noto: TTFont, matra_glyphs: set[str], stroke: float = LATIN_DEFAULT_STROKE) -> tuple[float, float, int]:
+def _body_extent(d: Drawing, below: float) -> tuple[float, float] | None:
+    """Left and right edge of the ink under y = `below` (the মাত্রা's
+    underside), font units; None if there is none."""
+    r = _raster(d)
+    rows = int(round((r.y1 - below) * r.res + r.m))
+    cols = np.nonzero(r.img[max(rows, 0) :].any(axis=0))[0]
+    if not len(cols):
+        return None
+    return r.x0 + (cols[0] - r.m) / r.res, r.x0 + (cols[-1] + 1 - r.m) / r.res
+
+
+def body_insets(drawings: list[Drawing], cells: dict[str, Cell], matra_glyphs: set[str], matra: tuple[float, float]) -> tuple[float, float]:
+    """How far the body (below the মাত্রা) of the writer's letters with a
+    মাত্রা stays in from the ink's left and right edges, at the tightest:
+    signs beside a ghost are kept clear of the body, not of the মাত্রা."""
+    left, right = [], []
+    for d in drawings:
+        cell = cells.get(d.glyph)
+        if d.positioned or d.kind == "latin" or not cell or cell.ghost_glyphs or d.glyph not in matra_glyphs or not d.contours:
+            continue
+        body = _body_extent(d, matra[0] - matra[1] / 2)
+        if body:
+            left.append(body[0] - d.bbox[0])
+            right.append(d.bbox[2] - body[1])
+    return (max(0.0, min(left)), max(0.0, min(right))) if left else (0.0, 0.0)
+
+
+def _placement(
+    d: Drawing,
+    cell: Cell | None,
+    noto: TTFont,
+    matra_glyphs: set[str],
+    stroke: float = LATIN_DEFAULT_STROKE,
+    matra: tuple[float, float] | None = None,
+    insets: tuple[float, float] = (0.0, 0.0),
+) -> tuple[float, float, int]:
     """(dx, dy, advance) that put a drawing into its final glyph coordinates."""
     if d.positioned:
         return 0, 0, d.advance or 0
@@ -165,6 +219,8 @@ def _placement(d: Drawing, cell: Cell | None, noto: TTFont, matra_glyphs: set[st
         ghost_left = run_left + min(g.x + glyf[g.name].xMin for g in inked)
         ghost_right = run_left + max(g.x + glyf[g.name].xMax for g in inked)
         rsb = BANGLA_RSB if d.glyph in matra_glyphs else BANGLA_OPEN_SIDE_BEARING
+        centre, thick = matra or (headline_units(), 60.0)
+        body = _body_extent(d, centre - thick / 2)
         if cell.target_x < min(g.x for g in cell.ghost_glyphs):
             # Before the letter (ি ে ৈ): the next letter's ink starts where the
             # ghost's ink started. ি's hook reaches over it, as written.
@@ -172,10 +228,18 @@ def _placement(d: Drawing, cell: Cell | None, noto: TTFont, matra_glyphs: set[st
             if advance <= 0.25 * width:
                 # Not written before the ghost after all: plain spacing.
                 return -x_min, -cell.target_y, round(width + rsb)
+            if body:
+                # The next letter's body starts at least insets[0] past its
+                # origin (its মাত্রা may reach further left).
+                advance = max(advance, body[1] - x_min + SIGN_CLEARANCE - insets[0])
             return -x_min, -cell.target_y, round(advance)
         # After the letter (া ী ৗ ং ঃ ্য): the previous letter's ink ends
         # -BANGLA_RSB past our origin, so put the origin there.
         dx = -(ghost_right + BANGLA_RSB)
+        if body:
+            # ...and the body starts clear of it. ী's hook may still reach back
+            # over the previous মাত্রা, as written.
+            dx = max(dx, -BANGLA_RSB - insets[1] + SIGN_CLEARANCE - body[0])
         return dx, -cell.target_y, max(0, round(x_max + dx + rsb))
     if d.glyph in matra_glyphs:
         # Letters with a মাত্রা: no gap on the left, a slight overlap on the
@@ -309,9 +373,10 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
         font.setGlyphOrder(order)
         glyf.glyphOrder = order
 
+    insets = body_insets(drawings, cells, matra_glyphs, matra)
     boxes = {}
     for d in drawings:
-        dx, dy, advance = _placement(d, cells.get(d.glyph), noto, matra_glyphs, stroke)
+        dx, dy, advance = _placement(d, cells.get(d.glyph), noto, matra_glyphs, stroke, matra, insets)
         glyph = _ttglyph(d, dx, dy)
         glyph.recalcBounds(glyf)
         glyf[d.glyph] = glyph
@@ -335,6 +400,28 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
 
     ttf = io.BytesIO()
     font.save(ttf)
+    # Conjunct parts cut from the writer's letters keep the base font's
+    # advance, which interlocks with the base font's letters, not theirs; a
+    # visible হসন্ত hangs into the next letter. Shape the common clusters,
+    # and widen what runs into its neighbour.
+    widenable = {d.glyph for d in derived if d.kind != "mark"}
+    halant = font.getBestCmap().get(ord(HALANT))
+    drawn_glyphs = {d.glyph for d in drawings if not d.positioned}
+    extra = widen(ttf.getvalue(), common_clusters(), matra, widenable, halant, drawn_glyphs)
+    if extra:
+        widths = {g: font["hmtx"][g] for g in extra}
+        for g, units in extra.items():
+            font["hmtx"][g] = (widths[g][0] + units, widths[g][1])
+        ttf = io.BytesIO()
+        font.save(ttf)
+        # Widening that didn't part the two (a mark moves along with the next
+        # letter) is undone: it would only leave a gap.
+        stuck = widen(ttf.getvalue(), common_clusters(), matra, widenable, halant, drawn_glyphs)
+        if stuck:
+            for g in stuck:
+                font["hmtx"][g] = widths.get(g, font["hmtx"][g])
+            ttf = io.BytesIO()
+            font.save(ttf)
     woff2_font = TTFont(io.BytesIO(ttf.getvalue()))
     woff2_font.flavor = "woff2"
     woff2 = io.BytesIO()

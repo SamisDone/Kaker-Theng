@@ -165,8 +165,10 @@ def _rebuild(d: Path, meta: dict):
     if drawings:
         font = build_font(drawings, PREVIEW_FAMILY)
         version = meta["font_version"] + 1
+        # Keep the one before: a browser may still be fetching it.
         for old in d.glob("preview-*.woff2"):
-            old.unlink()
+            if old.name != f"preview-{version - 1}.woff2":
+                old.unlink()
         (d / f"preview-{version}.woff2").write_bytes(font.woff2)
         meta["font_version"] = version
         meta["font"] = f"preview-{version}.woff2"

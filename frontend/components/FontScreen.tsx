@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { Download } from "@/components/Download";
 import { Icon } from "@/components/Icons";
 import { Specimen } from "@/components/Specimen";
@@ -22,9 +23,20 @@ export function FontScreen(props: {
   building: boolean;
   onBack: () => void;
   onRedraw: (id: string) => void;
+  onExport: () => Promise<void>;
 }) {
   const { t, num } = useLang();
   const words = props.meta?.font ? (props.meta.word_coverage ?? 0) : null;
+
+  // Hidden: "export my strokes", for sending a drawing that came out wrong.
+  // Shown with ?debug=1, or by holding the heading down for a moment.
+  const [debug, setDebug] = useState(false);
+  const hold = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => setDebug(new URLSearchParams(location.search).get("debug") === "1"), []);
+  const release = () => {
+    if (hold.current) clearTimeout(hold.current);
+    hold.current = null;
+  };
   return (
     <div className="screen font-screen">
       <TopBar>
@@ -32,7 +44,19 @@ export function FontScreen(props: {
           <Icon name="back" size={18} /> {t("ফিরে যান", "Back")}
         </button>
       </TopBar>
-      <h2>{t("আমার ফন্ট", "My font")}</h2>
+      <h2
+        onPointerDown={() => {
+          release();
+          hold.current = setTimeout(() => setDebug(true), 700);
+        }}
+        onPointerUp={release}
+        onPointerLeave={release}
+        onPointerCancel={release}
+        onContextMenu={(e) => e.preventDefault()}
+        className="font-title"
+      >
+        {t("আমার ফন্ট", "My font")}
+      </h2>
       <p aria-live="polite">
         {props.building
           ? t("ফন্ট বানাচ্ছি…", "making your font…")
@@ -43,6 +67,13 @@ export function FontScreen(props: {
       <TryIt userFont={props.userFont} />
       <Specimen lists={props.lists} cells={props.cells} meta={props.meta} userFont={props.userFont} onRedraw={props.onRedraw} />
       <Download session={props.session} ready={Boolean(props.meta?.font)} />
+      {debug && (
+        <p>
+          <button type="button" className="link-button" onClick={() => void props.onExport()}>
+            {t("আমার আঁকা অক্ষরগুলো ফাইলে দিন (JSON)", "Export my strokes (JSON)")}
+          </button>
+        </p>
+      )}
       <footer className="footer" lang="en">
         Built on Noto Sans Bengali (SIL Open Font License 1.1). Conjunct and word frequencies from Bangla Wikipedia (CC BY-SA 4.0).
       </footer>

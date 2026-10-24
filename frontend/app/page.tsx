@@ -28,6 +28,7 @@ import { CHAPTERS, chapterById, type ChapterId, chapterLists, chapterOf } from "
 import { loadDrawn, type Saved, saveDrawn } from "@/lib/drawstore";
 import { LangProvider, useLang } from "@/lib/i18n";
 import { shrinkPhoto } from "@/lib/image";
+import { saveFile } from "@/lib/savefile";
 import { cellsById, type Layout, loadLayout } from "@/lib/layout";
 import type { Stroke } from "@/lib/strokes";
 
@@ -351,6 +352,28 @@ function App() {
     go({ name: "font" });
   }
 
+  // Everything needed to rebuild this drawing elsewhere: the strokes exactly
+  // as kept here and sent to the server, and what they were drawn on.
+  async function exportStrokes() {
+    const s = savedRef.current;
+    if (!s) return;
+    const data = {
+      kind: "kaker-theng drawn strokes",
+      exported: new Date().toISOString(),
+      fingerprint: s.fingerprint,
+      template_version: layout?.template_version,
+      pen_mm: layout?.pen_mm,
+      session,
+      screen: { width: innerWidth, height: innerHeight, dpr: devicePixelRatio },
+      browser: navigator.userAgent,
+      at: s.at,
+      draft: s.draft ?? null,
+      cells: s.cells, // cell id -> strokes: [[x, y], ...] in mm inside the cell box
+    };
+    const day = data.exported.slice(0, 10);
+    await saveFile(new Blob([JSON.stringify(data)], { type: "application/json" }), `kaker-theng-strokes-${day}.json`, "Kaker Theng strokes");
+  }
+
   function redraw(id: string) {
     setAt(id);
     go({ name: "draw" });
@@ -472,7 +495,7 @@ function App() {
       />
     );
   } else if (screen.name === "font") {
-    body = <FontScreen session={session} meta={meta} lists={lists!} cells={cells!} userFont={userFont} building={building} onBack={back} onRedraw={redraw} />;
+    body = <FontScreen session={session} meta={meta} lists={lists!} cells={cells!} userFont={userFont} building={building} onBack={back} onRedraw={redraw} onExport={exportStrokes} />;
   } else {
     // Drawing: the letter saved as "at", or the first one not drawn yet.
     const at = saved!.at && cells!.has(saved!.at) ? saved!.at : (layout!.draw_order.find((id) => !done(id)) ?? layout!.draw_order[0]);
