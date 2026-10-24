@@ -201,6 +201,13 @@ The template, the scanner and the website share one layout:
 
 ## Credits and licences
 
+- This project's code is under the [MIT License](LICENSE).
+- **Fonts made with Kaker Theng are under the SIL Open Font License 1.1**, not
+  MIT, because they are built from Noto Sans Bengali (below). Every download
+  includes `OFL.txt`. You may use, share and sell them, but not sell the font
+  files on their own, and modified versions must stay under the OFL.
+- The bundled font files keep their own licences: `backend/assets/OFL.txt`
+  for Noto Sans Bengali, `backend/tests/fonts/OFL-*.txt` for the test fonts.
 - Base font: [Noto Sans Bengali](https://github.com/notofonts/bengali),
   Copyright The Noto Project Authors, SIL Open Font License 1.1. Fonts made
   with Kaker Theng are Modified Versions and stay under the OFL; "Noto" is a

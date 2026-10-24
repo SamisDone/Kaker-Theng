@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 backend/.venv/
 backend/build/
+.pytest_cache/
 
 # Node / Next.js
 node_modules/
