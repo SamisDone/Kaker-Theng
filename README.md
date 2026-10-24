@@ -76,8 +76,15 @@ and renders sample words.
   font and widened where they run into a letter (`app/spacing.py`).
   `tests/test_spacing.py` builds fonts from traced, sloppy and synthetic
   drawing and fails if neighbouring letters share ink under the মাত্রা.
-- Phones can't install fonts: the My font screen can save the try-it text
-  as a picture, on khata paper, through the phone's share sheet.
+- Phones can't install fonts, so the main things to take away are to look
+  at: the font sheet (every letter drawn, in the font, on khata paper) as
+  one phone-sized picture or as A4 PDF pages, and the try-it text as a
+  picture or a PDF. The browser draws them on a canvas, which shapes Bangla
+  as the page does (`frontend/lib/khata.ts`); each PDF page is that
+  picture (`frontend/lib/pdf.ts`). The phone's share sheet is used where
+  there is one. `tests/test_outputs.py` saves a PDF from the real site and
+  checks it against the browser's and HarfBuzz's rendering. The font file
+  (zip) is still there, for computers.
 - `frontend/` (Next.js, static export) is the site: one screen per step. In production
   the backend serves it at `/` and the API under `/api` from the same
   address, so it needs no settings. `NEXT_PUBLIC_API_URL` is only for

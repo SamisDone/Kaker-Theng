@@ -8,7 +8,7 @@ import { TopBar } from "@/components/TopBar";
 import { TryIt } from "@/components/TryIt";
 import type { SessionMeta } from "@/lib/api";
 import { pct } from "@/lib/bn";
-import type { ChapterId } from "@/lib/chapters";
+import { CHAPTERS, type ChapterId } from "@/lib/chapters";
 import { useLang } from "@/lib/i18n";
 import type { LayoutCell } from "@/lib/layout";
 
@@ -27,6 +27,11 @@ export function FontScreen(props: {
 }) {
   const { t, num } = useLang();
   const words = props.meta?.font ? (props.meta.word_coverage ?? 0) : null;
+
+  // What the font has: drawn here, or read from a page photo.
+  const inFont = new Set(Object.keys(props.meta?.drawn ?? {}));
+  for (const p of Object.values(props.meta?.pages ?? {})) for (const c of p.cells) if (c.status !== "missing") inFont.add(c.id);
+  const groups = CHAPTERS.map((c) => ({ name: t(c.name[0], c.name[1]), texts: props.lists[c.id].filter((id) => inFont.has(id)).map((id) => props.cells.get(id)!.text) }));
 
   // Hidden: "export my strokes", for sending a drawing that came out wrong.
   // Shown with ?debug=1, or by holding the heading down for a moment.
@@ -65,8 +70,8 @@ export function FontScreen(props: {
             : null}
       </p>
       <TryIt userFont={props.userFont} />
+      <Download session={props.session} ready={Boolean(props.meta?.font)} userFont={props.userFont} groups={groups} />
       <Specimen lists={props.lists} cells={props.cells} meta={props.meta} userFont={props.userFont} onRedraw={props.onRedraw} />
-      <Download session={props.session} ready={Boolean(props.meta?.font)} />
       {debug && (
         <p>
           <button type="button" className="link-button" onClick={() => void props.onExport()}>

@@ -211,6 +211,20 @@ def run(name: str, viewport: dict):
             page.get_by_role("button", name="ছবি হিসেবে সেভ করুন").click()
         dl.value.save_as(shots / f"{name}-18-saved-image.png")
         check(dl.value.suggested_filename == "kaker-theng.png", f"{name}: save as image gives a PNG ({dl.value.suggested_filename})")
+        # The download area: the font sheet (picture, PDF) first, the font file below.
+        for button, out in (("ফন্ট শিট: ছবি", "24-font-sheet.png"), ("ফন্ট শিট: PDF", "25-font-sheet.pdf"), ("PDF হিসেবে সেভ করুন", "26-try-it.pdf")):
+            with page.expect_download() as dl:
+                page.get_by_role("button", name=button).click()
+            dl.value.save_as(shots / f"{name}-{out}")
+            check(dl.value.suggested_filename.endswith(out.rsplit(".", 1)[1]), f"{name}: {button} gives a {out.rsplit('.', 1)[1].upper()}")
+        sheet_y = page.get_by_role("button", name="ফন্ট শিট: PDF").bounding_box()["y"]
+        zip_button = page.get_by_role("button", name="কম্পিউটারে ইনস্টল করার জন্য (.ttf)")
+        check(zip_button.bounding_box()["y"] > sheet_y, f"{name}: the .ttf zip comes after the picture and the PDF")
+        page.locator(".download").scroll_into_view_if_needed()
+        page.locator(".download").screenshot(path=shots / f"{name}-27-download-area.png")
+        page.evaluate("document.querySelector('.tryit').scrollIntoView()")
+        page.screenshot(path=shots / f"{name}-28-font-screen.png")
+        page.evaluate("window.scrollTo(0, 0)")
         b = page.locator(".font-title").bounding_box()
         cdp.send("Input.dispatchTouchEvent", {"type": "touchStart", "touchPoints": [{"x": b["x"] + 20, "y": b["y"] + b["height"] / 2}]})
         page.wait_for_timeout(900)

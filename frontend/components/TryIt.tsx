@@ -3,8 +3,8 @@
 import { useId, useState } from "react";
 import { MISSING_FONT } from "@/components/RewardScreen";
 import { useLang } from "@/lib/i18n";
+import { textImage, textPdf } from "@/lib/khata";
 import { saveFile } from "@/lib/savefile";
-import { textImage } from "@/lib/textimage";
 
 const SAMPLE = "আমি প্রতিদিন সকালে চা খাই। কর্মী ক্ষমা চাইল।\nবিদ্যালয়ের সামনে বৃষ্টি পড়ছে।\nThe quick brown fox jumps over the lazy dog.";
 
@@ -16,20 +16,22 @@ export function TryIt({ userFont }: { userFont: string | null }) {
   const { t } = useLang();
   const id = useId();
   const [text, setText] = useState(SAMPLE);
-  const [saving, setSaving] = useState(false);
+  const [saving, setSaving] = useState<"png" | "pdf" | null>(null);
   const [failed, setFailed] = useState(false);
   const family = userFont ? `"${userFont}", ${MISSING_FONT}` : null;
 
-  async function saveImage() {
+  async function save(kind: "png" | "pdf") {
     if (!family) return;
-    setSaving(true);
+    setSaving(kind);
     setFailed(false);
+    const title = t("আমার হাতের লেখা", "My handwriting");
     try {
-      await saveFile(await textImage(text, family), "kaker-theng.png", t("আমার হাতের লেখা", "My handwriting"));
+      const blob = kind === "png" ? await textImage(text, family) : await textPdf(text, family, title);
+      await saveFile(blob, `kaker-theng.${kind}`, title);
     } catch {
       setFailed(true);
     } finally {
-      setSaving(false);
+      setSaving(null);
     }
   }
 
@@ -50,10 +52,13 @@ export function TryIt({ userFont }: { userFont: string | null }) {
       />
       {userFont && (
         <p className="save-image">
-          <button type="button" className="button" onClick={saveImage} disabled={saving}>
-            {saving ? t("ছবি বানাচ্ছি…", "making the image…") : t("ছবি হিসেবে সেভ করুন", "Save as image")}
+          <button type="button" className="button" onClick={() => save("png")} disabled={saving !== null}>
+            {saving === "png" ? t("বানাচ্ছি…", "making it…") : t("ছবি হিসেবে সেভ করুন", "Save as image")}
           </button>
-          {failed && <span className="margin-note">{t("ছবিটা বানানো গেল না।", "Couldn't make the image.")}</span>}
+          <button type="button" className="button" onClick={() => save("pdf")} disabled={saving !== null}>
+            {saving === "pdf" ? t("বানাচ্ছি…", "making it…") : t("PDF হিসেবে সেভ করুন", "Save as PDF")}
+          </button>
+          {failed && <span className="margin-note">{t("ফাইলটা বানানো গেল না।", "Couldn't make the file.")}</span>}
         </p>
       )}
     </div>

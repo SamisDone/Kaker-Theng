@@ -849,6 +849,52 @@ a {
   border-radius: 0;
 }
 
+.download h3 {
+  font-size: 24px;
+  line-height: var(--line);
+  margin-bottom: 16px;
+}
+
+.outputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 360px;
+  margin-bottom: 12px;
+}
+
+.outputs .button {
+  width: 100%;
+  margin: 0;
+}
+
+/* Outlined buttons on the ruled page: paper behind the label, no rule through it. */
+.download .button:not(.primary):not(:hover),
+.save-image .button:not(:hover) {
+  background: var(--paper);
+}
+
+.outputs-note {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--pencil);
+}
+
+/* The font file: for computers, below what a phone can use. */
+.install {
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+
+.install .button {
+  height: auto;
+  min-height: var(--line);
+  line-height: 24px;
+  padding: 4px 12px;
+  white-space: normal;
+  text-align: left;
+}
+
 .download .formats {
   margin: 8px 0 0;
 }
@@ -859,7 +905,14 @@ a {
 }
 
 .save-image {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   margin-top: 12px;
+}
+
+.save-image .button {
+  margin: 0;
 }
 
 .save-image .margin-note {
