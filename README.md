@@ -168,17 +168,20 @@ Then by hand, on a desktop browser:
    handwriting; **TTF** downloads a zip with the font, `OFL.txt` and
    `README.txt`.
 
-How long things take on the free plan (0.1 CPU), measured locally under the
-same limits: the server starts in about 25 s after waking; reading page 1
-takes about 25 to 30 s and page 2 about 45 to 50 s (it also builds the Bangla
-font). People who upload at the same time wait in line and see their place.
+How long things take on the free plan (0.1 CPU, 512 MB), measured locally
+under the same limits: the API answers about 15 s after waking and finishes
+loading in the background about 20 s later; reading page 1 takes about 20 s,
+page 2 about 45 s (it also builds the Bangla font), page 3 about 35 s, and a
+download about 20 s. One page is read at a time. Everyone else waits in line
+and sees their place and an estimated wait. The estimate starts from these
+times and then follows how long pages really take on the server.
 
 ### Environment variables
 
 | Where | Variable | Example | Needed | What it does |
 |---|---|---|---|---|
 | Render | `ALLOWED_ORIGINS` | `https://kaker-theng.pages.dev` | yes | Website addresses allowed to call the API, comma-separated. `http://localhost:3000` is always allowed. |
-| Render | `MAX_QUEUE` | `12` | no (12) | Uploads that may wait in line before people are asked to retry. |
+| Render | `MAX_QUEUE` | `5` | no (5) | Uploads that may wait in line before people are asked to retry. At about 35 s a page, 5 is already a 3-minute wait. |
 | Render | `PORT` | `10000` | set by Render | Port the API listens on. |
 | Render | `KT_DATA_DIR` | `/tmp/kaker-theng` | no | Where session files go. They are deleted after an hour and need not survive a restart. |
 | Pages | `NEXT_PUBLIC_API_URL` | `https://kaker-theng-api.onrender.com` | yes | The API address, built into the site. |

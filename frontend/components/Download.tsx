@@ -2,9 +2,18 @@
 
 import { useId, useState } from "react";
 import { ApiError, fileUrl, requestDownload } from "@/lib/api";
-import { bnNum } from "@/lib/bn";
+import { bnNum, timeLeft } from "@/lib/bn";
 
-type State = { kind: "idle" } | { kind: "busy"; ahead?: number; waking?: boolean } | { kind: "error"; bn: string; en: string };
+type State = { kind: "idle" } | { kind: "busy"; ahead?: number; waking?: boolean; eta?: number | null } | { kind: "error"; bn: string; en: string };
+
+function busyText(s: Extract<State, { kind: "busy" }>): [string, string] {
+  if (s.waking) return ["কাক ঘুম থেকে উঠছে…", "waking up the crow…"];
+  const [bn, en] = s.ahead
+    ? [`আপনার আগে ${bnNum(s.ahead)} জন আছে`, `${s.ahead} ${s.ahead === 1 ? "person" : "people"} ahead of you`]
+    : ["ফন্ট বানাচ্ছি…", "making your font…"];
+  const left = timeLeft(s.eta);
+  return left ? [`${bn} · ${left[0]}`, `${en} · ${left[1]}`] : [bn, en];
+}
 
 export function Download({ session, ready }: { session: string | null; ready: boolean }) {
   const id = useId();
@@ -19,7 +28,7 @@ export function Download({ session, ready }: { session: string | null; ready: bo
     }
     setState({ kind: "busy" });
     try {
-      const out = await requestDownload(session, name, format, (p) => setState({ kind: "busy", ahead: p.working ? 0 : p.ahead, waking: p.waking }));
+      const out = await requestDownload(session, name, format, (p) => setState({ kind: "busy", ahead: p.working ? 0 : p.ahead, waking: p.waking, eta: p.eta }));
       const a = document.createElement("a");
       a.href = fileUrl(session, out.file);
       a.download = out.file;
@@ -63,13 +72,9 @@ export function Download({ session, ready }: { session: string | null; ready: bo
         )}
         {busy && (
           <p>
-            {state.waking
-              ? "কাক ঘুম থেকে উঠছে…"
-              : state.ahead
-                ? `আপনার আগে ${bnNum(state.ahead)} জন আছে`
-                : "ফন্ট বানাচ্ছি…"}
+            {busyText(state)[0]}
             <span className="en-sub" lang="en">
-              {state.waking ? "waking up the crow…" : state.ahead ? `${state.ahead} ${state.ahead === 1 ? "person" : "people"} ahead of you` : "making your font…"}
+              {busyText(state)[1]}
             </span>
           </p>
         )}

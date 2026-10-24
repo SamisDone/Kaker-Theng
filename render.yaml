@@ -19,4 +19,4 @@ services:
         sync: false
       # How many uploads may wait in line before people are asked to retry.
       - key: MAX_QUEUE
-        value: "12"
+        value: "5"

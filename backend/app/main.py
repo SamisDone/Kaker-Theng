@@ -57,7 +57,7 @@ app.add_middleware(
     allow_headers=["Content-Type"],
 )
 
-queue = JobQueue(max_waiting=int(os.environ.get("MAX_QUEUE", "12")))
+queue = JobQueue(max_waiting=int(os.environ.get("MAX_QUEUE", "5")))
 
 
 def _error(status: int, code: str, en: str, bn: str, **extra) -> JSONResponse:
@@ -74,12 +74,18 @@ def _gone() -> JSONResponse:
 
 
 def _busy() -> JSONResponse:
-    return _error(
+    wait_s = queue.wait_estimate()
+    minutes = max(1, -(-wait_s // 60))
+    bn_minutes = str(minutes).translate(str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯"))
+    res = _error(
         503,
         "queue_full",
-        "Lots of people are making fonts right now. Please try again in a minute.",
-        "এখন অনেকে একসাথে ফন্ট বানাচ্ছেন। এক মিনিট পরে আবার চেষ্টা করুন।",
+        f"Lots of people are making fonts right now. Please try again in about {minutes} min.",
+        f"এখন অনেকে একসাথে ফন্ট বানাচ্ছেন। প্রায় {bn_minutes} মিনিট পরে আবার চেষ্টা করুন।",
+        retry_after_s=wait_s,
     )
+    res.headers["Retry-After"] = str(wait_s)
+    return res
 
 
 @app.get("/health")
@@ -116,7 +122,7 @@ def get_session(session_id: str):
 
 
 def _job_view(job) -> dict:
-    out = {"id": job.id, "kind": job.kind, "status": job.status, "ahead": queue.ahead(job)}
+    out = {"id": job.id, "kind": job.kind, "status": job.status, "ahead": queue.ahead(job), "eta_s": queue.eta(job)}
     if job.status == "done":
         out["result"] = job.result
     elif job.status == "error":

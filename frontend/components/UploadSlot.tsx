@@ -2,11 +2,11 @@
 
 import { useId } from "react";
 import { fileUrl, type PageInfo, templateUrl } from "@/lib/api";
-import { bnNum, cornerBn } from "@/lib/bn";
+import { bnNum, cornerBn, timeLeft } from "@/lib/bn";
 
 export type SlotState =
   | { kind: "idle" }
-  | { kind: "busy"; step: "shrinking" | "sending" | "queued" | "reading" | "waking"; ahead?: number }
+  | { kind: "busy"; step: "shrinking" | "sending" | "queued" | "reading" | "waking"; ahead?: number; eta?: number | null }
   | { kind: "error"; bn: string; en: string; code?: string };
 
 const STEP: Record<string, [string, string]> = {
@@ -17,11 +17,13 @@ const STEP: Record<string, [string, string]> = {
 };
 
 function statusText(s: Extract<SlotState, { kind: "busy" }>): [string, string] {
+  let [bn, en] = STEP[s.step] ?? ["", ""];
   if (s.step === "queued") {
     const n = s.ahead ?? 1;
-    return [`আপনার আগে ${bnNum(n)} জন আছে`, `${n} ${n === 1 ? "person" : "people"} ahead of you`];
+    [bn, en] = [`আপনার আগে ${bnNum(n)} জন আছে`, `${n} ${n === 1 ? "person" : "people"} ahead of you`];
   }
-  return STEP[s.step];
+  const left = s.step === "queued" || s.step === "reading" ? timeLeft(s.eta) : null;
+  return left ? [`${bn} · ${left[0]}`, `${en} · ${left[1]}`] : [bn, en];
 }
 
 export function UploadSlot(props: {

@@ -12,7 +12,7 @@ os.environ.setdefault("KT_DATA_DIR", tempfile.mkdtemp(prefix="kt-test-"))
 import pytest
 from fastapi.testclient import TestClient
 
-from app import main
+from app import jobs, main
 from tests.synth import make_page
 
 
@@ -92,4 +92,33 @@ def test_queue_reports_place_and_refuses_politely_when_full():
     assert q.ahead(second) == 1 and q.ahead(third) == 2
     with pytest.raises(main.QueueFull):
         q.submit("page", lambda: {})
+
+    # Estimates: what is left of the running page, then a page each.
+    page = jobs.EXPECTED_S["page"]
+    assert page - 2 <= q.eta(first) <= page
+    assert q.eta(second) == pytest.approx(q.eta(first) + page, abs=1)
+    assert q.eta(third) == pytest.approx(q.eta(first) + 2 * page, abs=1)
+    assert q.wait_estimate() == pytest.approx(q.eta(third), abs=1)
+
     gate.set()
+    t = time.time()
+    while q.waiting() and time.time() - t < 5:
+        time.sleep(0.05)
+    assert q.eta(third) == 0
+    # Three quick pages pull the estimate down towards what the server does.
+    assert q._expected["page"] < page / 2
+
+
+def test_full_queue_says_how_long_to_wait(client, monkeypatch):
+    q = main.JobQueue(max_waiting=1)
+    gate = threading.Event()
+    q.submit("page", lambda: gate.wait(10) and {})
+    time.sleep(0.2)  # one being read...
+    q.submit("page", lambda: {})  # ...and one waiting: about 70 s
+    monkeypatch.setattr(main, "queue", q)
+    sid = client.post("/api/sessions").json()["id"]
+    r = client.post(f"/api/sessions/{sid}/pages", files={"photo": ("p.jpg", b"x", "image/jpeg")})
+    gate.set()
+    assert r.status_code == 503 and r.json()["code"] == "queue_full"
+    assert int(r.headers["Retry-After"]) == r.json()["retry_after_s"] > 0
+    assert "about 2 min" in r.json()["message"] and "প্রায় ২ মিনিট" in r.json()["message_bn"]

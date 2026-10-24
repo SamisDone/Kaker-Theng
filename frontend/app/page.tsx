@@ -9,7 +9,7 @@ import { PrintSection } from "@/components/PrintSection";
 import { Specimen } from "@/components/Specimen";
 import { TryIt } from "@/components/TryIt";
 import { type SlotState, UploadSlot } from "@/components/UploadSlot";
-import { ApiError, createSession, fileUrl, getSession, type SessionMeta, uploadPage, wake } from "@/lib/api";
+import { ApiError, createSession, fileUrl, getSession, type ProgressState, type SessionMeta, uploadPage, wake } from "@/lib/api";
 import { bnNum } from "@/lib/bn";
 import { shrinkPhoto } from "@/lib/image";
 import { type Layout, loadLayout } from "@/lib/layout";
@@ -97,11 +97,12 @@ export default function Home() {
     try {
       const photo = await shrinkPhoto(file);
       setSlot(page, { kind: "busy", step: "sending" });
-      const progress = (p: { waking: boolean; ahead?: number; working?: boolean }) =>
+      const progress = (p: ProgressState) =>
         setSlot(page, {
           kind: "busy",
           step: p.waking ? "waking" : p.working ? "reading" : p.ahead ? "queued" : "reading",
           ahead: p.ahead,
+          eta: p.eta,
         });
       let result;
       try {

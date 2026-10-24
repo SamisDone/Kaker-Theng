@@ -37,9 +37,17 @@ export type SessionMeta = {
   coverage_targets?: { pages_1_2: number; all_pages: number };
 };
 
-type Job<T> = { id: string; status: "queued" | "working" | "done" | "error"; ahead: number; result?: T; error?: { code: string; message: string; message_bn: string } };
+type Job<T> = {
+  id: string;
+  status: "queued" | "working" | "done" | "error";
+  ahead: number;
+  eta_s: number | null; // estimated seconds until done; null if the server can't say
+  result?: T;
+  error?: { code: string; message: string; message_bn: string };
+};
 
-export type Progress = (state: { waking: boolean; ahead?: number; working?: boolean }) => void;
+export type ProgressState = { waking: boolean; ahead?: number; working?: boolean; eta?: number | null };
+export type Progress = (state: ProgressState) => void;
 
 const UNREACHABLE: Bilingual = {
   bn: "সার্ভারের সাথে যোগাযোগ হচ্ছে না। একটু পরে আবার চেষ্টা করুন।",
@@ -101,7 +109,7 @@ async function waitForJob<T>(job: Job<T>, progress?: Progress): Promise<T> {
   for (;;) {
     if (job.status === "done") return job.result as T;
     if (job.status === "error") throw new ApiError(job.error!.code, job.error!.message, job.error!.message_bn);
-    progress?.({ waking: false, ahead: job.ahead, working: job.status === "working" });
+    progress?.({ waking: false, ahead: job.ahead, working: job.status === "working", eta: job.eta_s });
     await sleep(POLL_MS);
     const res = await patientFetch(`/api/jobs/${job.id}`, {}, progress);
     job = await json<Job<T>>(res);
