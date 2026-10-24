@@ -1,0 +1,15 @@
+# Build context is the repository root; send only what the Dockerfile copies.
+.git
+**/node_modules
+**/.next
+frontend/out
+**/.env*
+**/__pycache__
+**/*.pyc
+backend/.venv
+backend/build
+backend/tests
+backend/scripts
+backend/requirements-dev.txt
+prototype
+CONTEXT.md

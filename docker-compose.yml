@@ -1,9 +1,12 @@
 # One command for local development:  docker compose up
-#   website  http://localhost:3000
+#   website  http://localhost:3000 (next dev, reloads as you edit)
 #   API      http://localhost:8000
+# For the production image (site and API on one origin) see the Dockerfile.
 services:
   backend:
-    build: ./backend
+    build:
+      context: .
+      target: api
     environment:
       PORT: "8000"
       ALLOWED_ORIGINS: http://localhost:3000

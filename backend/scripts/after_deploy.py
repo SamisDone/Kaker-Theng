@@ -1,13 +1,18 @@
 """Check a live deployment end to end. Needs only Python 3.9+, no packages.
 
+    python backend/scripts/after_deploy.py <URL> [page photo]
     python backend/scripts/after_deploy.py <API URL> <SITE URL> [page photo]
 
-    e.g. python backend/scripts/after_deploy.py https://kaker-theng-api.onrender.com https://kaker-theng.pages.dev
+    e.g. python backend/scripts/after_deploy.py https://kaker-theng-api.onrender.com
+
+One URL: the one-service setup (site and API on Render). Two URLs: the API
+on Render and the site hosted elsewhere (the optional Cloudflare Pages setup).
 
 Waits for a sleeping free server to wake, then checks: /health, the site,
-both copies of the template, CORS from the site's address, that site and
-server use the same template, and one page upload all the way to the
-preview font. The photo defaults to backend/tests/data/sample-page1.jpg.
+both copies of the template, CORS (none for one service; the site's address
+for two), compressed scripts (one service), that site and server use the
+same template, and one page upload all the way to the preview font. The
+photo defaults to backend/tests/data/sample-page1.jpg.
 """
 
 import json
@@ -57,12 +62,14 @@ def multipart(field: str, filename: str, data: bytes) -> tuple[bytes, str]:
 
 
 def main():
-    if len(sys.argv) < 3:
+    urls = [a.rstrip("/") for a in sys.argv[1:] if a.startswith(("http://", "https://"))]
+    others = [a for a in sys.argv[1:] if not a.startswith(("http://", "https://"))]
+    if len(urls) not in (1, 2):
         raise SystemExit(__doc__)
-    api, site = sys.argv[1].rstrip("/"), sys.argv[2].rstrip("/")
-    photo = Path(sys.argv[3]) if len(sys.argv) > 3 else SAMPLE
+    api, site = (urls[0], urls[0]) if len(urls) == 1 else urls
+    photo = Path(others[0]) if others else SAMPLE
 
-    print(f"API  {api}\nSITE {site}\n")
+    print(f"API  {api}\nSITE {site}\n" if api != site else f"SITE + API  {site}\n")
     print("Waking the API (a free server can take a minute)...")
     check(True, f"/health answered after {wait_for_health(api):.0f} s")
     t = time.time()
@@ -85,13 +92,33 @@ def main():
         f"site and API use the same template (v{site_layout['template_version']}, layout {site_layout['fingerprint']})",
     )
 
-    _, headers, _ = get(
-        f"{api}/api/sessions",
-        method="OPTIONS",
-        headers={"Origin": site, "Access-Control-Request-Method": "POST"},
-    )
-    allowed = {k.lower(): v for k, v in headers.items()}.get("access-control-allow-origin")
-    check(allowed == site, f"CORS allows {site} (got {allowed!r}; fix ALLOWED_ORIGINS on Render if not)")
+    if api == site:
+        # One service: the site calls the API on its own origin, so no other
+        # origin needs (or gets) CORS access.
+        stranger = "https://example.com"
+        try:
+            _, headers, _ = get(f"{api}/api/sessions", method="OPTIONS", headers={"Origin": stranger, "Access-Control-Request-Method": "POST"})
+        except urllib.error.HTTPError as err:
+            headers = dict(err.headers)
+        allowed = {k.lower(): v for k, v in headers.items()}.get("access-control-allow-origin")
+        check(allowed is None, f"no CORS for other sites, none needed (got {allowed!r})")
+
+        script = html.split(b'src="/_next/static/', 1)[1].split(b'"', 1)[0].decode() if b'src="/_next/static/' in html else None
+        if check(script is not None, "the page links its scripts"):
+            _, headers, body = get(f"{site}/_next/static/{script}", headers={"Accept-Encoding": "br, gzip"})
+            h = {k.lower(): v for k, v in headers.items()}
+            check(
+                h.get("content-encoding") in ("br", "gzip") and "immutable" in h.get("cache-control", ""),
+                f"scripts arrive compressed and cached ({h.get('content-encoding')}, {len(body) // 1024} KB)",
+            )
+    else:
+        _, headers, _ = get(
+            f"{api}/api/sessions",
+            method="OPTIONS",
+            headers={"Origin": site, "Access-Control-Request-Method": "POST"},
+        )
+        allowed = {k.lower(): v for k, v in headers.items()}.get("access-control-allow-origin")
+        check(allowed == site, f"CORS allows {site} (got {allowed!r}; fix ALLOWED_ORIGINS on Render if not)")
 
     print(f"\nUploading {photo.name} ...")
     _, _, raw = get(f"{api}/api/sessions", method="POST", data=b"")

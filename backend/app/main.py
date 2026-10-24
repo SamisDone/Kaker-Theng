@@ -1,8 +1,13 @@
-"""HTTP API.
+"""HTTP API, and in production the website too.
 
 Heavy work (reading a page photo, building a download) goes through a
 single-worker queue; the client polls the job. Everything is bilingual in
 the error bodies: `message_bn` and `message`.
+
+With KT_SITE_DIR set (the Docker image sets it), the static site is served
+at / from the same origin, so production needs no CORS. ALLOWED_ORIGINS is
+only for a site hosted elsewhere; http://localhost:3000 (next dev) is
+allowed only when the API runs without the site, i.e. in development.
 """
 
 from __future__ import annotations
@@ -11,6 +16,7 @@ import os
 import threading
 from contextlib import asynccontextmanager
 from functools import lru_cache
+from pathlib import Path
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,6 +27,7 @@ from . import sessions
 from .fontbuild import FontNameError, clean_family_name
 from .jobs import JobQueue, QueueFull
 from .pipeline import MAX_UPLOAD_BYTES
+from .site import SiteHeaders, mount_site
 
 def _warm_up():
     """Load what the first upload would otherwise wait for (layout, base
@@ -49,13 +56,17 @@ async def lifespan(_app: FastAPI):
 
 app = FastAPI(title="Kaker Theng", docs_url=None, redoc_url=None, lifespan=lifespan)
 
+SITE_DIR = os.environ.get("KT_SITE_DIR")
 origins = [o.strip() for o in os.environ.get("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+if not SITE_DIR:
+    origins.append("http://localhost:3000")  # next dev, during development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins + ["http://localhost:3000"],
+    allow_origins=origins,
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type"],
 )
+app.add_middleware(SiteHeaders)
 
 queue = JobQueue(max_waiting=int(os.environ.get("MAX_QUEUE", "5")))
 
@@ -213,3 +224,8 @@ def info():
         "coverage_targets": {"pages_1_2": pages_1_2_coverage(), "all_pages": complete_coverage()},
         "busy": queue.waiting(),
     }
+
+
+# Last: the site gets only what no route above matched.
+if SITE_DIR:
+    mount_site(app, Path(SITE_DIR))
