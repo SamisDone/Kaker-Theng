@@ -29,14 +29,13 @@ function wordsText(words: string[]): string {
 export function TryIt({ userFont, text, onText }: { userFont: string | null; text: string; onText: (text: string) => void }) {
   const { t } = useLang();
   const id = useId();
-  const { save, making, note } = useSaver();
+  const { save, show, making, note } = useSaver();
   const family = userFont ? `"${userFont}", ${MISSING_FONT}` : null;
 
-  function saveImage() {
-    if (!family) return;
+  const image = () => {
     const title = t("আমার হাতের লেখা", "My handwriting");
-    void save("png", async () => ({ blob: await textImage(text, family), name: "kaker-theng.png", title }));
-  }
+    return async () => ({ blob: await textImage(text, family!), name: "kaker-theng.png", title });
+  };
 
   return (
     <div className="tryit">
@@ -57,8 +56,11 @@ export function TryIt({ userFont, text, onText }: { userFont: string | null; tex
       {userFont && (
         <>
           <p className="save-image">
-            <button type="button" className="button big primary" onClick={saveImage} disabled={making !== null || !text.trim()}>
-              {making ? t("বানাচ্ছি…", "making it…") : t("ছবি হিসেবে সেভ / শেয়ার", "Save / share as image")}
+            <button type="button" className="button big primary" onClick={() => family && void save("png", image())} disabled={making !== null || !text.trim()}>
+              {making === "png" ? t("বানাচ্ছি…", "making it…") : t("ছবি হিসেবে সেভ / শেয়ার", "Save / share as image")}
+            </button>
+            <button type="button" className="button big" onClick={() => family && void show("png-show", image())} disabled={making !== null || !text.trim()}>
+              {making === "png-show" ? t("বানাচ্ছি…", "making it…") : t("স্ক্রিনে দেখান", "Show on screen")}
             </button>
           </p>
           {note}

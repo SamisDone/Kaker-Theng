@@ -22,6 +22,13 @@ const PICTURE_SIDES = [4096, 2048];
 const PICTURE_AREA = 8_000_000;
 const PDF_DPI = [200, 150];
 
+/** What the last picture or PDF took, for the "copy error details" report. */
+export const drawLog = { canvases: [] as string[], font: "" };
+export function resetDrawLog() {
+  drawLog.canvases = [];
+  drawLog.font = "";
+}
+
 const PAPER = "#f4f0e6";
 const RULE = "#b9c6e0";
 const MARGIN = "#c2412d";
@@ -197,14 +204,18 @@ async function picture(make: Make, side: number): Promise<Blob> {
   const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
   const { width, height } = canvas;
   canvas.width = canvas.height = 0; // let the memory go now, not at the next garbage collection
+  drawLog.canvases.push(`${width}x${height} ${blob ? "ok" : "failed"}`);
   if (!blob) throw new SaveError("canvas", `toBlob gave nothing for ${width}x${height}`);
   return blob;
 }
 
+export type Pdf = { pdf: Blob; firstPage: Blob }; // the first page as a picture, to show on the page
+
 /** A4 pages, a block never split across two. */
-async function a4Pages(make: Make, title: string, dpi: number): Promise<Blob> {
+async function a4Pages(make: Make, title: string, dpi: number): Promise<Pdf> {
   let page = a4Canvas(dpi);
   const { width: w, height: h } = page;
+  drawLog.canvases.push(`A4 ${w}x${h} at ${dpi} dpi`);
   const s = w / PHONE_W;
   let ctx = context(page);
   const blocks = make(ctx, s, w - (LEFT + RIGHT) * s);
@@ -225,7 +236,8 @@ async function a4Pages(make: Make, title: string, dpi: number): Promise<Blob> {
     y += b.h;
   }
   done.push(await pageJpeg(page));
-  return pagesToPdf(done, title);
+  drawLog.canvases.push(`${done.length} page(s) ok`);
+  return { pdf: await pagesToPdf(done, title), firstPage: new Blob([done[0].jpeg as BlobPart], { type: "image/jpeg" }) };
 }
 
 /** The visitor's font and the site's, loaded for exactly these letters, before
@@ -235,9 +247,9 @@ async function ready(family: string, texts: string[]) {
   await Promise.all([document.fonts.load(`48px ${family}`, text), document.fonts.load(`48px ${uiFont()}`, text)]);
   await document.fonts.ready;
   const name = family.match(/^"([^"]+)"/)?.[1];
-  if (name && ![...document.fonts].some((f) => f.family.replace(/"/g, "") === name && f.status === "loaded")) {
-    throw new SaveError("font", `${name} is not loaded`);
-  }
+  const loaded = !name || [...document.fonts].some((f) => f.family.replace(/"/g, "") === name && f.status === "loaded");
+  drawLog.font = `${name ?? family}: ${loaded ? "loaded" : "not loaded"}`;
+  if (!loaded) throw new SaveError("font", `${name} is not loaded`);
 }
 
 const sheetTexts = (sheet: Sheet) => [sheet.sample, ...sheet.groups.flatMap((g) => g.items.map((it) => it.text))];
@@ -247,7 +259,7 @@ export async function textImage(text: string, family: string): Promise<Blob> {
   return smaller(PICTURE_SIDES, (side) => picture((ctx, s, width) => textBlocks(ctx, text, `${TEXT * s}px ${family}`, s, width), side));
 }
 
-export async function textPdf(text: string, family: string, title: string): Promise<Blob> {
+export async function textPdf(text: string, family: string, title: string): Promise<Pdf> {
   await ready(family, [text]);
   return smaller(PDF_DPI, (dpi) => a4Pages((ctx, s, width) => textBlocks(ctx, text, `${TEXT * s}px ${family}`, s, width), title, dpi));
 }
@@ -257,7 +269,7 @@ export async function sheetImage(sheet: Sheet, family: string): Promise<Blob> {
   return smaller(PICTURE_SIDES, (side) => picture((ctx, s, width) => sheetBlocks(ctx, sheet, family, s, width), side));
 }
 
-export async function sheetPdf(sheet: Sheet, family: string): Promise<Blob> {
+export async function sheetPdf(sheet: Sheet, family: string): Promise<Pdf> {
   await ready(family, sheetTexts(sheet));
   return smaller(PDF_DPI, (dpi) => a4Pages((ctx, s, width) => sheetBlocks(ctx, sheet, family, s, width), sheet.title, dpi));
 }

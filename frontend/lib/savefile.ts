@@ -44,14 +44,23 @@ export function chromeIntent(): string {
   return `intent://${host}${pathname}${search}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(location.href)};end`;
 }
 
+/** What happened while handing a file over, for the "copy error details" report. */
+export type SaveTrace = { canShare: boolean | null; path: string[] };
+
+const errText = (err: unknown) => (err instanceof Error ? `${err.name}: ${err.message}` : String(err));
+
 /** `tapped`: called straight from a tap, so a refused share isn't asked for again. */
-export async function saveFile(blob: Blob, name: string, title: string, tapped = false): Promise<Saved> {
+export async function saveFile(blob: Blob, name: string, title: string, tapped = false, trace: SaveTrace = { canShare: null, path: [] }): Promise<Saved> {
   const file = new File([blob], name, { type: blob.type });
-  if (navigator.canShare?.({ files: [file] })) {
+  trace.canShare = typeof navigator.canShare === "function" ? navigator.canShare({ files: [file] }) : null;
+  if (trace.canShare) {
     try {
+      trace.path.push("share");
       await navigator.share({ files: [file], title });
+      trace.path.push("shared");
       return { how: "shared" };
     } catch (err) {
+      trace.path.push(`share failed (${errText(err)})`);
       if (err instanceof DOMException && err.name === "AbortError") return { how: "cancelled" };
       // The tap that started this has expired: one more tap shares it.
       if (err instanceof DOMException && err.name === "NotAllowedError" && !tapped) return { how: "tap" };
@@ -59,7 +68,11 @@ export async function saveFile(blob: Blob, name: string, title: string, tapped =
     }
   }
   const app = inAppBrowser();
-  if (app !== null) return { how: "in-app", app };
+  if (app !== null) {
+    trace.path.push(`in-app browser (${app || "unknown app"}): shown on the page`);
+    return { how: "in-app", app };
+  }
+  trace.path.push("download");
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;

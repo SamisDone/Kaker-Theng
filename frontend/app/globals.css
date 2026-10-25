@@ -960,13 +960,31 @@ a {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 360px;
+  max-width: 480px;
   margin-bottom: 12px;
 }
 
+.output-row {
+  display: flex;
+  gap: 8px;
+}
+
 .outputs .button {
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: auto;
+  min-height: var(--line);
+  line-height: 22px;
+  padding: 4px 10px;
+  white-space: normal;
   margin: 0;
+}
+
+/* "Show on screen": the smaller one beside each save. */
+.outputs .button.show {
+  flex: none;
+  font-size: 15px;
+  padding: 0 10px;
 }
 
 /* Outlined buttons on the ruled page: paper behind the label, no rule through it. */
@@ -1067,6 +1085,22 @@ a {
 
 .save-shown figcaption {
   margin-bottom: 8px;
+}
+
+.save-report .button {
+  margin: 0 0 12px;
+}
+
+.save-report-text {
+  display: block;
+  width: 100%;
+  font-size: 12px;
+  line-height: 16px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 .save-shown img {

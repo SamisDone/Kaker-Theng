@@ -2,49 +2,96 @@
 
 import { useEffect, useState } from "react";
 import { useLang } from "@/lib/i18n";
-import { chromeIntent, isAndroid, SaveError, type Saved, saveFile } from "@/lib/savefile";
+import { drawLog, resetDrawLog } from "@/lib/khata";
+import { chromeIntent, inAppBrowser, isAndroid, SaveError, type Saved, type SaveTrace, saveFile } from "@/lib/savefile";
 
-type Made = { blob: Blob; name: string; title: string };
+type Made = { blob: Blob; name: string; title: string; preview?: Blob }; // preview: a PDF's first page, as a picture
 type State =
   | { kind: "idle" }
   | { kind: "making"; key: string }
-  | { kind: "saved"; made: Made; how: Saved["how"]; app?: string; shown: boolean }
-  | { kind: "error"; code: "font" | "canvas" | "other"; detail: string };
+  | { kind: "saved"; made: Made; how: Saved["how"] | "shown"; app?: string; shown: boolean; failed: boolean; key: string; trace: SaveTrace }
+  | { kind: "error"; code: "font" | "canvas" | "other"; detail: string; report: string };
+
+const errText = (err: unknown) => (err instanceof Error ? `${err.name}: ${err.message}` : String(err));
+
+/** Everything about one save, to paste into a message: the browser, the way tried, what broke. */
+function report(action: string, trace: SaveTrace, error: unknown, made: Made | null): string {
+  let canShare = trace.canShare;
+  if (canShare === null && typeof navigator.canShare === "function") {
+    try {
+      canShare = navigator.canShare({ files: [new File(["x"], "test.png", { type: "image/png" })] });
+    } catch {
+      canShare = false;
+    }
+  }
+  return [
+    "Kaker Theng: save report",
+    `time: ${new Date().toISOString()}`,
+    `action: ${action}`,
+    `browser: ${navigator.userAgent}`,
+    `screen: ${innerWidth}x${innerHeight} @${devicePixelRatio}`,
+    `in-app browser: ${inAppBrowser() ?? "no"}`,
+    `can share files: ${canShare === null ? "no share in this browser" : canShare ? "yes" : "no"}`,
+    `path: ${trace.path.join(" -> ") || "none: the file wasn't made"}`,
+    `error: ${error ? errText(error) : "none"}`,
+    `canvas: ${drawLog.canvases.join(", ") || "none drawn"}`,
+    `font: ${drawLog.font || "not checked"}`,
+    `file: ${made ? `${made.name}, ${made.blob.type}, ${made.blob.size} bytes` : "not made"}`,
+  ].join("\n");
+}
 
 // Making a file and handing it over, for every "save" button: what happened
-// is said under the buttons, and when the file can't be saved (an app's own
-// browser, or a download that didn't arrive) it's shown on the page instead,
-// to long-press.
+// is said under the buttons; "show on screen" puts the file on the page to
+// long-press, with no share or download at all; and whenever saving fails
+// there is a report to copy and send.
 export function useSaver() {
   const [state, setState] = useState<State>({ kind: "idle" });
 
-  async function save(key: string, make: () => Promise<Made>) {
+  async function made(key: string, action: string, make: () => Promise<Made>, trace: SaveTrace): Promise<Made | null> {
     setState({ kind: "making", key });
-    let made: Made;
+    resetDrawLog();
     try {
-      made = await make();
+      return await make();
     } catch (err) {
-      const detail = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
-      setState({ kind: "error", code: err instanceof SaveError ? err.code : "other", detail });
-      return;
+      setState({ kind: "error", code: err instanceof SaveError ? err.code : "other", detail: errText(err), report: report(action, trace, err, null) });
+      return null;
     }
-    await handOver(made, false);
   }
 
-  async function handOver(made: Made, tapped: boolean) {
+  async function save(key: string, make: () => Promise<Made>) {
+    const trace: SaveTrace = { canShare: null, path: [] };
+    const m = await made(key, `save ${key}`, make, trace);
+    if (m) await handOver(m, false, key, trace);
+  }
+
+  /** Made and shown on the page, nothing else: no share, no download. */
+  async function show(key: string, make: () => Promise<Made>) {
+    const trace: SaveTrace = { canShare: null, path: ["shown on the page"] };
+    const m = await made(key, `show ${key}`, make, trace);
+    if (m) setState({ kind: "saved", made: m, how: "shown", shown: true, failed: false, key, trace });
+  }
+
+  async function handOver(m: Made, tapped: boolean, key: string, trace: SaveTrace) {
     try {
-      const out = await saveFile(made.blob, made.name, made.title, tapped);
-      setState({ kind: "saved", made, how: out.how, app: out.how === "in-app" ? out.app : undefined, shown: out.how === "in-app" });
+      const out = await saveFile(m.blob, m.name, m.title, tapped, trace);
+      const shareFailed = out.how === "downloaded" && trace.path.some((p) => p.startsWith("share failed"));
+      setState({ kind: "saved", made: m, how: out.how, app: out.how === "in-app" ? out.app : undefined, shown: out.how === "in-app", failed: out.how === "in-app" || shareFailed, key, trace });
     } catch (err) {
       // Even the download couldn't start: show it here.
-      setState({ kind: "saved", made, how: "downloaded", shown: true });
-      console.error(err);
+      trace.path.push(`failed (${errText(err)})`);
+      setState({ kind: "saved", made: m, how: "downloaded", shown: true, failed: true, key, trace });
     }
   }
 
   const making = state.kind === "making" ? state.key : null;
-  const note = <SaveNote state={state} onTap={(made) => void handOver(made, true)} onShow={() => state.kind === "saved" && setState({ ...state, shown: true })} />;
-  return { save, making, note };
+  const note = (
+    <SaveNote
+      state={state}
+      onTap={(m) => state.kind === "saved" && void handOver(m, true, state.key, state.trace)}
+      onShow={() => state.kind === "saved" && setState({ ...state, shown: true, failed: true, trace: { ...state.trace, path: [...state.trace.path, "not in Downloads: shown on the page"] } })}
+    />
+  );
+  return { save, show, making, note };
 }
 
 function SaveNote({ state, onTap, onShow }: { state: State; onTap: (made: Made) => void; onShow: () => void }) {
@@ -63,10 +110,11 @@ function SaveNote({ state, onTap, onShow }: { state: State; onTap: (made: Made) 
         <p className="mono pencil save-detail" lang="en">
           {state.detail}
         </p>
+        <CopyReport text={state.report} />
       </div>
     );
   }
-  const { made, how, app, shown } = state;
+  const { made, how, app, shown, failed } = state;
   return (
     <div className="save-note" aria-live="polite">
       {how === "tap" && (
@@ -107,39 +155,78 @@ function SaveNote({ state, onTap, onShow }: { state: State; onTap: (made: Made) 
         </>
       )}
       {shown && <Shown made={made} />}
+      {failed && <CopyReport text={report(`save ${state.key}`, state.trace, null, made)} />}
     </div>
   );
 }
 
-/** The file on the page: a picture to long-press, a PDF to open, text to copy. */
-function Shown({ made }: { made: Made }) {
+/** The report, copied with one tap; where copying isn't allowed, shown to select by hand. */
+function CopyReport({ text }: { text: string }) {
   const { t } = useLang();
+  const [state, setState] = useState<"idle" | "copied" | "manual">("idle");
+  return (
+    <div className="save-report">
+      <button
+        type="button"
+        className="button"
+        onClick={() =>
+          navigator.clipboard
+            .writeText(text)
+            .then(() => setState("copied"))
+            .catch(() => setState("manual"))
+        }
+      >
+        {state === "copied" ? t("কপি হয়েছে: মেসেজে পেস্ট করে পাঠান", "Copied: paste it into a message") : t("সমস্যার বিবরণ কপি করুন", "Copy error details")}
+      </button>
+      {state === "manual" && (
+        <>
+          <p className="pencil">{t("কপি করা গেল না। নিচের লেখাটা চেপে ধরে কপি করুন:", "Couldn't copy. Long-press the text below to copy it:")}</p>
+          <textarea className="mono save-report-text" readOnly value={text} rows={8} onFocus={(e) => e.currentTarget.select()} />
+        </>
+      )}
+    </div>
+  );
+}
+
+/** A data: URL of a blob, made on the page: an app's browser can't always reach blob: URLs. */
+function useDataUrl(blob: Blob | undefined): string | null {
   const [url, setUrl] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
-  const type = made.blob.type;
   useEffect(() => {
-    // A data: URL, not a blob: one: an app's browser can't always reach blob: URLs.
+    if (!blob) return;
     const reader = new FileReader();
     reader.onload = () => setUrl(reader.result as string);
-    reader.readAsDataURL(made.blob);
+    reader.readAsDataURL(blob);
     return () => reader.abort();
-  }, [made.blob]);
+  }, [blob]);
+  return url;
+}
+
+/** The file on the page: a picture to long-press, a PDF's first page and a link to the whole, text to copy. */
+function Shown({ made }: { made: Made }) {
+  const { t } = useLang();
+  const [copied, setCopied] = useState(false);
+  const type = made.blob.type;
+  const pdf = type === "application/pdf";
+  const url = useDataUrl(made.blob);
+  const picture = useDataUrl(pdf ? made.preview : type.startsWith("image/") ? made.blob : undefined);
   if (!url) return null;
-  if (type.startsWith("image/")) {
+  if (type.startsWith("image/") || pdf) {
     return (
       <figure className="save-shown">
-        <figcaption>{t("ছবিটার ওপর আঙুল চেপে রাখুন, তারপর “ছবি সেভ করুন”।", "Long-press the picture, then “Save image”.")}</figcaption>
-        <img src={url} alt={made.title} />
+        <figcaption>
+          {pdf
+            ? t("প্রথম পাতা, ছবি হিসেবে: আঙুল চেপে রেখে “ছবি সেভ করুন”।", "The first page as a picture: long-press it, then “Save image”.")
+            : t("ছবিটার ওপর আঙুল চেপে রাখুন, তারপর “ছবি সেভ করুন”।", "Long-press the picture, then “Save image”.")}
+        </figcaption>
+        {pdf && (
+          <p>
+            <a className="button" href={url} target="_blank" rel="noopener" download={made.name}>
+              {t("PDF-টা খুলুন", "Open the PDF")}
+            </a>
+          </p>
+        )}
+        {picture && <img src={picture} alt={made.title} />}
       </figure>
-    );
-  }
-  if (type === "application/pdf") {
-    return (
-      <p>
-        <a className="button" href={url} target="_blank" rel="noopener" download={made.name}>
-          {t("PDF-টা খুলুন", "Open the PDF")}
-        </a>
-      </p>
     );
   }
   return (

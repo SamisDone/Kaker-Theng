@@ -28,26 +28,29 @@ export function Download(props: {
   const id = useId();
   const [name, setName] = useState("");
   const [state, setState] = useState<State>({ kind: "idle" });
-  const { save, making, note } = useSaver();
+  const { save, show, making, note } = useSaver();
   const fallback = t("আমার হাতের লেখা", "My Handwriting");
   const title = name.trim() || fallback;
 
-  function sheet(kind: "png" | "letters" | "pdf") {
-    if (!props.userFont) return;
+  type Kind = "png" | "letters" | "pdf" | "text-pdf";
+  /** How to make each file: the font sheet (picture, Bangla letters, PDF) or the try-it text as a PDF. */
+  function maker(kind: Kind) {
     const family = `"${props.userFont}", ${MISSING_FONT}`;
+    if (kind === "text-pdf") {
+      return async () => {
+        const { pdf, firstPage } = await textPdf(props.text, family, title);
+        return { blob: pdf, preview: firstPage, name: "kaker-theng.pdf", title };
+      };
+    }
     const groups = kind === "letters" ? props.groups.filter((g) => BANGLA_LETTERS.has(g.id)) : props.groups;
     const sheet: Sheet = { title, subtitle: t("কাকের ঠ্যাং দিয়ে বানানো ফন্ট", "A font made with Kaker Theng"), sample: SAMPLE, groups };
-    void save(kind, async () => ({
-      blob: kind === "pdf" ? await sheetPdf(sheet, family) : await sheetImage(sheet, family),
-      name: kind === "letters" ? "kaker-theng-bangla-letters.png" : `kaker-theng-font-sheet.${kind}`,
-      title,
-    }));
-  }
-
-  function textAsPdf() {
-    if (!props.userFont || !props.text.trim()) return;
-    const family = `"${props.userFont}", ${MISSING_FONT}`;
-    void save("text-pdf", async () => ({ blob: await textPdf(props.text, family, title), name: "kaker-theng.pdf", title }));
+    if (kind === "pdf") {
+      return async () => {
+        const { pdf, firstPage } = await sheetPdf(sheet, family);
+        return { blob: pdf, preview: firstPage, name: "kaker-theng-font-sheet.pdf", title };
+      };
+    }
+    return async () => ({ blob: await sheetImage(sheet, family), name: kind === "letters" ? "kaker-theng-bangla-letters.png" : "kaker-theng-font-sheet.png", title });
   }
 
   async function zip() {
@@ -81,6 +84,20 @@ export function Download(props: {
 
   const can = Boolean(props.userFont) && making === null;
   const label = (key: string, bn: string, en: string) => (making === key ? t("বানাচ্ছি…", "making it…") : t(bn, en));
+  // Each file: save (share sheet or download), or only show it on the page.
+  const row = (kind: Kind, bn: string, en: string) => {
+    const off = !can || (kind === "text-pdf" && !props.text.trim());
+    return (
+      <div className="output-row" key={kind}>
+        <button type="button" className="button" disabled={off} onClick={() => void save(kind, maker(kind))}>
+          {label(kind, bn, en)}
+        </button>
+        <button type="button" className="button show" disabled={off} onClick={() => void show(`${kind}-show`, maker(kind))}>
+          {label(`${kind}-show`, "স্ক্রিনে দেখান", "Show on screen")}
+        </button>
+      </div>
+    );
+  };
   return (
     <div className="download" id="download">
       <button type="button" className="button big" disabled={!props.ready || state.kind === "busy"} onClick={zip}>
@@ -105,18 +122,10 @@ export function Download(props: {
           <input id={id} value={name} maxLength={40} autoComplete="off" onChange={(e) => setName(e.target.value)} placeholder={fallback} />
         </label>
         <div className="outputs">
-          <button type="button" className="button" disabled={!can} onClick={() => sheet("png")}>
-            {label("png", "ফন্ট শিট: ছবি", "Font sheet: image")}
-          </button>
-          <button type="button" className="button" disabled={!can} onClick={() => sheet("letters")}>
-            {label("letters", "ছবি: শুধু বাংলা অক্ষর", "Image: Bangla letters only")}
-          </button>
-          <button type="button" className="button" disabled={!can} onClick={() => sheet("pdf")}>
-            {label("pdf", "ফন্ট শিট: PDF", "Font sheet: PDF")}
-          </button>
-          <button type="button" className="button" disabled={!can || !props.text.trim()} onClick={textAsPdf}>
-            {label("text-pdf", "লেখাটা PDF হিসেবে", "The text as a PDF")}
-          </button>
+          {row("png", "ফন্ট শিট: ছবি", "Font sheet: image")}
+          {row("letters", "ছবি: শুধু বাংলা অক্ষর", "Image: Bangla letters only")}
+          {row("pdf", "ফন্ট শিট: PDF", "Font sheet: PDF")}
+          {row("text-pdf", "লেখাটা PDF হিসেবে", "The text as a PDF")}
         </div>
         <p className="outputs-note">
           {t(
