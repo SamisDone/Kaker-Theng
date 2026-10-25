@@ -10,9 +10,15 @@ import { textImage } from "@/lib/khata";
 const SIZE = 28;
 const LINE = Math.ceil((SIZE * 1.45) / 32) * 32;
 
-/** A first text to try: common words the font already writes, five to a
- * line; words of three letters or more first (not just এই, এর). */
-export function wordsText(words: string[]): string {
+/** A first text to try: everyday sentences the font writes fully, or,
+ * while it writes none, the common words it does. */
+export function firstText(sentences: string[], words: string[]): string {
+  return sentences.length ? sentences.slice(0, 4).join("\n") : wordsText(words);
+}
+
+/** Common words the font already writes, five to a line; words of three
+ * letters or more first (not just এই, এর). */
+function wordsText(words: string[]): string {
   const picked = [...words.filter((w) => w.length > 2), ...words.filter((w) => w.length <= 2)].slice(0, 10);
   const lines: string[] = [];
   for (let i = 0; i < picked.length; i += 5) lines.push(picked.slice(i, i + 5).join(" "));

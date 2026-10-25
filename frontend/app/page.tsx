@@ -443,7 +443,7 @@ function App() {
   if (screen.name === "start") {
     body = (
       <StartScreen
-        userFont={userFont}
+        userFont={meta?.writes_title ? userFont : null}
         progress={returning ? progress : null}
         onDraw={startDrawing}
         onPaper={() => go({ name: "paper", step: "print" })}

@@ -7,9 +7,10 @@ import { chromeIntent, inAppBrowser, isAndroid } from "@/lib/savefile";
 
 // The first screen: the name, what you get and what it takes, and the ways
 // in. Someone who has drawn before gets "continue" and their font first.
-// Once a font exists the name is written in the visitor's own hand.
+// Once their font writes the name fully (ঠ্য needs the ya-phala), the name
+// is written in the visitor's own hand.
 export function StartScreen(props: {
-  userFont: string | null;
+  userFont: string | null; // only once it writes "কাকের ঠ্যাং"
   progress: { drawn: number; total: number } | null; // a returning visitor's letters
   onDraw: () => void;
   onPaper: () => void;

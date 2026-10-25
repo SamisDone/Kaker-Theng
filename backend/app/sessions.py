@@ -26,7 +26,7 @@ from .fontbuild import BuiltFont, build_font, clean_family_name, postscript_name
 from .glyphmap import build_layout
 from .pipeline import PageResult
 from .vectorize import drawing_from_dict, drawing_to_dict
-from .wordcov import complete_word_coverage, pages_1_2_word_coverage, word_coverage, writable_words
+from .wordcov import TITLE, complete_word_coverage, pages_1_2_word_coverage, word_coverage, writable_sentences, writable_words, writes
 
 SESSION_TTL_S = 3600
 ROOT = Path(os.environ.get("KT_DATA_DIR") or Path(tempfile.gettempdir()) / "kaker-theng")
@@ -179,13 +179,16 @@ def _rebuild(d: Path, meta: dict):
             meta["word_coverage"] = word_coverage(shaper, plain)
             meta["built"] = built_cells(shaper, plain, set(font.derived))
             meta["words"] = writable_words(shaper, plain)
+            meta["sentences"] = writable_sentences(shaper, plain)
+            meta["writes_title"] = writes(shaper, plain, TITLE)
         else:
             meta["coverage"] = meta["word_coverage"] = 0.0
-            meta["built"], meta["words"] = [], []
+            meta["built"], meta["words"], meta["sentences"], meta["writes_title"] = [], [], [], False
         meta["glyphs"] = sorted(set(font.glyphs))
     else:  # everything removed again
         meta.pop("font", None)
         meta["coverage"], meta["word_coverage"], meta["glyphs"], meta["built"], meta["words"] = 0.0, 0.0, [], [], []
+        meta["sentences"], meta["writes_title"] = [], False
     meta["coverage_targets"] = {
         "pages_1_2": pages_1_2_coverage(),
         "all_pages": complete_coverage(),

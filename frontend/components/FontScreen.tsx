@@ -6,7 +6,7 @@ import { Icon } from "@/components/Icons";
 import { useSaver } from "@/components/SaveNote";
 import { Specimen } from "@/components/Specimen";
 import { TopBar } from "@/components/TopBar";
-import { TryIt, wordsText } from "@/components/TryIt";
+import { firstText, TryIt } from "@/components/TryIt";
 import type { SessionMeta } from "@/lib/api";
 import { pct } from "@/lib/bn";
 import { CHAPTERS, type ChapterId } from "@/lib/chapters";
@@ -43,10 +43,10 @@ export function FontScreen(props: {
         : undefined,
   }));
 
-  // The try-it text: common words the font already writes, until the
-  // visitor types their own.
+  // The try-it text: sentences (or words) the font already writes, until
+  // the visitor types their own.
   const [typed, setTyped] = useState<string | null>(null);
-  const text = typed ?? (props.meta?.font ? wordsText(props.meta.words ?? []) : "");
+  const text = typed ?? (props.meta?.font ? firstText(props.meta.sentences ?? [], props.meta.words ?? []) : "");
 
   // Hidden: "export my strokes", for sending a drawing that came out wrong.
   // Shown with ?debug=1, or by holding the heading down for a moment.

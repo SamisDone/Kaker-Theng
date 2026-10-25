@@ -11,8 +11,9 @@ with rare letter combinations, are left out of the measure rather than
 counted as missed (which would keep even a complete font below 100%).
 
 assets/top_words.json (count_conjuncts.py --top) holds the 3,000 most
-common words of its prose, to show a visitor real words their font can
-already write, by the same rule.
+common words of its prose, and assets/sentences.txt short everyday
+sentences, to show a visitor what their font can already write, by the
+same rule.
 """
 
 from __future__ import annotations
@@ -28,6 +29,8 @@ from .glyphmap import build_layout
 
 WORDS_PATH = ASSETS_DIR / "word_needs.json"
 TOP_WORDS_PATH = ASSETS_DIR / "top_words.json"
+SENTENCES_PATH = ASSETS_DIR / "sentences.txt"
+TITLE = "কাকের ঠ্যাং"  # the site's name, on the start screen in the visitor's font once it writes it
 # A consonant cluster, as count_conjuncts.py finds them.
 _CONS = "[ক-হড়ঢ়য়]়?"
 CLUSTER = re.compile(f"(?:{_CONS}্)+{_CONS}")
@@ -70,6 +73,30 @@ def writable_words(shaper: Shaper, plain: set[str], limit: int = 60) -> list[str
             out.append(word)
             if len(out) == limit:
                 break
+    return out
+
+
+def writes(shaper: Shaper, plain: set[str], text: str) -> bool:
+    """The font renders every character of `text` (spaces aside) and builds
+    every consonant cluster in it correctly."""
+    return all(".notdef" not in shaper.names(ch) for ch in set(text) - {" "}) and all(cluster_ok(shaper, x, plain) for x in set(CLUSTER.findall(text)))
+
+
+@lru_cache(maxsize=1)
+def _sentences() -> list[str]:
+    lines = SENTENCES_PATH.read_text(encoding="utf-8").splitlines()
+    return [s.strip() for s in lines if s.strip() and not s.startswith("#")]
+
+
+def writable_sentences(shaper: Shaper, plain: set[str]) -> list[str]:
+    """The sentences the font writes fully, in order. One whose words it
+    writes but not its end mark (। or ?, not drawn yet) comes without it."""
+    out = []
+    for s in _sentences():
+        if writes(shaper, plain, s):
+            out.append(s)
+        elif writes(shaper, plain, s.rstrip("।?")):
+            out.append(s.rstrip("।?"))
     return out
 
 
