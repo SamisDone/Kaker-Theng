@@ -89,12 +89,13 @@ def saved():
         with playwright.sync_playwright() as p:
             browser = p.chromium.launch()
             page = browser.new_context(viewport={"width": 390, "height": 740}, is_mobile=True, has_touch=True, accept_downloads=True).new_page()
-            page.add_init_script(f"sessionStorage.setItem('kaker-theng-session', '{sid}'); sessionStorage.setItem('kaker-theng-screen', JSON.stringify({{name: 'font'}}))")
+            page.add_init_script(f"sessionStorage.setItem('kaker-theng-session', '{sid}'); sessionStorage.setItem('kaker-theng-screen', JSON.stringify({{screen: {{name: 'font'}}, at: Date.now()}}))")
             page.goto(url + "/")
             page.wait_for_selector(".save-image", timeout=60_000)
             page.locator(".tryit textarea").fill(TEXT)
+            page.locator(".more summary").click()
             with page.expect_download() as dl:
-                page.get_by_role("button", name="PDF হিসেবে সেভ করুন").click()
+                page.get_by_role("button", name="লেখাটা PDF হিসেবে").click()
             pdf = Path(dl.value.path()).read_bytes()
             with page.expect_download() as dl:
                 page.get_by_role("button", name="ফন্ট শিট: PDF").click()

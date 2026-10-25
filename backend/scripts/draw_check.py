@@ -14,6 +14,7 @@ only (Playwright).
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -90,7 +91,7 @@ def hints(page, chapter_name: str) -> list[str]:
     if page.locator(".reward-body").count():  # skipped past the last one
         page.go_back()
     page.locator(".chapter-button").click()
-    page.get_by_role("button", name=chapter_name).click()
+    page.get_by_role("button", name=re.compile("^" + chapter_name)).click()
     if page.get_by_role("button", name="শুরু করুন →").count():
         page.get_by_role("button", name="শুরু করুন →").click()
     out, seen = [], set()
@@ -207,19 +208,23 @@ def run(name: str, viewport: dict):
         check("Canva" in page.locator(".where-to-use").inner_text(), f"{name}: the download says where to use the font on a phone")
         export = page.get_by_role("button", name="আমার আঁকা অক্ষরগুলো ফাইলে দিন (JSON)")
         check(export.count() == 0, f"{name}: the strokes export is hidden")
+        tryit = page.locator(".tryit textarea").input_value()
+        check(bool(tryit.strip()) and not re.search("[A-Za-z]", tryit), f"{name}: the try-it text is words the font writes ({tryit!r})")
+        save = page.get_by_role("button", name="ছবি হিসেবে সেভ / শেয়ার")
         with page.expect_download() as dl:
-            page.get_by_role("button", name="ছবি হিসেবে সেভ করুন").click()
+            save.click()
         dl.value.save_as(shots / f"{name}-18-saved-image.png")
         check(dl.value.suggested_filename == "kaker-theng.png", f"{name}: save as image gives a PNG ({dl.value.suggested_filename})")
-        # The download area: the font sheet (picture, PDF) first, the font file below.
-        for button, out in (("ফন্ট শিট: ছবি", "24-font-sheet.png"), ("ছবি: শুধু বাংলা অক্ষর", "24-bangla-letters.png"), ("ফন্ট শিট: PDF", "25-font-sheet.pdf"), ("PDF হিসেবে সেভ করুন", "26-try-it.pdf")):
+        # One main action, then the font file; the rest folded under "more".
+        zip_button = page.get_by_role("button", name="ফন্ট ডাউনলোড (কম্পিউটারের জন্য)")
+        check(zip_button.bounding_box()["y"] > save.bounding_box()["y"], f"{name}: the font download comes after save as image")
+        check(not page.get_by_role("button", name="ফন্ট শিট: PDF").is_visible(), f"{name}: the font sheet is folded away")
+        page.locator(".more summary").click()
+        for button, out in (("ফন্ট শিট: ছবি", "24-font-sheet.png"), ("ছবি: শুধু বাংলা অক্ষর", "24-bangla-letters.png"), ("ফন্ট শিট: PDF", "25-font-sheet.pdf"), ("লেখাটা PDF হিসেবে", "26-try-it.pdf")):
             with page.expect_download() as dl:
                 page.get_by_role("button", name=button).click()
             dl.value.save_as(shots / f"{name}-{out}")
             check(dl.value.suggested_filename.endswith(out.rsplit(".", 1)[1]), f"{name}: {button} gives a {out.rsplit('.', 1)[1].upper()}")
-        sheet_y = page.get_by_role("button", name="ফন্ট শিট: PDF").bounding_box()["y"]
-        zip_button = page.get_by_role("button", name="কম্পিউটারে ইনস্টল করার জন্য (.ttf)")
-        check(zip_button.bounding_box()["y"] > sheet_y, f"{name}: the .ttf zip comes after the picture and the PDF")
         page.locator(".download").scroll_into_view_if_needed()
         page.locator(".download").screenshot(path=shots / f"{name}-27-download-area.png")
         page.evaluate("document.querySelector('.tryit').scrollIntoView()")
@@ -233,14 +238,14 @@ def run(name: str, viewport: dict):
         with page.expect_download() as dl:
             export.click()
         exported = json.loads(Path(dl.value.path()).read_text(encoding="utf-8"))
-        check(len(exported["cells"]) >= 44 and exported["fingerprint"] == layout["fingerprint"], f"{name}: the export holds the drawn letters ({len(exported['cells'])}) and the layout")
+        check(len(exported["cells"]) >= 27 and exported["fingerprint"] == layout["fingerprint"], f"{name}: the export holds the drawn letters ({len(exported['cells'])}) and the layout")
         page.locator(".download").scroll_into_view_if_needed()
         page.screenshot(path=shots / f"{name}-19-font-tools.png")
         page.go_back()
         page.wait_for_selector(".draw-canvas canvas")
 
         # Every Bangla letter's hint.
-        for ch in ("স্বরবর্ণ", "ব্যঞ্জনবর্ণ", "কার-চিহ্ন", "ফলা ও রেফ", "সংখ্যা"):
+        for ch in ("স্বরবর্ণ", "ব্যঞ্জনবর্ণ", "কার-চিহ্ন", "আরও ব্যঞ্জনবর্ণ", "ফলা ও রেফ", "সংখ্যা"):
             print(f"  hints, {ch}: " + " | ".join(hints(page, ch)))
         if page.locator(".reward-body").count():
             page.go_back()
@@ -261,7 +266,7 @@ def run(name: str, viewport: dict):
 
         # ?debug=1 shows the export without holding anything.
         page.goto(base + "/?debug=1")
-        page.evaluate("sessionStorage.setItem('kaker-theng-screen', JSON.stringify({name: 'font'}))")
+        page.evaluate("sessionStorage.setItem('kaker-theng-screen', JSON.stringify({screen: {name: 'font'}, at: Date.now()}))")
         page.reload()
         page.wait_for_selector(".font-screen")
         check(page.get_by_role("button", name="আমার আঁকা অক্ষরগুলো ফাইলে দিন (JSON)").count() == 1, f"{name}: ?debug=1 shows the strokes export")
@@ -270,7 +275,7 @@ def run(name: str, viewport: dict):
         page.goto(base + "/")
         page.evaluate("sessionStorage.removeItem('kaker-theng-screen')")
         page.reload()
-        page.get_by_role("button", name="কাগজে লিখুন").click()
+        page.get_by_role("button", name="কাগজে লিখে ছবি দিতে চান?").click()
         page.wait_for_function("[...document.images].every(i => i.complete && i.naturalWidth)")
         page.screenshot(path=shots / f"{name}-20-paper-print.png")
         page.get_by_role("button", name="ছাপা হয়েছে →").click()

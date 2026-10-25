@@ -1,10 +1,15 @@
 // The drawing goes chapter by chapter, Bangla first. Inside a chapter the
 // letters keep the backend's drawing order (most used first,
-// backend/app/draworder.py).
+// backend/app/draworder.py). The vowel signs come after the 15 most used
+// consonants, not after all of them: with them the font writes about 42%
+// of Bangla words after 41 letters, where all consonants first gave 8% after
+// 44 (backend/scripts/words_curve.py).
 
 import type { Layout, LayoutCell } from "@/lib/layout";
 
-export type ChapterId = "vowels" | "consonants" | "signs" | "phala" | "conjuncts" | "digits" | "english";
+export type ChapterId = "vowels" | "consonants" | "signs" | "more-consonants" | "phala" | "conjuncts" | "digits" | "english";
+
+const FIRST_CONSONANTS = 15;
 
 export type Chapter = {
   id: ChapterId;
@@ -19,7 +24,7 @@ export const CHAPTERS: Chapter[] = [
     id: "vowels",
     name: ["স্বরবর্ণ", "Vowels"],
     about: (n) => [
-      `${n}টা স্বরবর্ণ, বেশি লাগে যেটা সেটা আগে। ধূসর অক্ষরটা মাপ আর জায়গা দেখায়; তার ওপর নিজের মতো করে লিখুন।`,
+      `${n}টা স্বরবর্ণ; যেগুলো বেশি ব্যবহার হয়, সেগুলো আগে। ধূসর অক্ষরটা মাপ আর জায়গা দেখায়; তার ওপর নিজের মতো করে লিখুন।`,
       `${n} vowels, the most used first. The grey letter shows the size and the place: write over it in your own hand.`,
     ],
     sample: "অ আ ই ঈ উ ঊ ঋ এ ঐ ও ঔ",
@@ -28,8 +33,8 @@ export const CHAPTERS: Chapter[] = [
     id: "consonants",
     name: ["ব্যঞ্জনবর্ণ", "Consonants"],
     about: (n) => [
-      `${n}টা ব্যঞ্জনবর্ণ। মাত্রা থাকলে সেটা ওপরের রেখায় টানুন; অক্ষর বসবে নিচের রেখায়।`,
-      `${n} consonants. Where a letter has a মাত্রা, draw it on the top line; the letter sits on the bottom line.`,
+      `সবচেয়ে বেশি লাগে এমন ${n}টা ব্যঞ্জনবর্ণ। মাত্রা থাকলে সেটা ওপরের রেখায় টানুন; অক্ষর বসবে নিচের রেখায়।`,
+      `The ${n} most used consonants. Where a letter has a মাত্রা, draw it on the top line; the letter sits on the bottom line.`,
     ],
     sample: "ঘর বন পথ জল কলম নগর",
   },
@@ -37,10 +42,19 @@ export const CHAPTERS: Chapter[] = [
     id: "signs",
     name: ["কার-চিহ্ন", "Vowel signs"],
     about: () => [
-      "কার আর অন্য চিহ্ন। ধূসর ক-টা আঁকবেন না: শুধু চিহ্নটা লিখুন, দাগ-কাটা ঘরের ভেতরে।",
-      "Vowel signs and other marks. Don't draw the grey ক: write only the sign, inside the dashed box.",
+      "কার আর অন্য চিহ্ন: এগুলো আঁকলে আপনার ফন্টে অনেক শব্দ লেখা যাবে। ধূসর ক-টা আঁকবেন না: শুধু চিহ্নটা লিখুন, দাগ-কাটা ঘরের ভেতরে।",
+      "Vowel signs and other marks: with these your font writes many words. Don't draw the grey ক: write only the sign, inside the dashed box.",
     ],
     sample: "আমি বাংলায় লিখি।",
+  },
+  {
+    id: "more-consonants",
+    name: ["আরও ব্যঞ্জনবর্ণ", "More consonants"],
+    about: (n) => [
+      `বাকি ${n}টা ব্যঞ্জনবর্ণ। আগের মতো: মাত্রা ওপরের রেখায়, অক্ষর নিচের রেখায়।`,
+      `The other ${n} consonants. As before: the মাত্রা on the top line, the letter on the bottom line.`,
+    ],
+    sample: "ঘর বন পথ জল কলম নগর",
   },
   {
     id: "phala",
@@ -77,7 +91,7 @@ export const CHAPTERS: Chapter[] = [
 
 export const chapterById = (id: ChapterId) => CHAPTERS.find((c) => c.id === id)!;
 
-export function chapterOf(cell: LayoutCell): ChapterId {
+function chapterOf(cell: LayoutCell): ChapterId {
   if (cell.kind === "latin") return "english";
   if (cell.id.startsWith("p3-")) return "conjuncts";
   switch (cell.group) {
@@ -103,5 +117,12 @@ export function chapterOf(cell: LayoutCell): ChapterId {
 export function chapterLists(layout: Layout, cells: Map<string, LayoutCell>): Record<ChapterId, string[]> {
   const out = Object.fromEntries(CHAPTERS.map((c) => [c.id, [] as string[]])) as Record<ChapterId, string[]>;
   for (const id of layout.draw_order) out[chapterOf(cells.get(id)!)].push(id);
+  out["more-consonants"] = out.consonants.slice(FIRST_CONSONANTS);
+  out.consonants = out.consonants.slice(0, FIRST_CONSONANTS);
   return out;
+}
+
+/** The chapter a cell is drawn in. */
+export function chapterIn(lists: Record<ChapterId, string[]>, id: string): ChapterId {
+  return CHAPTERS.find((c) => lists[c.id].includes(id))?.id ?? "vowels";
 }

@@ -25,16 +25,17 @@
   box-sizing: border-box;
 }
 
+/* The rules are on the root, so they reach the bottom of the screen however
+   tall it gets (a phone's toolbar sliding away), not just the body's end. */
 html {
-  background: var(--paper);
-}
-
-body {
-  margin: 0;
   background-color: var(--paper);
   /* One hairline at the bottom of every 32 px line, across the page. */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='32'%3E%3Crect y='25' width='8' height='1' fill='%23B9C6E0'/%3E%3C/svg%3E");
   background-size: 8px var(--line);
+}
+
+body {
+  margin: 0;
   color: var(--ink);
   font-family: var(--bn);
   font-size: 19px;
@@ -74,6 +75,15 @@ html[lang="en"] body,
   flex-direction: column;
 }
 
+/* The drawing box as large as the phone allows: just right of the margin
+   line, close to the right edge. */
+@media (max-width: 640px) {
+  .sheet.fit {
+    padding-left: calc(var(--margin-x) + 8px);
+    padding-right: 8px;
+  }
+}
+
 html:has(.sheet.fit) {
   overflow: hidden;
   overscroll-behavior: none;
@@ -96,6 +106,15 @@ html:has(.sheet.fit) {
   }
   .sheet {
     padding-right: 16px;
+  }
+  /* The margin line too, below the end of the page. */
+  html {
+    background-image:
+      linear-gradient(to right, transparent 24px, var(--margin) 24px, var(--margin) 25.5px, transparent 25.5px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='32'%3E%3Crect y='25' width='8' height='1' fill='%23B9C6E0'/%3E%3C/svg%3E");
+    background-size:
+      100% 100%,
+      8px var(--line);
   }
 }
 
@@ -366,6 +385,58 @@ a {
   margin: 0;
 }
 
+.start-line {
+  margin-bottom: 16px;
+}
+
+.start-example {
+  margin: 0 0 8px;
+}
+
+.start-example img {
+  display: block;
+  width: min(300px, 100%);
+  height: auto;
+}
+
+.start-effort {
+  color: var(--pencil);
+  font-size: 17px;
+  line-height: 24px;
+  margin-bottom: 24px;
+}
+
+.start-paper {
+  margin: 24px 0 0;
+}
+
+.list-progress {
+  color: var(--pencil);
+}
+
+.home-button {
+  flex: none;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.topbar-left {
+  align-items: center;
+}
+
+/* Under the name: this screen's own way back (or its chapter). */
+.topbar-sub {
+  display: flex;
+  min-height: 32px;
+  margin: -4px 0 8px;
+}
+
 .start-buttons {
   display: flex;
   flex-direction: column;
@@ -411,6 +482,11 @@ a {
   font-weight: 400;
   font-size: 72px;
   line-height: 88px;
+}
+
+.reward-of {
+  font-size: 32px;
+  color: var(--pencil);
 }
 
 .reward-sample {
@@ -543,11 +619,16 @@ a {
 .icon-button {
   flex: none;
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  gap: 1px;
+  width: 50px;
+  height: 52px;
   padding: 0;
+  font: inherit;
+  font-size: 13px;
+  line-height: 16px;
   color: var(--ink);
   background: none;
   border: 1.5px solid var(--rule);
@@ -558,6 +639,11 @@ a {
 .icon-button:disabled {
   color: var(--rule);
   cursor: default;
+}
+
+/* English labels are wider: a little smaller. */
+.icon-button span:lang(en) {
+  font-size: 11px;
 }
 
 .draw-actions .button {
@@ -885,7 +971,7 @@ a {
 
 /* Outlined buttons on the ruled page: paper behind the label, no rule through it. */
 .download .button:not(.primary):not(:hover),
-.save-image .button:not(:hover) {
+.save-image .button:not(.primary):not(:hover) {
   background: var(--paper);
 }
 
@@ -895,19 +981,29 @@ a {
   color: var(--pencil);
 }
 
-/* The font file: for computers, below what a phone can use. */
-.install {
-  border-top: 1px solid var(--rule);
-  padding-top: 16px;
-}
-
-.install .button {
+/* The font file, then the rest folded under "more". */
+.download > .button {
   height: auto;
-  min-height: var(--line);
-  line-height: 24px;
-  padding: 4px 12px;
+  min-height: 52px;
+  line-height: 26px;
+  padding: 12px 18px;
   white-space: normal;
   text-align: left;
+  margin: 0;
+}
+
+.more {
+  border-top: 1px solid var(--rule);
+  padding-top: 8px;
+}
+
+.more summary {
+  cursor: pointer;
+  width: max-content;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  margin-bottom: 16px;
 }
 
 .download .formats {
@@ -930,9 +1026,10 @@ a {
   margin: 0;
 }
 
-.save-image .margin-note {
-  display: inline-block;
-  margin: 0 0 0 12px;
+.save-image .button.big {
+  height: auto;
+  min-height: 52px;
+  white-space: normal;
 }
 
 /* Held down to show the strokes export: no text selection or callout. */

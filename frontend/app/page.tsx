@@ -8,7 +8,7 @@ import { FontScreen } from "@/components/FontScreen";
 import { PaperScreen, type PaperStep } from "@/components/PaperScreen";
 import { RewardScreen } from "@/components/RewardScreen";
 import { StartScreen } from "@/components/StartScreen";
-import { TopBar } from "@/components/TopBar";
+import { HomeContext, TopBar } from "@/components/TopBar";
 import type { SlotState } from "@/components/UploadSlot";
 import {
   ApiError,
@@ -24,7 +24,7 @@ import {
   wake,
 } from "@/lib/api";
 import { bnNum } from "@/lib/bn";
-import { CHAPTERS, chapterById, type ChapterId, chapterLists, chapterOf } from "@/lib/chapters";
+import { CHAPTERS, chapterById, type ChapterId, chapterIn, chapterLists } from "@/lib/chapters";
 import { loadDrawn, type Saved, saveDrawn } from "@/lib/drawstore";
 import { LangProvider, useLang } from "@/lib/i18n";
 import { shrinkPhoto } from "@/lib/image";
@@ -34,6 +34,10 @@ import type { Stroke } from "@/lib/strokes";
 const SESSION_KEY = "kaker-theng-session";
 const SCREEN_KEY = "kaker-theng-screen";
 const REBUILD_EVERY = 5; // letters
+// A reload this soon after the last screen change (the phone reloading the
+// page after the camera, a pull to refresh) keeps the screen; any later
+// visit opens the start screen, with "continue drawing" and "my font".
+const KEEP_SCREEN_MS = 30 * 60 * 1000;
 const IDLE_MS = 3000;
 
 // One job per screen. Each is a browser history entry, so the phone's back
@@ -61,6 +65,7 @@ function store(kind: "get" | "set" | "remove", key: string, value = ""): string 
 }
 
 const remember = (id: string | null) => (id ? store("set", SESSION_KEY, id) : store("remove", SESSION_KEY));
+const keepScreen = (s: Screen) => store("set", SCREEN_KEY, JSON.stringify({ screen: s, at: Date.now() }));
 
 export default function Home() {
   return (
@@ -101,17 +106,19 @@ function App() {
     const state = { screen: s, depth: depth.current };
     if (replace) history.replaceState(state, "");
     else history.pushState(state, "");
-    store("set", SCREEN_KEY, JSON.stringify(s));
+    keepScreen(s);
     setScreen(s);
   }, []);
 
   // Back a screen; to the start if this one was opened by a reload.
   const back = () => (depth.current > 0 ? history.back() : go({ name: "start" }, true));
+  const home = () => go({ name: "start" });
 
   useEffect(() => {
     let first: Screen = { name: "start" };
     try {
-      first = JSON.parse(store("get", SCREEN_KEY) ?? "null") ?? first;
+      const kept = JSON.parse(store("get", SCREEN_KEY) ?? "null") as { screen: Screen; at: number } | null;
+      if (kept?.screen?.name && Date.now() - kept.at < KEEP_SCREEN_MS) first = kept.screen;
     } catch {
       // unreadable: the start
     }
@@ -120,7 +127,7 @@ function App() {
     const onPop = (e: PopStateEvent) => {
       const s: Screen = e.state?.screen ?? { name: "start" };
       depth.current = e.state?.depth ?? 0;
-      store("set", SCREEN_KEY, JSON.stringify(s));
+      keepScreen(s);
       setScreen(s);
     };
     window.addEventListener("popstate", onPop);
@@ -340,9 +347,9 @@ function App() {
 
   // Draw: on where the last visit stopped, or at the start.
   function startDrawing() {
-    const at = saved?.at ? cells?.get(saved.at) : undefined;
-    let c: ChapterId = at ? chapterOf(at) : "vowels";
-    if (lists?.[c].every(done)) c = nextChapter(c)?.id ?? c;
+    if (!lists) return;
+    let c: ChapterId = saved?.at && cells?.has(saved.at) ? chapterIn(lists, saved.at) : "vowels";
+    if (lists[c].every(done)) c = nextChapter(c)?.id ?? c;
     openChapter(c);
   }
 
@@ -428,10 +435,21 @@ function App() {
   const ready = Boolean(layout && cells && lists && saved);
   const words = meta?.font ? (meta.word_coverage ?? 0) : null;
   const note = syncNote ? t(syncNote.bn, syncNote.en) : null;
+  const allIds = lists ? CHAPTERS.flatMap((c) => lists[c.id]) : [];
+  const progress = ready ? { drawn: allIds.filter(done).length, total: allIds.length } : null;
+  const returning = Boolean(progress?.drawn) || Boolean(meta?.font);
   let body: React.ReactNode;
 
   if (screen.name === "start") {
-    body = <StartScreen userFont={userFont} onDraw={startDrawing} onPaper={() => go({ name: "paper", step: "print" })} onFont={meta?.font ? openFont : undefined} />;
+    body = (
+      <StartScreen
+        userFont={userFont}
+        progress={returning ? progress : null}
+        onDraw={startDrawing}
+        onPaper={() => go({ name: "paper", step: "print" })}
+        onFont={returning ? openFont : undefined}
+      />
+    );
   } else if (screen.name === "paper") {
     body = (
       <PaperScreen
@@ -455,8 +473,19 @@ function App() {
       </div>
     );
   } else if (screen.name === "chapters") {
-    const at = saved!.at ? cells!.get(saved!.at) : undefined;
-    body = <ChapterList lists={lists!} done={done} current={at ? chapterOf(at) : null} onChapter={openChapter} onBack={back} onPaper={() => go({ name: "paper", step: "print" })} onFont={openFont} />;
+    const at = saved!.at && cells!.has(saved!.at) ? saved!.at : null;
+    body = (
+      <ChapterList
+        lists={lists!}
+        done={done}
+        progress={progress!}
+        current={at ? chapterIn(lists!, at) : null}
+        onChapter={openChapter}
+        onBack={back}
+        onPaper={() => go({ name: "paper", step: "print" })}
+        onFont={openFont}
+      />
+    );
   } else if (screen.name === "card") {
     const c = chapterById(screen.chapter);
     const ids = lists![c.id];
@@ -485,11 +514,14 @@ function App() {
         next={next}
         drawn={ids.filter(done).length}
         total={ids.length}
+        progress={progress!}
         words={words}
+        writable={meta?.font ? (meta.words ?? []) : []}
         building={building}
         userFont={userFont}
         note={note}
         onContinue={() => next && openChapter(next.id)}
+        onSkipped={() => openChapter(c.id)}
         onFont={openFont}
       />
     );
@@ -498,7 +530,7 @@ function App() {
   } else {
     // Drawing: the letter saved as "at", or the first one not drawn yet.
     const at = saved!.at && cells!.has(saved!.at) ? saved!.at : (layout!.draw_order.find((id) => !done(id)) ?? layout!.draw_order[0]);
-    const chapter = chapterOf(cells!.get(at)!);
+    const chapter = chapterIn(lists!, at);
     body = (
       <DrawScreen
         key={chapter}
@@ -527,5 +559,10 @@ function App() {
     );
   }
 
-  return <main className={`sheet${screen.name === "draw" ? " fit" : ""}`}>{body}</main>;
+  // Every screen but the start has the name in its top bar, back to the start.
+  return (
+    <HomeContext.Provider value={screen.name === "start" ? null : home}>
+      <main className={`sheet${screen.name === "draw" ? " fit" : ""}`}>{body}</main>
+    </HomeContext.Provider>
+  );
 }

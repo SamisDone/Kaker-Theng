@@ -9,6 +9,7 @@ import { useLang } from "@/lib/i18n";
 export function ChapterList(props: {
   lists: Record<ChapterId, string[]>;
   done: (id: string) => boolean;
+  progress: { drawn: number; total: number }; // every chapter
   current: ChapterId | null;
   onChapter: (c: ChapterId) => void;
   onBack: () => void;
@@ -24,6 +25,12 @@ export function ChapterList(props: {
         </button>
       </TopBar>
       <h2>{t("অধ্যায়", "Chapters")}</h2>
+      <p className="list-progress">
+        {t("মোট আঁকা", "Drawn in all")}{" "}
+        <span className="mono">
+          {num(props.progress.drawn)}/{num(props.progress.total)}
+        </span>
+      </p>
       <ol className="chapter-list">
         {CHAPTERS.map((c) => {
           const ids = props.lists[c.id];

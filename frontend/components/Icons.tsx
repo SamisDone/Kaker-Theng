@@ -4,7 +4,7 @@
 const PATHS = {
   back: "M19 12H5M11 6l-6 6 6 6",
   skip: "M3 12h13M10 6l6 6-6 6M20 5v14",
-  clear: "M6 6l12 12M18 6L6 18",
+  erase: "M3 15l7-7 6 6-7 7zM6 12l6 6M13 21h8", // an eraser on its side, the line it rubs out
   undo: "M9 14L4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11",
   down: "M7 10l5 5 5-5",
 } as const;

@@ -94,7 +94,7 @@ export function DrawScreen(props: {
       <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={order.length} aria-valuenow={doneCount} aria-label={t("এই অধ্যায়ে আঁকা হয়েছে", "Drawn in this chapter")}>
         <span style={{ width: `${(100 * doneCount) / order.length}%` }} />
       </div>
-      <TopBar onFont={props.onFont}>
+      <TopBar onFont={props.onFont} home={false}>
         <button type="button" className="chapter-button" onClick={props.onChapters} aria-label={t(`${chapter.name[0]}, অধ্যায় বদলান`, `${chapter.name[1]}, change chapter`)}>
           <span className="chapter-name">{t(chapter.name[0], chapter.name[1])}</span>
           <span className="mono count">
@@ -116,17 +116,21 @@ export function DrawScreen(props: {
       {props.syncNote && <p className="margin-note sync-note">{props.syncNote}</p>}
 
       <div className="draw-actions">
-        <button type="button" className="icon-button" onClick={goBack} disabled={index === 0} aria-label={t("আগের অক্ষর", "Previous letter")} title={t("আগের", "Back")}>
+        <button type="button" className="icon-button" onClick={goBack} disabled={index === 0} aria-label={t("আগের অক্ষর", "Previous letter")}>
           <Icon name="back" />
+          <span aria-hidden="true">{t("আগের", "Back")}</span>
         </button>
-        <button type="button" className="icon-button" onClick={forward} aria-label={t("বাদ দিন", "Skip")} title={t("বাদ দিন", "Skip")}>
+        <button type="button" className="icon-button" onClick={forward} aria-label={t("বাদ দিন", "Skip")}>
           <Icon name="skip" />
+          <span aria-hidden="true">{t("বাদ", "Skip")}</span>
         </button>
-        <button type="button" className="icon-button" onClick={() => setStrokes([])} disabled={!strokes.length} aria-label={t("সব মুছুন", "Clear")} title={t("সব মুছুন", "Clear")}>
-          <Icon name="clear" />
+        <button type="button" className="icon-button" onClick={() => setStrokes([])} disabled={!strokes.length} aria-label={t("সব মুছুন", "Clear")}>
+          <Icon name="erase" />
+          <span aria-hidden="true">{t("মুছুন", "Clear")}</span>
         </button>
-        <button type="button" className="icon-button undo" onClick={() => setStrokes((p) => p.slice(0, -1))} disabled={!strokes.length} aria-label={t("ফেরান", "Undo")} title={t("ফেরান", "Undo")}>
+        <button type="button" className="icon-button undo" onClick={() => setStrokes((p) => p.slice(0, -1))} disabled={!strokes.length} aria-label={t("ফেরান", "Undo")}>
           <Icon name="undo" />
+          <span aria-hidden="true">{t("ফেরান", "Undo")}</span>
         </button>
         <button type="button" className="button primary next" onClick={goNext} disabled={!strokes.length && !drawn[at]?.length}>
           {t("পরের →", "Next →")}

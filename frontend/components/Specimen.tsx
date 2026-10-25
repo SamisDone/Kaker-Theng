@@ -7,7 +7,9 @@ import type { LayoutCell } from "@/lib/layout";
 
 // Every glyph on a thin-ruled grid, by chapter. Tap one to draw it again.
 // Glyphs not in the font yet: an empty box; a small red mark where a page
-// photo was read and that box wasn't.
+// photo was read and that box wasn't. A conjunct drawn in two part cells
+// (ম্ম: one box for each half) shows once; tapping it opens the part still
+// to draw, or the first.
 export function Specimen(props: {
   lists: Record<ChapterId, string[]>;
   cells: Map<string, LayoutCell>;
@@ -29,18 +31,19 @@ export function Specimen(props: {
         <div className="specimen-page" key={c.id}>
           <h3>{t(c.name[0], c.name[1])}</h3>
           <div className="specimen-grid" role="group" aria-label={t(c.name[0], c.name[1])}>
-            {props.lists[c.id].map((id) => {
-              const cell = props.cells.get(id)!;
-              const ok = Boolean(font) && (status.get(id) ?? "missing") !== "missing";
-              const flagged = !ok && status.has(id);
-              const auto = ok && props.built.has(id);
+            {byText(props.lists[c.id], props.cells).map((ids) => {
+              const cell = props.cells.get(ids[0])!;
+              const isOk = (id: string) => Boolean(font) && (status.get(id) ?? "missing") !== "missing";
+              const ok = ids.some(isOk);
+              const flagged = !ok && ids.some((id) => status.has(id));
+              const auto = ok && ids.filter(isOk).every((id) => props.built.has(id));
               return (
                 <button
-                  key={id}
+                  key={ids[0]}
                   type="button"
                   className={`glyph${flagged ? " missing" : ""}${auto ? " auto" : ""}`}
                   aria-label={`${cell.text}${ok ? "" : t(", এখনও ফন্টে নেই", ", not in the font yet")}${auto ? t(", টুকরো জুড়ে বানানো", ", put together from pieces") : ""}: ${t("আবার আঁকুন", "draw again")}`}
-                  onClick={() => props.onRedraw(id)}
+                  onClick={() => props.onRedraw(ids.find((id) => !isOk(id)) ?? ids[0])}
                   style={{ fontFamily: font }}
                 >
                   {ok ? cell.text : ""}
@@ -55,4 +58,14 @@ export function Specimen(props: {
       ))}
     </div>
   );
+}
+
+/** Cell ids grouped by the text they draw, in order. */
+function byText(ids: string[], cells: Map<string, LayoutCell>): string[][] {
+  const groups = new Map<string, string[]>();
+  for (const id of ids) {
+    const text = cells.get(id)!.text;
+    groups.set(text, [...(groups.get(text) ?? []), id]);
+  }
+  return [...groups.values()];
 }

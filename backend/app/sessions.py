@@ -26,7 +26,7 @@ from .fontbuild import BuiltFont, build_font, clean_family_name, postscript_name
 from .glyphmap import build_layout
 from .pipeline import PageResult
 from .vectorize import drawing_from_dict, drawing_to_dict
-from .wordcov import complete_word_coverage, pages_1_2_word_coverage, word_coverage
+from .wordcov import complete_word_coverage, pages_1_2_word_coverage, word_coverage, writable_words
 
 SESSION_TTL_S = 3600
 ROOT = Path(os.environ.get("KT_DATA_DIR") or Path(tempfile.gettempdir()) / "kaker-theng")
@@ -178,13 +178,14 @@ def _rebuild(d: Path, meta: dict):
             meta["coverage"] = coverage(shaper, plain)
             meta["word_coverage"] = word_coverage(shaper, plain)
             meta["built"] = built_cells(shaper, plain, set(font.derived))
+            meta["words"] = writable_words(shaper, plain)
         else:
             meta["coverage"] = meta["word_coverage"] = 0.0
-            meta["built"] = []
+            meta["built"], meta["words"] = [], []
         meta["glyphs"] = sorted(set(font.glyphs))
     else:  # everything removed again
         meta.pop("font", None)
-        meta["coverage"], meta["word_coverage"], meta["glyphs"], meta["built"] = 0.0, 0.0, [], []
+        meta["coverage"], meta["word_coverage"], meta["glyphs"], meta["built"], meta["words"] = 0.0, 0.0, [], [], []
     meta["coverage_targets"] = {
         "pages_1_2": pages_1_2_coverage(),
         "all_pages": complete_coverage(),

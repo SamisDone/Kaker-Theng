@@ -1,32 +1,35 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId } from "react";
 import { MISSING_FONT } from "@/components/RewardScreen";
 import { useSaver } from "@/components/SaveNote";
 import { useLang } from "@/lib/i18n";
-import { textImage, textPdf } from "@/lib/khata";
-
-const SAMPLE = "আমি প্রতিদিন সকালে চা খাই। কর্মী ক্ষমা চাইল।\nবিদ্যালয়ের সামনে বৃষ্টি পড়ছে।\nThe quick brown fox jumps over the lazy dog.";
+import { textImage } from "@/lib/khata";
 
 // Lines stay on the khata rules: the line height is a whole number of rules.
 const SIZE = 28;
 const LINE = Math.ceil((SIZE * 1.45) / 32) * 32;
 
-export function TryIt({ userFont }: { userFont: string | null }) {
+/** A first text to try: common words the font already writes, five to a
+ * line; words of three letters or more first (not just এই, এর). */
+export function wordsText(words: string[]): string {
+  const picked = [...words.filter((w) => w.length > 2), ...words.filter((w) => w.length <= 2)].slice(0, 10);
+  const lines: string[] = [];
+  for (let i = 0; i < picked.length; i += 5) lines.push(picked.slice(i, i + 5).join(" "));
+  return lines.join("\n");
+}
+
+// Type in your font, and keep it as a picture: the main thing My font does.
+export function TryIt({ userFont, text, onText }: { userFont: string | null; text: string; onText: (text: string) => void }) {
   const { t } = useLang();
   const id = useId();
-  const [text, setText] = useState(SAMPLE);
-  const { save: run, making: saving, note } = useSaver();
+  const { save, making, note } = useSaver();
   const family = userFont ? `"${userFont}", ${MISSING_FONT}` : null;
 
-  function save(kind: "png" | "pdf") {
+  function saveImage() {
     if (!family) return;
     const title = t("আমার হাতের লেখা", "My handwriting");
-    void run(kind, async () => ({
-      blob: kind === "png" ? await textImage(text, family) : await textPdf(text, family, title),
-      name: `kaker-theng.${kind}`,
-      title,
-    }));
+    void save("png", async () => ({ blob: await textImage(text, family), name: "kaker-theng.png", title }));
   }
 
   return (
@@ -36,7 +39,8 @@ export function TryIt({ userFont }: { userFont: string | null }) {
         id={id}
         value={text}
         spellCheck={false}
-        onChange={(e) => setText(e.target.value)}
+        placeholder={t("এখানে লিখে দেখুন…", "Type here…")}
+        onChange={(e) => onText(e.target.value)}
         style={{
           fontFamily: family ?? "var(--bn)",
           fontSize: SIZE,
@@ -45,16 +49,15 @@ export function TryIt({ userFont }: { userFont: string | null }) {
         }}
       />
       {userFont && (
-        <p className="save-image">
-          <button type="button" className="button" onClick={() => save("png")} disabled={saving !== null}>
-            {saving === "png" ? t("বানাচ্ছি…", "making it…") : t("ছবি হিসেবে সেভ করুন", "Save as image")}
-          </button>
-          <button type="button" className="button" onClick={() => save("pdf")} disabled={saving !== null}>
-            {saving === "pdf" ? t("বানাচ্ছি…", "making it…") : t("PDF হিসেবে সেভ করুন", "Save as PDF")}
-          </button>
-        </p>
+        <>
+          <p className="save-image">
+            <button type="button" className="button big primary" onClick={saveImage} disabled={making !== null || !text.trim()}>
+              {making ? t("বানাচ্ছি…", "making it…") : t("ছবি হিসেবে সেভ / শেয়ার", "Save / share as image")}
+            </button>
+          </p>
+          {note}
+        </>
       )}
-      {userFont && note}
     </div>
   );
 }

@@ -6,15 +6,15 @@ import { Icon } from "@/components/Icons";
 import { useSaver } from "@/components/SaveNote";
 import { Specimen } from "@/components/Specimen";
 import { TopBar } from "@/components/TopBar";
-import { TryIt } from "@/components/TryIt";
+import { TryIt, wordsText } from "@/components/TryIt";
 import type { SessionMeta } from "@/lib/api";
 import { pct } from "@/lib/bn";
 import { CHAPTERS, type ChapterId } from "@/lib/chapters";
 import { useLang } from "@/lib/i18n";
 import type { LayoutCell } from "@/lib/layout";
 
-// The font so far: type in it, see every letter (tap one to redraw it),
-// download it.
+// The font so far: type in it and keep that as a picture (the main thing),
+// download the font for a computer, see every letter (tap one to redraw it).
 export function FontScreen(props: {
   session: string | null;
   meta: SessionMeta | null;
@@ -42,6 +42,11 @@ export function FontScreen(props: {
         ? t("ধূসর: আপনার অন্য অক্ষরের টুকরো জুড়ে বানানো। আমার ফন্ট-এ চাপ দিয়ে আবার আঁকা যায়।", "Grey: put together from pieces of your other letters. Tap it under My font to draw it again.")
         : undefined,
   }));
+
+  // The try-it text: common words the font already writes, until the
+  // visitor types their own.
+  const [typed, setTyped] = useState<string | null>(null);
+  const text = typed ?? (props.meta?.font ? wordsText(props.meta.words ?? []) : "");
 
   // Hidden: "export my strokes", for sending a drawing that came out wrong.
   // Shown with ?debug=1, or by holding the heading down for a moment.
@@ -84,8 +89,8 @@ export function FontScreen(props: {
             ? t(`বাংলা শব্দের ${num(pct(words))}% এখন আপনার ফন্টে লেখা যায়।`, `${pct(words)}% of Bangla words can now be written in your font.`)
             : null}
       </p>
-      <TryIt userFont={props.userFont} />
-      <Download session={props.session} ready={Boolean(props.meta?.font)} userFont={props.userFont} groups={groups} />
+      <TryIt userFont={props.userFont} text={text} onText={setTyped} />
+      <Download session={props.session} ready={Boolean(props.meta?.font)} userFont={props.userFont} groups={groups} text={text} />
       <Specimen lists={props.lists} cells={props.cells} meta={props.meta} userFont={props.userFont} built={built} onRedraw={props.onRedraw} />
       {debug && (
         <>
