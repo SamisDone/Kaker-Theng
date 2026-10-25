@@ -2,9 +2,9 @@
 
 import { useId, useState } from "react";
 import { MISSING_FONT } from "@/components/RewardScreen";
+import { useSaver } from "@/components/SaveNote";
 import { useLang } from "@/lib/i18n";
 import { textImage, textPdf } from "@/lib/khata";
-import { saveFile } from "@/lib/savefile";
 
 const SAMPLE = "আমি প্রতিদিন সকালে চা খাই। কর্মী ক্ষমা চাইল।\nবিদ্যালয়ের সামনে বৃষ্টি পড়ছে।\nThe quick brown fox jumps over the lazy dog.";
 
@@ -16,23 +16,17 @@ export function TryIt({ userFont }: { userFont: string | null }) {
   const { t } = useLang();
   const id = useId();
   const [text, setText] = useState(SAMPLE);
-  const [saving, setSaving] = useState<"png" | "pdf" | null>(null);
-  const [failed, setFailed] = useState(false);
+  const { save: run, making: saving, note } = useSaver();
   const family = userFont ? `"${userFont}", ${MISSING_FONT}` : null;
 
-  async function save(kind: "png" | "pdf") {
+  function save(kind: "png" | "pdf") {
     if (!family) return;
-    setSaving(kind);
-    setFailed(false);
     const title = t("আমার হাতের লেখা", "My handwriting");
-    try {
-      const blob = kind === "png" ? await textImage(text, family) : await textPdf(text, family, title);
-      await saveFile(blob, `kaker-theng.${kind}`, title);
-    } catch {
-      setFailed(true);
-    } finally {
-      setSaving(null);
-    }
+    void run(kind, async () => ({
+      blob: kind === "png" ? await textImage(text, family) : await textPdf(text, family, title),
+      name: `kaker-theng.${kind}`,
+      title,
+    }));
   }
 
   return (
@@ -58,9 +52,9 @@ export function TryIt({ userFont }: { userFont: string | null }) {
           <button type="button" className="button" onClick={() => save("pdf")} disabled={saving !== null}>
             {saving === "pdf" ? t("বানাচ্ছি…", "making it…") : t("PDF হিসেবে সেভ করুন", "Save as PDF")}
           </button>
-          {failed && <span className="margin-note">{t("ফাইলটা বানানো গেল না।", "Couldn't make the file.")}</span>}
         </p>
       )}
+      {userFont && note}
     </div>
   );
 }

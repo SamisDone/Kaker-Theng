@@ -38,6 +38,7 @@ export type SessionMeta = {
   font_version: number;
   coverage?: number; // conjunct clusters built correctly, share of occurrences
   word_coverage?: number; // Bangla words the font renders fully and correctly
+  built?: string[]; // conjunct cells put together partly from pieces of the writer's other letters
   coverage_targets?: { pages_1_2: number; all_pages: number; words_pages_1_2?: number; words_all_pages?: number };
 };
 

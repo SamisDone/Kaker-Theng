@@ -2,6 +2,8 @@
 // the browser, which shapes Bangla the way the screen does (ি before its
 // letter, conjuncts joined); a PDF library would have to shape it again.
 
+import { SaveError } from "@/lib/savefile";
+
 const A4_PT: [number, number] = [595.28, 841.89];
 
 /** UTF-16BE hex string with a byte-order mark: PDF text for any script. */
@@ -11,13 +13,18 @@ function pdfText(s: string): string {
   return `<${hex}>`;
 }
 
-async function jpeg(canvas: HTMLCanvasElement): Promise<Uint8Array> {
+export type PdfPage = { jpeg: Uint8Array; width: number; height: number };
+
+/** A finished page as a JPEG; the canvas is let go, so a phone never holds every page at once. */
+export async function pageJpeg(canvas: HTMLCanvasElement): Promise<PdfPage> {
   const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/jpeg", 0.9));
-  if (!blob) throw new Error("no image");
-  return new Uint8Array(await blob.arrayBuffer());
+  const { width, height } = canvas;
+  canvas.width = canvas.height = 0;
+  if (!blob) throw new SaveError("canvas", `toBlob gave nothing for a ${width}x${height} page`);
+  return { jpeg: new Uint8Array(await blob.arrayBuffer()), width, height };
 }
 
-export async function pagesToPdf(pages: HTMLCanvasElement[], title: string): Promise<Blob> {
+export async function pagesToPdf(pages: PdfPage[], title: string): Promise<Blob> {
   const enc = new TextEncoder();
   const parts: Uint8Array[] = [];
   const offsets: number[] = [];
@@ -43,7 +50,7 @@ export async function pagesToPdf(pages: HTMLCanvasElement[], title: string): Pro
   obj(3, `<< /Title ${pdfText(title)} /Producer (Kaker Theng) >>`);
   const [w, h] = A4_PT;
   for (let i = 0; i < n; i++) {
-    const img = await jpeg(pages[i]);
+    const img = pages[i].jpeg;
     const draw = `q ${w} 0 0 ${h} 0 0 cm /Im0 Do Q`;
     obj(pageObj(i), `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${w} ${h}] /Resources << /XObject << /Im0 ${pageObj(i) + 2} 0 R >> >> /Contents ${pageObj(i) + 1} 0 R >>`);
     obj(pageObj(i) + 1, [`<< /Length ${draw.length} >>\nstream\n`, draw, "\nendstream"]);

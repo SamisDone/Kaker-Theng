@@ -212,7 +212,7 @@ def run(name: str, viewport: dict):
         dl.value.save_as(shots / f"{name}-18-saved-image.png")
         check(dl.value.suggested_filename == "kaker-theng.png", f"{name}: save as image gives a PNG ({dl.value.suggested_filename})")
         # The download area: the font sheet (picture, PDF) first, the font file below.
-        for button, out in (("ফন্ট শিট: ছবি", "24-font-sheet.png"), ("ফন্ট শিট: PDF", "25-font-sheet.pdf"), ("PDF হিসেবে সেভ করুন", "26-try-it.pdf")):
+        for button, out in (("ফন্ট শিট: ছবি", "24-font-sheet.png"), ("ছবি: শুধু বাংলা অক্ষর", "24-bangla-letters.png"), ("ফন্ট শিট: PDF", "25-font-sheet.pdf"), ("PDF হিসেবে সেভ করুন", "26-try-it.pdf")):
             with page.expect_download() as dl:
                 page.get_by_role("button", name=button).click()
             dl.value.save_as(shots / f"{name}-{out}")

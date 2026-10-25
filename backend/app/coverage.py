@@ -60,6 +60,15 @@ def coverage(shaper: Shaper, plain: set[str]) -> float:
     return good / sum(counts.values())
 
 
+def built_cells(shaper: Shaper, plain: set[str], derived: set[str]) -> list[str]:
+    """Conjunct cells (page 3) whose conjunct the font builds correctly but
+    partly from pieces cut from the writer's other letters (`derived`), not
+    as drawn: in a part cell the writer draws one piece and the rest is put
+    together. A conjunct cell nobody drew never builds; that is why it has
+    a cell."""
+    return [c.id for c in build_layout().page(3) if cluster_ok(shaper, c.text, plain) and set(shaper.names(c.text)) & derived]
+
+
 def plain_glyphs(written: set[str]) -> set[str]:
     """Of the glyphs a user wrote, the ones written as whole units."""
     whole = {c.glyph for c in build_layout().cells if c.kind != "latin" and c.group != "part"}

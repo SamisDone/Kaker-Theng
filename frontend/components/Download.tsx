@@ -2,15 +2,17 @@
 
 import { useId, useState } from "react";
 import { MISSING_FONT } from "@/components/RewardScreen";
+import { useSaver } from "@/components/SaveNote";
 import { ApiError, fileUrl, requestDownload } from "@/lib/api";
 import { timeLeft } from "@/lib/bn";
 import { useLang } from "@/lib/i18n";
 import { type Sheet, sheetImage, sheetPdf } from "@/lib/khata";
-import { saveFile } from "@/lib/savefile";
 
 type State = { kind: "idle" } | { kind: "busy"; ahead?: number; waking?: boolean; eta?: number | null } | { kind: "error"; bn: string; en: string };
 
 const SAMPLE = "আমি বাংলায় লিখি। কাকের ঠ্যাং বকের ঠ্যাং";
+// "Bangla letters only": letters, signs and digits; no conjuncts, no English.
+const BANGLA_LETTERS = new Set(["vowels", "consonants", "signs", "phala", "digits"]);
 
 // What a visitor takes away. First what any phone can open, look at and
 // share: the font sheet as a picture or a PDF. Then, for a computer, the
@@ -25,25 +27,20 @@ export function Download(props: {
   const id = useId();
   const [name, setName] = useState("");
   const [state, setState] = useState<State>({ kind: "idle" });
-  const [making, setMaking] = useState<"png" | "pdf" | null>(null);
-  const [sheetFailed, setSheetFailed] = useState(false);
+  const { save, making, note } = useSaver();
   const fallback = t("আমার হাতের লেখা", "My Handwriting");
   const title = name.trim() || fallback;
 
-  async function sheet(kind: "png" | "pdf") {
+  function sheet(kind: "png" | "letters" | "pdf") {
     if (!props.userFont) return;
-    setMaking(kind);
-    setSheetFailed(false);
     const family = `"${props.userFont}", ${MISSING_FONT}`;
-    const sheet: Sheet = { title, subtitle: t("কাকের ঠ্যাং দিয়ে বানানো ফন্ট", "A font made with Kaker Theng"), sample: SAMPLE, groups: props.groups };
-    try {
-      const blob = kind === "png" ? await sheetImage(sheet, family) : await sheetPdf(sheet, family);
-      await saveFile(blob, `kaker-theng-font-sheet.${kind}`, title);
-    } catch {
-      setSheetFailed(true);
-    } finally {
-      setMaking(null);
-    }
+    const groups = kind === "letters" ? props.groups.filter((g) => BANGLA_LETTERS.has(g.id)) : props.groups;
+    const sheet: Sheet = { title, subtitle: t("কাকের ঠ্যাং দিয়ে বানানো ফন্ট", "A font made with Kaker Theng"), sample: SAMPLE, groups };
+    void save(kind, async () => ({
+      blob: kind === "pdf" ? await sheetPdf(sheet, family) : await sheetImage(sheet, family),
+      name: kind === "letters" ? "kaker-theng-bangla-letters.png" : `kaker-theng-font-sheet.${kind}`,
+      title,
+    }));
   }
 
   async function zip() {
@@ -87,18 +84,20 @@ export function Download(props: {
         <button type="button" className="button big primary" disabled={!canSheet} onClick={() => sheet("png")}>
           {making === "png" ? t("বানাচ্ছি…", "making it…") : t("ফন্ট শিট: ছবি", "Font sheet: image")}
         </button>
+        <button type="button" className="button" disabled={!canSheet} onClick={() => sheet("letters")}>
+          {making === "letters" ? t("বানাচ্ছি…", "making it…") : t("ছবি: শুধু বাংলা অক্ষর", "Image: Bangla letters only")}
+        </button>
         <button type="button" className="button big" disabled={!canSheet} onClick={() => sheet("pdf")}>
           {making === "pdf" ? t("বানাচ্ছি…", "making it…") : t("ফন্ট শিট: PDF", "Font sheet: PDF")}
         </button>
       </div>
       <p className="outputs-note">
-        {t("আপনার আঁকা সব অক্ষর, আপনার ফন্টে। ছবিটা গ্যালারিতে রাখুন বা পাঠান; PDF-টা A4-এ ছাপা যায়।", "Every letter you drew, in your font. Keep the picture or send it; the PDF prints on A4.")}
+        {t(
+          "আপনার আঁকা সব অক্ষর, আপনার ফন্টে। ছবিটা গ্যালারিতে রাখুন বা পাঠান; শুধু বাংলা অক্ষরেরটা ছোট, পাঠাতে সহজ। PDF-টা A4-এ ছাপা যায়।",
+          "Every letter you drew, in your font. Keep the picture or send it; the Bangla letters one is shorter, easy to send. The PDF prints on A4.",
+        )}
       </p>
-      {sheetFailed && (
-        <p className="margin-note" role="alert">
-          {t("ফাইলটা বানানো গেল না।", "Couldn't make the file.")}
-        </p>
-      )}
+      {note}
 
       <div className="install">
         <button type="button" className="button" disabled={!props.ready || state.kind === "busy"} onClick={zip}>

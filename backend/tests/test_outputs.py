@@ -99,6 +99,11 @@ def saved():
             with page.expect_download() as dl:
                 page.get_by_role("button", name="ফন্ট শিট: PDF").click()
             sheet = Path(dl.value.path()).read_bytes()
+            pictures = {}
+            for button in ("ফন্ট শিট: ছবি", "ছবি: শুধু বাংলা অক্ষর"):
+                with page.expect_download() as dl:
+                    page.get_by_role("button", name=button).click()
+                pictures[button] = cv2.imdecode(np.frombuffer(Path(dl.value.path()).read_bytes(), np.uint8), cv2.IMREAD_COLOR)
             # The browser's own rendering: the text in a plain element, in the font.
             family = page.locator(".tryit textarea").evaluate("e => getComputedStyle(e).fontFamily")
             page.evaluate(
@@ -121,6 +126,8 @@ def saved():
         "browser": ink(cv2.imdecode(np.frombuffer(shot, np.uint8), cv2.IMREAD_COLOR)),
         "font": ttf.getvalue(),
         "sheet": pdfium.PdfDocument(sheet),
+        "full picture": pictures["ফন্ট শিট: ছবি"],
+        "letters picture": pictures["ছবি: শুধু বাংলা অক্ষর"],
     }
 
 
@@ -145,3 +152,22 @@ def test_the_font_sheet_is_a4_pages(saved):
     assert len(doc) >= 2  # 113 drawn letters at 8 a row
     w, h = doc[0].get_size()
     assert abs(w - 595.28) < 1 and abs(h - 841.89) < 1
+
+
+def test_the_bangla_letters_picture_fits_about_two_screens(saved):
+    full, letters = saved["full picture"], saved["letters picture"]
+    assert full.shape[1] == letters.shape[1] == 1080
+    assert letters.shape[0] <= 2 * 1920 and letters.shape[0] < full.shape[0]
+
+
+def test_conjuncts_put_together_from_pieces_are_grey_on_the_sheet(saved):
+    # GREY in frontend/lib/khata.ts, #8a847a: only in the conjunct cells that
+    # were put together, never in the letters-only picture.
+    def grey(img) -> int:
+        mask = (np.abs(img.astype(int) - (0x7A, 0x84, 0x8A)).max(axis=2) < 12).astype(np.uint8)
+        # Strokes are several px wide; anti-aliased edges of pencil labels are 1 px.
+        return int(cv2.erode(mask, np.ones((3, 3), np.uint8)).sum())
+
+    assert grey(saved["full picture"]) > 500  # 13 conjuncts: about 1400
+    assert grey(saved["letters picture"]) < 50  # none: about 0
+

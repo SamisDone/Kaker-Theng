@@ -358,6 +358,14 @@ a {
   }
 }
 
+.in-app-warning {
+  margin-bottom: var(--line);
+}
+
+.in-app-warning .button {
+  margin: 0;
+}
+
 .start-buttons {
   display: flex;
   flex-direction: column;
@@ -809,6 +817,13 @@ a {
   color: var(--pencil);
 }
 
+/* A conjunct put together from pieces of other letters: grey, dashed, to redraw. */
+.glyph.auto {
+  color: #8a847a;
+  outline-style: dashed;
+  outline-color: var(--pencil);
+}
+
 .glyph.missing::after {
   /* a small red tick, like a teacher's mark */
   content: "";
@@ -932,4 +947,37 @@ a {
   font-size: 14px;
   line-height: 22px;
   color: var(--pencil);
+}
+
+/* After a save button: what happened, and the file itself when it couldn't be saved. */
+.save-note {
+  margin-top: 12px;
+}
+
+.save-note p {
+  margin: 0 0 12px;
+}
+
+.save-detail {
+  font-size: 13px;
+  line-height: 18px;
+  overflow-wrap: anywhere;
+}
+
+.save-shown {
+  margin: 0;
+}
+
+.save-shown figcaption {
+  margin-bottom: 8px;
+}
+
+.save-shown img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  /* long-press must reach the browser's own image menu */
+  -webkit-touch-callout: default;
+  user-select: auto;
 }

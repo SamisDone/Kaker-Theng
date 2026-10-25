@@ -13,6 +13,7 @@ export function Specimen(props: {
   cells: Map<string, LayoutCell>;
   meta: SessionMeta | null;
   userFont: string | null;
+  built: Set<string>; // conjuncts put together from pieces of other letters: grey
   onRedraw: (id: string) => void;
 }) {
   const { t } = useLang();
@@ -32,12 +33,13 @@ export function Specimen(props: {
               const cell = props.cells.get(id)!;
               const ok = Boolean(font) && (status.get(id) ?? "missing") !== "missing";
               const flagged = !ok && status.has(id);
+              const auto = ok && props.built.has(id);
               return (
                 <button
                   key={id}
                   type="button"
-                  className={`glyph${flagged ? " missing" : ""}`}
-                  aria-label={`${cell.text}${ok ? "" : t(", এখনও ফন্টে নেই", ", not in the font yet")}: ${t("আবার আঁকুন", "draw again")}`}
+                  className={`glyph${flagged ? " missing" : ""}${auto ? " auto" : ""}`}
+                  aria-label={`${cell.text}${ok ? "" : t(", এখনও ফন্টে নেই", ", not in the font yet")}${auto ? t(", টুকরো জুড়ে বানানো", ", put together from pieces") : ""}: ${t("আবার আঁকুন", "draw again")}`}
                   onClick={() => props.onRedraw(id)}
                   style={{ fontFamily: font }}
                 >

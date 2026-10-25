@@ -21,7 +21,7 @@ from pathlib import Path
 from . import strokes
 from .config import OFL_PATH
 from .basefont import Shaper
-from .coverage import complete_coverage, coverage, pages_1_2_coverage, plain_glyphs
+from .coverage import built_cells, complete_coverage, coverage, pages_1_2_coverage, plain_glyphs
 from .fontbuild import BuiltFont, build_font, clean_family_name, postscript_name
 from .glyphmap import build_layout
 from .pipeline import PageResult
@@ -177,12 +177,14 @@ def _rebuild(d: Path, meta: dict):
             shaper, plain = Shaper(font.ttf), plain_glyphs(written)
             meta["coverage"] = coverage(shaper, plain)
             meta["word_coverage"] = word_coverage(shaper, plain)
+            meta["built"] = built_cells(shaper, plain, set(font.derived))
         else:
             meta["coverage"] = meta["word_coverage"] = 0.0
+            meta["built"] = []
         meta["glyphs"] = sorted(set(font.glyphs))
     else:  # everything removed again
         meta.pop("font", None)
-        meta["coverage"], meta["word_coverage"], meta["glyphs"] = 0.0, 0.0, []
+        meta["coverage"], meta["word_coverage"], meta["glyphs"], meta["built"] = 0.0, 0.0, [], []
     meta["coverage_targets"] = {
         "pages_1_2": pages_1_2_coverage(),
         "all_pages": complete_coverage(),

@@ -99,3 +99,18 @@ def test_a_sign_after_the_ghost_keeps_its_gap_and_clears_the_letter(text):
     dx, _, _ = _place(cell, onto)
     body = _body_extent(onto, 585 - 30)
     assert body[0] + dx >= -BANGLA_RSB + SIGN_CLEARANCE - 1
+
+
+def test_conjuncts_put_together_from_pieces_are_told_apart():
+    # Drawn whole (ক্ষ ...) stays the writer's own; a part cell whose conjunct
+    # also uses pieces cut from other letters is "built" (grey on the sheet).
+    from app.basefont import Shaper
+    from app.coverage import built_cells, plain_glyphs
+
+    strokes = traced_cells(seed=11)
+    ds = [drawing(cells()[k], v) for k, v in strokes.items() if v]
+    built = build_font(ds, "Built Test")
+    ids = built_cells(Shaper(built.ttf), plain_glyphs({d.glyph for d in ds}), set(built.derived))
+    assert ids and all(cells()[i].group == "part" for i in ids)
+    assert not {c.id for c in build_layout().page(3) if c.group == "conjunct"} & set(ids)
+
