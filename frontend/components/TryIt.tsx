@@ -34,7 +34,7 @@ export function TryIt({ userFont, text, onText }: { userFont: string | null; tex
 
   const image = () => {
     const title = t("আমার হাতের লেখা", "My handwriting");
-    return async () => ({ blob: await textImage(text, family!), name: "kaker-theng.png", title });
+    return async () => ({ blob: await textImage(text, family!, t("কাকের ঠ্যাং", "Kaker Theng")), name: "kaker-theng.png", title });
   };
 
   return (

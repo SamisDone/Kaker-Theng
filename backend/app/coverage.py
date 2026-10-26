@@ -14,9 +14,10 @@ from __future__ import annotations
 import json
 from functools import lru_cache
 
-from .basefont import Shaper, base_shaper, simulated_shaper
+from .basefont import Shaper, base_shaper
 from .config import ASSETS_DIR
 from .glyphmap import HALANT, _specials, build_layout
+from .partfit import final_shaper
 
 COUNTS_PATH = ASSETS_DIR / "conjunct_counts.json"
 
@@ -84,7 +85,7 @@ def complete_coverage() -> float:
     """Coverage of a font with every cell of all three pages written."""
     layout = build_layout()
     written = {c.glyph for c in layout.cells if c.kind != "latin"}
-    return coverage(simulated_shaper(layout.bangla_glyphs() | _specials()), plain_glyphs(written))
+    return coverage(final_shaper(layout.bangla_glyphs() | _specials()), plain_glyphs(written))
 
 
 def derivable_from(written: set[str]) -> set[str]:
@@ -104,4 +105,4 @@ def pages_1_2_coverage() -> float:
     """Coverage with pages 1 and 2 complete and page 3 blank."""
     written = {c.glyph for c in build_layout().cells if c.kind != "latin" and c.page == 2}
     glyphs = written | derivable_from(written) | _specials()
-    return coverage(simulated_shaper(glyphs), plain_glyphs(written))
+    return coverage(final_shaper(glyphs), plain_glyphs(written))

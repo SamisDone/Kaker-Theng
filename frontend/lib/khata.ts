@@ -238,6 +238,75 @@ async function picture(make: Make, side: number): Promise<Blob> {
   return blob;
 }
 
+// The try-it text as a card to share: square, or 4:5 portrait when the text
+// needs more room (the shapes chat apps and feeds show whole), the text as
+// large as fits, centred on khata rules, the site's name small at the foot.
+// Text too long for either at a readable size makes a taller card.
+const CARD_W = 1080;
+const CARD_HEIGHTS = [1080, 1350];
+const CARD_TEXT = [140, 60]; // px: largest, and smallest before the card grows taller
+const CARD_FOOT = 120; // the name's band at the bottom
+const CREDIT = 30;
+
+/** The largest text size (and its lines) that fits `room` across and down. */
+function fitText(ctx: CanvasRenderingContext2D, text: string, family: string, room: [number, number]) {
+  for (let size = CARD_TEXT[0]; size >= CARD_TEXT[1]; size -= 4) {
+    ctx.font = `${size}px ${family}`;
+    const lines = wrap(ctx, text, room[0]);
+    const lh = Math.round(size * 1.6);
+    if (lines.length * lh <= room[1] && lines.every((l) => ctx.measureText(l).width <= room[0])) return { size, lines, lh };
+  }
+  return null;
+}
+
+async function card(text: string, family: string, credit: string, side: number): Promise<Blob> {
+  const probe = context(document.createElement("canvas"));
+  const across = CARD_W - LEFT - RIGHT;
+  const room = (h: number): [number, number] => [across, h - TOP - CARD_FOOT];
+  const [square, tall] = CARD_HEIGHTS.map((h) => fitText(probe, text, family, room(h)));
+  // Square unless the portrait card gives clearly larger text.
+  let fit = square && (!tall || tall.size < square.size * 1.2) ? square : tall;
+  let h = fit === square ? CARD_HEIGHTS[0] : CARD_HEIGHTS[1];
+  if (!fit) {
+    probe.font = `${CARD_TEXT[1]}px ${family}`;
+    const lines = wrap(probe, text, across);
+    fit = { size: CARD_TEXT[1], lines, lh: Math.round(CARD_TEXT[1] * 1.6) };
+    h = TOP + CARD_FOOT + lines.length * fit.lh;
+  }
+  const s = Math.min(1, side / Math.max(CARD_W, h), Math.sqrt(PICTURE_AREA / (CARD_W * h)));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(CARD_W * s);
+  canvas.height = Math.round(h * s);
+  const ctx = context(canvas);
+  ctx.scale(s, s);
+  // The text block in the middle of the room above the foot; each line's
+  // baseline sits on a rule, and the rules run on, evenly, over the card.
+  const block = fit.lines.length * fit.lh;
+  const top = TOP + (h - TOP - CARD_FOOT - block) / 2;
+  const baseline = (i: number) => top + i * fit.lh + fit.lh * 0.7;
+  const rule = baseline(0) + fit.size * 0.14;
+  ctx.fillStyle = PAPER;
+  ctx.fillRect(0, 0, CARD_W, h);
+  ctx.fillStyle = RULE;
+  for (let y = rule - Math.ceil(rule / fit.lh) * fit.lh; y < h; y += fit.lh) if (y > 0) ctx.fillRect(0, y - 1, CARD_W, 2);
+  ctx.fillStyle = MARGIN;
+  ctx.fillRect(MARGIN_X, 0, 3, h);
+  ctx.fillStyle = INK;
+  ctx.font = `${fit.size}px ${family}`;
+  fit.lines.forEach((line, i) => ctx.fillText(line, LEFT, baseline(i)));
+  ctx.fillStyle = PENCIL;
+  ctx.font = `${CREDIT}px ${uiFont()}`;
+  ctx.textAlign = "right";
+  ctx.fillText(credit, CARD_W - RIGHT, h - CARD_FOOT / 2 + CREDIT / 3);
+  drawLog.step = "canvas";
+  const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
+  const { width, height } = canvas;
+  canvas.width = canvas.height = 0;
+  drawLog.canvases.push(`card ${width}x${height} ${blob ? "ok" : "failed"}`);
+  if (!blob) throw new SaveError("canvas", `toBlob gave nothing for ${width}x${height}`);
+  return blob;
+}
+
 export type Pdf = { pdf: Blob; firstPage: Blob }; // the first page as a picture, to show on the page
 
 /** A4 pages, a block never split across two. */
@@ -292,9 +361,10 @@ async function ready(family: string, texts: string[]) {
 
 const sheetTexts = (sheet: Sheet) => [sheet.sample, ...sheet.groups.flatMap((g) => g.items.map((it) => it.text))];
 
-export async function textImage(text: string, family: string): Promise<Blob> {
-  await ready(family, [text]);
-  return smaller(PICTURE_SIDES, (side) => picture((ctx, s, width) => textBlocks(ctx, text, `${TEXT * s}px ${family}`, s, width), side));
+/** The try-it text as a card to share, with `credit` (the site's name) at the foot. */
+export async function textImage(text: string, family: string, credit: string): Promise<Blob> {
+  await ready(family, [text, credit]);
+  return smaller(PICTURE_SIDES, (side) => card(text.trim() || " ", family, credit, side));
 }
 
 export async function textPdf(text: string, family: string, title: string): Promise<Pdf> {

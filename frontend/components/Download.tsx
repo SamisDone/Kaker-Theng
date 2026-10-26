@@ -10,7 +10,6 @@ import { type Sheet, sheetImage, sheetPdf, textPdf } from "@/lib/khata";
 
 type State = { kind: "idle" } | { kind: "busy"; ahead?: number; waking?: boolean; eta?: number | null } | { kind: "error"; bn: string; en: string };
 
-const SAMPLE = "আমি বাংলায় লিখি। কাকের ঠ্যাং বকের ঠ্যাং";
 // "Bangla letters only": letters, signs and digits; no conjuncts, no English.
 const BANGLA_LETTERS = new Set(["vowels", "consonants", "signs", "more-consonants", "phala", "digits"]);
 
@@ -23,6 +22,7 @@ export function Download(props: {
   userFont: string | null; // ...and this browser has loaded it
   groups: Sheet["groups"]; // every letter in the font, by chapter
   text: string; // the try-it text
+  sample: string; // sentences the font writes fully, for the top of the font sheet
 }) {
   const { t, num } = useLang();
   const id = useId();
@@ -43,7 +43,7 @@ export function Download(props: {
       };
     }
     const groups = kind === "letters" ? props.groups.filter((g) => BANGLA_LETTERS.has(g.id)) : props.groups;
-    const sheet: Sheet = { title, subtitle: t("কাকের ঠ্যাং দিয়ে বানানো ফন্ট", "A font made with Kaker Theng"), sample: SAMPLE, groups };
+    const sheet: Sheet = { title, subtitle: t("কাকের ঠ্যাং দিয়ে বানানো ফন্ট", "A font made with Kaker Theng"), sample: props.sample, groups };
     if (kind === "pdf") {
       return async () => {
         const { pdf, firstPage } = await sheetPdf(sheet, family);

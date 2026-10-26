@@ -46,7 +46,8 @@ export function FontScreen(props: {
   // The try-it text: sentences (or words) the font already writes, until
   // the visitor types their own.
   const [typed, setTyped] = useState<string | null>(null);
-  const text = typed ?? (props.meta?.font ? firstText(props.meta.sentences ?? [], props.meta.words ?? []) : "");
+  const first = props.meta?.font ? firstText(props.meta.sentences ?? [], props.meta.words ?? []) : "";
+  const text = typed ?? first;
 
   // Hidden: "export my strokes", for sending a drawing that came out wrong.
   // Shown with ?debug=1, or by holding the heading down for a moment.
@@ -90,7 +91,7 @@ export function FontScreen(props: {
             : null}
       </p>
       <TryIt userFont={props.userFont} text={text} onText={setTyped} />
-      <Download session={props.session} ready={Boolean(props.meta?.font)} userFont={props.userFont} groups={groups} text={text} />
+      <Download session={props.session} ready={Boolean(props.meta?.font)} userFont={props.userFont} groups={groups} text={text} sample={first} />
       <Specimen lists={props.lists} cells={props.cells} meta={props.meta} userFont={props.userFont} built={built} onRedraw={props.onRedraw} />
       {debug && (
         <>

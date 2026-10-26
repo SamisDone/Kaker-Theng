@@ -22,10 +22,11 @@ import json
 import re
 from functools import lru_cache
 
-from .basefont import Shaper, simulated_shaper
+from .basefont import Shaper
 from .config import ASSETS_DIR
 from .coverage import _specials, cluster_ok, derivable_from, plain_glyphs
 from .glyphmap import build_layout
+from .partfit import final_shaper
 
 WORDS_PATH = ASSETS_DIR / "word_needs.json"
 TOP_WORDS_PATH = ASSETS_DIR / "top_words.json"
@@ -105,10 +106,10 @@ def complete_word_coverage() -> float:
     """Words covered with every cell of all three pages written."""
     layout = build_layout()
     written = {c.glyph for c in layout.cells if c.kind != "latin"}
-    return word_coverage(simulated_shaper(layout.bangla_glyphs() | _specials()), plain_glyphs(written))
+    return word_coverage(final_shaper(layout.bangla_glyphs() | _specials()), plain_glyphs(written))
 
 
 @lru_cache(maxsize=1)
 def pages_1_2_word_coverage() -> float:
     written = {c.glyph for c in build_layout().cells if c.kind != "latin" and c.page == 2}
-    return word_coverage(simulated_shaper(written | derivable_from(written) | _specials()), plain_glyphs(written))
+    return word_coverage(final_shaper(written | derivable_from(written) | _specials()), plain_glyphs(written))

@@ -27,6 +27,7 @@ from .derive import derive_parts, measure_matra
 from .glyphmap import HALANT, Cell, build_layout
 from .guides import run_left_mm
 from .outline import Raster, contour_polygons
+from .partfit import refit, whole_ka_before_raphala
 from .spacing import widen
 from .vectorize import Drawing, contours_bbox
 
@@ -46,6 +47,11 @@ BANGLA_OPEN_SIDE_BEARING = 30  # Bangla letters without a full মাত্র�
 # finger often lands a sign on the faint ghost, and the writer's own letter
 # isn't the ghost's shape.
 SIGN_CLEARANCE = 20
+# The দাঁড়ি (।) stands apart from the word it ends, like the base font's (its
+# ink 184 units clear of the letter before): never on the previous letter.
+DANDA = "danda-deva"
+DANDA_LSB = 160
+DANDA_RSB = 100
 VENDOR_ID = "NONE"  # unregistered
 
 
@@ -205,6 +211,8 @@ def _placement(
         lsb, rsb = latin_side_bearings(d, stroke)
         return lsb - x_min, 0, round(width + lsb + rsb)
     ng = noto["glyf"][d.glyph]
+    if d.glyph == DANDA:
+        return DANDA_LSB - x_min, 0, round(width + DANDA_LSB + DANDA_RSB)
     if d.kind == "mark":
         # Zero-advance marks: centre on the base font's mark, keep the scale.
         # GPOS then attaches it exactly where the base font would.
@@ -248,32 +256,42 @@ def _placement(
     return BANGLA_OPEN_SIDE_BEARING - x_min, 0, round(width + 2 * BANGLA_OPEN_SIDE_BEARING)
 
 
-def _anchor_maps(noto: TTFont, boxes: dict[str, tuple]) -> dict[str, tuple[float, float, float]]:
-    """Per glyph: x -> new_x0 + (x - old_x0) * k, from base-font box to user box."""
+# An anchor in the lowest share of a letter's height is where a mark goes
+# under it (ু ূ ৃ, ra-phala, হসন্ত): it follows the bottom of the writer's
+# letter, which may reach lower or stay higher than the base font's.
+BOTTOM_ANCHOR = 0.25
+
+
+def _anchor_maps(noto: TTFont, boxes: dict[str, tuple]) -> dict[str, tuple[float, ...]]:
+    """Per glyph, from base-font box to user box: x -> new_x0 + (x - old_x0)
+    * k; a bottom anchor (y below old_bottom_line) moves by dy_bottom."""
     maps = {}
     glyf = noto["glyf"]
-    for name, (x0, _, x1, _) in boxes.items():
+    for name, (x0, y0, x1, _) in boxes.items():
         g = glyf[name] if name in glyf.glyphs else None
         if g is None or not g.numberOfContours or g.xMax <= g.xMin or x1 <= x0:
             continue
-        maps[name] = (g.xMin, x0, (x1 - x0) / (g.xMax - g.xMin))
+        maps[name] = (g.xMin, x0, (x1 - x0) / (g.xMax - g.xMin), g.yMin + BOTTOM_ANCHOR * (g.yMax - g.yMin), y0 - g.yMin)
     return maps
 
 
-def _remap_anchors(font: TTFont, maps: dict[str, tuple[float, float, float]]):
+def _remap_anchors(font: TTFont, maps: dict[str, tuple[float, ...]]):
     """Move every GPOS anchor on a replaced glyph along with its new outline.
 
     The base font's anchors fit its own letter widths; the user's letters are
     narrower or wider. Anchors that point at outline points (format 2) are
-    turned into plain coordinates, since those points no longer exist."""
+    turned into plain coordinates, since those points no longer exist. A
+    letter's bottom anchors also move with its bottom (BOTTOM_ANCHOR)."""
     if "GPOS" not in font:
         return
 
-    def fix(anchor, glyph):
+    def fix(anchor, glyph, base=False):
         if anchor is None or glyph not in maps:
             return
-        old_x0, new_x0, k = maps[glyph]
+        old_x0, new_x0, k, bottom_line, dy_bottom = maps[glyph]
         anchor.XCoordinate = round(new_x0 + (anchor.XCoordinate - old_x0) * k)
+        if base and anchor.YCoordinate < bottom_line:
+            anchor.YCoordinate = round(anchor.YCoordinate + dy_bottom)
         if anchor.Format == 2:
             anchor.Format = 1
             del anchor.AnchorPoint
@@ -291,7 +309,7 @@ def _remap_anchors(font: TTFont, maps: dict[str, tuple[float, float, float]]):
             if t == 4:
                 for g, rec in zip(st.BaseCoverage.glyphs, st.BaseArray.BaseRecord):
                     for a in rec.BaseAnchor:
-                        fix(a, g)
+                        fix(a, g, base=True)
             elif t == 6:
                 for g, rec in zip(st.Mark2Coverage.glyphs, st.Mark2Array.Mark2Record):
                     for a in rec.Mark2Anchor:
@@ -300,7 +318,7 @@ def _remap_anchors(font: TTFont, maps: dict[str, tuple[float, float, float]]):
                 for g, lig in zip(st.LigatureCoverage.glyphs, st.LigatureArray.LigatureAttach):
                     for comp in lig.ComponentRecord:
                         for a in comp.LigatureAnchor:
-                            fix(a, g)
+                            fix(a, g, base=True)
 
 
 def _set_names(font: TTFont, family: str):
@@ -356,7 +374,7 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
     # Parts the user didn't write, made from letters they did.
     by_glyph = {d.glyph: d for d in drawings if d.contours}
     matra = measure_matra(by_glyph, matra_glyphs)
-    derived = [d for d in derive_parts(layout.plans(), by_glyph, matra) if d.glyph not in by_glyph]
+    derived = refit([d for d in derive_parts(layout.plans(), by_glyph, matra) if d.glyph not in by_glyph], layout.plans(), by_glyph)
     drawings = [d for d in drawings if d.contours] + derived
     stroke = stroke_width(drawings)
     for d in derived:
@@ -391,6 +409,8 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
     _remap_anchors(font, _anchor_maps(noto, boxes))
 
     written = {d.glyph for d in drawings}
+    if "t_ra-beng" not in written:
+        whole_ka_before_raphala(font)
     cmap = font.getBestCmap()
     unicodes = sorted(cp for cp, g in cmap.items() if g in written)
     subset_font(font, written, unicodes)

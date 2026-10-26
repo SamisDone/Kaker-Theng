@@ -79,8 +79,8 @@ html[lang="en"] body,
    line, close to the right edge. */
 @media (max-width: 640px) {
   .sheet.fit {
-    padding-left: calc(var(--margin-x) + 8px);
-    padding-right: 8px;
+    padding-left: calc(var(--margin-x) + 6px);
+    padding-right: 4px;
   }
 }
 
@@ -581,13 +581,15 @@ a {
   line-height: 24px;
 }
 
+/* The box right under the letter and its hint, as wide as the screen
+   allows; any height to spare goes below it, above the buttons. */
 .draw-canvas {
   flex: 1 1 0;
   min-height: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 6px 0;
+  padding: 2px 0 6px;
 }
 
 .draw-canvas canvas {
