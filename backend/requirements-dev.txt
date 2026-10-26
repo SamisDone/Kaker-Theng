@@ -14,3 +14,5 @@ certifi==2026.7.22
 playwright==1.64.0
 greenlet==3.5.6
 pyee==14.0.0
+# Fonts through OTS, the sanitizer browsers run (tests/test_ots.py)
+opentype-sanitizer==9.2.0

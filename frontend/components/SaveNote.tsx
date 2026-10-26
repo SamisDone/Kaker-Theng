@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLang } from "@/lib/i18n";
+import { fontLog } from "@/lib/diag";
 import { drawLog, resetDrawLog } from "@/lib/khata";
 import { chromeIntent, inAppBrowser, isAndroid, SaveError, type Saved, type SaveTrace, saveFile } from "@/lib/savefile";
 
@@ -32,10 +33,14 @@ function report(action: string, trace: SaveTrace, error: unknown, made: Made | n
     `screen: ${innerWidth}x${innerHeight} @${devicePixelRatio}`,
     `in-app browser: ${inAppBrowser() ?? "no"}`,
     `can share files: ${canShare === null ? "no share in this browser" : canShare ? "yes" : "no"}`,
+    `step: ${drawLog.step || "none"}${error ? " (failed here)" : ""}`,
     `path: ${trace.path.join(" -> ") || "none: the file wasn't made"}`,
     `error: ${error ? errText(error) : "none"}`,
+    `font loads: ${drawLog.fonts.join("; ") || "none"}`,
+    `failed requests: ${drawLog.requests.join("; ") || "none"}`,
     `canvas: ${drawLog.canvases.join(", ") || "none drawn"}`,
     `font: ${drawLog.font || "not checked"}`,
+    `your font on this page: ${fontLog.join("; ") || "nothing logged"}`,
     `file: ${made ? `${made.name}, ${made.blob.type}, ${made.blob.size} bytes` : "not made"}`,
   ].join("\n");
 }
@@ -66,12 +71,16 @@ export function useSaver() {
 
   /** Made and shown on the page, nothing else: no share, no download. */
   async function show(key: string, make: () => Promise<Made>) {
-    const trace: SaveTrace = { canShare: null, path: ["shown on the page"] };
+    const trace: SaveTrace = { canShare: null, path: [] };
     const m = await made(key, `show ${key}`, make, trace);
-    if (m) setState({ kind: "saved", made: m, how: "shown", shown: true, failed: false, key, trace });
+    if (!m) return;
+    drawLog.step = "show";
+    trace.path.push("shown on the page");
+    setState({ kind: "saved", made: m, how: "shown", shown: true, failed: false, key, trace });
   }
 
   async function handOver(m: Made, tapped: boolean, key: string, trace: SaveTrace) {
+    drawLog.step = "save";
     try {
       const out = await saveFile(m.blob, m.name, m.title, tapped, trace);
       const shareFailed = out.how === "downloaded" && trace.path.some((p) => p.startsWith("share failed"));

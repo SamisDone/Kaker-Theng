@@ -25,6 +25,7 @@ import {
 } from "@/lib/api";
 import { bnNum } from "@/lib/bn";
 import { CHAPTERS, chapterById, type ChapterId, chapterIn, chapterLists } from "@/lib/chapters";
+import { logFont } from "@/lib/diag";
 import { loadDrawn, type Saved, saveDrawn } from "@/lib/drawstore";
 import { LangProvider, useLang } from "@/lib/i18n";
 import { shrinkPhoto } from "@/lib/image";
@@ -186,15 +187,26 @@ function App() {
     if (!session || !meta?.font) return;
     let cancelled = false;
     const family = `KakerThengUser${meta.font_version}`;
-    fetch(fileUrl(session, meta.font))
-      .then((r) => r.arrayBuffer())
-      .then((buf) => new FontFace(family, buf).load())
-      .then((face) => {
-        if (cancelled) return;
-        document.fonts.add(face);
-        setUserFont(family);
-      })
-      .catch(() => undefined);
+    const file = meta.font;
+    (async () => {
+      const r = await fetch(fileUrl(session, file));
+      if (!r.ok) {
+        logFont(`fetch ${file}: HTTP ${r.status}`);
+        // The server forgot this session (it restarted, or the hour passed):
+        // send the drawing kept here again, and build the font anew.
+        if (r.status === 404 && !cancelled) {
+          forgetSession();
+          for (const id of Object.keys(savedRef.current?.cells ?? {})) unsynced.current.add(id);
+          void rebuildPreview();
+        }
+        return;
+      }
+      const face = await new FontFace(family, await r.arrayBuffer()).load();
+      if (cancelled) return;
+      document.fonts.add(face);
+      setUserFont(family);
+      logFont(`${file}: HTTP ${r.status}, loaded as ${family}`);
+    })().catch((err) => logFont(`${file}: ${err instanceof Error ? `${err.name}: ${err.message}` : String(err)}`));
     return () => {
       cancelled = true;
     };

@@ -23,10 +23,38 @@ const PICTURE_AREA = 8_000_000;
 const PDF_DPI = [200, 150];
 
 /** What the last picture or PDF took, for the "copy error details" report. */
-export const drawLog = { canvases: [] as string[], font: "" };
+export const drawLog = { step: "", canvases: [] as string[], font: "", fonts: [] as string[], requests: [] as string[] };
 export function resetDrawLog() {
-  drawLog.canvases = [];
-  drawLog.font = "";
+  Object.assign(drawLog, { step: "", canvases: [], font: "", fonts: [], requests: [] });
+}
+
+const errText = (err: unknown) => (err instanceof Error ? `${err.name}: ${err.message}` : String(err));
+
+/** The files of the @font-face rules whose fonts failed to load, each fetched again for its HTTP status. */
+async function failedFontRequests(): Promise<string[]> {
+  const failed = new Set([...document.fonts].filter((f) => f.status === "error").map((f) => f.family.replace(/["']/g, "").trim()));
+  const urls = new Set<string>();
+  for (const sheet of Array.from(document.styleSheets)) {
+    let rules: CSSRuleList;
+    try {
+      rules = sheet.cssRules;
+    } catch {
+      continue; // another origin's stylesheet
+    }
+    for (const rule of Array.from(rules)) {
+      if (!(rule instanceof CSSFontFaceRule)) continue;
+      if (!failed.has(rule.style.getPropertyValue("font-family").replace(/["']/g, "").trim())) continue;
+      for (const m of rule.style.getPropertyValue("src").matchAll(/url\(["']?([^"')]+)/g)) urls.add(new URL(m[1], sheet.href ?? location.href).href);
+    }
+  }
+  return Promise.all(
+    [...urls].slice(0, 12).map((u) =>
+      fetch(u, { cache: "no-store" }).then(
+        (r) => `${u} HTTP ${r.status}`,
+        (e) => `${u} ${errText(e)}`,
+      ),
+    ),
+  );
 }
 
 const PAPER = "#f4f0e6";
@@ -201,6 +229,7 @@ async function picture(make: Make, side: number): Promise<Blob> {
     b.draw(ctx, y);
     y += b.h;
   }
+  drawLog.step = "canvas";
   const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
   const { width, height } = canvas;
   canvas.width = canvas.height = 0; // let the memory go now, not at the next garbage collection
@@ -215,6 +244,7 @@ export type Pdf = { pdf: Blob; firstPage: Blob }; // the first page as a picture
 async function a4Pages(make: Make, title: string, dpi: number): Promise<Pdf> {
   let page = a4Canvas(dpi);
   const { width: w, height: h } = page;
+  drawLog.step = "canvas";
   drawLog.canvases.push(`A4 ${w}x${h} at ${dpi} dpi`);
   const s = w / PHONE_W;
   let ctx = context(page);
@@ -237,14 +267,22 @@ async function a4Pages(make: Make, title: string, dpi: number): Promise<Pdf> {
   }
   done.push(await pageJpeg(page));
   drawLog.canvases.push(`${done.length} page(s) ok`);
+  drawLog.step = "PDF";
   return { pdf: await pagesToPdf(done, title), firstPage: new Blob([done[0].jpeg as BlobPart], { type: "image/jpeg" }) };
 }
 
 /** The visitor's font and the site's, loaded for exactly these letters, before
  * anything is drawn: a canvas doesn't wait for a font, it draws in a fallback. */
 async function ready(family: string, texts: string[]) {
+  drawLog.step = "font load";
   const text = texts.join(" ");
-  await Promise.all([document.fonts.load(`48px ${family}`, text), document.fonts.load(`48px ${uiFont()}`, text)]);
+  // Each font on its own: one that fails to arrive (the grey boxes, the
+  // site's typeface; an old page asking for files a newer version of the
+  // site no longer has) is only a fallback, never a reason not to save.
+  // Only the visitor's own font must be there.
+  const results = await Promise.allSettled([document.fonts.load(`48px ${family}`, text), document.fonts.load(`48px ${uiFont()}`, text)]);
+  results.forEach((r, i) => drawLog.fonts.push(`${i ? "site font" : "your font + grey boxes"}: ${r.status === "fulfilled" ? "ok" : errText(r.reason)}`));
+  if (results.some((r) => r.status === "rejected")) drawLog.requests = await failedFontRequests();
   await document.fonts.ready;
   const name = family.match(/^"([^"]+)"/)?.[1];
   const loaded = !name || [...document.fonts].some((f) => f.family.replace(/"/g, "") === name && f.status === "loaded");
