@@ -5,35 +5,41 @@ import { Download } from "@/components/Download";
 import { Icon } from "@/components/Icons";
 import { useSaver } from "@/components/SaveNote";
 import { Specimen } from "@/components/Specimen";
+import { StatLine, type Stats } from "@/components/Stats";
 import { TopBar } from "@/components/TopBar";
 import { firstText, TryIt } from "@/components/TryIt";
 import type { SessionMeta } from "@/lib/api";
-import { pct } from "@/lib/bn";
-import { CHAPTERS, type ChapterId } from "@/lib/chapters";
+import { type Chapter, type ChapterId, type Fonts, type Script, scriptsOf } from "@/lib/chapters";
 import { useLang } from "@/lib/i18n";
 import type { LayoutCell } from "@/lib/layout";
 
 // The font so far: type in it and keep that as a picture (the main thing),
 // download the font for a computer, see every letter (tap one to redraw it).
+// Only the chosen language(s); the other can be added from here.
 export function FontScreen(props: {
   session: string | null;
   meta: SessionMeta | null;
+  fonts: Fonts;
+  chapters: Chapter[]; // the chosen font's
   lists: Record<ChapterId, string[]>;
   cells: Map<string, LayoutCell>;
+  stats: Stats;
+  written: Script[]; // languages with letters drawn or read from paper
   userFont: string | null;
   building: boolean;
   onBack: () => void;
   onRedraw: (id: string) => void;
+  onAdd: (script: Script) => void; // draw the other language too
   strokesFile: () => { blob: Blob; name: string; title: string } | null;
 }) {
-  const { t, num } = useLang();
-  const words = props.meta?.font ? (props.meta.word_coverage ?? 0) : null;
+  const { t } = useLang();
+  const scripts = scriptsOf(props.fonts);
 
   // What the font has: drawn here, or read from a page photo.
   const inFont = new Set(Object.keys(props.meta?.drawn ?? {}));
   for (const p of Object.values(props.meta?.pages ?? {})) for (const c of p.cells) if (c.status !== "missing") inFont.add(c.id);
   const built = new Set(props.meta?.built ?? []);
-  const groups = CHAPTERS.map((c) => ({
+  const groups = props.chapters.map((c) => ({
     id: c.id,
     name: t(c.name[0], c.name[1]),
     items: props.lists[c.id].filter((id) => inFont.has(id)).map((id) => ({ text: props.cells.get(id)!.text, auto: built.has(id) })),
@@ -43,10 +49,10 @@ export function FontScreen(props: {
         : undefined,
   }));
 
-  // The try-it text: sentences (or words) the font already writes, until
-  // the visitor types their own.
+  // The try-it text: sentences (or words) the font already writes, in the
+  // chosen language(s), until the visitor types their own.
   const [typed, setTyped] = useState<string | null>(null);
-  const first = props.meta?.font ? firstText(props.meta.sentences ?? [], props.meta.words ?? []) : "";
+  const first = props.meta?.font ? firstText(props.meta, scripts) : "";
   const text = typed ?? first;
 
   // Hidden: "export my strokes", for sending a drawing that came out wrong.
@@ -63,6 +69,7 @@ export function FontScreen(props: {
     if (hold.current) clearTimeout(hold.current);
     hold.current = null;
   };
+  const other: Script | null = props.fonts === "both" ? null : props.fonts === "bn" ? "en" : "bn";
   return (
     <div className="screen font-screen">
       <TopBar>
@@ -83,16 +90,28 @@ export function FontScreen(props: {
       >
         {t("আমার ফন্ট", "My font")}
       </h2>
-      <p aria-live="polite">
-        {props.building
-          ? t("ফন্ট বানাচ্ছি…", "making your font…")
-          : words !== null
-            ? t(`বাংলা শব্দের ${num(pct(words))}% এখন আপনার ফন্টে লেখা যায়।`, `${pct(words)}% of Bangla words can now be written in your font.`)
-            : null}
-      </p>
+      <div aria-live="polite">
+        {props.building ? <p>{t("ফন্ট বানাচ্ছি…", "making your font…")}</p> : scripts.map((s) => <StatLine key={s} script={s} stat={props.stats[s]!} />)}
+      </div>
       <TryIt userFont={props.userFont} text={text} onText={setTyped} />
-      <Download session={props.session} ready={Boolean(props.meta?.font)} userFont={props.userFont} groups={groups} text={text} sample={first} />
-      <Specimen lists={props.lists} cells={props.cells} meta={props.meta} userFont={props.userFont} built={built} onRedraw={props.onRedraw} />
+      <Download
+        session={props.session}
+        ready={Boolean(props.meta?.font)}
+        userFont={props.userFont}
+        groups={groups}
+        text={text}
+        sample={first}
+        written={props.written}
+        bangla={scripts.includes("bn")}
+      />
+      {other && (
+        <p className="add-language">
+          <button type="button" className="button" onClick={() => props.onAdd(other)}>
+            {other === "en" ? t("ইংরেজিও আঁকুন", "Add English") : t("বাংলাও আঁকুন", "Add Bangla")}
+          </button>
+        </p>
+      )}
+      <Specimen chapters={props.chapters} lists={props.lists} cells={props.cells} meta={props.meta} userFont={props.userFont} built={built} onRedraw={props.onRedraw} />
       {debug && (
         <>
           <p>
@@ -104,7 +123,7 @@ export function FontScreen(props: {
         </>
       )}
       <footer className="footer" lang="en">
-        Built on Noto Sans Bengali (SIL Open Font License 1.1). Conjunct and word frequencies from Bangla Wikipedia (CC BY-SA 4.0).
+        Built on Noto Sans Bengali (SIL Open Font License 1.1). Conjunct and word frequencies from Bangla Wikipedia (CC BY-SA 4.0). English word frequencies from wordfreq by Robyn Speer (CC BY-SA 4.0), which includes SUBTLEX by Brysbaert et al.
       </footer>
     </div>
   );

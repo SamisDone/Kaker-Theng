@@ -22,7 +22,9 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
 
 from . import config as C
-from .basefont import ALWAYS_KEEP_UNICODES, base_shaper, base_ttfont, headline_units, subset_font
+from fontTools import subset
+
+from .basefont import ALWAYS_KEEP_UNICODES, base_shaper, base_ttfont, headline_units, subset_font, subset_options
 from .derive import derive_parts, measure_matra
 from .glyphmap import HALANT, Cell, build_layout
 from .guides import run_left_mm
@@ -57,6 +59,20 @@ VENDOR_ID = "NONE"  # unregistered
 
 COMMON_CLUSTERS = 200  # 99.5% of conjunct use on Bangla Wikipedia
 
+# Which letters a font is made of: both languages in one font (the default),
+# or one of them alone. A single-language font has its own family name, so
+# installing it next to the combined one (or the other language's) doesn't
+# replace it.
+SCRIPTS = ("both", "bn", "en")
+SCRIPT_SUFFIX = {"both": "", "bn": "Bangla", "en": "English"}
+# English cells a Bangla-only font keeps when drawn: what Bangla text uses
+# besides its own letters and the দাঁড়ি. Bangla has no comma, question mark
+# or quotes of its own; Bangla text written with English digits needs them.
+BANGLA_TEXT_LATIN = set(",?!'\"0123456789")
+# Of the code points every font keeps, these only Bangla needs (the joiners,
+# and the dotted circle a sign shows on when typed alone).
+BANGLA_ONLY_KEEP = {0x200C, 0x200D, 0x25CC}
+
 
 @lru_cache(maxsize=1)
 def common_clusters() -> list[str]:
@@ -89,11 +105,44 @@ def clean_family_name(raw: str) -> str:
     return name
 
 
-def postscript_name(family: str) -> str:
+def postscript_name(family: str, suffix: str = "") -> str:
+    """ASCII only, at most 63 characters. The suffix (Bangla, English) goes
+    on after the name is cut to length, so the two never share one."""
     ascii_part = re.sub(r"[^A-Za-z0-9]", "", family)
     if not ascii_part:
         ascii_part = "KakerTheng" + hashlib.sha1(family.encode()).hexdigest()[:6]
-    return f"{ascii_part[:50]}-Regular"
+    return f"{ascii_part[: 50 - len(suffix)]}{suffix}-Regular"
+
+
+def script_family(family: str, script: str) -> str:
+    """The name the font installs under: "<name>", "<name> Bangla" or "<name> English"."""
+    return f"{family} {SCRIPT_SUFFIX[script]}".rstrip()
+
+
+def drawings_for(drawings: list, script: str) -> list:
+    """What goes into a font of this script: an English-only font has only
+    English cells; a Bangla-only one has no English letters, only the
+    punctuation and digits Bangla text uses (BANGLA_TEXT_LATIN)."""
+    if script == "en":
+        return [d for d in drawings if d.kind == "latin"]
+    if script == "bn":
+        return [d for d in drawings if d.kind != "latin" or (d.unicode is not None and chr(d.unicode) in BANGLA_TEXT_LATIN)]
+    return list(drawings)
+
+
+# The English punctuation a Bangla-only writer may draw: not English letters.
+_BANGLA_TEXT_MARKS = set(",?!'\"")
+
+
+def has_script(drawings: list, script: str) -> bool:
+    """Whether a font of this language has anything of its own to hold: a
+    Bangla letter, or an English one (a comma or quotes drawn for Bangla
+    text don't make an English font)."""
+    if script == "bn":
+        return any(d.kind != "latin" for d in drawings)
+    if script == "en":
+        return any(d.kind == "latin" and (d.unicode is None or chr(d.unicode) not in _BANGLA_TEXT_MARKS) for d in drawings)
+    return bool(drawings)
 
 
 @dataclass
@@ -321,13 +370,18 @@ def _remap_anchors(font: TTFont, maps: dict[str, tuple[float, ...]]):
                             fix(a, g, base=True)
 
 
-def _set_names(font: TTFont, family: str):
-    ps = postscript_name(family)
+def _set_names(font: TTFont, family: str, script: str = "both"):
+    """Names for the family as the user called it, plus the script's suffix
+    in every name an app or the system tells fonts apart by (1, 3, 4, 6, 16)."""
+    ps = postscript_name(family, SCRIPT_SUFFIX[script])
+    family = script_family(family, script)
     name = font["name"]
     original_copyright = name.getDebugName(0) or ""
-    # Keep copyright (0), licence (13, 14) and feature names (256+). Drop the
-    # base font's trademark (7), maker/designer/URLs (8-12): no longer theirs.
-    name.names = [n for n in name.names if n.nameID in (0, 13, 14) or n.nameID >= 256]
+    # Keep copyright (0), licence (13, 14) and feature names (256+, while the
+    # layout tables that point at them are there). Drop the base font's
+    # trademark (7), maker/designer/URLs (8-12): no longer theirs.
+    layout = "GSUB" in font or "GPOS" in font
+    name.names = [n for n in name.names if n.nameID in (0, 13, 14) or (layout and n.nameID >= 256)]
     year = dt.date.today().year
     values = {
         0: f"{original_copyright}. Handwriting outlines {year}, made with Kaker Theng.",
@@ -364,17 +418,28 @@ def _fix_vertical_metrics(font: TTFont):
     hhea.descent = min(hhea.descent, y_min)
 
 
-def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
+def build_font(drawings: list[Drawing], family: str, script: str = "both") -> BuiltFont:
+    """The font from these drawings. `script` "bn" or "en" makes a font of
+    that language alone (drawings_for), with its own family name. An
+    English-only font is a plain Latin font: no Bengali glyph, and none of
+    the base font's layout tables, which only ever shape Bangla."""
+    if script not in SCRIPTS:
+        raise ValueError(f"script must be one of {SCRIPTS}")
     family = clean_family_name(family)
+    drawings = drawings_for(drawings, script)
     layout = build_layout()
     noto = base_shaper().tt  # untouched copy, for the base font's boxes and metrics
     cells = {c.glyph: c for c in layout.cells}
     matra_glyphs = set(layout.matra_glyphs)
 
-    # Parts the user didn't write, made from letters they did.
+    # Parts the user didn't write, made from letters they did. With no Bangla
+    # letter drawn there is nothing to make them from (only মাত্রা pieces at
+    # the base font's height would come out).
     by_glyph = {d.glyph: d for d in drawings if d.contours}
     matra = measure_matra(by_glyph, matra_glyphs)
-    derived = refit([d for d in derive_parts(layout.plans(), by_glyph, matra) if d.glyph not in by_glyph], layout.plans(), by_glyph)
+    derived = []
+    if any(d.kind != "latin" for d in by_glyph.values()):
+        derived = refit([d for d in derive_parts(layout.plans(), by_glyph, matra) if d.glyph not in by_glyph], layout.plans(), by_glyph)
     drawings = [d for d in drawings if d.contours] + derived
     stroke = stroke_width(drawings)
     for d in derived:
@@ -413,8 +478,18 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
         whole_ka_before_raphala(font)
     cmap = font.getBestCmap()
     unicodes = sorted(cp for cp, g in cmap.items() if g in written)
-    subset_font(font, written, unicodes)
-    _set_names(font, family)
+    if script == "en":
+        keep = [cp for cp in ALWAYS_KEEP_UNICODES if cp not in BANGLA_ONLY_KEEP]
+        sub = subset.Subsetter(subset_options())
+        sub.populate(glyphs=sorted(written | {".notdef"}), unicodes=unicodes + keep)
+        sub.subset(font)
+        for tag in ("GSUB", "GPOS", "GDEF"):
+            if tag in font:
+                del font[tag]
+    else:
+        keep = ALWAYS_KEEP_UNICODES
+        subset_font(font, written, unicodes)
+    _set_names(font, family, script)
     _fix_vertical_metrics(font)
     font["OS/2"].recalcUnicodeRanges(font)
 
@@ -427,7 +502,7 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
     widenable = {d.glyph for d in derived if d.kind != "mark"}
     halant = font.getBestCmap().get(ord(HALANT))
     drawn_glyphs = {d.glyph for d in drawings if not d.positioned}
-    extra = widen(ttf.getvalue(), common_clusters(), matra, widenable, halant, drawn_glyphs)
+    extra = widen(ttf.getvalue(), common_clusters(), matra, widenable, halant, drawn_glyphs) if script != "en" else {}
     if extra:
         widths = {g: font["hmtx"][g] for g in extra}
         for g, units in extra.items():
@@ -450,9 +525,9 @@ def build_font(drawings: list[Drawing], family: str) -> BuiltFont:
     return BuiltFont(
         ttf.getvalue(),
         woff2.getvalue(),
-        family,
+        script_family(family, script),
         kept.getGlyphOrder(),
-        sorted(set(unicodes) | set(ALWAYS_KEEP_UNICODES) & set(kept.getBestCmap())),
+        sorted(set(unicodes) | set(keep) & set(kept.getBestCmap())),
         [d.glyph for d in derived],
         matra,
     )

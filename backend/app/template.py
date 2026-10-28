@@ -220,13 +220,19 @@ def _draw_page(c, page: int, cells: list[Cell]):
     _latin(c, tag, right - _latin(c, tag, 0, 0, 6.5, draw=False), foot_y, 6.5)
 
 
-def build_template_pdf() -> bytes:
+# The pages for each kind of font: English is page 1, Bangla pages 2 and 3.
+SCRIPT_PAGES = {"both": (1, 2, 3), "bn": (2, 3), "en": (1,)}
+
+
+def build_template_pdf(pages: tuple[int, ...] = (1, 2, 3)) -> bytes:
+    """The template, or only some of its pages (each keeps its own markers,
+    so a photo of it is read the same)."""
     layout = build_layout()
     buf = io.BytesIO()
     c = rl_canvas.Canvas(buf, pagesize=(C.PAGE_W_MM * mm, C.PAGE_H_MM * mm))
     c.setTitle("Kaker Theng handwriting template")
     c.setAuthor("Kaker Theng")
-    for page in (1, 2, 3):
+    for page in pages:
         _draw_page(c, page, layout.page(page))
         c.showPage()
     c.save()

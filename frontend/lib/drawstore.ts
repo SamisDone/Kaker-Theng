@@ -3,6 +3,7 @@
 // server has forgotten us. Storage can be missing or full (private mode):
 // every access is wrapped, and drawing still works without it.
 
+import type { Fonts } from "@/lib/chapters";
 import type { Stroke } from "@/lib/strokes";
 
 const KEY = "kaker-theng-drawn-v1";
@@ -12,6 +13,7 @@ export type Saved = {
   cells: Record<string, Stroke[]>;
   at: string | null; // the cell on screen
   draft?: { id: string; strokes: Stroke[] } | null; // its strokes before "next"
+  fonts?: Fonts; // the font chosen: Bangla, English or both; none saved before the choice existed (then both)
 };
 
 export function loadDrawn(fingerprint: string): Saved {

@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/media/mark.svg" alt="The Kaker Theng logo: ক drawn as a crow's leg standing on a line, a red dot at its foot." width="120">
+
 <img src="docs/media/header.svg" alt="কাকের ঠ্যাং, written in a font drawn with Kaker Theng. My handwriting, now a font." width="100%">
 
 <br>
@@ -543,6 +545,16 @@ The template, the scanner and the website share one layout:
   `backend/assets/word_needs.json` keeps no words, only what each word
   needs (its characters and conjunct clusters), for the 40,000 most common
   needs, which stand for 94.6% of the words; the figure is a share of those.
+- The English word list, `backend/assets/english_words.json` (the 5,000 most
+  common English words and how often each is used, for the "common English
+  words your font writes" figure), is from
+  [wordfreq](https://github.com/rspeer/wordfreq) 3.1.1 by Robyn Speer. That
+  file is under
+  [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), separate
+  from the MIT licence of the code. wordfreq includes the SUBTLEX word lists
+  by Marc Brysbaert et al., freely available data whose authors must be
+  credited. `backend/scripts/english_words.py` makes the file from
+  wordfreq's `small_en.msgpack.gz`.
 - English tracing guides on the drawing screen: outlines from Bitstream Vera
   Sans (bundled with reportlab), Copyright (c) 2003 Bitstream, Inc., under the
   Bitstream Vera licence.

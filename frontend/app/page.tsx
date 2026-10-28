@@ -3,11 +3,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChapterCard } from "@/components/ChapterCard";
 import { ChapterList } from "@/components/ChapterList";
+import { ChooseScreen } from "@/components/ChooseScreen";
 import { DrawScreen } from "@/components/DrawScreen";
 import { FontScreen } from "@/components/FontScreen";
-import { PaperScreen, type PaperStep } from "@/components/PaperScreen";
-import { RewardScreen } from "@/components/RewardScreen";
+import { PAPER_PAGES, PaperScreen, type PaperStep } from "@/components/PaperScreen";
+import { RewardScreen, showWord } from "@/components/RewardScreen";
 import { StartScreen } from "@/components/StartScreen";
+import type { Stats } from "@/components/Stats";
 import { HomeContext, TopBar } from "@/components/TopBar";
 import type { SlotState } from "@/components/UploadSlot";
 import {
@@ -24,7 +26,18 @@ import {
   wake,
 } from "@/lib/api";
 import { bnNum } from "@/lib/bn";
-import { CHAPTERS, chapterById, type ChapterId, chapterIn, chapterLists } from "@/lib/chapters";
+import {
+  chapterById,
+  type ChapterId,
+  chapterIn,
+  chapterLists,
+  chaptersFor,
+  type Fonts,
+  type Script,
+  scriptOf,
+  scriptsOf,
+  scriptsWritten,
+} from "@/lib/chapters";
 import { logFont } from "@/lib/diag";
 import { loadDrawn, type Saved, saveDrawn } from "@/lib/drawstore";
 import { LangProvider, useLang } from "@/lib/i18n";
@@ -45,6 +58,7 @@ const IDLE_MS = 3000;
 // button goes back a screen instead of leaving the site.
 type Screen =
   | { name: "start" }
+  | { name: "choose"; then: "draw" | "paper" } // which font, before the first letter or page
   | { name: "chapters" }
   | { name: "card"; chapter: ChapterId }
   | { name: "draw" }
@@ -174,12 +188,20 @@ function App() {
   }, [layout, recalled]);
 
   const cells = useMemo(() => (layout ? cellsById(layout) : null), [layout]);
-  const lists = useMemo(() => (layout && cells ? chapterLists(layout, cells) : null), [layout, cells]);
   const fromPaper = useMemo(() => {
     const out = new Set<string>();
     for (const p of Object.values(meta?.pages ?? {})) for (const c of p.cells) if (c.status !== "missing") out.add(c.id);
     return out;
   }, [meta]);
+  // The font chosen: asked once, before the first letter. A drawing (or a
+  // page photo) from before the choice existed makes both, as it did then.
+  const written = useMemo(() => (saved ? [...Object.keys(saved.cells), ...fromPaper] : []), [saved, fromPaper]);
+  const fonts: Fonts | null = saved?.fonts ?? (written.length ? "both" : null);
+  const shown: Fonts = fonts ?? "both";
+  const chapters = useMemo(() => chaptersFor(shown), [shown]);
+  const lists = useMemo(() => (layout && cells ? chapterLists(layout, cells, shown) : null), [layout, cells, shown]);
+  // The languages with letters, whatever was chosen: what can be downloaded.
+  const writtenScripts = useMemo(() => (cells ? scriptsWritten(written, cells) : []), [written, cells]);
   const done = useCallback((id: string) => Boolean(saved?.cells[id]?.length) || fromPaper.has(id), [saved, fromPaper]);
 
   // Load the preview font whenever the server has built a new one.
@@ -349,20 +371,40 @@ function App() {
     go({ name: "draw" });
   }
 
-  /** The next chapter after `c` with letters left, wrapping round. */
+  /** The next chapter of the font after `c` with letters left, wrapping round. */
   function nextChapter(c: ChapterId) {
     if (!lists) return null;
-    const i = CHAPTERS.findIndex((x) => x.id === c);
-    const order = [...CHAPTERS.slice(i + 1), ...CHAPTERS.slice(0, i)];
+    const i = chapters.findIndex((x) => x.id === c);
+    const order = [...chapters.slice(i + 1), ...chapters.slice(0, i)];
     return order.find((x) => lists[x.id].some((id) => !done(id))) ?? null;
   }
 
-  // Draw: on where the last visit stopped, or at the start.
+  // Draw: on where the last visit stopped, or at the start. The first time,
+  // the choice of font comes first.
   function startDrawing() {
     if (!lists) return;
-    let c: ChapterId = saved?.at && cells?.has(saved.at) ? chapterIn(lists, saved.at) : "vowels";
+    if (!fonts) return go({ name: "choose", then: "draw" });
+    let c: ChapterId = saved?.at && cells?.has(saved.at) ? chapterIn(lists, saved.at, chapters) : chapters[0].id;
     if (lists[c].every(done)) c = nextChapter(c)?.id ?? c;
     openChapter(c);
+  }
+
+  const setFonts = (f: Fonts) => updateSaved((s) => ({ ...s, fonts: f }));
+
+  function choose(f: Fonts, then: "draw" | "paper") {
+    setFonts(f);
+    // In place of the choice, so "back" goes to the start.
+    if (then === "paper") go({ name: "paper", step: "print" }, true);
+    else go({ name: "card", chapter: chaptersFor(f)[0].id }, true);
+  }
+
+  const openPaper = () => (fonts ? go({ name: "paper", step: "print" }) : go({ name: "choose", then: "paper" }));
+
+  // The other language too: nothing drawn is lost, its chapters just join
+  // the list. Straight to its first chapter.
+  function addScript(s: Script) {
+    setFonts("both");
+    openChapter(s === "en" ? "english" : "vowels");
   }
 
   function openFont() {
@@ -445,11 +487,19 @@ function App() {
   // ---- Render ----------------------------------------------------------------
 
   const ready = Boolean(layout && cells && lists && saved);
-  const words = meta?.font ? (meta.word_coverage ?? 0) : null;
   const note = syncNote ? t(syncNote.bn, syncNote.en) : null;
-  const allIds = lists ? CHAPTERS.flatMap((c) => lists[c.id]) : [];
+  const idsOf = (cs: typeof chapters) => (lists ? [...new Set(cs.flatMap((c) => lists[c.id]))] : []);
+  const allIds = idsOf(chapters);
   const progress = ready ? { drawn: allIds.filter(done).length, total: allIds.length } : null;
   const returning = Boolean(progress?.drawn) || Boolean(meta?.font);
+  // Each language of the font: letters drawn, and the share of words it
+  // writes once the server has built it.
+  const stats: Stats = {};
+  for (const s of scriptsOf(shown)) {
+    const ids = idsOf(chapters.filter((c) => scriptOf(c.id) === s));
+    const words = meta?.font ? ((s === "bn" ? meta.word_coverage : meta.en_word_coverage) ?? 0) : null;
+    stats[s] = { drawn: ids.filter(done).length, total: ids.length, words };
+  }
   let body: React.ReactNode;
 
   if (screen.name === "start") {
@@ -458,14 +508,21 @@ function App() {
         userFont={meta?.writes_title ? userFont : null}
         progress={returning ? progress : null}
         onDraw={startDrawing}
-        onPaper={() => go({ name: "paper", step: "print" })}
+        onPaper={openPaper}
         onFont={returning ? openFont : undefined}
       />
     );
+  } else if (screen.name === "choose" && ready) {
+    const count = (f: Fonts) => (lists && layout && cells ? new Set(chaptersFor(f).flatMap((c) => chapterLists(layout, cells, f)[c.id])).size : 0);
+    body = <ChooseScreen counts={{ bn: count("bn"), en: count("en"), both: count("both") }} onChoose={(f) => choose(f, screen.then)} />;
   } else if (screen.name === "paper") {
+    // Pages of the chosen font only; a step for a page it doesn't have
+    // (a reload after the choice changed) goes to its first.
+    const step = typeof screen.step === "number" && !PAPER_PAGES[shown].includes(screen.step) ? PAPER_PAGES[shown][0] : screen.step;
     body = (
       <PaperScreen
-        step={screen.step}
+        step={step}
+        fonts={shown}
         layout={layout}
         session={session}
         pages={meta?.pages ?? {}}
@@ -488,22 +545,26 @@ function App() {
     const at = saved!.at && cells!.has(saved!.at) ? saved!.at : null;
     body = (
       <ChapterList
+        chapters={chapters}
+        other={shown === "both" ? null : shown === "bn" ? "en" : "bn"}
+        onAdd={addScript}
         lists={lists!}
         done={done}
         progress={progress!}
-        current={at ? chapterIn(lists!, at) : null}
+        current={at && allIds.includes(at) ? chapterIn(lists!, at, chapters) : null}
         onChapter={openChapter}
         onBack={back}
-        onPaper={() => go({ name: "paper", step: "print" })}
+        onPaper={openPaper}
         onFont={openFont}
       />
     );
   } else if (screen.name === "card") {
-    const c = chapterById(screen.chapter);
+    const c = chapterById(screen.chapter, shown);
     const ids = lists![c.id];
     body = (
       <ChapterCard
         chapter={c}
+        chapters={chapters}
         example={cells!.get(ids[0])!}
         count={ids.length}
         onStart={() => startChapter(c.id)}
@@ -517,18 +578,22 @@ function App() {
       />
     );
   } else if (screen.name === "reward") {
-    const c = chapterById(screen.chapter);
+    const c = chapterById(screen.chapter, shown);
     const ids = lists![c.id];
     const next = nextChapter(c.id);
+    // Stats for the chapter's own language even if it isn't chosen (never,
+    // unless a kept screen outlived a change of choice).
+    const own = scriptOf(c.id);
+    if (!stats[own]) stats[own] = { drawn: ids.filter(done).length, total: ids.length, words: null };
     body = (
       <RewardScreen
         chapter={c}
         next={next}
         drawn={ids.filter(done).length}
         total={ids.length}
-        progress={progress!}
-        words={words}
+        stats={stats}
         writable={meta?.font ? (meta.words ?? []) : []}
+        englishSample={meta?.font ? (meta.en_sentences?.[0] ?? showWord(meta.en_words ?? [])) : null}
         building={building}
         userFont={userFont}
         note={note}
@@ -538,15 +603,33 @@ function App() {
       />
     );
   } else if (screen.name === "font") {
-    body = <FontScreen session={session} meta={meta} lists={lists!} cells={cells!} userFont={userFont} building={building} onBack={back} onRedraw={redraw} strokesFile={strokesFile} />;
+    body = (
+      <FontScreen
+        session={session}
+        meta={meta}
+        fonts={shown}
+        chapters={chapters}
+        lists={lists!}
+        cells={cells!}
+        stats={stats}
+        written={writtenScripts}
+        userFont={userFont}
+        building={building}
+        onBack={back}
+        onRedraw={redraw}
+        onAdd={addScript}
+        strokesFile={strokesFile}
+      />
+    );
   } else {
-    // Drawing: the letter saved as "at", or the first one not drawn yet.
-    const at = saved!.at && cells!.has(saved!.at) ? saved!.at : (layout!.draw_order.find((id) => !done(id)) ?? layout!.draw_order[0]);
-    const chapter = chapterIn(lists!, at);
+    // Drawing: the letter saved as "at", or the first one of the font not
+    // drawn yet.
+    const at = saved!.at && allIds.includes(saved!.at) ? saved!.at : (allIds.find((id) => !done(id)) ?? allIds[0]);
+    const chapter = chapterIn(lists!, at, chapters);
     body = (
       <DrawScreen
         key={chapter}
-        chapter={chapter}
+        chapter={chapterById(chapter, shown)}
         order={lists![chapter]}
         cells={cells!}
         at={at}

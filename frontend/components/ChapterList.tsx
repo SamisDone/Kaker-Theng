@@ -2,14 +2,18 @@
 
 import { Icon } from "@/components/Icons";
 import { TopBar } from "@/components/TopBar";
-import { CHAPTERS, type ChapterId } from "@/lib/chapters";
+import type { Chapter, ChapterId, Script } from "@/lib/chapters";
 import { useLang } from "@/lib/i18n";
 
-// Every chapter, to jump to any of them (English, for example).
+// Every chapter of the chosen font, to jump to any of them; and, for one
+// language, a way to add the other.
 export function ChapterList(props: {
+  chapters: Chapter[];
+  other: Script | null; // the language not chosen (yet); null with both
+  onAdd: (script: Script) => void;
   lists: Record<ChapterId, string[]>;
   done: (id: string) => boolean;
-  progress: { drawn: number; total: number }; // every chapter
+  progress: { drawn: number; total: number }; // every chapter shown
   current: ChapterId | null;
   onChapter: (c: ChapterId) => void;
   onBack: () => void;
@@ -32,7 +36,7 @@ export function ChapterList(props: {
         </span>
       </p>
       <ol className="chapter-list">
-        {CHAPTERS.map((c) => {
+        {props.chapters.map((c) => {
           const ids = props.lists[c.id];
           const n = ids.filter(props.done).length;
           return (
@@ -50,6 +54,13 @@ export function ChapterList(props: {
           );
         })}
       </ol>
+      {props.other && (
+        <p>
+          <button type="button" className="button" onClick={() => props.onAdd(props.other!)}>
+            {props.other === "en" ? t("ইংরেজিও আঁকুন", "Add English") : t("বাংলাও আঁকুন", "Add Bangla")}
+          </button>
+        </p>
+      )}
       <p>
         <button type="button" className="link-button" onClick={props.onPaper}>
           {t("কাগজে লিখে ছবি দিতে চান?", "Rather write on paper and send photos?")}

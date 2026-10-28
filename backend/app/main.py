@@ -26,7 +26,7 @@ from fastapi.responses import FileResponse, JSONResponse, Response
 from pydantic import BaseModel
 
 from . import sessions, strokes
-from .fontbuild import FontNameError, clean_family_name
+from .fontbuild import SCRIPTS, FontNameError, clean_family_name
 from .jobs import JobQueue, QueueFull
 from .pipeline import MAX_UPLOAD_BYTES
 from .site import SiteHeaders, mount_site
@@ -110,17 +110,20 @@ def health():
     return {"ok": True}
 
 
-@lru_cache(maxsize=1)
-def _template_pdf() -> bytes:
-    from .template import build_template_pdf
+@lru_cache(maxsize=3)
+def _template_pdf(script: str = "both") -> bytes:
+    from .template import SCRIPT_PAGES, build_template_pdf
 
-    return build_template_pdf()
+    return build_template_pdf(SCRIPT_PAGES[script])
 
 
 @app.get("/template.pdf")
-def template_pdf():
+def template_pdf(script: str = "both"):
+    """The whole template; ?script=bn or en, only that language's pages."""
+    if script not in SCRIPTS:
+        raise HTTPException(400, "script must be both, bn or en")
     return Response(
-        _template_pdf(),
+        _template_pdf(script),
         media_type="application/pdf",
         headers={"Content-Disposition": 'inline; filename="kaker-theng-template.pdf"', "Cache-Control": "public, max-age=3600"},
     )
@@ -210,10 +213,11 @@ def request_preview(session_id: str):
 class DownloadRequest(BaseModel):
     name: str
     format: str = "both"  # "both": TTF and WOFF2 in one zip
+    script: str = "both"  # "both": Bangla + English in one font; "bn" or "en": one language, its own family name
 
 
 @app.post("/api/sessions/{session_id}/download", status_code=202)
-def request_download(session_id: str, req: DownloadRequest):
+async def request_download(session_id: str, req: DownloadRequest):
     meta = sessions.load(session_id)
     if meta is None:
         return _gone()
@@ -221,12 +225,18 @@ def request_download(session_id: str, req: DownloadRequest):
         return _error(400, "no_pages", "Add a page photo or draw some letters first.", "আগে একটা পাতার ছবি দিন বা কয়েকটা অক্ষর আঁকুন।")
     if req.format not in ("ttf", "woff2", "both"):
         raise HTTPException(400, "format must be ttf, woff2 or both")
+    if req.script not in SCRIPTS:
+        raise HTTPException(400, "script must be both, bn or en")
     try:
         family = clean_family_name(req.name)
     except FontNameError as err:
         return _error(400, "bad_name", err.en, err.bn)
+    if req.script != "both" and req.script not in await run_in_threadpool(sessions.scripts_drawn, session_id):
+        if req.script == "bn":
+            return _error(400, "no_script", "There are no Bangla letters to make a Bangla font from yet.", "বাংলা ফন্ট বানানোর মতো বাংলা অক্ষর এখনও আঁকা হয়নি।")
+        return _error(400, "no_script", "There are no English letters to make an English font from yet.", "ইংরেজি ফন্ট বানানোর মতো ইংরেজি অক্ষর এখনও আঁকা হয়নি।")
     try:
-        job = queue.submit("download", lambda: sessions.build_download(session_id, family, req.format))
+        job = queue.submit("download", lambda: sessions.build_download(session_id, family, req.format, req.script))
     except QueueFull:
         return _busy()
     return _job_view(job)

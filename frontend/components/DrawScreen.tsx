@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { DrawCanvas } from "@/components/DrawCanvas";
 import { Icon } from "@/components/Icons";
 import { TopBar } from "@/components/TopBar";
-import { chapterById, type ChapterId } from "@/lib/chapters";
+import type { Chapter } from "@/lib/chapters";
 import { useLang } from "@/lib/i18n";
 import type { LayoutCell } from "@/lib/layout";
 import { signName } from "@/lib/names";
@@ -31,7 +31,7 @@ function hint(cell: LayoutCell): [string, string] {
 // One letter at a time, filling the screen: nothing scrolls, and the screen
 // stays put from letter to letter.
 export function DrawScreen(props: {
-  chapter: ChapterId;
+  chapter: Chapter;
   order: string[]; // this chapter's cells, most useful first
   cells: Map<string, LayoutCell>;
   at: string;
@@ -85,7 +85,7 @@ export function DrawScreen(props: {
     if (index > 0) props.onAt(order[index - 1]);
   };
 
-  const chapter = chapterById(props.chapter);
+  const { chapter } = props;
   const doneCount = order.filter(done).length;
   const [hBn, hEn] = hint(cell);
 

@@ -547,6 +547,77 @@ a {
   background: rgba(29, 33, 64, 0.04);
 }
 
+/* ---- Which font: three rows like the chapter list, one marked ---------- */
+
+.choose {
+  border: 0;
+  padding: 0;
+  margin: 0 0 16px;
+  max-width: 480px;
+}
+
+.choose legend {
+  padding: 0;
+}
+
+.choose-row {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  column-gap: 14px;
+  align-items: center;
+  padding: 12px 4px 12px 12px;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+}
+
+.choose-row.chosen {
+  border-left: 3px solid var(--ink);
+  padding-left: 9px;
+}
+
+.choose-row:hover {
+  background: rgba(29, 33, 64, 0.04);
+}
+
+/* A square box, filled when chosen: the buttons' square ink, not a round dot. */
+.choose-row input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  padding: 3px;
+  background-clip: content-box;
+  grid-row: span 2;
+}
+
+.choose-row input:checked {
+  background-color: var(--ink);
+}
+
+.choose-row input:focus-visible {
+  outline: 2px solid var(--margin);
+  outline-offset: 2px;
+}
+
+.choose-name {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.choose-size {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--pencil);
+}
+
+/* A second language under the first, on rewards and My font. */
+.also {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
 /* ---- Drawing ---------------------------------------------------------- */
 
 /* Missing letters in the sample: faint grey boxes (public/kt/missing.woff2,
@@ -986,6 +1057,15 @@ a {
   gap: 8px;
 }
 
+/* The name a single-language font installs under, beside its button. */
+.output-row .family {
+  flex: 1 1 50%;
+  align-self: center;
+  font-size: 13px;
+  line-height: 18px;
+  overflow-wrap: anywhere;
+}
+
 .outputs .button {
   flex: 1 1 auto;
   min-width: 0;
@@ -1128,4 +1208,8 @@ a {
   /* long-press must reach the browser's own image menu */
   -webkit-touch-callout: default;
   user-select: auto;
+}
+
+.add-language {
+  margin: var(--line) 0;
 }

@@ -3,25 +3,25 @@
 import { ExampleCell } from "@/components/DrawCanvas";
 import { Icon } from "@/components/Icons";
 import { TopBar } from "@/components/TopBar";
-import { CHAPTERS, type Chapter } from "@/lib/chapters";
+import type { Chapter } from "@/lib/chapters";
 import { useLang } from "@/lib/i18n";
 import type { LayoutCell } from "@/lib/layout";
 import { signName } from "@/lib/names";
 
 // Before a chapter: what it asks for, in one screen, with one example box
 // drawn the way it should be written.
-export function ChapterCard(props: { chapter: Chapter; example: LayoutCell; count: number; onStart: () => void; onSkip: () => void; onChapters: () => void; onFont: () => void }) {
+export function ChapterCard(props: { chapter: Chapter; chapters: Chapter[]; example: LayoutCell; count: number; onStart: () => void; onSkip: () => void; onChapters: () => void; onFont: () => void }) {
   const { t, num } = useLang();
   const { chapter, example } = props;
   const [aboutBn, aboutEn] = chapter.about(num(props.count));
-  const no = CHAPTERS.indexOf(chapter) + 1;
+  const no = props.chapters.findIndex((c) => c.id === chapter.id) + 1;
   const sign = example.ghost ? signName(example.text, example.ghost) : null;
   return (
     <div className="screen card-screen">
       <TopBar onFont={props.onFont}>
         <button type="button" className="chapter-button" onClick={props.onChapters}>
           <span className="mono count">
-            {t("অধ্যায়", "Chapter")} {num(no)}/{num(CHAPTERS.length)}
+            {t("অধ্যায়", "Chapter")} {num(no)}/{num(props.chapters.length)}
           </span>
           <Icon name="down" size={16} />
         </button>

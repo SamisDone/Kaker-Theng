@@ -1,7 +1,7 @@
 "use client";
 
 import type { SessionMeta } from "@/lib/api";
-import { CHAPTERS, type ChapterId } from "@/lib/chapters";
+import type { Chapter, ChapterId } from "@/lib/chapters";
 import { useLang } from "@/lib/i18n";
 import type { LayoutCell } from "@/lib/layout";
 
@@ -11,6 +11,7 @@ import type { LayoutCell } from "@/lib/layout";
 // (ম্ম: one box for each half) shows once; tapping it opens the part still
 // to draw, or the first.
 export function Specimen(props: {
+  chapters: Chapter[]; // the chosen font's
   lists: Record<ChapterId, string[]>;
   cells: Map<string, LayoutCell>;
   meta: SessionMeta | null;
@@ -27,7 +28,7 @@ export function Specimen(props: {
   return (
     <div className="specimen">
       <p>{t("কোনো অক্ষরে চাপ দিলে সেটা আবার আঁকতে পারবেন।", "Tap a letter to draw it again.")}</p>
-      {CHAPTERS.map((c) => (
+      {props.chapters.map((c) => (
         <div className="specimen-page" key={c.id}>
           <h3>{t(c.name[0], c.name[1])}</h3>
           <div className="specimen-grid" role="group" aria-label={t(c.name[0], c.name[1])}>

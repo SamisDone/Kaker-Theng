@@ -18,11 +18,14 @@ import time
 import zipfile
 from pathlib import Path
 
+from fontTools.ttLib import TTFont
+
 from . import strokes
 from .config import OFL_PATH
 from .basefont import Shaper
 from .coverage import built_cells, complete_coverage, coverage, pages_1_2_coverage, plain_glyphs
-from .fontbuild import BuiltFont, build_font, clean_family_name, postscript_name
+from .englishcov import english_coverage, font_chars, writable_english_sentences, writable_english_words
+from .fontbuild import SCRIPT_SUFFIX, BuiltFont, build_font, clean_family_name, has_script, postscript_name
 from .glyphmap import build_layout
 from .pipeline import PageResult
 from .vectorize import drawing_from_dict, drawing_to_dict
@@ -185,10 +188,17 @@ def _rebuild(d: Path, meta: dict):
             meta["coverage"] = meta["word_coverage"] = 0.0
             meta["built"], meta["words"], meta["sentences"], meta["writes_title"] = [], [], [], False
         meta["glyphs"] = sorted(set(font.glyphs))
+        # English: the share of common words its letters write, and what to show.
+        chars = font_chars(TTFont(io.BytesIO(font.ttf)).getBestCmap(), {x.glyph for x in drawings if x.kind == "latin"})
+        meta["en_word_coverage"] = english_coverage(chars)
+        meta["en_words"] = writable_english_words(chars)
+        meta["en_sentences"] = writable_english_sentences(chars)
     else:  # everything removed again
         meta.pop("font", None)
         meta["coverage"], meta["word_coverage"], meta["glyphs"], meta["built"], meta["words"] = 0.0, 0.0, [], [], []
         meta["sentences"], meta["writes_title"] = [], False
+        meta["en_word_coverage"], meta["en_words"], meta["en_sentences"] = 0.0, [], []
+    meta["scripts"] = [x for x in ("bn", "en") if has_script(drawings, x)]
     meta["coverage_targets"] = {
         "pages_1_2": pages_1_2_coverage(),
         "all_pages": complete_coverage(),
@@ -199,16 +209,30 @@ def _rebuild(d: Path, meta: dict):
     return meta
 
 
-def build_download(session_id: str, family: str, fmt: str) -> dict:
+def scripts_drawn(session_id: str) -> list[str]:
+    """Which languages have letters in this session: "bn", "en", both or
+    none. From the cells written (quick), not their drawings."""
+    meta = load(session_id)
+    if meta is None:
+        raise KeyError(session_id)
+    ids = set(meta.get("drawn", {}))
+    for info in meta["pages"].values():
+        ids |= {c["id"] for c in info["cells"] if c["status"] != "missing"}
+    written = [c for c in build_layout().cells if c.id in ids]
+    return [x for x in ("bn", "en") if has_script(written, x)]
+
+
+def build_download(session_id: str, family: str, fmt: str, script: str = "both") -> dict:
     """A zip with the font (TTF, WOFF2, or both for "both"), its licence,
-    and a short README."""
+    and a short README. `script` "bn" or "en": that language's letters
+    alone, as a font of its own name ("<name> Bangla", "<name> English")."""
     d = _dir(session_id)
     meta = load(session_id)
     if meta is None:
         raise KeyError(session_id)
     family = clean_family_name(family)
-    font: BuiltFont = build_font(_drawings(d, meta), family)
-    base = postscript_name(family)
+    font: BuiltFont = build_font(_drawings(d, meta), family, script)
+    base = postscript_name(family, SCRIPT_SUFFIX[script])
     files = {"ttf": font.ttf, "woff2": font.woff2}
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
@@ -216,20 +240,25 @@ def build_download(session_id: str, family: str, fmt: str) -> dict:
             if fmt in (ext, "both"):
                 z.writestr(f"{base}.{ext}", data)
         z.writestr("OFL.txt", OFL_PATH.read_text(encoding="utf-8"))
-        z.writestr("README.txt", _readme(family, meta))
+        z.writestr("README.txt", _readme(font.family, meta, script))
     name = f"{base}.zip" if fmt == "both" else f"{base}-{fmt}.zip"
     (d / name).write_bytes(buf.getvalue())
     _write_meta(d, meta)
-    return {"file": name, "family": family, "format": fmt}
+    return {"file": name, "family": font.family, "format": fmt, "script": script}
 
 
-def _readme(family: str, meta: dict) -> str:
-    cov = meta.get("coverage")
+def _readme(family: str, meta: dict, script: str = "both") -> str:
+    cov = meta.get("coverage") if script != "en" else None
     cov_line = f"It renders {cov:.0%} of the consonant clusters in real Bangla text correctly.\n" if cov else ""
+    what = {
+        "both": "Bangla and English.",
+        "bn": "Bangla only: no English letters, so it installs next to the Bangla +\nEnglish font without replacing it.",
+        "en": "English only: a Latin font with no Bangla in it, so it installs next to the\nBangla + English font without replacing it.",
+    }[script]
     return (
         f"{family}\n{'=' * len(family)}\n\n"
         "A handwriting font made with Kaker Theng (kaker theng: 'crow's leg', what people\n"
-        "call messy handwriting). Bangla and English.\n\n"
+        f"call messy handwriting). {what}\n\n"
         f"{cov_line}"
         "Licence: SIL Open Font License 1.1 (OFL.txt). The font is built on Noto Sans\n"
         "Bengali (Copyright The Noto Project Authors): its layout tables (how Bangla letters\n"

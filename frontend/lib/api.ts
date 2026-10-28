@@ -43,6 +43,9 @@ export type SessionMeta = {
   writes_title?: boolean; // it writes "কাকের ঠ্যাং" fully and correctly
   built?: string[]; // conjunct cells put together partly from pieces of the writer's other letters
   coverage_targets?: { pages_1_2: number; all_pages: number; words_pages_1_2?: number; words_all_pages?: number };
+  en_word_coverage?: number; // uses of the 5,000 most common English words its letters write
+  en_words?: string[]; // common English words it writes, most common first
+  en_sentences?: string[]; // short everyday English sentences it writes (backend/assets/sentences_en.txt)
 };
 
 type Job<T> = {
@@ -132,11 +135,13 @@ export async function uploadPage(session: string, photo: Blob, progress?: Progre
   return waitForJob(job, progress);
 }
 
-/** One zip with the font as TTF and WOFF2, its licence and a README. */
-export async function requestDownload(session: string, name: string, progress?: Progress) {
+/** One zip with the font as TTF and WOFF2, its licence and a README.
+ *  `script`: Bangla + English in one font, or one language as a font of
+ *  its own name ("<name> Bangla", "<name> English"). */
+export async function requestDownload(session: string, name: string, script: "both" | "bn" | "en", progress?: Progress) {
   const res = await patientFetch(
     `/api/sessions/${session}/download`,
-    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, format: "both" }) },
+    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, format: "both", script }) },
     progress,
   );
   const job = await json<Job<{ file: string }>>(res);
@@ -165,4 +170,4 @@ export function fileUrl(session: string, name: string) {
   return `${API_URL}/api/sessions/${session}/files/${encodeURIComponent(name)}`;
 }
 
-export const templateUrl = () => `${API_URL}/template.pdf`;
+export const templateUrl = (script: "both" | "bn" | "en" = "both") => `${API_URL}/template.pdf${script === "both" ? "" : `?script=${script}`}`;

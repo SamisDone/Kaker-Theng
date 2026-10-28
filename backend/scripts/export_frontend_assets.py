@@ -28,7 +28,7 @@ from app.wordcov import complete_word_coverage, pages_1_2_word_coverage
 from app.glyphmap import build_layout, fingerprint
 from app.guides import GUIDE_INSET_MM, baseline_mm, headline_mm, run_left_mm
 from app.strokes import PEN_MM
-from app.template import build_template_pdf
+from app.template import SCRIPT_PAGES, build_template_pdf
 
 OUT = Path(sys.argv[1] if len(sys.argv) > 1 else Path(__file__).resolve().parents[2] / "frontend" / "public" / "kt")
 
@@ -158,6 +158,11 @@ def main():
         old.unlink()
     pdf_name = f"kaker-theng-template-v{C.TEMPLATE_VERSION}.pdf"
     (OUT / pdf_name).write_bytes(pdf)
+    # And the pages of one language alone, for a Bangla-only or English-only font.
+    pdf_names = {"both": pdf_name}
+    for script in ("bn", "en"):
+        pdf_names[script] = f"kaker-theng-template-v{C.TEMPLATE_VERSION}-{script}.pdf"
+        (OUT / pdf_names[script]).write_bytes(build_template_pdf(SCRIPT_PAGES[script]))
     doc = pdfium.PdfDocument(pdf)
     for i in range(len(doc)):
         doc[i].render(scale=72 / 72).to_pil().convert("L").save(OUT / f"template-p{i + 1}.png", optimize=True)
@@ -179,6 +184,7 @@ def main():
         "fingerprint": fingerprint(),
         "template_version": C.TEMPLATE_VERSION,
         "template_pdf": pdf_name,
+        "template_pdfs": pdf_names,
         "headline": headline_units(),
         "pages": pages,
         "fragments": [fragment_example(c) for c in layout.cells if c.group == "part"],

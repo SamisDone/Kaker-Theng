@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="190 460 1000 1000">
+<style>
+path{stroke-dasharray:1 1;stroke-dashoffset:1;animation:draw .5s cubic-bezier(.45,.05,.35,1) forwards}
+path:nth-child(2){animation-delay:.35s}path:nth-child(3){animation-delay:.7s}path:nth-child(4){animation-delay:1.05s}
+path:nth-child(5){animation-delay:1.4s}path:nth-child(6){animation-delay:1.55s}path:nth-child(7){animation-delay:1.7s}
+path:nth-child(8){animation-delay:1.95s;animation-duration:.7s}
+circle{opacity:0;animation:fade .3s ease-out 2.6s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){path,circle{animation:none;stroke-dashoffset:0;opacity:1}}
+</style>
+<rect x="190" y="460" width="1000" height="1000" fill="#F4F0E6"/>
+<g fill="none" stroke="#1D2140" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+<path pathLength="1" d="M362 652 L945 566"/>
+<path pathLength="1" d="M652 622 C655 760 660 930 664 1078"/>
+<path pathLength="1" d="M644 628 L368 846 L648 1062"/>
+<path pathLength="1" d="M652 626 C720 610 790 630 797 700 C803 770 760 822 712 826 C676 829 672 780 684 752 C700 718 760 712 784 760 C796 784 790 808 780 820"/>
+<path pathLength="1" d="M664 1080 L546 1218"/>
+<path pathLength="1" d="M664 1080 L830 1194"/>
+<path pathLength="1" d="M664 1080 L683 1226"/>
+<path pathLength="1" d="M386 1352 C440 1300 560 1296 700 1296 C840 1296 930 1262 1016 1206"/>
+</g>
+<circle cx="684" cy="1240" r="30" fill="#C2412D"/>
+</svg>
