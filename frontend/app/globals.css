@@ -361,6 +361,18 @@ a {
   padding-bottom: 12vh;
 }
 
+/* The mark beside the name, about as tall as its letters. */
+.start-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--ink);
+}
+
+.start-title svg {
+  flex: none;
+}
+
 .start-body h1 {
   font-size: 54px;
   line-height: 80px;
@@ -416,6 +428,9 @@ a {
 
 .home-button {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font: inherit;
   font-size: 16px;
   color: var(--ink);

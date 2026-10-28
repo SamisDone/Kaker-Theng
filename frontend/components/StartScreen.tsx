@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Mark } from "@/components/Mark";
 import { TopBar } from "@/components/TopBar";
 import { useLang } from "@/lib/i18n";
 import { chromeIntent, inAppBrowser, isAndroid } from "@/lib/savefile";
@@ -23,9 +24,12 @@ export function StartScreen(props: {
       <TopBar />
       <div className="start-body">
         <InAppWarning />
-        <h1 key={userFont ?? "ui"} className={userFont ? "in-hand" : undefined} style={userFont ? { fontFamily: `"${userFont}", var(--bn)` } : undefined}>
-          {t("কাকের ঠ্যাং", "Kaker Theng")}
-        </h1>
+        <div className="start-title">
+          <Mark height={userFont ? 72 : 62} weight={2.4} />
+          <h1 key={userFont ?? "ui"} className={userFont ? "in-hand" : undefined} style={userFont ? { fontFamily: `"${userFont}", var(--bn)` } : undefined}>
+            {t("কাকের ঠ্যাং", "Kaker Theng")}
+          </h1>
+        </div>
         <p className="start-line">{t("আপনার হাতের লেখা থেকে বাংলা আর ইংরেজি ফন্ট।", "A Bangla and English font from your handwriting.")}</p>
         {progress ? (
           <>

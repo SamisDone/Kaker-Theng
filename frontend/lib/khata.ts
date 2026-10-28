@@ -3,6 +3,7 @@
 // The same layout gives one tall picture sized for a phone, or A4 pages
 // for a PDF. The canvas shapes Bangla as the page does.
 
+import { MARK_DOT, MARK_PATHS, MARK_VIEWBOX, markStroke } from "@/lib/mark";
 import { a4Canvas, type PdfPage, pageJpeg, pagesToPdf } from "@/lib/pdf";
 import { SaveError } from "@/lib/savefile";
 
@@ -247,6 +248,29 @@ const CARD_HEIGHTS = [1080, 1350];
 const CARD_TEXT = [140, 60]; // px: largest, and smallest before the card grows taller
 const CARD_FOOT = 120; // the name's band at the bottom
 const CREDIT = 30;
+const CARD_MARK = 48; // the logo's height beside the name, and its stroke (px)
+const CARD_MARK_WEIGHT = 2.2;
+
+/** The logo `height` px tall, its right edge at `right`, centred on `cy`. */
+function drawMark(ctx: CanvasRenderingContext2D, right: number, cy: number, height: number) {
+  const [x0, y0, w, h] = MARK_VIEWBOX;
+  const k = height / h;
+  const { stroke, dot } = markStroke(height, CARD_MARK_WEIGHT);
+  ctx.save();
+  ctx.translate(right - w * k, cy - height / 2);
+  ctx.scale(k, k);
+  ctx.translate(-x0, -y0);
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = stroke;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  for (const d of MARK_PATHS) ctx.stroke(new Path2D(d));
+  ctx.fillStyle = MARGIN;
+  ctx.beginPath();
+  ctx.arc(MARK_DOT.cx, MARK_DOT.cy, dot, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.restore();
+}
 
 /** The largest text size (and its lines) that fits `room` across and down. */
 function fitText(ctx: CanvasRenderingContext2D, text: string, family: string, room: [number, number]) {
@@ -297,7 +321,9 @@ async function card(text: string, family: string, credit: string, side: number):
   ctx.fillStyle = PENCIL;
   ctx.font = `${CREDIT}px ${uiFont()}`;
   ctx.textAlign = "right";
-  ctx.fillText(credit, CARD_W - RIGHT, h - CARD_FOOT / 2 + CREDIT / 3);
+  const creditY = h - CARD_FOOT / 2 + CREDIT / 3;
+  ctx.fillText(credit, CARD_W - RIGHT, creditY);
+  drawMark(ctx, CARD_W - RIGHT - ctx.measureText(credit).width - 14, creditY - CREDIT * 0.35, CARD_MARK);
   drawLog.step = "canvas";
   const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
   const { width, height } = canvas;

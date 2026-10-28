@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
+import { Mark } from "@/components/Mark";
 import { useLang } from "@/lib/i18n";
 
 /** Back to the start screen; null on the start screen itself. */
@@ -21,6 +22,7 @@ export function TopBar({ children, onFont, home = true }: { children?: React.Rea
       <div className="topbar-left">
         {name ? (
           <button type="button" className="home-button" onClick={goHome} aria-label={t("কাকের ঠ্যাং: শুরুর পাতা", "Kaker Theng: start page")}>
+            <Mark height={24} weight={1.3} />
             {t("কাকের ঠ্যাং", "Kaker Theng")}
           </button>
         ) : (
